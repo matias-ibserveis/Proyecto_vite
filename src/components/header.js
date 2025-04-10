@@ -6,17 +6,17 @@ export function Header() {
   header.innerHTML = `
       <div class="carousel-inner">
           <div class="carousel-item active">
-              <img src="public/images/carousel1.jpeg" class="d-block w-100" alt="Informatica">
+              <img src="images/carousel1.jpeg" class="d-block w-100" alt="Informatica">
               <div class="carousel-caption d-none d-md-block">
                   <h5>Bienvenido a InformaticON</h5>
                   <p>Tu tienda de confianza para productos informaticos</p>
               </div>
           </div>
           <div class="carousel-item">
-              <img src="public/images/carousel2.jpeg" class="d-block w-100" alt="Componentes">
+              <img src="images/carousel2.jpeg" class="d-block w-100" alt="Componentes">
           </div>
           <div class="carousel-item">
-              <img src="public/images/carousel3.jpeg" class="d-block w-100" alt="Herramientas">
+              <img src="images/carousel3.jpeg" class="d-block w-100" alt="Herramientas">
           </div>
       </div>
       <button class="carousel-control-prev" type="button" data-bs-target="#headerCarousel" data-bs-slide="prev">
