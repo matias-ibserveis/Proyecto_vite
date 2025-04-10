@@ -1,43 +1,50 @@
-import React from 'react';
-import './comentarios-react.css'; // Importamos nuestro CSS personalizado
+import React, { useEffect, useState } from 'react';
+import './comentarios-react.css';
 
-const comentarios = [
-  {
-    usuario: 'Ana',
-    texto: 'Excelente atención y servicio.',
-    avatar: 'https://i.pravatar.cc/100?img=1'
-  },
-  {
-    usuario: 'Luis',
-    texto: 'Buenos precios y productos actualizados.',
-    avatar: 'https://i.pravatar.cc/100?img=2'
-  },
-  {
-    usuario: 'Marta',
-    texto: 'Recibí mi pedido en solo 2 días. ¡Genial!',
-    avatar: 'https://i.pravatar.cc/100?img=3'
-  }
-];
+function ComentariosReact() {
+  const [users, setUsers] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-export function ComentariosReact() {
+  // Llamada a la API para obtener los usuarios
+  useEffect(() => {
+    fetch('https://jsonplaceholder.typicode.com/users')
+      .then((response) => response.json())
+      .then((data) => {
+        setUsers(data);
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.error('Error fetching data:', error);
+        setLoading(false);
+      });
+  }, []);
+
   return (
-    <div className="container mt-4">
-      <h4 className="mb-3">Últimos comentarios</h4>
-      <div className="comentarios-grid">
-        {comentarios.map((comentario, index) => (
-          <div key={index} className="card comentario-card">
-            <div className="card-body d-flex align-items-center">
-              <img src={comentario.avatar} alt={comentario.usuario} className="avatar-img me-3" />
-              <div>
-                <h6 className="card-title mb-1">{comentario.usuario}</h6>
-                <p className="card-text small">{comentario.texto}</p>
+    <div>
+      <h2>Comentarios de Usuarios</h2>
+      {loading ? (
+        <p>Cargando...</p>
+      ) : (
+        <div className="user-cards">
+          {users.map((user) => (
+            <div className="user-card" key={user.id}>
+              {/* Imagen de usuario (usando pravatar.cc) */}
+              <img
+                src={`https://i.pravatar.cc/150?img=${user.id}`}
+                alt={user.name}
+                className="user-avatar"
+              />
+              <div className="user-info">
+                <h4>{user.name}</h4>
+                <p>{user.email}</p>
+                <p>{user.address.city}</p>
               </div>
             </div>
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 }
 
-export default ComentariosReact; // Exportar como default
+export default ComentariosReact;
