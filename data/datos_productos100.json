@@ -1,0 +1,802 @@
+[
+  {
+    "id": 1,
+    "referencia": "REF0001",
+    "titulo": "Mandarina sin semillas",
+    "descripcion": "Rico en vitaminas y minerales esenciales.",
+    "proveedor": "BioSabores",
+    "precio": 23.27
+  },
+  {
+    "id": 2,
+    "referencia": "REF0002",
+    "titulo": "Kiwi verde",
+    "descripcion": "Ideal para dietas saludables y equilibradas.",
+    "proveedor": "CampoVerde",
+    "precio": 8.76
+  },
+  {
+    "id": 3,
+    "referencia": "REF0003",
+    "titulo": "Barrita energética",
+    "descripcion": "Producto cultivado sin pesticidas ni químicos.",
+    "proveedor": "EcoDelicias",
+    "precio": 9.16
+  },
+  {
+    "id": 4,
+    "referencia": "REF0004",
+    "titulo": "Semilla de lino",
+    "descripcion": "Alternativa ecológica al producto convencional.",
+    "proveedor": "EcoDelicias",
+    "precio": 21.49
+  },
+  {
+    "id": 5,
+    "referencia": "REF0005",
+    "titulo": "Comino en grano",
+    "descripcion": "Aporta textura y sabor a tus platos favoritos.",
+    "proveedor": "BioSabores",
+    "precio": 9.84
+  },
+  {
+    "id": 6,
+    "referencia": "REF0006",
+    "titulo": "Suplemento de B12",
+    "descripcion": "Aporta textura y sabor a tus platos favoritos.",
+    "proveedor": "BioSabores",
+    "precio": 10.61
+  },
+  {
+    "id": 7,
+    "referencia": "REF0007",
+    "titulo": "Mermelada de fresa",
+    "descripcion": "Rico en vitaminas y minerales esenciales.",
+    "proveedor": "BioSabores",
+    "precio": 6.98
+  },
+  {
+    "id": 8,
+    "referencia": "REF0008",
+    "titulo": "Patata roja nueva",
+    "descripcion": "Ideal para dietas saludables y equilibradas.",
+    "proveedor": "EcoDelicias",
+    "precio": 3.69
+  },
+  {
+    "id": 9,
+    "referencia": "REF0009",
+    "titulo": "Suplemento de B12",
+    "descripcion": "Alternativa ecológica al producto convencional.",
+    "proveedor": "EcoDelicias",
+    "precio": 12.51
+  },
+  {
+    "id": 10,
+    "referencia": "REF0010",
+    "titulo": "Queso vegano curado",
+    "descripcion": "Conserva todo su sabor natural sin aditivos.",
+    "proveedor": "BioSabores",
+    "precio": 23.86
+  },
+  {
+    "id": 11,
+    "referencia": "REF0011",
+    "titulo": "Tomillo seco",
+    "descripcion": "Ideal para dietas saludables y equilibradas.",
+    "proveedor": "CampoVerde",
+    "precio": 14.56
+  },
+  {
+    "id": 12,
+    "referencia": "REF0012",
+    "titulo": "Maíz dulce ecológico",
+    "descripcion": "Rico en vitaminas y minerales esenciales.",
+    "proveedor": "TerraEcológica",
+    "precio": 8.74
+  },
+  {
+    "id": 13,
+    "referencia": "REF0013",
+    "titulo": "Soja texturizada",
+    "descripcion": "Conserva todo su sabor natural sin aditivos.",
+    "proveedor": "RaízViva",
+    "precio": 22.69
+  },
+  {
+    "id": 14,
+    "referencia": "REF0014",
+    "titulo": "Bebida de avena",
+    "descripcion": "Ideal para dietas saludables y equilibradas.",
+    "proveedor": "BioSabores",
+    "precio": 20.51
+  },
+  {
+    "id": 15,
+    "referencia": "REF0015",
+    "titulo": "Vinagre de manzana bio",
+    "descripcion": "Rico en vitaminas y minerales esenciales.",
+    "proveedor": "RaízViva",
+    "precio": 9.44
+  },
+  {
+    "id": 16,
+    "referencia": "REF0016",
+    "titulo": "Albahaca fresca",
+    "descripcion": "Conserva todo su sabor natural sin aditivos.",
+    "proveedor": "BioSabores",
+    "precio": 9.55
+  },
+  {
+    "id": 17,
+    "referencia": "REF0017",
+    "titulo": "Sal del Himalaya",
+    "descripcion": "Recolectado en su punto óptimo de maduración.",
+    "proveedor": "CampoVerde",
+    "precio": 13.47
+  },
+  {
+    "id": 18,
+    "referencia": "REF0018",
+    "titulo": "Soja texturizada",
+    "descripcion": "Producto cultivado sin pesticidas ni químicos.",
+    "proveedor": "BioSabores",
+    "precio": 11.46
+  },
+  {
+    "id": 19,
+    "referencia": "REF0019",
+    "titulo": "Sal del Himalaya",
+    "descripcion": "Conserva todo su sabor natural sin aditivos.",
+    "proveedor": "TerraEcológica",
+    "precio": 2.52
+  },
+  {
+    "id": 20,
+    "referencia": "REF0020",
+    "titulo": "Cebolla blanca suave",
+    "descripcion": "Ideal para dietas saludables y equilibradas.",
+    "proveedor": "CampoVerde",
+    "precio": 5.78
+  },
+  {
+    "id": 21,
+    "referencia": "REF0021",
+    "titulo": "Kiwi verde",
+    "descripcion": "Rico en vitaminas y minerales esenciales.",
+    "proveedor": "CampoVerde",
+    "precio": 15.87
+  },
+  {
+    "id": 22,
+    "referencia": "REF0022",
+    "titulo": "Anís estrellado",
+    "descripcion": "Producto cultivado sin pesticidas ni químicos.",
+    "proveedor": "BioSabores",
+    "precio": 24.39
+  },
+  {
+    "id": 23,
+    "referencia": "REF0023",
+    "titulo": "Romero en rama",
+    "descripcion": "Alimento fresco de origen local y sostenible.",
+    "proveedor": "TerraEcológica",
+    "precio": 18.86
+  },
+  {
+    "id": 24,
+    "referencia": "REF0024",
+    "titulo": "Nectarina amarilla",
+    "descripcion": "Ideal para dietas saludables y equilibradas.",
+    "proveedor": "RaízViva",
+    "precio": 20.72
+  },
+  {
+    "id": 25,
+    "referencia": "REF0025",
+    "titulo": "Arándano azul",
+    "descripcion": "Alimento fresco de origen local y sostenible.",
+    "proveedor": "RaízViva",
+    "precio": 23.1
+  },
+  {
+    "id": 26,
+    "referencia": "REF0026",
+    "titulo": "Mora salvaje",
+    "descripcion": "Ideal para dietas saludables y equilibradas.",
+    "proveedor": "CampoVerde",
+    "precio": 18.88
+  },
+  {
+    "id": 27,
+    "referencia": "REF0027",
+    "titulo": "Mango maduro",
+    "descripcion": "Excelente opción para veganos y vegetarianos.",
+    "proveedor": "RaízViva",
+    "precio": 1.57
+  },
+  {
+    "id": 28,
+    "referencia": "REF0028",
+    "titulo": "Nectarina amarilla",
+    "descripcion": "Rico en vitaminas y minerales esenciales.",
+    "proveedor": "EcoDelicias",
+    "precio": 22.46
+  },
+  {
+    "id": 29,
+    "referencia": "REF0029",
+    "titulo": "Piña golden",
+    "descripcion": "Alimento fresco de origen local y sostenible.",
+    "proveedor": "TerraEcológica",
+    "precio": 10.92
+  },
+  {
+    "id": 30,
+    "referencia": "REF0030",
+    "titulo": "Chocolate 85% cacao",
+    "descripcion": "Producto cultivado sin pesticidas ni químicos.",
+    "proveedor": "CampoVerde",
+    "precio": 18.11
+  },
+  {
+    "id": 31,
+    "referencia": "REF0031",
+    "titulo": "Pistacho natural",
+    "descripcion": "Aporta textura y sabor a tus platos favoritos.",
+    "proveedor": "BioSabores",
+    "precio": 22.19
+  },
+  {
+    "id": 32,
+    "referencia": "REF0032",
+    "titulo": "Alubia blanca",
+    "descripcion": "Rico en vitaminas y minerales esenciales.",
+    "proveedor": "TerraEcológica",
+    "precio": 7.91
+  },
+  {
+    "id": 33,
+    "referencia": "REF0033",
+    "titulo": "Polen granulado",
+    "descripcion": "Alternativa ecológica al producto convencional.",
+    "proveedor": "RaízViva",
+    "precio": 20.19
+  },
+  {
+    "id": 34,
+    "referencia": "REF0034",
+    "titulo": "Agua mineral en vidrio",
+    "descripcion": "Procedente de agricultura ecológica certificada.",
+    "proveedor": "TerraEcológica",
+    "precio": 20.82
+  },
+  {
+    "id": 35,
+    "referencia": "REF0035",
+    "titulo": "Pepino corto",
+    "descripcion": "Ideal para dietas saludables y equilibradas.",
+    "proveedor": "CampoVerde",
+    "precio": 13.26
+  },
+  {
+    "id": 36,
+    "referencia": "REF0036",
+    "titulo": "Albahaca fresca",
+    "descripcion": "Procedente de agricultura ecológica certificada.",
+    "proveedor": "TerraEcológica",
+    "precio": 3.45
+  },
+  {
+    "id": 37,
+    "referencia": "REF0037",
+    "titulo": "Espinaca baby",
+    "descripcion": "Procedente de agricultura ecológica certificada.",
+    "proveedor": "EcoDelicias",
+    "precio": 15.82
+  },
+  {
+    "id": 38,
+    "referencia": "REF0038",
+    "titulo": "Cúrcuma ecológica",
+    "descripcion": "Alimento fresco de origen local y sostenible.",
+    "proveedor": "CampoVerde",
+    "precio": 10.6
+  },
+  {
+    "id": 39,
+    "referencia": "REF0039",
+    "titulo": "Salsa de soja tamari",
+    "descripcion": "Recolectado en su punto óptimo de maduración.",
+    "proveedor": "TerraEcológica",
+    "precio": 9.66
+  },
+  {
+    "id": 40,
+    "referencia": "REF0040",
+    "titulo": "Bicarbonato sódico",
+    "descripcion": "Aporta textura y sabor a tus platos favoritos.",
+    "proveedor": "TerraEcológica",
+    "precio": 10.07
+  },
+  {
+    "id": 41,
+    "referencia": "REF0041",
+    "titulo": "Plátano de Canarias",
+    "descripcion": "Recolectado en su punto óptimo de maduración.",
+    "proveedor": "RaízViva",
+    "precio": 11.64
+  },
+  {
+    "id": 42,
+    "referencia": "REF0042",
+    "titulo": "Chirimoya dulce",
+    "descripcion": "Alimento fresco de origen local y sostenible.",
+    "proveedor": "BioSabores",
+    "precio": 24.04
+  },
+  {
+    "id": 43,
+    "referencia": "REF0043",
+    "titulo": "Aceite de oliva virgen extra",
+    "descripcion": "Recolectado en su punto óptimo de maduración.",
+    "proveedor": "EcoDelicias",
+    "precio": 2.15
+  },
+  {
+    "id": 44,
+    "referencia": "REF0044",
+    "titulo": "Nuez pelada",
+    "descripcion": "Rico en vitaminas y minerales esenciales.",
+    "proveedor": "EcoDelicias",
+    "precio": 15.65
+  },
+  {
+    "id": 45,
+    "referencia": "REF0045",
+    "titulo": "Té verde matcha",
+    "descripcion": "Recolectado en su punto óptimo de maduración.",
+    "proveedor": "EcoDelicias",
+    "precio": 10.25
+  },
+  {
+    "id": 46,
+    "referencia": "REF0046",
+    "titulo": "Laurel ecológico",
+    "descripcion": "Alternativa ecológica al producto convencional.",
+    "proveedor": "RaízViva",
+    "precio": 17.95
+  },
+  {
+    "id": 47,
+    "referencia": "REF0047",
+    "titulo": "Mandarina sin semillas",
+    "descripcion": "Alimento fresco de origen local y sostenible.",
+    "proveedor": "RaízViva",
+    "precio": 23.01
+  },
+  {
+    "id": 48,
+    "referencia": "REF0048",
+    "titulo": "Crema de calabaza",
+    "descripcion": "Excelente opción para veganos y vegetarianos.",
+    "proveedor": "TerraEcológica",
+    "precio": 10.7
+  },
+  {
+    "id": 49,
+    "referencia": "REF0049",
+    "titulo": "Melón cantalupo bio",
+    "descripcion": "Ideal para dietas saludables y equilibradas.",
+    "proveedor": "CampoVerde",
+    "precio": 10.11
+  },
+  {
+    "id": 50,
+    "referencia": "REF0050",
+    "titulo": "Sal del Himalaya",
+    "descripcion": "Alternativa ecológica al producto convencional.",
+    "proveedor": "EcoDelicias",
+    "precio": 8.83
+  },
+  {
+    "id": 51,
+    "referencia": "REF0051",
+    "titulo": "Papaya ecológica",
+    "descripcion": "Producto cultivado sin pesticidas ni químicos.",
+    "proveedor": "EcoDelicias",
+    "precio": 24.03
+  },
+  {
+    "id": 52,
+    "referencia": "REF0052",
+    "titulo": "Lenteja pardina",
+    "descripcion": "Alternativa ecológica al producto convencional.",
+    "proveedor": "RaízViva",
+    "precio": 18.27
+  },
+  {
+    "id": 53,
+    "referencia": "REF0053",
+    "titulo": "Ciruela claudia",
+    "descripcion": "Procedente de agricultura ecológica certificada.",
+    "proveedor": "TerraEcológica",
+    "precio": 23.0
+  },
+  {
+    "id": 54,
+    "referencia": "REF0054",
+    "titulo": "Papaya ecológica",
+    "descripcion": "Excelente opción para veganos y vegetarianos.",
+    "proveedor": "RaízViva",
+    "precio": 17.96
+  },
+  {
+    "id": 55,
+    "referencia": "REF0055",
+    "titulo": "Vinagre de manzana bio",
+    "descripcion": "Conserva todo su sabor natural sin aditivos.",
+    "proveedor": "RaízViva",
+    "precio": 14.77
+  },
+  {
+    "id": 56,
+    "referencia": "REF0056",
+    "titulo": "Clavo aromático",
+    "descripcion": "Aporta textura y sabor a tus platos favoritos.",
+    "proveedor": "TerraEcológica",
+    "precio": 19.81
+  },
+  {
+    "id": 57,
+    "referencia": "REF0057",
+    "titulo": "Semilla de lino",
+    "descripcion": "Procedente de agricultura ecológica certificada.",
+    "proveedor": "CampoVerde",
+    "precio": 23.66
+  },
+  {
+    "id": 58,
+    "referencia": "REF0058",
+    "titulo": "Berenjena rayada",
+    "descripcion": "Excelente opción para veganos y vegetarianos.",
+    "proveedor": "RaízViva",
+    "precio": 13.97
+  },
+  {
+    "id": 59,
+    "referencia": "REF0059",
+    "titulo": "Romero en rama",
+    "descripcion": "Producto cultivado sin pesticidas ni químicos.",
+    "proveedor": "CampoVerde",
+    "precio": 7.9
+  },
+  {
+    "id": 60,
+    "referencia": "REF0060",
+    "titulo": "Compota de manzana",
+    "descripcion": "Procedente de agricultura ecológica certificada.",
+    "proveedor": "EcoDelicias",
+    "precio": 11.95
+  },
+  {
+    "id": 61,
+    "referencia": "REF0061",
+    "titulo": "Semilla de chía",
+    "descripcion": "Procedente de agricultura ecológica certificada.",
+    "proveedor": "TerraEcológica",
+    "precio": 18.4
+  },
+  {
+    "id": 62,
+    "referencia": "REF0062",
+    "titulo": "Mantequilla vegetal",
+    "descripcion": "Rico en vitaminas y minerales esenciales.",
+    "proveedor": "TerraEcológica",
+    "precio": 7.94
+  },
+  {
+    "id": 63,
+    "referencia": "REF0063",
+    "titulo": "Tempeh marinado",
+    "descripcion": "Procedente de agricultura ecológica certificada.",
+    "proveedor": "TerraEcológica",
+    "precio": 3.59
+  },
+  {
+    "id": 64,
+    "referencia": "REF0064",
+    "titulo": "Mora salvaje",
+    "descripcion": "Producto cultivado sin pesticidas ni químicos.",
+    "proveedor": "CampoVerde",
+    "precio": 11.42
+  },
+  {
+    "id": 65,
+    "referencia": "REF0065",
+    "titulo": "Ajo morado de Las Pedroñeras",
+    "descripcion": "Alimento fresco de origen local y sostenible.",
+    "proveedor": "TerraEcológica",
+    "precio": 16.36
+  },
+  {
+    "id": 66,
+    "referencia": "REF0066",
+    "titulo": "Pera conferencia",
+    "descripcion": "Aporta textura y sabor a tus platos favoritos.",
+    "proveedor": "BioSabores",
+    "precio": 4.46
+  },
+  {
+    "id": 67,
+    "referencia": "REF0067",
+    "titulo": "Melocotón rojo",
+    "descripcion": "Alternativa ecológica al producto convencional.",
+    "proveedor": "EcoDelicias",
+    "precio": 20.3
+  },
+  {
+    "id": 68,
+    "referencia": "REF0068",
+    "titulo": "Leche de almendra",
+    "descripcion": "Ideal para dietas saludables y equilibradas.",
+    "proveedor": "TerraEcológica",
+    "precio": 3.6
+  },
+  {
+    "id": 69,
+    "referencia": "REF0069",
+    "titulo": "Pimienta negra molida",
+    "descripcion": "Alternativa ecológica al producto convencional.",
+    "proveedor": "BioSabores",
+    "precio": 14.05
+  },
+  {
+    "id": 70,
+    "referencia": "REF0070",
+    "titulo": "Puerro fino",
+    "descripcion": "Alternativa ecológica al producto convencional.",
+    "proveedor": "TerraEcológica",
+    "precio": 15.45
+  },
+  {
+    "id": 71,
+    "referencia": "REF0071",
+    "titulo": "Chocolate 85% cacao",
+    "descripcion": "Conserva todo su sabor natural sin aditivos.",
+    "proveedor": "TerraEcológica",
+    "precio": 3.38
+  },
+  {
+    "id": 72,
+    "referencia": "REF0072",
+    "titulo": "Salsa de soja tamari",
+    "descripcion": "Recolectado en su punto óptimo de maduración.",
+    "proveedor": "BioSabores",
+    "precio": 10.83
+  },
+  {
+    "id": 73,
+    "referencia": "REF0073",
+    "titulo": "Piña golden",
+    "descripcion": "Alimento fresco de origen local y sostenible.",
+    "proveedor": "CampoVerde",
+    "precio": 23.93
+  },
+  {
+    "id": 74,
+    "referencia": "REF0074",
+    "titulo": "Infusión de rooibos",
+    "descripcion": "Alimento fresco de origen local y sostenible.",
+    "proveedor": "TerraEcológica",
+    "precio": 12.6
+  },
+  {
+    "id": 75,
+    "referencia": "REF0075",
+    "titulo": "Té verde matcha",
+    "descripcion": "Conserva todo su sabor natural sin aditivos.",
+    "proveedor": "CampoVerde",
+    "precio": 20.69
+  },
+  {
+    "id": 76,
+    "referencia": "REF0076",
+    "titulo": "Plátano de Canarias",
+    "descripcion": "Aporta textura y sabor a tus platos favoritos.",
+    "proveedor": "CampoVerde",
+    "precio": 16.96
+  },
+  {
+    "id": 77,
+    "referencia": "REF0077",
+    "titulo": "Levadura de cerveza",
+    "descripcion": "Alternativa ecológica al producto convencional.",
+    "proveedor": "EcoDelicias",
+    "precio": 16.27
+  },
+  {
+    "id": 78,
+    "referencia": "REF0078",
+    "titulo": "Barrita energética",
+    "descripcion": "Alimento fresco de origen local y sostenible.",
+    "proveedor": "TerraEcológica",
+    "precio": 10.31
+  },
+  {
+    "id": 79,
+    "referencia": "REF0079",
+    "titulo": "Plátano de Canarias",
+    "descripcion": "Ideal para dietas saludables y equilibradas.",
+    "proveedor": "RaízViva",
+    "precio": 17.48
+  },
+  {
+    "id": 80,
+    "referencia": "REF0080",
+    "titulo": "Romero en rama",
+    "descripcion": "Conserva todo su sabor natural sin aditivos.",
+    "proveedor": "BioSabores",
+    "precio": 18.16
+  },
+  {
+    "id": 81,
+    "referencia": "REF0081",
+    "titulo": "Aguacate Hass",
+    "descripcion": "Conserva todo su sabor natural sin aditivos.",
+    "proveedor": "CampoVerde",
+    "precio": 15.19
+  },
+  {
+    "id": 82,
+    "referencia": "REF0082",
+    "titulo": "Nectarina amarilla",
+    "descripcion": "Recolectado en su punto óptimo de maduración.",
+    "proveedor": "RaízViva",
+    "precio": 12.38
+  },
+  {
+    "id": 83,
+    "referencia": "REF0083",
+    "titulo": "Canela en rama",
+    "descripcion": "Procedente de agricultura ecológica certificada.",
+    "proveedor": "TerraEcológica",
+    "precio": 20.99
+  },
+  {
+    "id": 84,
+    "referencia": "REF0084",
+    "titulo": "Papaya ecológica",
+    "descripcion": "Conserva todo su sabor natural sin aditivos.",
+    "proveedor": "TerraEcológica",
+    "precio": 19.36
+  },
+  {
+    "id": 85,
+    "referencia": "REF0085",
+    "titulo": "Mantequilla vegetal",
+    "descripcion": "Conserva todo su sabor natural sin aditivos.",
+    "proveedor": "RaízViva",
+    "precio": 3.1
+  },
+  {
+    "id": 86,
+    "referencia": "REF0086",
+    "titulo": "Tomate triturado",
+    "descripcion": "Producto cultivado sin pesticidas ni químicos.",
+    "proveedor": "TerraEcológica",
+    "precio": 23.42
+  },
+  {
+    "id": 87,
+    "referencia": "REF0087",
+    "titulo": "Clavo aromático",
+    "descripcion": "Ideal para dietas saludables y equilibradas.",
+    "proveedor": "EcoDelicias",
+    "precio": 14.35
+  },
+  {
+    "id": 88,
+    "referencia": "REF0088",
+    "titulo": "Yogur de coco",
+    "descripcion": "Alimento fresco de origen local y sostenible.",
+    "proveedor": "TerraEcológica",
+    "precio": 12.32
+  },
+  {
+    "id": 89,
+    "referencia": "REF0089",
+    "titulo": "Fresa silvestre",
+    "descripcion": "Alimento fresco de origen local y sostenible.",
+    "proveedor": "CampoVerde",
+    "precio": 20.95
+  },
+  {
+    "id": 90,
+    "referencia": "REF0090",
+    "titulo": "Melón cantalupo bio",
+    "descripcion": "Excelente opción para veganos y vegetarianos.",
+    "proveedor": "CampoVerde",
+    "precio": 21.83
+  },
+  {
+    "id": 91,
+    "referencia": "REF0091",
+    "titulo": "Kiwi verde",
+    "descripcion": "Producto cultivado sin pesticidas ni químicos.",
+    "proveedor": "TerraEcológica",
+    "precio": 22.31
+  },
+  {
+    "id": 92,
+    "referencia": "REF0092",
+    "titulo": "Seitán artesanal",
+    "descripcion": "Alternativa ecológica al producto convencional.",
+    "proveedor": "BioSabores",
+    "precio": 21.4
+  },
+  {
+    "id": 93,
+    "referencia": "REF0093",
+    "titulo": "Semilla de lino",
+    "descripcion": "Excelente opción para veganos y vegetarianos.",
+    "proveedor": "TerraEcológica",
+    "precio": 10.11
+  },
+  {
+    "id": 94,
+    "referencia": "REF0094",
+    "titulo": "Avellana tostada",
+    "descripcion": "Alimento fresco de origen local y sostenible.",
+    "proveedor": "RaízViva",
+    "precio": 14.38
+  },
+  {
+    "id": 95,
+    "referencia": "REF0095",
+    "titulo": "Apio fresco",
+    "descripcion": "Producto cultivado sin pesticidas ni químicos.",
+    "proveedor": "RaízViva",
+    "precio": 20.43
+  },
+  {
+    "id": 96,
+    "referencia": "REF0096",
+    "titulo": "Cebolla blanca suave",
+    "descripcion": "Aporta textura y sabor a tus platos favoritos.",
+    "proveedor": "RaízViva",
+    "precio": 23.86
+  },
+  {
+    "id": 97,
+    "referencia": "REF0097",
+    "titulo": "Fresa silvestre",
+    "descripcion": "Rico en vitaminas y minerales esenciales.",
+    "proveedor": "BioSabores",
+    "precio": 15.49
+  },
+  {
+    "id": 98,
+    "referencia": "REF0098",
+    "titulo": "Maíz dulce ecológico",
+    "descripcion": "Rico en vitaminas y minerales esenciales.",
+    "proveedor": "TerraEcológica",
+    "precio": 7.99
+  },
+  {
+    "id": 99,
+    "referencia": "REF0099",
+    "titulo": "Vinagre de manzana bio",
+    "descripcion": "Conserva todo su sabor natural sin aditivos.",
+    "proveedor": "TerraEcológica",
+    "precio": 3.38
+  },
+  {
+    "id": 100,
+    "referencia": "REF0100",
+    "titulo": "Melocotón rojo",
+    "descripcion": "Recolectado en su punto óptimo de maduración.",
+    "proveedor": "EcoDelicias",
+    "precio": 10.03
+  }
+]
