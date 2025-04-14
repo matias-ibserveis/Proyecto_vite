@@ -6,7 +6,7 @@ export async function Productos() {
   productos.innerHTML = `<h2 class="text-center">Nuestros Productos</h2><div class="row" id="productos-lista"></div>`;
 
   try {
-    const res = await fetch('/data/datos_productos.json');
+    const res = await fetch('http://localhost:3000/productos');
     const data = await res.json();
 
     // Ordenar los productos por fecha (más reciente primero)
