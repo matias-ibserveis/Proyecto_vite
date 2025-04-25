@@ -17,65 +17,122 @@ export async function Productos() {
   // Función para renderizar productos
   const renderizarProductos = (lista) => {
     contenedor.innerHTML = ""; // limpiar
+  
     lista.forEach(producto => {
       const col = document.createElement("div");
       col.className = "col-md-4";
-
+  
+      const frases = producto.descripcion.split(/[.!?]\s/);
+      const primerasFrases = frases.slice(0, 2).join('. ') + '.';
+      const descripcionCompleta = producto.descripcion;
+  
       col.innerHTML = `
         <div class="card mb-4">
           <img src="${producto.imagen1}" class="card-img-top" alt="${producto.titulo}">
           <div class="card-body">
               <h5 class="card-title">${producto.titulo}</h5>
-              <p class="card-text">${producto.descripcion}</p>
+              <p class="card-text" id="desc-${producto.id}">
+                ${primerasFrases}
+                <span class="text-primary ver-mas" style="cursor:pointer;" data-id="${producto.id}"> +texto</span>
+              </p>
+              <button class="btn btn-secondary mt-2 btn-ia" data-id="${producto.id}">Información IA</button>
+              <p></p>
               <button class="btn btn-success" onclick="addToCart('${producto.id}')">a la cesta!</button>
           </div>
         </div>
       `;
+  
       contenedor.appendChild(col);
+  
+      // Evento "+texto"
+      const boton = col.querySelector(".ver-mas");
+      boton.addEventListener("click", () => {
+        const desc = col.querySelector(`#desc-${producto.id}`);
+        desc.textContent = descripcionCompleta;
+      });
+  
+      // Evento botón "Información IA"
+      const botonIA = col.querySelector(".btn-ia");
+      botonIA.addEventListener("click", async () => {
+        const response = await fetch("http://localhost:3000/api/chat", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ descripcion: producto.descripcion })
+        });
+        const data = await response.json();
+        document.getElementById("iaTexto").textContent = data.respuesta;
+        modal.style.display = "flex";
+        document.body.style.overflow = 'hidden'; // opcional: bloquea scroll
+      });
     });
   };
-
+  
+  // Crear modal una sola vez
+  let modal = document.querySelector("#iaModal");
+  if (!modal) {
+    modal = document.createElement("div");
+    modal.id = "iaModal";
+    modal.style = `
+      position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+      background-color: rgba(0,0,0,0.5); display: none; align-items: center; justify-content: center; z-index: 1000;
+    `;
+    modal.innerHTML = `
+      <div id="iaContent" style="
+        background: white; padding: 1rem; border-radius: 8px; max-width: 600px;
+        width: 90%; max-height: 90vh; overflow-y: auto; position: relative;
+      ">
+        <button id="cerrarIA" style="position:absolute; top:0.5rem; right:0.5rem; font-size:1.2rem;">✖️</button>
+        <div id="iaTexto" style="margin-top: 2rem;"></div>
+      </div>
+    `;
+    document.body.appendChild(modal);
+    modal.querySelector("#cerrarIA").addEventListener("click", () => {
+      modal.style.display = "none";
+      document.body.style.overflow = ''; // restaurar scroll
+    });
+  }
+  
+  // fetch inicial y búsqueda
   try {
-    const res = await fetch('http://localhost:3000/datos');
+    const res = await fetch('https://proyectorailway-production-9739.up.railway.app/datos');
     const data = await res.json();
-
-    // Ordenar por fecha (más reciente primero)
+  
     const productosOrdenados = data.sort((a, b) => {
       const fechaA = new Date(a.fecha.split("/").reverse().join("-"));
       const fechaB = new Date(b.fecha.split("/").reverse().join("-"));
       return fechaB - fechaA;
     });
-
-    // Mostrar los primeros 6
+  
     const productosRecientes = productosOrdenados.slice(0, 6);
     renderizarProductos(productosRecientes);
-
-    // Evento de búsqueda
+  
     const buscarBtn = productos.querySelector("#buscarBtn");
     buscarBtn.addEventListener("click", async () => {
       const consulta = productos.querySelector("#busquedaInput").value.trim();
       if (!consulta) return;
-
+  
       try {
-        const resp = await fetch('http://localhost:3000/buscar', {
+        const resp = await fetch('https://proyectorailway-production-9739.up.railway.app/buscar', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ consulta })
         });
-
+  
         const resultados = await resp.json();
         renderizarProductos(resultados);
-
+  
       } catch (err) {
         console.error("Error en búsqueda:", err);
         contenedor.innerHTML = `<p class="text-danger">Error al buscar productos</p>`;
       }
     });
-
+  
   } catch (error) {
     productos.innerHTML += `<p class="text-danger text-center">Error al cargar productos</p>`;
     console.error("Error cargando productos:", error);
   }
+
+  
 
   // Estilos
   const style = document.createElement("style");

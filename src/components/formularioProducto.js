@@ -79,7 +79,7 @@ export function FormularioProducto() {
     const imagenesURLs = [];
 
     try {
-      const sigRes = await fetch("http://localhost:3000/api/subir_imagen", { method: "POST" });
+      const sigRes = await fetch("https://proyectorailway-production-9739.up.railway.app/api/cloudinary/subir_imagen", { method: "POST" });
       console.log("sigRes", sigRes)
       const { signature, timestamp, folder, apiKey, cloudName } = await sigRes.json();
 
@@ -127,7 +127,7 @@ export function FormularioProducto() {
     };
 
     try {
-      const resp = await fetch("http://localhost:3000/api/subir", {
+      const resp = await fetch("https://proyectorailway-production-9739.up.railway.app/api/subir", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(producto),
