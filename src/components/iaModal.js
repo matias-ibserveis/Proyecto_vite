@@ -14,18 +14,18 @@ export function crearModalIA() {
       background-color: rgba(0,0,0,0.5); display: none; align-items: center; justify-content: center; z-index: 1000;
     `;
     modal.innerHTML = `
-      <div id="iaContent" style="
-        background: white; padding: 1rem; border-radius: 8px; max-width: 600px;
-        width: 90%; max-height: 90vh; overflow-y: auto;
-      ">
+        <div id="iaContent" style="
+          background: white; padding: 1rem; border-radius: 8px; max-width: 600px;
+           width: 90%; max-height: 90vh; overflow-y: auto; display: flex; flex-direction: column;
+        ">
         <button id="cerrarIA" style="float:right; font-size:1.2rem;">✖️</button>
         <div id="iaTexto" style="margin-top: 1.5rem;"></div>
 
         <hr>
-        <h5>Haz otra pregunta a la IA:</h5>
-        <textarea id="preguntaExtra" class="form-control" rows="3" placeholder=" ..."></textarea>
+        <h5 id="titulo">Haz pregunta a la IA:</h5>
+        <textarea id="preguntaExtra" class="form-control" rows="3" maxlength="300" placeholder=" ..."></textarea>
         <button id="enviarPreguntaIA" class="btn btn-primary mt-2">Preguntar</button>
-        <div id="respuestaExtra" class="mt-3 text-secondary"></div>
+        <div id="respuestaExtra" class="mt-3 text-primary" style="line-height: 1.5;"></div>
       </div>
     `;
     document.body.appendChild(modal);
@@ -41,7 +41,7 @@ export function crearModalIA() {
 
     // Evento de la pregunta adicional
     modal.querySelector("#enviarPreguntaIA").addEventListener("click", async () => {
-      if (preguntaExtraCount >= 2) return;
+      if (preguntaExtraCount >= 1) return;
 
       const pregunta = modal.querySelector("#preguntaExtra").value.trim();
       if (!pregunta) return;
@@ -56,16 +56,24 @@ export function crearModalIA() {
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             descripcion: pregunta,
-            esPrimeraPregunta: false  
+            esPrimeraPregunta: false
           })
         });
         const data = await resp.json();
 
-        modal.querySelector("#respuestaExtra").textContent += `\n➡️ ${data.respuesta}\n\n`;
+        modal.querySelector("#titulo").textContent = "Respuesta"
+
+        const parrafos = data.respuesta
+          .split("\n")
+          .filter(p => p.trim() !== "")
+          .map(p => `<p style="margin-top: 1rem;">${p.trim()}</p>`)
+          .join("");
+        modal.querySelector("#respuestaExtra").innerHTML = `${parrafos}`;
+
         modal.querySelector("#preguntaExtra").value = "";
         preguntaExtraCount++;
 
-        if (preguntaExtraCount >= 2) {
+        if (preguntaExtraCount >= 1) {
           modal.querySelector("#preguntaExtra").style.display = "none";
           modal.querySelector("#enviarPreguntaIA").style.display = "none";
         }
@@ -94,12 +102,18 @@ export async function mostrarRespuestaIA(producto) {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         descripcion: producto.descripcion,
-        esPrimeraPregunta: true  
+        esPrimeraPregunta: true
       })
     });
     console.log("pordi.desc", producto.descripcion)
     const data = await res.json();
-    iaTexto.textContent = `🤖 ${data.respuesta}`;
+    iaTexto.innerHTML = `${data.respuesta
+      .split("\n")
+      .filter(p => p.trim() !== "")
+      .map(p => `<p style="margin-top: 1rem;">${p.trim()}</p>`)
+      .join("")}`;
+
+
   } catch (error) {
     iaTexto.textContent = "❌ Error al obtener respuesta de la IA";
     console.error(error);

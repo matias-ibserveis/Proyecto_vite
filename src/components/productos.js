@@ -78,14 +78,13 @@ export async function Productos() {
 
   // fetch inicial y búsqueda
   try {
-    const res = await fetch('http://localhost:3000/datos');
+    
+     const res= await fetch('http://proyectorailway-production-9739.up.railway.app/datos');
+    //const res = await fetch('http://localhost:3000/datos');
     const data = await res.json();
 
-    const productosOrdenados = data.sort((a, b) => {
-      const fechaA = new Date(a.fecha.split("/").reverse().join("-"));
-      const fechaB = new Date(b.fecha.split("/").reverse().join("-"));
-      return fechaB - fechaA;
-    });
+
+    const productosOrdenados = data.sort((a, b) => new Date(b.fecha) - new Date(a.fecha));
 
     const productosRecientes = productosOrdenados.slice(0, 6);
     renderizarProductos(productosRecientes);
@@ -96,7 +95,8 @@ export async function Productos() {
       if (!consulta) return;
 
       try {
-        const resp = await fetch('http://localhost:3000/buscar', {
+        const resp = await fetch('http://proyectorailway-production-9739.up.railway.app/buscar', {
+        //const resp = await fetch('http://localhost:3000/buscar', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ consulta })
