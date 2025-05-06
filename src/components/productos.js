@@ -79,7 +79,7 @@ export async function Productos() {
   // fetch inicial y búsqueda
   try {
     
-     const res= await fetch('http://proyectorailway-production-9739.up.railway.app/datos');
+     const res= await fetch('https://proyectorailway-production-9739.up.railway.app/datos');
     //const res = await fetch('http://localhost:3000/datos');
     const data = await res.json();
 
@@ -95,7 +95,7 @@ export async function Productos() {
       if (!consulta) return;
 
       try {
-        const resp = await fetch('http://proyectorailway-production-9739.up.railway.app/buscar', {
+        const resp = await fetch('https://proyectorailway-production-9739.up.railway.app/buscar', {
         //const resp = await fetch('http://localhost:3000/buscar', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
