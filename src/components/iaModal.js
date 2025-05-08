@@ -51,7 +51,8 @@ export function crearModalIA() {
       btn.textContent = "Preguntando...";
 
       try {
-        const resp = await fetch("http://localhost:3000/api/chat", {
+        const resp = await fetch('https://proyectorailway-production-9739.up.railway.app/api/chat', {
+        //const resp = await fetch("http://localhost:3000/api/chat", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
@@ -97,7 +98,8 @@ export async function mostrarRespuestaIA(producto) {
   iaTexto.textContent = "⏳ Consultando a la IA...";
 
   try {
-    const res = await fetch("http://localhost:3000/api/chat", {
+    const res = await fetch('https://proyectorailway-production-9739.up.railway.app/api/chat', {
+    //const res = await fetch("http://localhost:3000/api/chat", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -105,7 +107,8 @@ export async function mostrarRespuestaIA(producto) {
         esPrimeraPregunta: true
       })
     });
-    console.log("pordi.desc", producto.descripcion)
+    console.log("prod.desc", producto.descripcion)
+    console.log("res", res)
     const data = await res.json();
     iaTexto.innerHTML = `${data.respuesta
       .split("\n")
