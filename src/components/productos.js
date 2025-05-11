@@ -11,7 +11,7 @@ export async function Productos() {
   productos.innerHTML = `
     <h2 class="text-center">Nuestros Productos</h2>
     <div class="mb-4">
-      <input type="text" id="busquedaInput" class="form-control" placeholder="Buscar productos con IA...">
+      <input type="text" id="busquedaInput" class="form-control" placeholder="Buscar productos ...">
       <button id="buscarBtn" class="btn btn-primary mt-2">Buscar</button>
     </div>
     <div class="row" id="productos-lista"></div>
@@ -40,7 +40,7 @@ export async function Productos() {
                 ${primerasFrases}
                 <span class="text-primary ver-mas" style="cursor:pointer;" data-id="${producto.id}"> +texto</span>
               </p>
-              <button class="btn btn-secondary mt-2 btn-ia" data-id="${producto.id}">Información IA</button>
+              <button class="btn btn-secondary mt-2 btn-ia" data-id="${producto.id}">+Información IA</button>
               <p></p>
               <button class="btn btn-success" onclick="addToCart('${producto.id}')">a la cesta!</button>
           </div>
@@ -78,8 +78,8 @@ export async function Productos() {
 
   // fetch inicial y búsqueda
   try {
-    
-     const res= await fetch('https://proyectorailway-production-9739.up.railway.app/datos');
+
+    const res= await fetch('https://proyectorailway-production-9739.up.railway.app/datos');
     //const res = await fetch('http://localhost:3000/datos');
     const data = await res.json();
 
@@ -95,8 +95,8 @@ export async function Productos() {
       if (!consulta) return;
 
       try {
-        const resp = await fetch('https://proyectorailway-production-9739.up.railway.app/buscar', {
-        //const resp = await fetch('http://localhost:3000/buscar', {
+          const resp = await fetch('https://proyectorailway-production-9739.up.railway.app/buscar', {
+          //const resp = await fetch('http://localhost:3000/buscar', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ consulta })

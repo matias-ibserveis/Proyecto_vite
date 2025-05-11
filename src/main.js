@@ -6,7 +6,9 @@ import { Contacto} from './components/contacto.js';
 
 
 (async () => {
-  app.append(Navbar(), Header());
+  app.append(Navbar());
+  const productosPortada = await Header();
+  app.append(productosPortada)
   const productos = await Productos();
   app.append(productos);
   app.append(Comentarios());
