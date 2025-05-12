@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gestión de Productos</title>
+  <link rel="stylesheet" href="stylesUtils.css">
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f9f9f9;
+      margin: 0;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 400px;
+      margin: auto;
+      background-color: #ffffff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+      text-align: center;
+    }
+
+    button {
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      margin: 10px;
+      cursor: pointer;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h1>Gestión de Productos</h1>
+    <button id="exportarBtn">Exportar a BD</button>
+    <button id="importarBtn">Importar a Excel</button>
+    <p id="message"></p>
+  </div>
+
+  <script>
+    document.getElementById('exportarBtn').addEventListener('click', async () => {
+      if (confirm('¿Estás seguro de que quieres exportar los datos a la base de datos?')) {
+        try {
+          const res = await fetch('https://proyectorailway-production-9739.up.railway.app/gestion/exportar_a_BD');
+          const message = await res.text();
+          alert(message);
+        } catch (error) {
+          alert('Error exportando a la base de datos.');
+          console.error(error);
+        }
+      }
+    });
+
+    document.getElementById('importarBtn').addEventListener('click', async () => {
+      if (confirm('¿Estás seguro de que quieres importar los datos desde la base de datos a Excel?')) {
+        try {
+          const res = await fetch('https://proyectorailway-production-9739.up.railway.app/gestion/descargar_excel');
+          const blob = await res.blob();
+          const url = window.URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = 'productos.xlsx';
+          a.click();
+          window.URL.revokeObjectURL(url);
+        } catch (error) {
+          alert('Error importando desde la base de datos.');
+          console.error(error);
+        }
+      }
+    });
+  </script>
+</body>
+
+</html>
