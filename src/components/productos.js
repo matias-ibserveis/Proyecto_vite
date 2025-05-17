@@ -31,9 +31,12 @@ export async function Productos() {
       const primerasFrases = frases.slice(0, 2).join('. ') + '.';
       const descripcionCompleta = producto.descripcion;
 
+      const imageId = producto.imagen1.split('/d/')[1]?.split('/')[0];
+      const imageUrl = `https://drive.google.com/thumbnail?id=${imageId}&sz=w800-h600`;
+
       col.innerHTML = `
         <div class="card mb-4">
-          <img src="${producto.imagen1}" class="card-img-top" alt="${producto.titulo}">
+          <img src="${imageUrl}" class="card-img-top" alt="${producto.titulo}">
           <div class="card-body">
               <h5 class="card-title">${producto.titulo}</h5>
               <p class="card-text" id="desc-${producto.id}">
@@ -79,7 +82,7 @@ export async function Productos() {
   // fetch inicial y búsqueda
   try {
 
-    const res= await fetch('https://proyectorailway-production-9739.up.railway.app/datos');
+    const res = await fetch('https://proyectorailway-production-9739.up.railway.app/datos');
     //const res = await fetch('http://localhost:3000/datos');
     const data = await res.json();
 
@@ -95,7 +98,7 @@ export async function Productos() {
       if (!consulta) return;
 
       try {
-          const resp = await fetch('https://proyectorailway-production-9739.up.railway.app/buscar', {
+        const resp = await fetch('https://proyectorailway-production-9739.up.railway.app/buscar', {
           //const resp = await fetch('http://localhost:3000/buscar', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
