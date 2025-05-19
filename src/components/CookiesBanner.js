@@ -6,7 +6,7 @@ export function CookiesBanner() {
   banner.style.left = '50%';
   banner.style.transform = 'translate(-50%, -50%)';
   banner.style.width = '400px';
-  banner.style.background = 'rgba(255, 255, 255, 0.70)';
+  banner.style.background = 'rgba(0, 0, 0, 0.7)';
   banner.style.color = '#fff';
   banner.style.padding = '15px';
   banner.style.display = 'flex';
@@ -21,8 +21,8 @@ export function CookiesBanner() {
   banner.innerHTML = `
     <span style="text-align:center;">
       Este sitio utiliza cookies para mejorar tu experiencia y darnos información para hacer su estancia en nuestra web más recorfontante.<br>
-      <img src="/images/cookies.png" alt="Cookies" style="max-width:155px;"><br>
-      <a id="mas-informacion" href="/CookiesHtmlInfo.html" style="color:#0af;text-decoration:underline;transition:color 0.2s;">Más información</a>
+      <img src="/images/Cookies.png" alt="Cookies" style="max-width:155px;"><br>
+      <a id="mas-informacion" href="/CookiesBannerInformation.html" style="color:#0af;text-decoration:underline;transition:color 0.2s;">Más información</a>
       <br>
     </span>
     <div style="display:flex;gap:12px;">
