@@ -45,7 +45,7 @@ export async function Productos() {
               </p>
               <button class="btn btn-secondary mt-2 btn-ia" data-id="${producto.id}">+Información IA</button>
               <p></p>
-              <button class="btn btn-success" onclick="addToCart('${producto.id}')">a la cesta!</button>
+              <button class="btn btn-success" onclick="irACesta('${producto.id}')">a la cesta!</button>
           </div>
         </div>
       `;
@@ -89,7 +89,7 @@ export async function Productos() {
 
     const productosOrdenados = data.sort((a, b) => new Date(b.fecha) - new Date(a.fecha));
 
-    const productosRecientes = productosOrdenados.slice(0, 6);
+    const productosRecientes = productosOrdenados.slice(0, 10);
     renderizarProductos(productosRecientes);
 
     const buscarBtn = productos.querySelector("#buscarBtn");
@@ -117,6 +117,14 @@ export async function Productos() {
   } catch (error) {
     productos.innerHTML += `<p class="text-danger text-center">Error al cargar productos</p>`;
     console.error("Error cargando productos:", error);
+  }
+
+
+  function irACesta(productoId) {
+    const cesta = JSON.parse(localStorage.getItem('cesta')) || {};
+    cesta[productoId] = (cesta[productoId] || 0) + 1;
+    localStorage.setItem('cesta', JSON.stringify(cesta));
+    window.location.href = `/cesta.html?nuevo=${productoId}`;
   }
 
 

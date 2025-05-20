@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Tu cesta</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+</head>
+<body class="container mt-4">
+  <h2 class="mb-4">Productos en la cesta</h2>
+
+  <table class="table table-bordered" id="tabla-cesta">
+    <thead class="table-light">
+      <tr>
+        <th>Imagen</th>
+        <th>Título</th>
+        <th>Unidad</th>
+        <th>Precio / unidad</th>
+        <th>Cantidad</th>
+        <th>Total</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody id="cuerpo-tabla"></tbody>
+    <tfoot>
+      <tr>
+        <td colspan="5" class="text-end"><strong>Total general:</strong></td>
+        <td colspan="2" id="total-general">0 €</td>
+      </tr>
+    </tfoot>
+  </table>
+
+  <script>
+    const tabla = document.getElementById('cuerpo-tabla');
+    const totalGeneralEl = document.getElementById('total-general');
+
+    function obtenerCesta() {
+      return JSON.parse(localStorage.getItem('cesta')) || {};
+    }
+
+    function guardarCesta(cesta) {
+      localStorage.setItem('cesta', JSON.stringify(cesta));
+    }
+
+    function actualizarCantidad(id, cambio) {
+      const cesta = obtenerCesta();
+      if (!cesta[id]) return;
+
+      cesta[id] += cambio;
+      if (cesta[id] <= 0) delete cesta[id];
+
+      guardarCesta(cesta);
+      location.reload();
+    }
+
+    function renderFila(prod, cantidad) {
+      const tr = document.createElement('tr');
+
+      const imageId = prod.imagen1?.split('/d/')[1]?.split('/')[0];
+      const imageUrl = imageId
+        ? `https://drive.google.com/thumbnail?id=${imageId}&sz=w200`
+        : 'https://via.placeholder.com/100';
+
+      const cantidadReal = cantidad * (prod.valor_medido || 1);
+      const total = cantidadReal * parseFloat(prod.precio || 0);
+      const totalFixed = total.toFixed(2);
+
+      tr.innerHTML = `
+        <td><img src="${imageUrl}" width="100"></td>
+        <td>${prod.titulo}</td>
+        <td>${prod.unidad_medido || '-'}</td>
+        <td>${prod.precio} €</td>
+        <td>
+          <div class="d-flex align-items-center gap-2">
+            <button class="btn btn-sm btn-outline-secondary" onclick="actualizarCantidad('${prod.id}', -1)">–</button>
+            <span>${cantidad}</span>
+            <button class="btn btn-sm btn-outline-secondary" onclick="actualizarCantidad('${prod.id}', 1)">+</button>
+          </div>
+        </td>
+        <td>${totalFixed} €</td>
+        <td>
+          <button class="btn btn-danger btn-sm" onclick="actualizarCantidad('${prod.id}', -cantidad)">Quitar</button>
+        </td>
+      `;
+
+      tabla.appendChild(tr);
+      return total;
+    }
+
+    async function cargarCesta() {
+      const cesta = obtenerCesta();
+      let totalFinal = 0;
+
+      for (const id in cesta) {
+        const cantidad = cesta[id];
+        const res = await fetch(`/listados/cesta/0?extra=${id}`);
+        if (!res.ok) continue;
+        const prod = await res.json();
+        const subtotal = renderFila(prod, cantidad);
+        totalFinal += subtotal;
+      }
+
+      totalGeneralEl.textContent = `${totalFinal.toFixed(2)} €`;
+    }
+
+    cargarCesta();
+  </script>
+</body>
+</html>
