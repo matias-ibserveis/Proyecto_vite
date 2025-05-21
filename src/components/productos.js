@@ -17,10 +17,30 @@ export async function Productos() {
     <div class="row" id="productos-lista"></div>
   `;
 
+
+
   const contenedor = productos.querySelector("#productos-lista");
 
   // Función para renderizar productos
   const renderizarProductos = (lista) => {
+
+    function irACesta(producto) {
+      const cesta = JSON.parse(localStorage.getItem('cesta') || '{}');
+      if (!cesta[producto.id]) {
+        cesta[producto.id] = {
+          titulo: producto.titulo,
+          cantidad: 1,
+          unidad_medido: producto.unidad_medido,
+          precio: producto.precio,
+          origen: 'manual' 
+        };
+      } else {
+        cesta[producto.id].cantidad += 1;
+      }
+
+      localStorage.setItem('cesta', JSON.stringify(cesta));
+      window.location.href = '/cesta.html';  // Ir a la página de la cesta
+    }
     contenedor.innerHTML = ""; // limpiar
 
     lista.forEach(producto => {
@@ -43,14 +63,20 @@ export async function Productos() {
                 ${primerasFrases}
                 <span class="text-primary ver-mas" style="cursor:pointer;" data-id="${producto.id}"> +texto</span>
               </p>
-              <button class="btn btn-secondary mt-2 btn-ia" data-id="${producto.id}">+Información IA</button>
+              <button class="btn btn-secondary mt-2 btn-ia" data-id="${producto.id}">+información IA</button>
               <p></p>
-              <button class="btn btn-success" onclick="irACesta('${producto.id}')">a la cesta!</button>
+              <button class="btn btn-success btn-a-cesta">a la cesta!</button>
           </div>
         </div>
       `;
 
       contenedor.appendChild(col);
+
+      // Evento "a la cesta"
+      const botonCesta = col.querySelector(".btn-a-cesta");
+      botonCesta.addEventListener("click", () => {
+        irACesta(producto);
+      });
 
       // Evento "+texto"
       const boton = col.querySelector(".ver-mas");
@@ -59,6 +85,7 @@ export async function Productos() {
         desc.textContent = descripcionCompleta;
       });
 
+      // Evento "Info IA"
       const botonia = col.querySelector(".btn-ia");
       botonia.addEventListener("click", () => {
         // Cambiar estilo y texto del botón mientras espera
@@ -74,14 +101,12 @@ export async function Productos() {
         });
       });
 
-
     });
   };
 
 
   // fetch inicial y búsqueda
   try {
-
     const res = await fetch('https://proyectorailway-production-9739.up.railway.app/datos');
     //const res = await fetch('http://localhost:3000/datos');
     const data = await res.json();
@@ -120,12 +145,6 @@ export async function Productos() {
   }
 
 
-  function irACesta(productoId) {
-    const cesta = JSON.parse(localStorage.getItem('cesta')) || {};
-    cesta[productoId] = (cesta[productoId] || 0) + 1;
-    localStorage.setItem('cesta', JSON.stringify(cesta));
-    window.location.href = `/cesta.html?nuevo=${productoId}`;
-  }
 
 
 
