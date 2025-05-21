@@ -1,28 +1,22 @@
 export function Navbar() {
   const nav = document.createElement("nav");
-  nav.className = "navbar bg-success";
+  nav.className = "navbar navbar-expand-lg navbar-custom";
 
   nav.innerHTML = `
-    <nav class="navbar navbar-custom">
     <div class="container-fluid">
-        <div class="navbar-header">
-        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-        </button>
-        <a class="navbar-brand" href="#">LUŔA</a>
-        </div>
-        <div class="collapse navbar-collapse" id="myNavbar">
-        <ul class="nav navbar-nav">
-            <li class="active"><a href="#">Inicio</a></li>
-            <li><a href="#">Productos</a></li>
-            <li><a href="#">Más Información</a></li>
-            <li><a href="#">Aviso Legal</a></li>
+      <a class="navbar-brand" href="#">LUŔA</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#myNavbar" aria-controls="myNavbar" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="myNavbar">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item active"><a class="nav-link" href="#">Inicio</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">Productos</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">Más Información</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">Aviso Legal</a></li>
         </ul>
-        </div>
+      </div>
     </div>
-    </nav>
   `;
 
   return nav;

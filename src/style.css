@@ -100,38 +100,47 @@ button:focus-visible {
   background-color: #d1ab72;  /* fondo personalizado */
   border: none;
   box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-  border-radius: 0 0 10px 10px;
+  border-radius: 10px 10px 10px 10px;
   padding: 10px 20px;
   font-size: 15px;
   font-family: 'Aloja Extended', sans-serif;
   letter-spacing: normal;
+  margin-bottom: 5px;
 }
 
+/* Marca (nombre/logo) */
 .navbar-custom .navbar-brand {
-  color: white; /* texto blanco */
-  font-family: 'Aloja Extended', sans-serif;
+  color: white !important;
+  font-family: 'Aloja Extended', sans-serif !important;
   font-size: 25px;
 }
 
-.navbar-custom .navbar-nav > li > a {
-  color: #6d5839; /* texto blanco */
+/* Enlaces de navegación */
+.navbar-custom .navbar-nav .nav-link {
+  color: #6d5839 !important;
   font-family: 'Aloja Extended', sans-serif;
   font-size: 18px;
+  transition: background 0.2s, color 0.2s;
 }
 
-.navbar-custom .navbar-nav > li > a:hover {
-  color: #000000;                /* color al pasar el mouse */
-  background-color: #ffffff;    /* color de fondo al pasar el mouse */
+/* Hover en enlaces */
+.navbar-custom .navbar-nav .nav-link:hover,
+.navbar-custom .navbar-nav .nav-link.active {
+  color: #000000 !important;
+  background-color: #ffffff !important;
 }
 
-.navbar-toggle {
+/* Botón hamburguesa */
+.navbar-custom .navbar-toggler {
   border-color: #ffffff;
+  background-color: #d1ab72;
+}
+.navbar-custom .navbar-toggler-icon {
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(0,0,0,0.7)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
 }
 
-.icon-bar {
-  background-color: #000000;
-}
-
-.navbar-custom .navbar-nav > li.active > a {
-  color: #443723 !important; /* Color rojo para el enlace activo */
+/* Enlace activo */
+.navbar-custom .navbar-nav .nav-link.active {
+  color: #443723 !important;
+  background-color: #fff !important;
 }
