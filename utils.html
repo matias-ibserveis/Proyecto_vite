@@ -2,10 +2,10 @@
 <html lang="es">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Gestión de Productos</title>
-  <link rel="stylesheet" href="stylesUtils.css">
+  <link rel="stylesheet" href="stylesUtils.css" />
 
   <style>
     body {
@@ -26,7 +26,7 @@
     }
 
     button {
-      background-color: #4CAF50;
+      background-color: #4caf50;
       color: white;
       border: none;
       padding: 10px 20px;
@@ -39,24 +39,44 @@
     button:hover {
       background-color: #45a049;
     }
+
+    input[type="file"] {
+      margin: 10px 0;
+    }
   </style>
 </head>
 
 <body>
   <div class="container">
     <h1>Gestión de Productos</h1>
+
+    <input type="file" id="archivoExcel" accept=".xlsx" />
     <button id="exportarBtn">Exportar a BD</button>
     <button id="importarBtn">Importar a Excel</button>
+
     <p id="message"></p>
   </div>
 
   <script>
     document.getElementById('exportarBtn').addEventListener('click', async () => {
+      const archivo = document.getElementById('archivoExcel').files[0];
+      if (!archivo) {
+        alert('Por favor selecciona un archivo Excel.');
+        return;
+      }
+
       if (confirm('¿Estás seguro de que quieres exportar los datos a la base de datos?')) {
+        const formData = new FormData();
+        formData.append('archivoExcel', archivo);
+
         try {
-          const res = await fetch('https://proyectorailway-production-9739.up.railway.app/gestion/exportar_a_BD');
-          const message = await res.text();
-          alert(message);
+          const res = await fetch('https://proyectorailway-production-9739.up.railway.app/gestion/exportar_productos', {
+            method: 'POST',
+            body: formData,
+          });
+
+          const text = await res.text();
+          alert(text);
         } catch (error) {
           alert('Error exportando a la base de datos.');
           console.error(error);
@@ -67,7 +87,7 @@
     document.getElementById('importarBtn').addEventListener('click', async () => {
       if (confirm('¿Estás seguro de que quieres importar los datos desde la base de datos a Excel?')) {
         try {
-          const res = await fetch('https://proyectorailway-production-9739.up.railway.app/gestion/descargar_excel');
+          const res = await fetch('https://proyectorailway-production-9739.up.railway.app/gestion/importar_productos');
           const blob = await res.blob();
           const url = window.URL.createObjectURL(blob);
           const a = document.createElement('a');

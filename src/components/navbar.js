@@ -7,6 +7,7 @@ export function Navbar() {
           <a class="navbar-brand text-white" href="#">InformaticOn</a>
           <ul class="nav">
               <li class="nav-item"><a class="nav-link text-white" href="/">Inicio</a></li>
+              <li class="nav-item"><a class="nav-link text-white" href="utils.html">GESTION</a></li>
               <li class="nav-item"><a class="nav-link text-white" href="#productos">Productos</a></li>
               <li class="nav-item"><a class="nav-link text-white" href="#contacto">Contacto</a></li>
           </ul>
