@@ -3,14 +3,26 @@ export function Navbar() {
   nav.className = "navbar bg-success";
 
   nav.innerHTML = `
-      <div class="container">
-          <a class="navbar-brand text-white" href="#">InformaticOn</a>
-          <ul class="nav">
-              <li class="nav-item"><a class="nav-link text-white" href="/">Inicio</a></li>
-              <li class="nav-item"><a class="nav-link text-white" href="#productos">Productos</a></li>
-              <li class="nav-item"><a class="nav-link text-white" href="#contacto">Contacto</a></li>
-          </ul>
-      </div>
+    <nav class="navbar navbar-custom">
+    <div class="container-fluid">
+        <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#">LUŔA</a>
+        </div>
+        <div class="collapse navbar-collapse" id="myNavbar">
+        <ul class="nav navbar-nav">
+            <li class="active"><a href="#">Inicio</a></li>
+            <li><a href="#">Productos</a></li>
+            <li><a href="#">Más Información</a></li>
+            <li><a href="#">Aviso Legal</a></li>
+        </ul>
+        </div>
+    </div>
+    </nav>
   `;
 
   return nav;

@@ -94,3 +94,44 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+
+/* NavBar y su css */
+.navbar-custom {
+  background-color: #d1ab72;  /* fondo personalizado */
+  border: none;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  border-radius: 0 0 10px 10px;
+  padding: 10px 20px;
+  font-size: 15px;
+  font-family: 'Aloja Extended', sans-serif;
+  letter-spacing: normal;
+}
+
+.navbar-custom .navbar-brand {
+  color: white; /* texto blanco */
+  font-family: 'Aloja Extended', sans-serif;
+  font-size: 25px;
+}
+
+.navbar-custom .navbar-nav > li > a {
+  color: #6d5839; /* texto blanco */
+  font-family: 'Aloja Extended', sans-serif;
+  font-size: 18px;
+}
+
+.navbar-custom .navbar-nav > li > a:hover {
+  color: #000000;                /* color al pasar el mouse */
+  background-color: #ffffff;    /* color de fondo al pasar el mouse */
+}
+
+.navbar-toggle {
+  border-color: #ffffff;
+}
+
+.icon-bar {
+  background-color: #000000;
+}
+
+.navbar-custom .navbar-nav > li.active > a {
+  color: #443723 !important; /* Color rojo para el enlace activo */
+}
