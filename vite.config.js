@@ -10,6 +10,7 @@ export default defineConfig({
       input: {
         main: resolve(__dirname, 'index.html'),
         utils: resolve(__dirname, 'utils.html'),
+         cesta: resolve(__dirname, 'cesta.html')
       },
     },
   },

@@ -18,6 +18,7 @@ export function renderCesta(container) {
   container.innerHTML = ''; // Limpiar si ya había algo
   container.appendChild(tabla);
 
+  // Botón volver
   const volverBtn = document.createElement('button');
   volverBtn.textContent = '⬅ Volver';
   volverBtn.className = 'btn btn-outline-primary mb-3';
@@ -30,6 +31,16 @@ export function renderCesta(container) {
     }
   };
   container.append(volverBtn);
+
+  //Botón borrar cesta
+   const borrarBtn = document.createElement('button');
+  borrarBtn.textContent = '⬅ Vaciar cesta';
+  borrarBtn.className = 'btn btn-outline-primary mb-3';
+  borrarBtn.onclick = () => { 
+    localStorage.clear();
+    location.reload();
+  };
+  container.append(borrarBtn);
 
 
   inicializarCestaSiNecesario().then(mostrarCesta);
@@ -100,7 +111,6 @@ function mostrarCesta() {
   });
 
   totalGeneralEl.textContent = `${total.toFixed(2)} €`;
-
 
 
   cuerpo.querySelectorAll('button[data-action]').forEach(btn => {
