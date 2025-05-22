@@ -22,27 +22,33 @@ export async function Header() {
             `;
         }).join('');
 
-        header.innerHTML = `
-            <div class="carousel-inner">
-                ${items}
-            </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#headerCarousel" data-bs-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Previous</span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#headerCarousel" data-bs-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Next</span>
-            </button>
-            <style>
-                .carousel-inner img {
-                    height: 50vh;
-                    object-fit: cover;
-                    width: 100%;
-                    border-radius: 10px;
-                }
-            </style>
-        `;
+header.innerHTML = `
+    <div class="carousel-inner">
+        ${items}
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#headerCarousel" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#headerCarousel" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+    </button>
+    <style>
+        .carousel-inner img {
+            height: 50vh;
+            object-fit: cover;
+            width: 100%;
+            border-radius: 10px;
+        }
+        .carousel-control-prev {
+            left: 3%;
+        }
+        .carousel-control-next {
+            right: 3%;
+        }
+    </style>
+`;
     } catch (error) {
         console.error('Error cargando los productos:', error);
     }

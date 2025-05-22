@@ -3,7 +3,7 @@ export function Contacto() {
     contacto.className = "container py-5";
     contacto.id = "contacto";
     contacto.innerHTML = `
-        <h2 class="text-center">Contáctanos</h2>
+        <h2 class="text-center titulo">Contáctanos</h2>
         <form>
             <div class="mb-3">
                 <label for="name" class="form-label">Nombre</label>
