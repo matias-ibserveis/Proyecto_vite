@@ -1,5 +1,18 @@
 import { crearModalIA, mostrarRespuestaIA } from "./iaModal.js"; // Ajusta ruta según tu estructura
 
+
+window.addEventListener('DOMContentLoaded', () => {
+  const volverY = sessionStorage.getItem('prevScrollY');
+  if (volverY !== null) {
+    setTimeout(() => {
+      window.scrollTo(0, parseInt(volverY, 10));
+      sessionStorage.removeItem('prevScrollY');
+    }, 500); // pequeño retardo
+  }
+});
+
+
+
 export async function Productos() {
 
   crearModalIA();
@@ -32,14 +45,21 @@ export async function Productos() {
           cantidad: 1,
           unidad_medido: producto.unidad_medido,
           precio: producto.precio,
-          origen: 'manual' 
+          origen: 'manual'
         };
       } else {
         cesta[producto.id].cantidad += 1;
       }
 
       localStorage.setItem('cesta', JSON.stringify(cesta));
-      window.location.href = '/cesta.html';  // Ir a la página de la cesta
+
+      const scrollY = window.scrollY;
+      const currentURL = window.location.href;
+      sessionStorage.setItem('prevScrollY', scrollY);
+      sessionStorage.setItem('prevURL', currentURL);
+
+      // Redirigir
+      window.location.href = '/cesta.html';
     }
     contenedor.innerHTML = ""; // limpiar
 

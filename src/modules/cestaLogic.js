@@ -19,25 +19,30 @@ export function renderCesta(container) {
   container.appendChild(tabla);
 
   // Botón volver
-  const volverBtn = document.createElement('button');
-  volverBtn.textContent = '⬅ Volver';
-  volverBtn.className = 'btn btn-outline-primary mb-3';
-  volverBtn.onclick = () => {
-    const ref = document.referrer;
-    if (ref) {
-      window.location.href = ref;
-    } else {
-      window.history.back();
-    }
-  };
-  container.append(volverBtn);
+  const prevY = sessionStorage.getItem('prevScrollY');
+  const prevURL = sessionStorage.getItem('prevURL');
+
+  console.log("Y y previus", prevY, prevURL)
+
+  if (prevURL && prevY !== null) {
+    const volverBtn = document.createElement('button');
+    volverBtn.textContent = 'Volver';
+    volverBtn.className = 'btn btn-outline-primary mb-3';
+
+    volverBtn.addEventListener('click', () => {
+      //sessionStorage.setItem('volverScrollY', prevY);
+      window.location.href = prevURL;
+    });
+    container.append(volverBtn);
+  }
+
 
   //Botón borrar cesta
-   const borrarBtn = document.createElement('button');
+  const borrarBtn = document.createElement('button');
   borrarBtn.textContent = '⬅ Vaciar cesta';
   borrarBtn.className = 'btn btn-outline-primary mb-3';
-  borrarBtn.onclick = () => { 
-    localStorage.clear();
+  borrarBtn.onclick = () => {
+    localStorage.removeItem('cesta');
     location.reload();
   };
   container.append(borrarBtn);
@@ -48,11 +53,12 @@ export function renderCesta(container) {
 
 async function inicializarCestaSiNecesario() {
   const cesta = localStorage.getItem('cesta');
+  console.log("cesta", cesta)
   if (!cesta || cesta === '{}') {
     try {
       const res = await fetch('https://proyectorailway-production-9739.up.railway.app/listados/cesta/1');
       const productos = await res.json();
-
+      console.log("productos", productos)
       const cestaInicial = {};
       productos.forEach(p => {
         cestaInicial[p.id] = {
