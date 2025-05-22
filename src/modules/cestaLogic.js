@@ -22,22 +22,23 @@ export function renderCesta(container) {
   const prevY = sessionStorage.getItem('prevScrollY');
   const prevURL = sessionStorage.getItem('prevURL');
 
-  console.log("Y y previus", prevY, prevURL)
+  const botonesDiv = document.createElement('div');
+  botonesDiv.style.display = 'flex'; botonesDiv.style.justifyContent = 'space-between';
+  botonesDiv.style.width = '90%';  botonesDiv.style.margin = '6rem 2rem 0 2rem'; // top right bottom left
+  botonesDiv.style.gap = '1rem'; // opcional: espacio entre botones
 
+  // Botón Volver
   if (prevURL && prevY !== null) {
     const volverBtn = document.createElement('button');
     volverBtn.textContent = 'Volver';
     volverBtn.className = 'btn btn-outline-primary mb-3';
-
     volverBtn.addEventListener('click', () => {
-      //sessionStorage.setItem('volverScrollY', prevY);
       window.location.href = prevURL;
     });
-    container.append(volverBtn);
+    botonesDiv.appendChild(volverBtn);
   }
 
-
-  //Botón borrar cesta
+  // Botón Borrar Cesta
   const borrarBtn = document.createElement('button');
   borrarBtn.textContent = '⬅ Vaciar cesta';
   borrarBtn.className = 'btn btn-outline-primary mb-3';
@@ -45,7 +46,10 @@ export function renderCesta(container) {
     localStorage.removeItem('cesta');
     location.reload();
   };
-  container.append(borrarBtn);
+  botonesDiv.appendChild(borrarBtn);
+
+  // Añadir al contenedor principal
+  container.appendChild(botonesDiv);
 
 
   inicializarCestaSiNecesario().then(mostrarCesta);

@@ -17,32 +17,40 @@ export async function Header() {
 
             return `
                 <div class="carousel-item ${activeClass}">
-                    <img src="${imageUrl}" class="d-block w-100" alt="Producto ${index + 1}">
+                <img src="${imageUrl}" class="carousel-img" alt="Producto ${index + 1}">
                 </div>
-            `;
+                 `;
         }).join('');
 
         header.innerHTML = `
-            <div class="carousel-inner">
-                ${items}
+            <div style="display:flex; max-width:1320px; margin:2rem ; align-items:center;">
+                <button class="carousel-btn" data-bs-target="#headerCarousel" data-bs-slide="prev"> < </button>
+                <div style="flex:0 0 900px; overflow:hidden;">
+                <div class="carousel-inner">
+                    ${items}
+                </div>
+                </div>
+                <button class="carousel-btn" data-bs-target="#headerCarousel" data-bs-slide="next"> > </button>
             </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#headerCarousel" data-bs-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Previous</span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#headerCarousel" data-bs-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Next</span>
-            </button>
             <style>
-                .carousel-inner img {
-                    height: 50vh;
-                    object-fit: cover;
-                    width: 100%;
-                    border: 5px solid green;
+                .carousel-img {
+                width: 100%;
+                height: 50vh;
+                object-fit: cover;
+                border: 3px solid green;
+                }
+                .carousel-btn {
+                width: 200px;
+                background: white;
+                color:green;
+                border:none;
+                font-size: 4rem;
+                cursor: pointer;
+                height: 100%;
                 }
             </style>
-        `;
+            `;
+
     } catch (error) {
         console.error('Error cargando los productos:', error);
     }
