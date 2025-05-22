@@ -9,7 +9,7 @@ export async function Productos() {
   productos.id = "productos";
 
   productos.innerHTML = `
-    <h2 class="text-center">Nuestros Productos</h2>
+    <h2 class="text-center titulo">Nuestros Productos</h2>
     <div class="mb-4">
       <input type="text" id="busquedaInput" class="form-control" placeholder="Buscar productos ...">
       <button id="buscarBtn" class="btn btn-primary mt-2">Buscar</button>

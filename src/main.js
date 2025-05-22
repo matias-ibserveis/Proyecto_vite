@@ -2,6 +2,7 @@ import { Navbar } from './components/navbar.js';
 import { Header } from './components/header.js';
 import { Productos } from './components/productos.js';
 import { Comentarios } from './components/comentarios.js';
+import { BotonVerde } from './components/botonwhatsapp.js';
 import { Contacto} from './components/contacto.js';
 
 
@@ -13,6 +14,5 @@ import { Contacto} from './components/contacto.js';
   app.append(productos);
   app.append(Comentarios());
   app.append(Contacto())
+  app.append(BotonVerde());
 })();
-
-

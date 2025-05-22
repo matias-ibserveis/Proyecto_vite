@@ -39,7 +39,7 @@ export async function Header() {
                     height: 50vh;
                     object-fit: cover;
                     width: 100%;
-                    border: 5px solid green;
+                    border-radius: 10px;
                 }
             </style>
         `;
