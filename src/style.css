@@ -6,9 +6,13 @@
   padding: 1rem;
   border-radius: 5px;
   background-color: #f8f9fa;
-  width: 535px;
+  width: 435px;
   overflow-x: auto;
   box-sizing: border-box;
+  position: relative;
+  margin-bottom: 1rem;
+  display: flex;
+  flex-direction: column;
 }
 
 /* Cart Header */
@@ -16,12 +20,15 @@
   margin: 0 0 1rem 0;
   font-size: 1.5rem;
   color: #333;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 /* Cart Table */
 .cart-table {
   width: 100%;
-  max-width: 500px;
+  max-width: 400px;
   border-collapse: separate !important;
   border-spacing: 0;
   margin-bottom: 1rem;
@@ -65,17 +72,17 @@
 /* Fixed column widths */
 .cart-table th:nth-child(1),
 .cart-table td:nth-child(1) {
-  width: 50%; /* Adjusted for new column */
+  width: 45%;
 }
 
 .cart-table th:nth-child(2),
 .cart-table td:nth-child(2) {
-  width: 20%; /* New Precio column */
+  width: 25%;
 }
 
 .cart-table th:nth-child(3),
 .cart-table td:nth-child(3) {
-  width: 30%; /* Adjusted for Cantidad */
+  width: 30%;
 }
 
 /* Product Container */
@@ -165,4 +172,165 @@
   font-size: 1.2rem;
   background-color: #e6f3ff;
   text-align: center !important;
+}
+
+/* Comprar Button (now below the table) */
+.comprar-btn {
+  background-color: #17a2b8;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  font-size: 1rem;
+  font-weight: bold;
+  display: block;
+  margin: 1rem auto 0;
+  cursor: pointer;
+}
+
+.comprar-btn:hover {
+  background-color: #138496;
+}
+
+/* Add Product Button (now top right) */
+.add-product-btn {
+  background-color: #17a2b8;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  font-size: 1.5rem;
+  line-height: 1;
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  cursor: pointer;
+}
+
+.add-product-btn:hover {
+  background-color: #138496;
+}
+
+/* Popup Overlay (for both product selection and confirmation) */
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.popup-overlay.hidden {
+  display: none;
+}
+
+/* Popup Content */
+.popup-content {
+  background-color: #fff;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 500px;
+  max-height: 80vh;
+  overflow-y: auto;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Popup Header */
+.popup-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  border-bottom: 1px solid #ddd;
+}
+
+.popup-header h4 {
+  margin: 0;
+  font-size: 1.25rem;
+  color: #333;
+}
+
+.close-popup-btn {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  font-size: 1rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.close-popup-btn:hover {
+  background-color: #b02a37;
+}
+
+/* Popup Body */
+.popup-body {
+  padding: 1rem;
+  text-align: center;
+}
+
+/* Product List */
+.product-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.product-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #eee;
+}
+
+.product-item:last-child {
+  border-bottom: none;
+}
+
+.product-item span {
+  flex: 1;
+}
+
+/* Add to Cart Button in Popup */
+.add-to-cart-btn {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.add-to-cart-btn:hover {
+  background-color: #218838;
+}
+
+.add-to-cart-btn:disabled {
+  background-color: #6c757d;
+  cursor: not-allowed;
+}
+
+/* Comprar Ahora Button in Confirmation Popup */
+.comprar-ahora-btn {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 1rem;
+}
+
+.comprar-ahora-btn:hover {
+  background-color: #218838;
 }
