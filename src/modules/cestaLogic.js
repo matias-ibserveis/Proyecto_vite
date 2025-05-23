@@ -1,4 +1,28 @@
-export function renderCesta(container) {
+
+export async function renderCesta(container) {
+  const urlParams = new URLSearchParams(window.location.search);
+  const nuevoId = urlParams.get("id");
+
+  if (nuevoId) {
+    const cesta = JSON.parse(localStorage.getItem("cesta") || "{}");
+    if (!cesta[nuevoId]) {
+      try {
+        const res = await fetch(`https://proyectorailway-production-9739.up.railway.app/api/producto/${nuevoId}`);
+        const producto = await res.json();
+        cesta[nuevoId] = {
+          titulo: producto.titulo,
+          cantidad: 1,
+          unidad_medido: producto.unidad_medido,
+          precio: producto.precio,
+          origen: 'manual'
+        };
+        localStorage.setItem("cesta", JSON.stringify(cesta));
+      } catch (err) {
+        console.error("Error al añadir producto por ID en URL:", err);
+      }
+    }
+  }
+
   const tabla = document.createElement('table');
   tabla.className = 'table table-bordered';
   tabla.innerHTML = `<thead>
@@ -15,7 +39,7 @@ export function renderCesta(container) {
     <tr><td colspan="4" class="text-end">Total general:</td><td id="total-general">0 €</td></tr>
   </tfoot>`;
 
-  container.innerHTML = ''; // Limpiar si ya había algo
+  container.innerHTML = '';
   container.appendChild(tabla);
 
   // Botón volver
@@ -24,11 +48,11 @@ export function renderCesta(container) {
 
   const botonesDiv = document.createElement('div');
   botonesDiv.style.display = 'flex'; botonesDiv.style.justifyContent = 'space-between';
-  botonesDiv.style.width = '90%';  botonesDiv.style.margin = '6rem 2rem 0 2rem'; // top right bottom left
+  botonesDiv.style.width = '90%'; botonesDiv.style.margin = '6rem 2rem 0 2rem'; // top right bottom left
   botonesDiv.style.gap = '1rem'; // opcional: espacio entre botones
 
   // Botón Volver
-  if (prevURL && prevY !== null) {
+  //if (prevURL && prevY !== null) {
     const volverBtn = document.createElement('button');
     volverBtn.textContent = 'Volver';
     volverBtn.className = 'btn btn-outline-primary mb-3';
@@ -36,17 +60,7 @@ export function renderCesta(container) {
       window.location.href = prevURL;
     });
     botonesDiv.appendChild(volverBtn);
-  }
-
-  // Botón Borrar Cesta
-  const borrarBtn = document.createElement('button');
-  borrarBtn.textContent = '⬅ Vaciar cesta';
-  borrarBtn.className = 'btn btn-outline-primary mb-3';
-  borrarBtn.onclick = () => {
-    localStorage.removeItem('cesta');
-    location.reload();
-  };
-  botonesDiv.appendChild(borrarBtn);
+  //}
 
   // Añadir al contenedor principal
   container.appendChild(botonesDiv);
@@ -57,12 +71,12 @@ export function renderCesta(container) {
 
 async function inicializarCestaSiNecesario() {
   const cesta = localStorage.getItem('cesta');
-  console.log("cesta", cesta)
-  if (!cesta || cesta === '{}') {
+  const params = new URLSearchParams(window.location.search);
+
+  if (!cesta || cesta === '{}' && !params.has('id')) {
     try {
       const res = await fetch('https://proyectorailway-production-9739.up.railway.app/listados/cesta/1');
       const productos = await res.json();
-      console.log("productos", productos)
       const cestaInicial = {};
       productos.forEach(p => {
         cestaInicial[p.id] = {
@@ -79,6 +93,8 @@ async function inicializarCestaSiNecesario() {
     }
   }
 }
+
+
 
 function mostrarCesta() {
   const cuerpo = document.getElementById('cesta-body');
@@ -104,13 +120,9 @@ function mostrarCesta() {
     tr.innerHTML = `
       <td>${titulo}</td>
       <td>
-        ${origen === 'manual' ? `
           <button class="btn btn-sm btn-outline-secondary" data-id="${id}" data-action="restar">–</button>
           <span class="mx-2" id="cantidad-${id}">${cantidad}</span>
           <button class="btn btn-sm btn-outline-secondary" data-id="${id}" data-action="sumar">+</button>
-        ` : `
-          <span>${cantidad}</span>
-        `}
       </td>
       <td>${unidad_medido}</td>
       <td>${precio.toFixed(2)} €</td>
@@ -130,14 +142,15 @@ function mostrarCesta() {
       const cesta = JSON.parse(localStorage.getItem('cesta') || '{}');
       if (!cesta[id]) return;
 
-      if (action === 'sumar') {
-        cesta[id].cantidad += 1;
-      } else if (action === 'restar') {
-        cesta[id].cantidad -= 1;
-        if (cesta[id].cantidad <= 0) {
-          delete cesta[id];
-        }
-      }
+      action === 'sumar'
+        ? cesta[id].cantidad += 1
+        : (
+          cesta[id].cantidad > 1 || cesta[id].origen === 'manual'
+            ? cesta[id].cantidad -= 1
+            : null,
+          cesta[id].cantidad <= 0 && delete cesta[id]
+        );
+
 
       localStorage.setItem('cesta', JSON.stringify(cesta));
       mostrarCesta();
