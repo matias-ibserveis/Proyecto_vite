@@ -78,10 +78,14 @@ export async function Productos() {
         <div class="card mb-4">
           <img src="${imageUrl}" class="card-img-top" alt="${producto.titulo}">
           <div class="card-body">
-              <h5 class="card-title">${producto.titulo}</h5>
+              <h5 class="card-title">
+                <a href="producto.html?id=${producto.id}" class="text-decoration-none text-dark">
+                  ${producto.titulo}
+                </a>
+              </h5>
               <p class="card-text" id="desc-${producto.id}">
                 ${primerasFrases}
-                <span class="text-primary ver-mas" style="cursor:pointer;" data-id="${producto.id}"> +texto</span>
+                <a class="text-primary ver-mas" style="cursor:pointer;" href="producto.html?id=${producto.id}">ver +</a>
               </p>
               <button class="btn btn-secondary mt-2 btn-ia" data-id="${producto.id}">+información IA</button>
               <p></p>
@@ -96,13 +100,6 @@ export async function Productos() {
       const botonCesta = col.querySelector(".btn-a-cesta");
       botonCesta.addEventListener("click", () => {
         irACesta(producto);
-      });
-
-      // Evento "+texto"
-      const boton = col.querySelector(".ver-mas");
-      boton.addEventListener("click", () => {
-        const desc = col.querySelector(`#desc-${producto.id}`);
-        desc.textContent = descripcionCompleta;
       });
 
       // Evento "Info IA"

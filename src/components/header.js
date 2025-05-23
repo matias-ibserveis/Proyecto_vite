@@ -23,31 +23,43 @@ export async function Header() {
         }).join('');
 
         header.innerHTML = `
-            <div style="display:flex; max-width:1320px; margin:2rem ; align-items:center;">
-                <button class="carousel-btn" data-bs-target="#headerCarousel" data-bs-slide="prev"> < </button>
-                <div style="flex:0 0 900px; overflow:hidden;">
-                <div class="carousel-inner">
+            <div class="contenedor">
+                 <div class="carousel-inner">
                     ${items}
-                </div>
                 </div>
                 <button class="carousel-btn" data-bs-target="#headerCarousel" data-bs-slide="next"> > </button>
             </div>
             <style>
+                .contenedor{
+                    display:flex; 
+                    max-width:1320px; 
+                    margin:2rem ; 
+                    align-items:center;
+                }
                 .carousel-img {
-                width: 100%;
-                height: 50vh;
-                object-fit: cover;
-                border: 3px solid green;
+                    width: 100%;
+                    height: 50vh;
+                    object-fit: cover;
+                    border: 2px solid green;
                 }
                 .carousel-btn {
-                width: 200px;
-                background: white;
-                color:green;
-                border:none;
-                font-size: 4rem;
-                cursor: pointer;
-                height: 100%;
+                    width: 200px;
+                    background: white;
+                    color:green;
+                    border:none;
+                    font-size: 4rem;
+                    cursor: pointer;
                 }
+                
+                @media (max-width: 600px) {
+                    .carousel-btn {
+                        width: 20px;
+                        font-size: 2rem;
+                    }
+                    .container{
+                        margin:2rem 0.5rem 2rem 0.5rem ; 
+                    }
+
             </style>
             `;
 
