@@ -1,4 +1,6 @@
 export function Contacto() {
+
+    //Antes del footer
     const contacto = document.createElement("section");
     contacto.className = "container py-5";
     contacto.id = "contacto";
