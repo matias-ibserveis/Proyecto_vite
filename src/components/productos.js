@@ -89,18 +89,19 @@ export async function Productos() {
               </p>
               <button class="btn btn-secondary mt-2 btn-ia" data-id="${producto.id}">+información IA</button>
               <p></p>
-              <button class="btn btn-success btn-a-cesta">a la cesta!</button>
+              <a href="cesta.html?id=${producto.id}" class="text-decoration-none text-dark"> a la cesta! </a>
           </div>
         </div>
       `;
 
       contenedor.appendChild(col);
 
-      // Evento "a la cesta"
+      /* Evento "a la cesta"
       const botonCesta = col.querySelector(".btn-a-cesta");
       botonCesta.addEventListener("click", () => {
         irACesta(producto);
       });
+      */
 
       // Evento "Info IA"
       const botonia = col.querySelector(".btn-ia");
