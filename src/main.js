@@ -3,6 +3,7 @@ import { Header } from './components/header.js';
 import { Productos } from './components/productos.js';
 import { Comentarios } from './components/comentarios.js';
 import { Contacto} from './components/contacto.js';
+import { Footer } from './components/Footer.js';
 
 const contenedor = document.createElement('div');
 contenedor.style.maxWidth = '1360px';
