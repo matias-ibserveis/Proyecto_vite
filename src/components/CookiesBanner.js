@@ -91,7 +91,7 @@ export function CookiesBanner() {
         Este sitio utiliza cookies para mejorar tu experiencia y darnos información para hacer su estancia en nuestra web más recorfontante.<br>
       </span>
       <div class="cookies-banner-inner" style="display:flex;flex-direction:column;align-items:center;gap:11px;">
-        <img src="/images/Cookies.png" alt="Cookies" style="width: 150px; height: 150px;"/>
+        <img src="public/images/Cookies.png" alt="Cookies" style="width: 150px; height: 150px;"/>
         <button id="mas-informacion"
           style="background:#222;opacity:0.7;color:#fff;border:none;padding:8px 24px;border-radius:4px;cursor:pointer;transition:background 0.2s,opacity 0.2s;transition:filter 0.2s,transform 0.2s;"
           onmouseenter="this.style.opacity='1';this.style.background='#0af';this.style.filter='brightness(1.3)';this.style.transform='scale(1.13)'"
