@@ -4,6 +4,7 @@ import { Productos } from './components/productos.js';
 import { Comentarios } from './components/comentarios.js';
 import { Contacto} from './components/contacto.js';
 import { CookiesBanner } from './components/CookiesBanner.js';
+import { Footer } from './components/Footer.js';
 
 (async () => {
   const app = document.getElementById('app');
@@ -14,6 +15,7 @@ import { CookiesBanner } from './components/CookiesBanner.js';
   app.append(productos);
   app.append(Comentarios());
   app.append(Contacto());
+  app.append(Footer());
 
   CookiesBanner(); // <-- Añade esta línea
 })();
