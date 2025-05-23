@@ -2,9 +2,9 @@ export function BotonVerde() {
   // Botón principal (WhatsApp)
   const boton = document.createElement('button');
   boton.className = 'btn-verde btn-aloja';
-  boton.textContent = 'Únete a nuestro WhatsApp';
+  boton.textContent = 'Contáctanos por WhatsApp';
   boton.onclick = () => {
-    window.location.href = "https://www.ejemplo.com";
+    window.location.href = "https://wa.me/34613959689";
   };
   boton.style.position = 'fixed';
   boton.style.right = '20px';
@@ -28,7 +28,7 @@ export function BotonVerde() {
   toggleBtn.title = 'Ocultar botón WhatsApp';
   toggleBtn.style.position = 'fixed';
   toggleBtn.style.right = '285px'; // Posición inicial
-  toggleBtn.style.bottom = '20px';
+  toggleBtn.style.bottom = '25px';
   toggleBtn.style.zIndex = '1001';
   toggleBtn.style.backgroundColor = '#cccccc';
   toggleBtn.style.color = '#333';

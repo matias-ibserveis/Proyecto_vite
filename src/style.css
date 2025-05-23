@@ -184,3 +184,32 @@ button:focus-visible {
 .carousel-control-next:hover {
   background: rgba(255,255,255,0.18); /* un poco menos transparente al pasar el ratón */
 }
+
+.botones-con-enlaces,
+.botones-con-enlaces-instagram {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Aloja Extended', sans-serif;
+  font-size: 18px;
+  gap: 10px;
+  width: 480px;         /* ancho fijo para ambos botones */
+  height: 160px;         /* alto fijo para ambos botones */
+  margin: 0 auto;       /* centra horizontalmente */
+  padding: 0 16px;
+  box-sizing: border-box;
+}
+
+.botones-con-enlaces img {
+  width: 130px;
+  height: 130px;
+}
+.botones-con-enlaces-instagram img {
+  width: 100px;
+  height: 100px;
+}
+
+.botones-con-enlaces p,
+.botones-con-enlaces-instagram p {
+  margin: 0;
+}
