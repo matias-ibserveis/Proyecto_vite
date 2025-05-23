@@ -1,5 +1,19 @@
 /* src/style.css */
 
+/* Logo Styles */
+.logo-container {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.logo-circle {
+  width: 400px; /* Ensure width and height are equal */
+  height: 400px;
+  border-radius: 50%; /* Makes the logo circular */
+  object-fit: cover; /* Ensures the image fits within the circular frame */
+  display: block; /* Ensures the image respects the dimensions */
+}
+
 /* Cart Section */
 .cart-section {
   border: 2px solid #0a0b0c;
@@ -174,7 +188,7 @@
   text-align: center !important;
 }
 
-/* Comprar Button (now below the table) */
+/* Comprar Button (below the table) */
 .comprar-btn {
   background-color: #17a2b8;
   color: white;
@@ -192,7 +206,7 @@
   background-color: #138496;
 }
 
-/* Add Product Button (now top right) */
+/* Add Product Button (top right) */
 .add-product-btn {
   background-color: #17a2b8;
   color: white;

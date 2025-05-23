@@ -166,7 +166,7 @@ export function CartComponent() {
     const buttons = cartDiv.querySelectorAll('.cart-btn');
     buttons.forEach(btn => {
       btn.addEventListener('click', () => {
-        console.log('Button clicked:', btn.classList, btn.dataset.id, 'Class contains plus:', btn.classList.contains('plus-btn'));
+        console.log('Cart button clicked:', btn.classList, btn.dataset.id);
         const id = btn.dataset.id;
         const cesta = JSON.parse(localStorage.getItem('cesta') || '{}');
         if (!cesta[id]) {
@@ -192,41 +192,53 @@ export function CartComponent() {
 
     // Event listener for the "+" button to open the product selection popup
     addProductBtn.addEventListener('click', async () => {
+      console.log('Add product button clicked');
       popupOverlay.classList.remove('hidden');
       await renderProductList();
     });
 
     // Event listener to close the product selection popup
     closePopupBtn.addEventListener('click', () => {
+      console.log('Closing product selection popup');
       popupOverlay.classList.add('hidden');
     });
 
     // Close product selection popup when clicking outside
     popupOverlay.addEventListener('click', (e) => {
       if (e.target === popupOverlay) {
+        console.log('Closing popup by clicking outside');
         popupOverlay.classList.add('hidden');
       }
     });
 
     // Event listener for the "COMPRAR" button to show the confirmation popup
     comprarBtn.addEventListener('click', () => {
-      confirmOverlay.classList.remove('hidden');
+      console.log('COMPRAR button clicked'); // Debug log
+      if (confirmOverlay) {
+        console.log('Showing confirmation popup');
+        confirmOverlay.classList.remove('hidden');
+      } else {
+        console.error('confirmOverlay is not defined');
+      }
     });
 
     // Event listener to close the confirmation popup
     confirmCloseBtn.addEventListener('click', () => {
+      console.log('Closing confirmation popup');
       confirmOverlay.classList.add('hidden');
     });
 
     // Close confirmation popup when clicking outside
     confirmOverlay.addEventListener('click', (e) => {
       if (e.target === confirmOverlay) {
+        console.log('Closing confirmation popup by clicking outside');
         confirmOverlay.classList.add('hidden');
       }
     });
 
     // Event listener for "¡Compra Ya!" button (placeholder for purchase logic)
     comprarAhoraBtn.addEventListener('click', () => {
+      console.log('Compra Ya button clicked');
       confirmOverlay.classList.add('hidden');
       // Add purchase logic here in the future
     });
