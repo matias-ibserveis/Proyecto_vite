@@ -115,7 +115,7 @@ h1, h2, h3 {
   margin-top: 2em;
 }
 
-.FinalCookiesLegal {
+.FinalLegalidades {
   margin-bottom: 5em;
 }
 
@@ -161,4 +161,9 @@ h1, h2, h3 {
   border-radius: 10px;
 }
 
-
+.Ultimo_texto_legalidadesto {
+  margin-top: 2em;
+  font-size: 1.2em;
+  font-weight: bold;
+  bottom: 122px;
+}
