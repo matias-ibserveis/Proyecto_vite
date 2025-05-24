@@ -1,32 +1,31 @@
-
 export async function renderCesta(container) {
   const urlParams = new URLSearchParams(window.location.search);
   const nuevoId = urlParams.get("id");
 
-  await inicializarCestaSiNecesario()
+  let cesta = await inicializarCestaSiNecesario(); // devuelve la cesta actual
+  //console.log("CESTA DESPUÉS DE INICIALIZAR:", cesta);
 
-if (nuevoId) {
-  const cesta = JSON.parse(localStorage.getItem("cesta") || "{}");
-
-  if (cesta[nuevoId]) {      // Ya existe, sumamos 1
-    cesta[nuevoId].cantidad += 1;
-  } else {
-    try {
-      const res = await fetch(`https://proyectorailway-production-9739.up.railway.app/api/producto/${nuevoId}`);
-      const producto = await res.json();
-      cesta[nuevoId] = {
-        titulo: producto.titulo,
-        cantidad: 1,
-        unidad_medido: producto.unidad_medido,
-        precio: producto.precio,
-        origen: 'manual'
-      };
-    } catch (err) {
-      console.error("Error al añadir producto por ID en URL:", err);
+  if (nuevoId) {
+    if (cesta[nuevoId]) {
+      cesta[nuevoId].cantidad += 1;
+    } else {
+      try {
+        const res = await fetch(`https://proyectorailway-production-9739.up.railway.app/api/producto/${nuevoId}`);
+        const producto = await res.json();
+        cesta[nuevoId] = {
+          titulo: producto.titulo,
+          cantidad: 1,
+          unidad_medido: producto.unidad_medido,
+          precio: producto.precio,
+          origen: 'manual'
+        };
+      } catch (err) {
+        console.error("Error al añadir producto por ID en URL:", err);
+      }
     }
+    localStorage.setItem("cesta", JSON.stringify(cesta));
   }
-  localStorage.setItem("cesta", JSON.stringify(cesta));
-}
+  
 
   const tabla = document.createElement('table');
   tabla.className = 'table table-bordered';
@@ -77,13 +76,11 @@ if (nuevoId) {
 
 
 async function inicializarCestaSiNecesario() {
-  const cesta = localStorage.getItem('cesta');
-
-  if (!cesta || cesta === '{}' || Object.keys(JSON.parse(cesta)).length === 0) {
+  const cestaRaw = localStorage.getItem('cesta');
+  if (!cestaRaw || cestaRaw === '{}' || Object.keys(JSON.parse(cestaRaw)).length === 0) {
     try {
       const res = await fetch('https://proyectorailway-production-9739.up.railway.app/listados/cesta/1');
       const productos = await res.json();
-      console.log("productos lista", productos)
       const cestaInicial = {};
       productos.forEach(p => {
         cestaInicial[p.id] = {
@@ -93,15 +90,21 @@ async function inicializarCestaSiNecesario() {
           precio: p.precio
         };
       });
-
       localStorage.setItem('cesta', JSON.stringify(cestaInicial));
-      console.log("cesta lista setItem", localStorage.getItem('cesta'));
-
+      return cestaInicial; // <-- RETORNA UN OBJETO SIEMPRE
     } catch (err) {
       console.error('Error cargando productos:', err);
+      return {}; // <-- Asegura retorno válido
     }
   }
+
+  try {
+    return JSON.parse(cestaRaw);
+  } catch {
+    return {}; // <-- fallback si JSON.parse falla
+  }
 }
+
 
 
 function mostrarCesta() {
