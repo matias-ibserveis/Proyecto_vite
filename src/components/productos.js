@@ -1,18 +1,6 @@
 import { crearModalIA, mostrarRespuestaIA } from "./iaModal.js"; // Ajusta ruta según tu estructura
 
 
-window.addEventListener('DOMContentLoaded', () => {
-  const volverY = sessionStorage.getItem('prevScrollY');
-  if (volverY !== null) {
-    setTimeout(() => {
-      window.scrollTo(0, parseInt(volverY, 10));
-      sessionStorage.removeItem('prevScrollY');
-    }, 500); // pequeño retardo
-  }
-});
-
-
-
 export async function Productos() {
 
   crearModalIA();
@@ -30,39 +18,11 @@ export async function Productos() {
     <div class="row" id="productos-lista"></div>
   `;
 
-
-
   const contenedor = productos.querySelector("#productos-lista");
 
-  // Función para renderizar productos
+
   const renderizarProductos = (lista) => {
-
-    function irACesta(producto) {
-      const cesta = JSON.parse(localStorage.getItem('cesta') || '{}');
-      if (!cesta[producto.id]) {
-        cesta[producto.id] = {
-          titulo: producto.titulo,
-          cantidad: 1,
-          unidad_medido: producto.unidad_medido,
-          precio: producto.precio,
-          origen: 'manual'
-        };
-      } else {
-        cesta[producto.id].cantidad += 1;
-      }
-
-      localStorage.setItem('cesta', JSON.stringify(cesta));
-
-      const scrollY = window.scrollY;
-      const currentURL = window.location.href;
-      sessionStorage.setItem('prevScrollY', scrollY);
-      sessionStorage.setItem('prevURL', currentURL);
-
-      // Redirigir
-      window.location.href = '/cesta.html';
-    }
-    contenedor.innerHTML = ""; // limpiar
-
+    //contenedor.innerHTML = ""; // limpiar
     lista.forEach(producto => {
       const col = document.createElement("div");
       col.className = "col-md-4";
@@ -79,29 +39,32 @@ export async function Productos() {
           <img src="${imageUrl}" class="card-img-top" alt="${producto.titulo}">
           <div class="card-body">
               <h5 class="card-title">
-                <a href="producto.html?id=${producto.id}" class="text-decoration-none text-dark">
                   ${producto.titulo}
-                </a>
               </h5>
               <p class="card-text" id="desc-${producto.id}">
                 ${primerasFrases}
-                <a class="text-primary ver-mas" style="cursor:pointer;" href="producto.html?id=${producto.id}">ver +</a>
+                <button class="btn-vermas" data-id="${producto.id}">ver +</button>
               </p>
               <button class="btn btn-secondary mt-2 btn-ia" data-id="${producto.id}">+información IA</button>
               <p></p>
-              <a href="cesta.html?id=${producto.id}" class="text-decoration-none text-dark"> a la cesta! </a>
+              <button class="btn btn-secondary mt-2 btn-a-cesta" data-id="${producto.id}">a la cesta</button>
           </div>
         </div>
       `;
 
       contenedor.appendChild(col);
 
-      /* Evento "a la cesta"
+      // Evento "a la cesta"
       const botonCesta = col.querySelector(".btn-a-cesta");
       botonCesta.addEventListener("click", () => {
-        irACesta(producto);
+        irACestaConProducto(producto.id);
       });
-      */
+
+      // Evento "ver más"
+      const botonvermas = col.querySelector(".btn-vermas");
+      botonvermas.addEventListener("click", () => {
+        irAsoloProducto(producto.id);
+      });
 
       // Evento "Info IA"
       const botonia = col.querySelector(".btn-ia");
@@ -119,8 +82,41 @@ export async function Productos() {
         });
       });
 
+
+      // Ir a POS Y
+      const y = sessionStorage.getItem("prevScrollY");
+      if (y !== null) {
+        const intentarScroll = () => {
+          if (document.querySelector("#productos")) {
+            setTimeout(() => {
+              window.scrollTo(0, parseInt(y));
+              sessionStorage.removeItem("prevScrollY");
+            }, 100);
+          } else {
+            requestAnimationFrame(intentarScroll);
+          }
+        };
+        intentarScroll();
+      }
+
+
     });
   };
+
+
+
+  function irACestaConProducto(id) {
+    sessionStorage.setItem("prevScrollY", window.scrollY);
+    sessionStorage.setItem("prevURL", window.location.href);
+    window.location.href = `/cesta.html?id=${id}`;
+  }
+
+   function irAsoloProducto(id) {
+    sessionStorage.setItem("prevScrollY", window.scrollY);
+    sessionStorage.setItem("prevURL", window.location.href);
+    window.location.href = `/producto.html?id=${id}`;
+  }
+
 
 
   // fetch inicial y búsqueda

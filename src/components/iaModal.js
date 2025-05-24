@@ -107,8 +107,7 @@ export async function mostrarRespuestaIA(producto) {
         esPrimeraPregunta: true
       })
     });
-    console.log("prod.desc", producto.descripcion)
-    console.log("res", res)
+    //console.log("res", res)
     const data = await res.json();
     iaTexto.innerHTML = `${data.respuesta
       .split("\n")

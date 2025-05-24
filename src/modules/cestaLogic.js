@@ -25,7 +25,7 @@ export async function renderCesta(container) {
     }
     localStorage.setItem("cesta", JSON.stringify(cesta));
   }
-  
+
 
   const tabla = document.createElement('table');
   tabla.className = 'table table-bordered';
@@ -46,25 +46,26 @@ export async function renderCesta(container) {
   container.innerHTML = '';
   container.appendChild(tabla);
 
-  // Botón volver
-  const prevY = sessionStorage.getItem('prevScrollY');
-  const prevURL = sessionStorage.getItem('prevURL');
-
   const botonesDiv = document.createElement('div');
   botonesDiv.style.display = 'flex'; botonesDiv.style.justifyContent = 'space-between';
   botonesDiv.style.width = '90%'; botonesDiv.style.margin = '6rem 2rem 0 2rem'; // top right bottom left
   botonesDiv.style.gap = '1rem'; // opcional: espacio entre botones
 
   // Botón Volver
+  const prevY = sessionStorage.getItem('prevScrollY');
+  const prevURL = sessionStorage.getItem('prevURL');
+
   if (prevURL && prevY !== null) {
-  const volverBtn = document.createElement('button');
-  volverBtn.textContent = 'Volver';
-  volverBtn.className = 'btn btn-outline-primary mb-3';
-  volverBtn.addEventListener('click', () => {
-    window.location.href = prevURL;
-  });
-  botonesDiv.appendChild(volverBtn);
+    const volverBtn = document.createElement('button');
+    volverBtn.textContent = 'Volver';
+    volverBtn.className = 'btn btn-outline-primary mb-3';
+    volverBtn.addEventListener('click', () => {
+      window.location.href = prevURL;
+      // También podrías guardar prevY en sessionStorage para restaurarlo después si usas SPA
+    });
+    botonesDiv.appendChild(volverBtn);
   }
+
 
   // Añadir al contenedor principal
   container.appendChild(botonesDiv);
