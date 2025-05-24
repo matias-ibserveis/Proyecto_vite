@@ -3,25 +3,30 @@ export async function renderCesta(container) {
   const urlParams = new URLSearchParams(window.location.search);
   const nuevoId = urlParams.get("id");
 
-  if (nuevoId) {
-    const cesta = JSON.parse(localStorage.getItem("cesta") || "{}");
-    if (!cesta[nuevoId]) {
-      try {
-        const res = await fetch(`https://proyectorailway-production-9739.up.railway.app/api/producto/${nuevoId}`);
-        const producto = await res.json();
-        cesta[nuevoId] = {
-          titulo: producto.titulo,
-          cantidad: 1,
-          unidad_medido: producto.unidad_medido,
-          precio: producto.precio,
-          origen: 'manual'
-        };
-        localStorage.setItem("cesta", JSON.stringify(cesta));
-      } catch (err) {
-        console.error("Error al añadir producto por ID en URL:", err);
-      }
+  await inicializarCestaSiNecesario()
+
+if (nuevoId) {
+  const cesta = JSON.parse(localStorage.getItem("cesta") || "{}");
+
+  if (cesta[nuevoId]) {      // Ya existe, sumamos 1
+    cesta[nuevoId].cantidad += 1;
+  } else {
+    try {
+      const res = await fetch(`https://proyectorailway-production-9739.up.railway.app/api/producto/${nuevoId}`);
+      const producto = await res.json();
+      cesta[nuevoId] = {
+        titulo: producto.titulo,
+        cantidad: 1,
+        unidad_medido: producto.unidad_medido,
+        precio: producto.precio,
+        origen: 'manual'
+      };
+    } catch (err) {
+      console.error("Error al añadir producto por ID en URL:", err);
     }
   }
+  localStorage.setItem("cesta", JSON.stringify(cesta));
+}
 
   const tabla = document.createElement('table');
   tabla.className = 'table table-bordered';
@@ -52,31 +57,33 @@ export async function renderCesta(container) {
   botonesDiv.style.gap = '1rem'; // opcional: espacio entre botones
 
   // Botón Volver
-  //if (prevURL && prevY !== null) {
-    const volverBtn = document.createElement('button');
-    volverBtn.textContent = 'Volver';
-    volverBtn.className = 'btn btn-outline-primary mb-3';
-    volverBtn.addEventListener('click', () => {
-      window.location.href = prevURL;
-    });
-    botonesDiv.appendChild(volverBtn);
-  //}
+  if (prevURL && prevY !== null) {
+  const volverBtn = document.createElement('button');
+  volverBtn.textContent = 'Volver';
+  volverBtn.className = 'btn btn-outline-primary mb-3';
+  volverBtn.addEventListener('click', () => {
+    window.location.href = prevURL;
+  });
+  botonesDiv.appendChild(volverBtn);
+  }
 
   // Añadir al contenedor principal
   container.appendChild(botonesDiv);
 
 
-  inicializarCestaSiNecesario().then(mostrarCesta);
+  await mostrarCesta()
+
 }
+
 
 async function inicializarCestaSiNecesario() {
   const cesta = localStorage.getItem('cesta');
-  const params = new URLSearchParams(window.location.search);
 
-  if (!cesta || cesta === '{}' && !params.has('id')) {
+  if (!cesta || cesta === '{}' || Object.keys(JSON.parse(cesta)).length === 0) {
     try {
       const res = await fetch('https://proyectorailway-production-9739.up.railway.app/listados/cesta/1');
       const productos = await res.json();
+      console.log("productos lista", productos)
       const cestaInicial = {};
       productos.forEach(p => {
         cestaInicial[p.id] = {
@@ -88,12 +95,13 @@ async function inicializarCestaSiNecesario() {
       });
 
       localStorage.setItem('cesta', JSON.stringify(cestaInicial));
+      console.log("cesta lista setItem", localStorage.getItem('cesta'));
+
     } catch (err) {
       console.error('Error cargando productos:', err);
     }
   }
 }
-
 
 
 function mostrarCesta() {
@@ -128,12 +136,10 @@ function mostrarCesta() {
       <td>${precio.toFixed(2)} €</td>
       <td id="total-${id}">${totalItem.toFixed(2)} €</td>
     `;
-
     cuerpo.appendChild(tr);
   });
 
   totalGeneralEl.textContent = `${total.toFixed(2)} €`;
-
 
   cuerpo.querySelectorAll('button[data-action]').forEach(btn => {
     btn.addEventListener('click', () => {
