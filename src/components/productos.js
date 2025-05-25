@@ -22,7 +22,7 @@ export async function Productos() {
 
 
   const renderizarProductos = (lista) => {
-    //contenedor.innerHTML = ""; // limpiar
+    contenedor.innerHTML = ""; // limpiar
     lista.forEach(producto => {
       const col = document.createElement("div");
       col.className = "col-md-4";
@@ -46,7 +46,6 @@ export async function Productos() {
                 <button class="btn-vermas" data-id="${producto.id}">ver +</button>
               </p>
               <button class="btn btn-secondary mt-2 btn-ia" data-id="${producto.id}">+información IA</button>
-              <p></p>
               <button class="btn btn-secondary mt-2 btn-a-cesta" data-id="${producto.id}">a la cesta</button>
           </div>
         </div>
@@ -145,6 +144,7 @@ export async function Productos() {
         });
 
         const resultados = await resp.json();
+        console.log("resultados",resultados)
         renderizarProductos(resultados);
 
       } catch (err) {
