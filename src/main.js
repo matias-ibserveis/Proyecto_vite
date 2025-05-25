@@ -4,24 +4,23 @@ import { Productos } from './components/productos.js';
 import { Comentarios } from './components/comentarios.js';
 import { BotonVerde } from './components/botonwhatsapp.js';
 import { Contacto} from './components/contacto.js';
-
-const contenedor = document.createElement('div');
-contenedor.style.maxWidth = '1360px';
-contenedor.style.margin = '0 auto'; // centrar horizontalmente
-contenedor.style.padding = '0 1rem'; // opcional: algo de espacio lateral
+import { CookiesBanner } from './components/CookiesBanner.js';
+import { Footer } from './components/Footer.js';
 
 (async () => {
-  contenedor.append(Navbar());
+  app.append(Navbar());
+
   const productosPortada = await Header();
-  contenedor.append(productosPortada);
+  app.append(productosPortada);
 
   const productos = await Productos();
-  contenedor.append(productos);
+  app.append(productos);
+  app.append(Comentarios());
+  app.append(Contacto());
+  app.append(Footer());
+  app.append(BotonVerde());
 
-  contenedor.append(Comentarios());
-  contenedor.append(Contacto());
-
-  app.append(contenedor); // Añadir el contenedor al DOM al final
+  CookiesBanner(); // <-- Añade esta línea
 })();
 
 
