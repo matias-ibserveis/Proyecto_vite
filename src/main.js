@@ -2,6 +2,7 @@ import { Navbar } from './components/navbar.js';
 import { Header } from './components/header.js';
 import { Productos } from './components/productos.js';
 import { Comentarios } from './components/comentarios.js';
+import { BotonVerde } from './components/botonwhatsapp.js';
 import { Contacto} from './components/contacto.js';
 
 const contenedor = document.createElement('div');
@@ -24,18 +25,5 @@ contenedor.style.padding = '0 1rem'; // opcional: algo de espacio lateral
 })();
 
 
-
-
-/*
-(async () => {
-  app.append(Navbar());
-  const productosPortada = await Header();
-  app.append(productosPortada)
-  const productos = await Productos();
-  app.append(productos);
-  app.append(Comentarios());
-  app.append(Contacto())
-})();
-*/
 
 

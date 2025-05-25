@@ -1,5 +1,8 @@
 :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  --main-color: #d1ab72;
+  --secondary-color: #6d5839;
+  --terciary-color: #fcff64;
   line-height: 1.5;
   font-weight: 400;
 
@@ -65,17 +68,26 @@ h1 {
 
 button {
   border-radius: 8px;
-  border: 1px solid transparent;
   padding: 0.6em 1.2em;
   font-size: 1em;
   font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
+  font-family: "Hanken Grotesk", sans-serif !important;
+  font-weight: 600 !important;
+  background-color: var(--main-color) !important;
+  color: var(--secondary-color) !important;
+  border-color: var(--main-color) !important;
   cursor: pointer;
-  transition: border-color 0.25s;
+  transition: border-color 0.25s, background 0.25s, color 0.25s;
 }
+/* Botón de WhatsApp (La excepción) */
+.btn-aloja {
+  font-family: 'Aloja Extended', sans-serif !important;
+}
+
 button:hover {
-  border-color: #646cff;
+  border-color: var(--secondary-color) !important;
+  background-color: var(--secondary-color) !important;
+  color: var(--main-color) !important;
 }
 button:focus,
 button:focus-visible {
@@ -91,6 +103,113 @@ button:focus-visible {
     color: #747bff;
   }
   button {
-    background-color: #f9f9f9;
+    background-color: var(--main-color) !important;
+    color: var(--secondary-color) !important;
   }
+}
+
+.navbar-custom {
+  background-color: #d1ab72;  /* fondo personalizado */
+  border: none;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  border-radius: 10px 10px 10px 10px;
+  padding: 10px 20px;
+  font-size: 15px;
+  font-family: 'Aloja Extended', sans-serif;
+  letter-spacing: normal;
+  margin-bottom: 5px;
+}
+
+/* Marca (nombre/logo) */
+.navbar-custom .navbar-brand {
+  color: white !important;
+  font-family: 'Aloja Extended', sans-serif !important;
+  font-size: 25px;
+}
+
+/* Enlaces de navegación */
+.navbar-custom .navbar-nav .nav-link {
+  color: #6d5839 !important;
+  font-family: 'Aloja Extended', sans-serif;
+  font-size: 18px;
+  transition: background 0.2s, color 0.2s;
+}
+
+/* Hover en enlaces */
+.navbar-custom .navbar-nav .nav-link:hover,
+.navbar-custom .navbar-nav .nav-link.active {
+  color: #000000 !important;
+  background-color: #ffffff !important;
+}
+
+/* Botón hamburguesa */
+.navbar-custom .navbar-toggler {
+  border-color: #ffffff;
+  background-color: #d1ab72;
+}
+.navbar-custom .navbar-toggler-icon {
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(0,0,0,0.7)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+}
+
+/* Enlace activo */
+.navbar-custom .navbar-nav .nav-link.active {
+  color: #443723 !important;
+  background-color: #fff !important;
+}
+
+/* Estilo para los titulos */
+.titulo {
+  color: #ffffff;
+  text-align: center;
+  border-radius: 10px 10px 10px 10px;
+  margin-bottom: 15px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  font-size: 30px;
+  background-color:#d1ab72;
+  font-family: 'Aloja Extended', sans-serif;
+}
+.carousel-control-prev,
+.carousel-control-next {
+  background: rgba(255,255,255,0.08); /* fondo casi transparente */
+  border-radius: 50%;
+  width: 3rem;
+  height: 3rem;
+  top: 50%;
+  transform: translateY(-50%);
+  opacity: 1;
+}
+
+.carousel-control-prev:hover,
+.carousel-control-next:hover {
+  background: rgba(255,255,255,0.18); /* un poco menos transparente al pasar el ratón */
+}
+
+.botones-con-enlaces,
+.botones-con-enlaces-instagram {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Aloja Extended', sans-serif;
+  font-size: 18px;
+  gap: 10px;
+  width: 480px;         /* ancho fijo para ambos botones */
+  height: 160px;         /* alto fijo para ambos botones */
+  margin: 0 auto;       /* centra horizontalmente */
+  padding: 0 16px;
+  box-sizing: border-box;
+}
+
+.botones-con-enlaces img {
+  width: 130px;
+  height: 130px;
+}
+.botones-con-enlaces-instagram img {
+  width: 100px;
+  height: 100px;
+}
+
+.botones-con-enlaces p,
+.botones-con-enlaces-instagram p {
+  margin: 0;
 }

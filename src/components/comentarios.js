@@ -2,7 +2,7 @@ export function Comentarios() {
   // Crear contenedor principal
   const container = document.createElement("section");
   container.className = "comentarios";
-  container.innerHTML = `<h2>Comentarios de Usuarios</h2><p>Cargando...</p>`;
+  container.innerHTML = `<h2 class="titulo">Comentarios de Usuarios</h2><p>Cargando...</p>`;
 
   // Función para cargar usuarios
   async function cargarUsuarios() {
