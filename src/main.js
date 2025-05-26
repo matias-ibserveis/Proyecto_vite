@@ -4,7 +4,7 @@ import { Productos } from './components/productos.js';
 import { Comentarios } from './components/comentarios.js';
 import { BotonVerde } from './components/botonwhatsapp.js';
 import { Contacto} from './components/contacto.js';
-import { CookiesBanner } from './components/CookiesBanner.js';
+import { EmpanadaBanner } from './components/EmpanadaBanner.js';
 import { Footer } from './components/Footer.js';
 
 (async () => {
@@ -20,7 +20,7 @@ import { Footer } from './components/Footer.js';
   app.append(Footer());
   app.append(BotonVerde());
 
-  CookiesBanner(); // <-- Añade esta línea
+  EmpanadaBanner(); // <-- Añade esta línea
 })();
 
 

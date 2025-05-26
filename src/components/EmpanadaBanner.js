@@ -1,11 +1,10 @@
-export function CookiesBanner() {
-  function injectCookiesStyles() {
-    if (document.getElementById('cookies-styles')) return;
+export function EmpanadaBanner() {
+  function injectEmpanadasStyles() {
+    if (document.getElementById('empanadas-styles')) return;
     const style = document.createElement('style');
-    style.id = 'cookies-styles';
+    style.id = 'empanadas-styles';
     style.textContent = `
-      /* --- Botón flotante de cookies --- */
-      .cookies-btn-flotante {
+      .empanadas-btn-flotante {
         position: fixed;
         bottom: 70px;
         right: 24px;
@@ -19,14 +18,13 @@ export function CookiesBanner() {
         opacity: 0.7;
         transition: filter 0.2s, transform 0.2s, opacity 0.2s;
       }
-      .cookies-btn-flotante:hover {
+      .empanadas-btn-flotante:hover {
         opacity: 1;
         filter: brightness(2);
         transform: scale(1.13);
       }
 
-      /* --- Overlay para bloquear la página --- */
-      .cookies-overlay {
+      .empanadas-overlay {
         position: fixed;
         top: 0; left: 0;
         width: 100vw; height: 100vh;
@@ -36,8 +34,7 @@ export function CookiesBanner() {
         user-select: none;
       }
 
-      /* --- Banner de cookies central --- */
-      .cookies-banner {
+      .empanadas-banner {
         position: fixed;
         top: 50%; left: 50%;
         transform: translate(-50%, -50%);
@@ -54,29 +51,28 @@ export function CookiesBanner() {
         box-shadow: 0 4px 16px rgb(0, 0, 0);
         z-index: 1001;
       }
-      .cookies-banner-text {
+      .empanadas-banner-text {
         text-align: center;
       }
-      .cookies-banner-inner {
+      .empanadas-banner-inner {
         display: flex;
         flex-direction: column;
         align-items: center;
         gap: 11px;
         border-radius: 10px;
       }
-      .cookies-banner-img {
+      .empanadas-banner-img {
         width: 150px;
         height: 150px;
       }
-      .cookies-banner-btns {
+      .empanadas-banner-btns {
         display: flex;
         gap: 12px;
         justify-content: center;
       }
-      /* --- Botones del banner --- */
-      .cookies-btn-info,
-      .cookies-btn-aceptar,
-      .cookies-btn-rechazar {
+      .empanadas-btn-info,
+      .empanadas-btn-aceptar,
+      .empanadas-btn-rechazar {
         background: #222;
         opacity: 0.7;
         color: #fff;
@@ -86,19 +82,19 @@ export function CookiesBanner() {
         cursor: pointer;
         transition: background 0.2s, opacity 0.2s, filter 0.2s, transform 0.2s;
       }
-      .cookies-btn-info:hover {
+      .empanadas-btn-info:hover {
         opacity: 1;
         background: #0af;
         filter: brightness(1.3);
         transform: scale(1.13);
       }
-      .cookies-btn-aceptar:hover {
+      .empanadas-btn-aceptar:hover {
         opacity: 1;
         background: #27ae60;
         filter: brightness(1.3);
         transform: scale(1.13);
       }
-      .cookies-btn-rechazar:hover {
+      .empanadas-btn-rechazar:hover {
         opacity: 1;
         background: #c0392b;
         filter: brightness(1.3);
@@ -108,67 +104,67 @@ export function CookiesBanner() {
     document.head.appendChild(style);
   }
 
-  // --- Utilidades para cookies ---
-  function setCookie(name, value, days) {
-    const expires = days
-      ? "; expires=" + new Date(Date.now() + days * 864e5).toUTCString()
-      : "";
-    document.cookie = name + "=" + encodeURIComponent(value) + expires + "; path=/";
-  }
-  function getCookie(name) {
-    return document.cookie.split('; ').find(row => row.startsWith(name + '='))?.split('=')[1];
-  }
-  function deleteCookie(name) {
-    document.cookie = name + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-  }
+  // --- Utilidades para empanadas ---
+function setEmpanada(name, value, days) {
+  const expires = days
+    ? "; expires=" + new Date(Date.now() + days * 864e5).toUTCString()
+    : "";
+  document.cookie = name + "=" + encodeURIComponent(value) + expires + "; path=/";
+}
+function getEmpanada(name) {
+  return document.cookie.split('; ').find(row => row.startsWith(name + '='))?.split('=')[1];
+}
+function deleteEmpanada(name) {
+  document.cookie = name + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+}
 
-  // --- Botón flotante para gestionar cookies ---
+  // --- Botón flotante para gestionar empanadas ---
   function crearBotonFlotante() {
-    if (document.getElementById('btn-flotante-cookies')) return;
+    if (document.getElementById('btn-flotante-empanadas')) return;
     const btnFlotante = document.createElement('button');
-    btnFlotante.id = 'btn-flotante-cookies';
-    btnFlotante.textContent = "Gestionar Cookies";
-    btnFlotante.className = "cookies-btn-flotante";
+    btnFlotante.id = 'btn-flotante-empanadas';
+    btnFlotante.textContent = "Gestionar Empanadas";
+    btnFlotante.className = "empanadas-btn-flotante";
     btnFlotante.onclick = mostrarBanner;
     document.body.appendChild(btnFlotante);
   }
   function eliminarBotonFlotante() {
-    const btn = document.getElementById('btn-flotante-cookies');
+    const btn = document.getElementById('btn-flotante-empanadas');
     if (btn) btn.remove();
   }
 
-  // --- Banner de cookies (el frame central) ---
+  // --- Banner de empanadas (el frame central) ---
   function mostrarBanner() {
-    if (document.getElementById('cookies-banner')) return;
+    if (document.getElementById('empanadas-banner')) return;
     eliminarBotonFlotante();
 
     // --- Elimina overlays anteriores si existen ---
-    const oldOverlay = document.getElementById('cookies-overlay');
+    const oldOverlay = document.getElementById('empanadas-overlay');
     if (oldOverlay) oldOverlay.remove();
 
     // Overlay para bloquear la página
     const overlay = document.createElement('div');
-    overlay.id = 'cookies-overlay';
-    overlay.className = 'cookies-overlay';
+    overlay.id = 'empanadas-overlay';
+    overlay.className = 'empanadas-overlay';
     overlay.onclick = (e) => e.stopPropagation();
     overlay.onwheel = (e) => e.preventDefault();
     document.body.appendChild(overlay);
 
-    // Banner de cookies
+    // Banner de empanadas
     const banner = document.createElement('div');
-    banner.id = 'cookies-banner';
-    banner.className = 'cookies-banner';
+    banner.id = 'empanadas-banner';
+    banner.className = 'empanadas-banner';
 
     banner.innerHTML = `
-      <span class="cookies-banner-text">
-        Este sitio utiliza cookies para mejorar tu experiencia y darnos información para hacer su estancia en nuestra web más reconfortante.<br>
+      <span class="empanadas-banner-text">
+        Este sitio utiliza empanadas para mejorar tu experiencia y darnos información para hacer su estancia en nuestra web más reconfortante.<br>
       </span>
-      <div class="cookies-banner-inner">
-        <img src="/images/Cookies.png" alt="Cookies" class="cookies-banner-img"/>
-        <button id="mas-informacion" class="cookies-btn-info">Más información</button>
-        <div class="cookies-banner-btns">
-          <button id="aceptar-cookies" class="cookies-btn-aceptar">Aceptar</button>
-          <button id="rechazar-cookies" class="cookies-btn-rechazar">Rechazar</button>
+      <div class="empanadas-banner-inner">
+        <img src="/images/Empanada.png" alt="Empanadas" class="empanadas-banner-img"/>
+        <button id="mas-informacion" class="empanadas-btn-info">Más información</button>
+        <div class="empanadas-banner-btns">
+          <button id="aceptar-empanadas" class="empanadas-btn-aceptar">Aceptar</button>
+          <button id="rechazar-empanadas" class="empanadas-btn-rechazar">Rechazar</button>
         </div>
       </div>
     `;
@@ -177,24 +173,24 @@ export function CookiesBanner() {
     // Bloquear scroll de fondo mientras el banner está activo
     document.body.style.overflow = 'hidden';
 
-    // --- Botón aceptar cookies ---
-    document.getElementById('aceptar-cookies').onclick = () => {
-      setCookie("session_id", Math.random().toString(36).slice(2), 7);
-      setCookie("cart_item", "[]", 7);
-      setCookie("user_logged", "false", 7);
-      setCookie("cookie_content", "accepted", 365);
+    // --- Botón aceptar empanadas ---
+    document.getElementById('aceptar-empanadas').onclick = () => {
+      setEmpanada("session_id", Math.random().toString(36).slice(2), 7);
+      setEmpanada("cart_item", "[]", 7);
+      setEmpanada("user_logged", "false", 7);
+      setEmpanada("empanada_content", "accepted", 365);
       banner.remove();
       overlay.remove();
       document.body.style.overflow = '';
       crearBotonFlotante();
     };
 
-    // --- Botón rechazar cookies ---
-    document.getElementById('rechazar-cookies').onclick = () => {
-      deleteCookie("session_id");
-      deleteCookie("cart_item");
-      deleteCookie("user_logged");
-      deleteCookie("cookie_content");
+    // --- Botón rechazar empanadas ---
+    document.getElementById('rechazar-empanadas').onclick = () => {
+      deleteEmpanada("session_id");
+      deleteEmpanada("cart_item");
+      deleteEmpanada("user_logged");
+      deleteEmpanada("empanada_content");
       banner.remove();
       overlay.remove();
       document.body.style.overflow = '';
@@ -203,13 +199,13 @@ export function CookiesBanner() {
 
     // --- Botón más información ---
     document.getElementById('mas-informacion').onclick = () => {
-      window.open('/Política-Cookies.html', '_blank');
+      window.open('/Política-Empanadas.html', '_blank');
     };
   }
 
   // --- Lógica de inicio: mostrar banner o botón flotante ---
-  injectCookiesStyles(); // Inserta los estilos solo una vez
-  if (!getCookie("cookie_content")) {
+  injectEmpanadasStyles(); // Inserta los estilos solo una vez
+  if (!getEmpanada("empanada_content")) {
     mostrarBanner();
   } else {
     crearBotonFlotante();

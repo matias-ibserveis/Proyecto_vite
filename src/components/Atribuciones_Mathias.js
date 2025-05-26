@@ -2,6 +2,7 @@ export function Atribuciones_Mathias() {
   const div = document.createElement("div");
   div.style.display = "flex";
   div.style.flexDirection = "column";
+
   div.style.alignItems = "center";
   div.style.justifyContent = "center";
   div.style.background = "#f7f7f7";
