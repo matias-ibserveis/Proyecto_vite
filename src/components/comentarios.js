@@ -9,11 +9,12 @@ export function Comentarios() {
     try {
       const response = await fetch("https://jsonplaceholder.typicode.com/users");
       const users = await response.json();
+      const cuatroUsuarios = users.slice(0, 4);
 
       const cards = document.createElement("div");
       cards.className = "user-cards";
 
-      users.forEach((user) => {
+      cuatroUsuarios.forEach((user) => {
         const card = document.createElement("div");
         card.className = "user-card";
 

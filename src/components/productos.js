@@ -125,9 +125,12 @@ export async function Productos() {
     const data = await res.json();
 
 
-    const productosOrdenados = data.sort((a, b) => new Date(b.fecha) - new Date(a.fecha));
+    //const productosOrdenados = data.sort((a, b) => new Date(b.fecha) - new Date(a.fecha));
 
-    const productosRecientes = productosOrdenados.slice(0, 10);
+    //console.log("data",data)
+    const productosRecientes = data.slice(0, 10);
+
+    console.log("productosrecientes",productosRecientes)
     renderizarProductos(productosRecientes);
 
     const buscarBtn = productos.querySelector("#buscarBtn");
@@ -160,8 +163,6 @@ export async function Productos() {
 
 
 
-
-
   // Estilos
   const style = document.createElement("style");
   style.innerHTML = `
@@ -171,7 +172,8 @@ export async function Productos() {
       border-radius: 8px;
     }
     .card-body {
-      padding: 1.5rem;
+      padding: .5rem;
+      text-align:left;
     }
     .card-title {
       font-size: 1.2rem;

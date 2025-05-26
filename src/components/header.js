@@ -27,7 +27,7 @@ export async function Header() {
                  <div class="carousel-inner">
                     ${items}
                 </div>
-                <button class="carousel-btn" data-bs-target="#headerCarousel" data-bs-slide="next"> > </button>
+                <span class="carousel-btn" data-bs-target="#headerCarousel" data-bs-slide="next"> > </span>
             </div>
             <style>
                 .contenedor{
@@ -43,8 +43,9 @@ export async function Header() {
                     border: 2px solid green;
                 }
                 .carousel-btn {
-                    width: 200px;
+                    width: 10%;
                     background: white;
+                    padding-left: 1rem;
                     color:green;
                     border:none;
                     font-size: 4rem;
