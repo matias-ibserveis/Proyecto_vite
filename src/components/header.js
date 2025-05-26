@@ -6,7 +6,7 @@ export async function Header() {
 
     try {
         //const res = await fetch('http://localhost:3000/productos_portada');
-        const res = await fetch('https://proyectorailway-production-9739.up.railway.app/productos_portada');
+        const res = await fetch('https://proyectorailway-prxoduction-9739.up.railway.app/productos_portada');
         const productos = await res.json();
         console.log("productos portada", JSON.stringify(productos, null, 2));
 

@@ -31,6 +31,8 @@ body {
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
+  flex-direction: column;
+  min-height: 140vh;
 }
 
 h1 {
@@ -212,4 +214,32 @@ button:focus-visible {
 .botones-con-enlaces p,
 .botones-con-enlaces-instagram p {
   margin: 0;
+}
+
+
+
+
+
+.top_legalidades {
+  margin-top: 1em;
+}
+
+
+
+.FinalLegalidades {
+  margin-bottom: 5em;
+}
+
+
+.NumeraciónCookies {
+  font-size: 1.3em;      
+  font-weight: bold;     
+  margin-top: 1em;      
+}
+
+.Ultimo_texto_legalidadesto {
+  margin-top: 2em;
+  font-size: 1.2em;
+  font-weight: bold;
+  bottom: 122px;
 }
