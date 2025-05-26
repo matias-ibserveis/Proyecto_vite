@@ -43,7 +43,7 @@ export async function Productos() {
               </h5>
               <p class="card-text" id="desc-${producto.id}">
                 ${primerasFrases}
-                <button class="btn-vermas" data-id="${producto.id}">ver +</button>
+                <span class="ver_mas" data-id="${producto.id}">ver +</span>
               </p>
               <button class="btn btn-secondary mt-2 btn-ia" data-id="${producto.id}">+información IA</button>
               <button class="btn btn-secondary mt-2 btn-a-cesta" data-id="${producto.id}">a la cesta</button>
@@ -60,7 +60,7 @@ export async function Productos() {
       });
 
       // Evento "ver más"
-      const botonvermas = col.querySelector(".btn-vermas");
+      const botonvermas = col.querySelector(".ver_mas");
       botonvermas.addEventListener("click", () => {
         irAsoloProducto(producto.id);
       });
@@ -184,6 +184,14 @@ export async function Productos() {
     .btn-success {
       width: 100%;
       font-size: 1.1rem;
+    }
+    .ver_mas {
+      color: var(--secondary-color); 
+      text-decoration: underline;
+      cursor: pointer;
+      font-size: 1.1rem; 
+      font-weight: 500;
+      font-family: inherit;
     }
     .container {
       max-width: 1200px;
