@@ -27,7 +27,7 @@ export function BotonVerde() {
   toggleBtn.innerHTML = '<img src="images/whatsapp.png" alt="Mostrar/Ocultar" style="width: 25px; height: 25px;">';
   toggleBtn.title = 'Ocultar botón WhatsApp';
   toggleBtn.style.position = 'fixed';
-  toggleBtn.style.right = '285px'; // Posición inicial
+  toggleBtn.style.right = '280px'; // Posición inicial
   toggleBtn.style.bottom = '25px';
   toggleBtn.style.zIndex = '1001';
   toggleBtn.style.backgroundColor = '#cccccc';
