@@ -1,5 +1,14 @@
-import { Navbar } from '../components/navbar.js';
+import { CestaNavbar } from '../components/CestaNavbar.js';
 import { CartComponent } from '../components/cartComponent.js';
 
-document.getElementById('navbar').appendChild(Navbar());
-document.getElementById('cart').appendChild(CartComponent());
+document.addEventListener('DOMContentLoaded', () => {
+  const navbar = document.getElementById('navbar');
+  if (navbar) {
+    navbar.appendChild(CestaNavbar());
+  }
+
+  const cart = document.getElementById('cart');
+  if (cart) {
+    cart.appendChild(CartComponent());
+  }
+});

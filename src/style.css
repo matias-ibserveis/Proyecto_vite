@@ -356,3 +356,120 @@ button:focus-visible {
   border-radius: 50%;
   object-fit: cover;
 }
+
+/* Navbar Container */
+#navbar {
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
+  padding: 0;
+}
+
+/* Cesta Navbar Styles */
+.cesta-navbar {
+  background-color: var(--main-color);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 0;
+  padding: 10px 0;
+  width: 100%;
+  margin: 0;
+  font-family: 'Aloja Extended', 'Arial', sans-serif;
+}
+
+/* Container for full-width layout */
+.cesta-navbar .container-fluid {
+  padding: 0;
+}
+
+/* Styling for the brand (LURA) */
+.cesta-navbar .navbar-brand {
+  color: #ffffff;
+  font-family: 'Aloja Extended', 'Arial', sans-serif;
+  font-size: 25px;
+  font-weight: 400;
+  line-height: 1.5;
+  padding: 0 15px;
+  margin-right: 5px; /* Reduced margin for tighter spacing */
+}
+
+/* Flex container for navigation links and separators */
+.cesta-navbar .nav-links-container {
+  display: flex;
+  align-items: center;
+}
+
+/* Styling for separators (|) */
+.cesta-navbar .nav-separator {
+  color: #ffffff;
+  margin: 0 10px;
+  font-size: 18px;
+}
+
+/* Styling for navigation links */
+.cesta-navbar .navbar-nav .nav-link {
+  color: var(--secondary-color);
+  font-family: 'Aloja Extended', 'Arial', sans-serif;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1.5;
+  padding: 5px 10px;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+/* Active link (CESTA) styling */
+.cesta-navbar .navbar-nav .nav-link.active {
+  color: #6d5839;
+  background-color: var(--main-color);
+  border-radius: 5px;
+  padding: 5px 15px;
+}
+
+/* Hover effect for links */
+.cesta-navbar .navbar-nav .nav-link:hover {
+  color: #000000;
+  background-color: #ffffff;
+  border-radius: 5px;
+}
+
+/* Toggler button for mobile view */
+.cesta-navbar .navbar-toggler {
+  border-color: #ffffff;
+  background-color: var(--main-color);
+}
+
+/* Toggler icon styling */
+.cesta-navbar .navbar-toggler-icon {
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(0,0,0,0.7)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+}
+
+/* Media query for responsiveness on screens below 992px */
+@media (max-width: 992px) {
+  .cesta-navbar .navbar-nav {
+    text-align: left; /* Align left on mobile */
+    flex-direction: column;
+    width: 100%;
+  }
+  .cesta-navbar .nav-links-container {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .cesta-navbar .nav-separator {
+    display: none; /* Hide separators on mobile */
+  }
+  .cesta-navbar .navbar-nav .nav-item {
+    margin: 5px 0;
+    width: 100%;
+  }
+  .cesta-navbar .navbar-nav .nav-link {
+    padding: 5px 15px;
+    width: 100%;
+    text-align: left; /* Align left on mobile */
+  }
+}
+
+/* Font Definition for Aloja Extended */
+@font-face {
+  font-family: 'Aloja Extended';
+  src: url('/public/fonts/AlojaExtended.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}
