@@ -2,23 +2,32 @@ export function Contacto() {
     const contacto = document.createElement("section");
     contacto.className = "container py-5";
     contacto.id = "contacto";
-    contacto.innerHTML = `
-        <h2 class="text-center">Contáctanos</h2>
-        <form>
-            <div class="mb-3">
-                <label for="name" class="form-label">Nombre</label>
-                <input type="text" class="form-control" id="name" placeholder="Tu nombre">
+    contacto.innerHTML = `  
+        <div class="row">
+            <div class="col-md-6">
+                <h2 class="text-center titulo">Contáctanos</h2>  
+                <button class="btn btn-primary botones-con-enlaces" id="btn-whatsapp">
+                    <img src="images/whatsapp.png" alt="WhatsApp" class="whatsapp-icon">
+                    <p>Cóntactanos para cualquier consulta por WhatsApp</p>
+                </button>
             </div>
-            <div class="mb-3">
-                <label for="email" class="form-label">Correo Electrónico</label>
-                <input type="email" class="form-control" id="email" placeholder="nombre@ejemplo.com">
+            <div class="col-md-6">
+                <h2 class="text-center titulo">Nuestro Instagram</h2>  
+                <button class="btn btn-primary botones-con-enlaces-instagram" id="btn-instagram">
+                    <img src="images/instagram.png" alt="Nuestro Instagram" class="instagram-icon">
+                    <p>Enterate de todas las novedades en nuestro Instagram</p>
+                </button>
             </div>
-            <div class="mb-3">
-                <label for="message" class="form-label">Mensaje</label>
-                <textarea class="form-control" id="message" rows="3" placeholder="Tu mensaje"></textarea>
-            </div>
-            <button type="submit" class="btn btn-success">Enviar Mensaje</button>
-        </form>
+        </div>
     `;
+
+    // Ahora añade los eventos:
+    contacto.querySelector('#btn-whatsapp').onclick = () => {
+        window.location.href = "https://wa.me/34600123456";
+    };
+    contacto.querySelector('#btn-instagram').onclick = () => {
+        window.location.href = "https://www.instagram.com/lura.mallorca/?hl=es";
+    };
+
     return contacto;
 }

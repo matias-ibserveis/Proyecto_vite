@@ -1,4 +1,3 @@
-// vite.config.js
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import { resolve } from 'path';
@@ -14,5 +13,9 @@ export default defineConfig({
         producto: resolve(__dirname, 'producto.html')
       },
     },
+  },
+  server: {
+    host: true,
+    allowedHosts: ['.ngrok-free.app'], // permite todos los subdominios de ngrok
   },
 });

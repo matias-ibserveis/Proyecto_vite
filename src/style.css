@@ -1,9 +1,9 @@
 /* ------------------- Variables and Base Styles ------------------- */
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   --main-color: #d1ab72;
   --secondary-color: #6d5839;
-  --terciary-color: #fcff64;
+  --tertiary-color: #fcff64;
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
   color-scheme: light dark;
@@ -19,17 +19,18 @@
 body {
   margin: 0;
   display: flex;
-  place-items: center;
   flex-direction: column;
+  align-items: center;
   min-width: 320px;
-  min-height: 140vh;
+  min-height: 100vh;
 }
 
 a {
   font-weight: 500;
   color: #646cff;
-  text-decoration: inherit;
+  text-decoration: none;
 }
+
 a:hover {
   color: #535bf2;
 }
@@ -51,12 +52,13 @@ h1 {
 .logo {
   height: 6em;
   padding: 1.5em;
-  will-change: filter;
   transition: filter 300ms;
 }
+
 .logo:hover {
   filter: drop-shadow(0 0 2em #646cffaa);
 }
+
 .logo.vanilla:hover {
   filter: drop-shadow(0 0 2em #f7df1eaa);
 }
@@ -65,6 +67,7 @@ h1 {
 .card {
   padding: 1em;
 }
+
 .read-the-docs {
   color: #888;
 }
@@ -74,25 +77,29 @@ button {
   border-radius: 8px;
   padding: 0.6em 1.2em;
   font-size: 1em;
-  font-family: "Hanken Grotesk", sans-serif !important;
-  font-weight: 600 !important;
-  background-color: var(--main-color) !important;
-  color: var(--secondary-color) !important;
-  border-color: var(--main-color) !important;
+  font-weight: 600;
+  font-family: 'Hanken Grotesk', sans-serif;
+  background-color: var(--main-color);
+  color: var(--secondary-color);
+  border: 1px solid var(--main-color);
   cursor: pointer;
-  transition: border-color 0.25s, background 0.25s, color 0.25s;
+  transition: background-color 0.25s, color 0.25s, border-color 0.25s;
 }
+
 button:hover {
-  border-color: var(--secondary-color) !important;
-  background-color: var(--secondary-color) !important;
-  color: var(--main-color) !important;
+  background-color: var(--secondary-color);
+  color: var(--main-color);
+  border-color: var(--secondary-color);
 }
+
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
+
+/* WhatsApp Button Exception */
 .btn-aloja {
-  font-family: 'Aloja Extended', sans-serif !important;
+  font-family: 'Aloja Extended', sans-serif;
 }
 
 /* ------------------- Responsive Theme ------------------- */
@@ -101,48 +108,44 @@ button:focus-visible {
     color: #213547;
     background-color: #ffffff;
   }
+
   a:hover {
     color: #747bff;
-  }
-  button {
-    background-color: var(--main-color) !important;
-    color: var(--secondary-color) !important;
   }
 }
 
 /* ------------------- Navbar ------------------- */
 .navbar-custom {
-  background-color: #d1ab72;
-  border: none;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  background-color: var(--main-color);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   border-radius: 10px;
   padding: 10px 20px;
-  font-size: 15px;
   font-family: 'Aloja Extended', sans-serif;
   margin-bottom: 5px;
 }
 
 .navbar-custom .navbar-brand {
-  color: white !important;
+  color: #ffffff;
   font-size: 25px;
 }
 
 .navbar-custom .navbar-nav .nav-link {
-  color: #6d5839 !important;
+  color: var(--secondary-color);
   font-size: 18px;
-  transition: background 0.2s, color 0.2s;
+  transition: background-color 0.2s, color 0.2s;
 }
 
 .navbar-custom .navbar-nav .nav-link:hover,
 .navbar-custom .navbar-nav .nav-link.active {
-  color: #000000 !important;
-  background-color: #ffffff !important;
+  color: #000000;
+  background-color: #ffffff;
 }
 
 .navbar-custom .navbar-toggler {
   border-color: #ffffff;
-  background-color: #d1ab72;
+  background-color: var(--main-color);
 }
+
 .navbar-custom .navbar-toggler-icon {
   background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(0,0,0,0.7)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
 }
@@ -155,14 +158,14 @@ button:focus-visible {
   margin-bottom: 15px;
   padding: 20px 0;
   font-size: 30px;
-  background-color: #d1ab72;
+  background-color: var(--main-color);
   font-family: 'Aloja Extended', sans-serif;
 }
 
 /* ------------------- Carousel Controls ------------------- */
 .carousel-control-prev,
 .carousel-control-next {
-  background: rgba(255,255,255,0.08);
+  background: rgba(255, 255, 255, 0.08);
   border-radius: 50%;
   width: 3rem;
   height: 3rem;
@@ -170,9 +173,10 @@ button:focus-visible {
   transform: translateY(-50%);
   opacity: 1;
 }
+
 .carousel-control-prev:hover,
 .carousel-control-next:hover {
-  background: rgba(255,255,255,0.18);
+  background: rgba(255, 255, 255, 0.18);
 }
 
 /* ------------------- Botón con Enlace ------------------- */
@@ -184,7 +188,7 @@ button:focus-visible {
   font-family: 'Aloja Extended', sans-serif;
   font-size: 18px;
   gap: 10px;
-  width: 480px;
+  max-width: 480px;
   height: 160px;
   margin: 0 auto;
   padding: 0 16px;
@@ -195,32 +199,51 @@ button:focus-visible {
   width: 130px;
   height: 130px;
 }
+
 .botones-con-enlaces-instagram img {
   width: 100px;
   height: 100px;
 }
+
 .botones-con-enlaces p,
 .botones-con-enlaces-instagram p {
   margin: 0;
+}
+
+@media (max-width: 480px) {
+  .botones-con-enlaces,
+  .botones-con-enlaces-instagram {
+    flex-direction: column;
+    height: auto;
+    padding: 16px;
+  }
+
+  .botones-con-enlaces img,
+  .botones-con-enlaces-instagram img {
+    width: 80px;
+    height: 80px;
+  }
 }
 
 /* ------------------- Legal Content Sections ------------------- */
 .top_legalidades {
   margin-top: 1em;
 }
+
 .FinalLegalidades {
   margin-bottom: 5em;
 }
+
 .NumeraciónCookies {
   font-size: 1.3em;
   font-weight: bold;
   margin-top: 1em;
 }
-.Ultimo_texto_legalidadesto {
+
+.Ultimo_texto_legalidades {
   margin-top: 2em;
   font-size: 1.2em;
   font-weight: bold;
-  bottom: 122px;
 }
 
 /* ------------------- Cart Page Styles ------------------- */
@@ -233,7 +256,8 @@ button:focus-visible {
   margin: 0 auto;
 }
 
-.left-panel, .right-panel {
+.left-panel,
+.right-panel {
   flex: 1;
   background-color: #f8f9fa;
   padding: 1rem;
@@ -269,9 +293,9 @@ button:focus-visible {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 0;
   transition: background-color 0.3s ease;
 }
+
 .remove-btn:hover {
   background-color: #c82333;
 }
@@ -297,13 +321,14 @@ button:focus-visible {
   border-radius: 5px;
   cursor: pointer;
   font-weight: bold;
-  width: auto;
-  display: block;
-  margin: 0 auto;
 }
+
 @media (max-width: 768px) {
+  .cart-container {
+    flex-direction: column;
+  }
+
   .pay-btn {
-    width: auto;
     padding: 0.5rem 2rem;
   }
 }
@@ -312,6 +337,7 @@ button:focus-visible {
 .navbar {
   margin-bottom: 1rem;
 }
+
 .content-wrapper {
   padding-top: 1rem;
 }
@@ -322,6 +348,7 @@ button:focus-visible {
   align-items: center;
   margin-bottom: 1rem;
 }
+
 .logo-circle {
   width: 100%;
   max-width: 200px;
