@@ -1,18 +1,6 @@
 import { crearModalIA, mostrarRespuestaIA } from "./iaModal.js"; // Ajusta ruta según tu estructura
 
 
-window.addEventListener('DOMContentLoaded', () => {
-  const volverY = sessionStorage.getItem('prevScrollY');
-  if (volverY !== null) {
-    setTimeout(() => {
-      window.scrollTo(0, parseInt(volverY, 10));
-      sessionStorage.removeItem('prevScrollY');
-    }, 500); // pequeño retardo
-  }
-});
-
-
-
 export async function Productos() {
 
   crearModalIA();
@@ -22,7 +10,7 @@ export async function Productos() {
   productos.id = "productos";
 
   productos.innerHTML = `
-    <h2 class="text-center">Nuestros Productos</h2>
+    <h2 class="text-center titulo">Nuestros Productos</h2>
     <div class="mb-4">
       <input type="text" id="busquedaInput" class="form-control" placeholder="Buscar productos ...">
       <button id="buscarBtn" class="btn btn-primary mt-2">Buscar</button>
@@ -30,39 +18,11 @@ export async function Productos() {
     <div class="row" id="productos-lista"></div>
   `;
 
-
-
   const contenedor = productos.querySelector("#productos-lista");
 
-  // Función para renderizar productos
+
   const renderizarProductos = (lista) => {
-
-    function irACesta(producto) {
-      const cesta = JSON.parse(localStorage.getItem('cesta') || '{}');
-      if (!cesta[producto.id]) {
-        cesta[producto.id] = {
-          titulo: producto.titulo,
-          cantidad: 1,
-          unidad_medido: producto.unidad_medido,
-          precio: producto.precio,
-          origen: 'manual'
-        };
-      } else {
-        cesta[producto.id].cantidad += 1;
-      }
-
-      localStorage.setItem('cesta', JSON.stringify(cesta));
-
-      const scrollY = window.scrollY;
-      const currentURL = window.location.href;
-      sessionStorage.setItem('prevScrollY', scrollY);
-      sessionStorage.setItem('prevURL', currentURL);
-
-      // Redirigir
-      window.location.href = '/cesta.html';
-    }
     contenedor.innerHTML = ""; // limpiar
-
     lista.forEach(producto => {
       const col = document.createElement("div");
       col.className = "col-md-4";
@@ -79,17 +39,14 @@ export async function Productos() {
           <img src="${imageUrl}" class="card-img-top" alt="${producto.titulo}">
           <div class="card-body">
               <h5 class="card-title">
-                <a href="producto.html?id=${producto.id}" class="text-decoration-none text-dark">
                   ${producto.titulo}
-                </a>
               </h5>
               <p class="card-text" id="desc-${producto.id}">
                 ${primerasFrases}
-                <a class="text-primary ver-mas" style="cursor:pointer;" href="producto.html?id=${producto.id}">ver +</a>
+                <span class="ver_mas" data-id="${producto.id}">ver +</span>
               </p>
               <button class="btn btn-secondary mt-2 btn-ia" data-id="${producto.id}">+información IA</button>
-              <p></p>
-              <button class="btn btn-success btn-a-cesta">a la cesta!</button>
+              <button class="btn btn-secondary mt-2 btn-a-cesta" data-id="${producto.id}">a la cesta</button>
           </div>
         </div>
       `;
@@ -99,7 +56,13 @@ export async function Productos() {
       // Evento "a la cesta"
       const botonCesta = col.querySelector(".btn-a-cesta");
       botonCesta.addEventListener("click", () => {
-        irACesta(producto);
+        irACestaConProducto(producto.id);
+      });
+
+      // Evento "ver más"
+      const botonvermas = col.querySelector(".ver_mas");
+      botonvermas.addEventListener("click", () => {
+        irAsoloProducto(producto.id);
       });
 
       // Evento "Info IA"
@@ -118,8 +81,41 @@ export async function Productos() {
         });
       });
 
+
+      // Ir a POS Y
+      const y = sessionStorage.getItem("prevScrollY");
+      if (y !== null) {
+        const intentarScroll = () => {
+          if (document.querySelector("#productos")) {
+            setTimeout(() => {
+              window.scrollTo(0, parseInt(y));
+              sessionStorage.removeItem("prevScrollY");
+            }, 100);
+          } else {
+            requestAnimationFrame(intentarScroll);
+          }
+        };
+        intentarScroll();
+      }
+
+
     });
   };
+
+
+
+  function irACestaConProducto(id) {
+    sessionStorage.setItem("prevScrollY", window.scrollY);
+    sessionStorage.setItem("prevURL", window.location.href);
+    window.location.href = `/cesta.html?id=${id}`;
+  }
+
+   function irAsoloProducto(id) {
+    sessionStorage.setItem("prevScrollY", window.scrollY);
+    sessionStorage.setItem("prevURL", window.location.href);
+    window.location.href = `/producto.html?id=${id}`;
+  }
+
 
 
   // fetch inicial y búsqueda
@@ -129,9 +125,12 @@ export async function Productos() {
     const data = await res.json();
 
 
-    const productosOrdenados = data.sort((a, b) => new Date(b.fecha) - new Date(a.fecha));
+    //const productosOrdenados = data.sort((a, b) => new Date(b.fecha) - new Date(a.fecha));
 
-    const productosRecientes = productosOrdenados.slice(0, 10);
+    //console.log("data",data)
+    const productosRecientes = data.slice(0, 10);
+
+    console.log("productosrecientes",productosRecientes)
     renderizarProductos(productosRecientes);
 
     const buscarBtn = productos.querySelector("#buscarBtn");
@@ -148,6 +147,7 @@ export async function Productos() {
         });
 
         const resultados = await resp.json();
+        console.log("resultados",resultados)
         renderizarProductos(resultados);
 
       } catch (err) {
@@ -163,8 +163,6 @@ export async function Productos() {
 
 
 
-
-
   // Estilos
   const style = document.createElement("style");
   style.innerHTML = `
@@ -174,7 +172,8 @@ export async function Productos() {
       border-radius: 8px;
     }
     .card-body {
-      padding: 1.5rem;
+      padding: .5rem;
+      text-align:left;
     }
     .card-title {
       font-size: 1.2rem;
@@ -187,6 +186,14 @@ export async function Productos() {
     .btn-success {
       width: 100%;
       font-size: 1.1rem;
+    }
+    .ver_mas {
+      color: var(--secondary-color); 
+      text-decoration: underline;
+      cursor: pointer;
+      font-size: 1.1rem; 
+      font-weight: 500;
+      font-family: inherit;
     }
     .container {
       max-width: 1200px;

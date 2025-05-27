@@ -2,18 +2,19 @@ export function Comentarios() {
   // Crear contenedor principal
   const container = document.createElement("section");
   container.className = "comentarios";
-  container.innerHTML = `<h2>Comentarios de Usuarios</h2><p>Cargando...</p>`;
+  container.innerHTML = `<h2 class="titulo">Comentarios de Usuarios</h2><p>Cargando...</p>`;
 
   // Función para cargar usuarios
   async function cargarUsuarios() {
     try {
       const response = await fetch("https://jsonplaceholder.typicode.com/users");
       const users = await response.json();
+      const cuatroUsuarios = users.slice(0, 4);
 
       const cards = document.createElement("div");
       cards.className = "user-cards";
 
-      users.forEach((user) => {
+      cuatroUsuarios.forEach((user) => {
         const card = document.createElement("div");
         card.className = "user-card";
 

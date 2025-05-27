@@ -5,10 +5,10 @@ export async function Header() {
     header.setAttribute("data-bs-ride", "carousel");
 
     try {
-        // lee productos portada
+        //const res = await fetch('http://localhost:3000/productos_portada');
         const res = await fetch('https://proyectorailway-production-9739.up.railway.app/productos_portada');
         const productos = await res.json();
-        console.log("productos portada", JSON.stringify(productos, null, 2));
+        //console.log("productos portada", JSON.stringify(productos, null, 2));
 
         const items = productos.slice(0, 4).map((producto, index) => {
             const imageId = producto.imagen1.split('/d/')[1]?.split('/')[0];
@@ -27,7 +27,7 @@ export async function Header() {
                  <div class="carousel-inner">
                     ${items}
                 </div>
-                <button class="carousel-btn" data-bs-target="#headerCarousel" data-bs-slide="next"> > </button>
+                <span class="carousel-btn" data-bs-target="#headerCarousel" data-bs-slide="next"> > </span>
             </div>
             <style>
                 .contenedor{
@@ -43,8 +43,9 @@ export async function Header() {
                     border: 2px solid green;
                 }
                 .carousel-btn {
-                    width: 200px;
+                    width: 10%;
                     background: white;
+                    padding-left: 1rem;
                     color:green;
                     border:none;
                     font-size: 4rem;
