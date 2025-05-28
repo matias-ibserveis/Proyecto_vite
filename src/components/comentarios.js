@@ -1,97 +1,65 @@
 export function Comentarios() {
-  // Crear contenedor principal
-  const container = document.createElement("section");
-  container.className = "comentarios";
-  container.innerHTML = `<h2 class="titulo">Comentarios de Usuarios</h2><p>Cargando...</p>`;
-  // Función para cargar usuarios
-  async function cargarUsuarios() {
-    try {
-      const response = await fetch("https://jsonplaceholder.typicode.com/users");
-      const users = await response.json();
+  const section = document.createElement('section');
+  section.className = 'carousel slide carousel-bg fixed';
+  section.id = 'reseñasCarousel';
+  section.setAttribute('data-bs-ride', 'carousel');
 
-      const cards = document.createElement("div");
-      cards.className = "user-cards";
+  const reseñas = [
+    {
+      nombre: 'Jose Carbonell',
+      texto: "¡Producte de molt bona qualitat fresc i molt desitjable. Les noies són molt mones i t'atenen amb molta amabilitat i molta experiència",
+      imagen: 'images/reseña1.png',
+      estrellas: 5
+    },
+    {
+      nombre: 'Charles Maher',
+      texto: "Compreu amb els productes de proximitat més deliciosos... Us recomano especialment la Sobressada!",
+      imagen: 'images/reseña2.png',
+      estrellas: 5
+    },
+    {
+      nombre: 'Jorge Aleix',
+      texto: "Molt contents amb aquesta botiga d'aliments de productes ecològics i locals. L´atenció és de 10!!! Tot i que ens queda lluny de casa, val la pena anar-hi. Ho recomano 100%.",
+      imagen: 'images/reseña3.png',
+      estrellas: 5
+    },
+    {
+      nombre: 'Dione Butler',
+      texto: 'Encantada! Excel·lent qualitat, la fruita i verdura deliciosa amb molt de sabor, ecològic i local, i molt bon preu, no es pot demanar més! Enhorabona Lura!',
+      imagen: 'images/reseña4.png',
+      estrellas: 5
+    },
+  ];
 
-      users.forEach((user) => {
-        const card = document.createElement("div");
-        card.className = "user-card";
-
-        card.innerHTML = `
-          <img src="https://i.pravatar.cc/150?img=${user.id}" alt="${user.name}" class="user-avatar" />
-          <div class="user-info">
-            <h4>${user.name}</h4>
-            <p>${user.email}</p>
-            <p>${user.address.city}</p>
-          </div>
-        `;
-
-        cards.appendChild(card);
-      });
-
-      container.querySelector("p").remove();
-      container.appendChild(cards);
-    } catch (error) {
-      container.querySelector("p").textContent = "Error al cargar comentarios.";
-      console.error("Error al obtener usuarios:", error);
-    }
-  }
-
-  cargarUsuarios();
-
-
-
-  // CSS al final del documento
-  if (!document.getElementById("comentarios-css")) {
-    const style = document.createElement("style");
-    style.id = "comentarios-css";
-    document.body.appendChild(style);
-    
-    style.textContent = `
-.comentarios {
-  padding: 2rem;
-  background: #f9f9f9;
-}
-
-.user-cards {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
-  justify-content: center;
-}
-
-.user-card {
-  background: white;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-  padding: 1rem;
-  width: 250px;
-  text-align: center;
-  transition: transform 0.2s;
-}
-
-.user-card:hover {
-  transform: scale(1.03);
-}
-
-.user-avatar {
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
-  object-fit: cover;
-  margin-bottom: 0.5rem;
-}
-
-.user-info h4 {
-  margin: 0.5rem 0 0.2rem;
-}
-
-.user-info p {
-  margin: 0;
-  font-size: 0.9rem;
-  color: #666;
-}
+  const items = reseñas.map((r, index) => {
+    const activeClass = index === 0 ? 'active' : '';
+    const estrellas = '★'.repeat(r.estrellas) + '☆'.repeat(5 - r.estrellas);
+    return `
+      <div class="carousel-item ${activeClass}">
+        <div class="reseña-item">
+          <img src="${r.imagen}" alt="${r.nombre}">
+          <h3 class="reseña-nombre">${r.nombre}</h3>
+          <p class="reseña-texto">"${r.texto}"</p>
+          <div class="stars">${estrellas}</div>
+        </div>
+      </div>
     `;
-  }
+  }).join('');
 
-  return container;
+  section.innerHTML = `
+    <h2 class="titulo">Reseñas de nuestros clientes</h2>
+    <div class="carousel-inner">
+      ${items}
+    </div>
+    <button class="carousel-control-prev fixed" type="button" data-bs-target="#reseñasCarousel" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next fixed" type="button" data-bs-target="#reseñasCarousel" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  `;
+
+  return section;
 }

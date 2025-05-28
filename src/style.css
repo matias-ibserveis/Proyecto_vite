@@ -2,7 +2,7 @@
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   --main-color: #d1ab72;
   --secondary-color: #6d5839;
-  --terciary-color: #fcff64;
+  --terciary-color: #feffaa;
   line-height: 1.5;
   font-weight: 400;
   color-scheme: light dark;
@@ -207,8 +207,8 @@ button:focus-visible {
   font-family: 'Aloja Extended', sans-serif;
   font-size: 15px;
   gap: 8px;
-  width: 260px;
-  height: 56px;
+  width: 300px;
+  height: 80px;
   margin: 0 auto 12px auto;
   padding: 0 10px;
   box-sizing: border-box;
@@ -223,7 +223,7 @@ button:focus-visible {
 .botones-con-enlaces p,
 .botones-con-enlaces-instagram p {
   margin: 0;
-  font-size: 13px;
+  font-size: 15px;
   word-break: break-word;
   white-space: normal;
 }
@@ -289,6 +289,55 @@ button:focus-visible {
   }
 }
 
+/* Estilos reseñas */
+  .reseña-item img {
+    width: 75px !important;
+    height: 75px !important;
+    border-radius: 0% !important;
+    margin-bottom: 0.5rem !important;
+  }
+  
+  .reseña-item h3 {
+    margin: 0.5rem 0;
+  }
+  
+  .reseña-item p {
+    font-style: italic;
+    font-size: 0.95rem;
+  }
+
+  .stars {
+    color: gold;
+    font-size: 1.2rem;
+    margin-top: 0.5rem;
+  }
+  
+  .carousel-control-prev {
+    left: 3%;
+  }
+
+  .carousel-control-next {
+    right: 3%;
+  }
+
+  .carousel-bg {
+    background-color: var(--terciary-color);
+    padding: 50px
+  }
+
+  .reseña-nombre {
+    font-family: 'Aloja Extended', sans-serif;
+    font-weight: 700;
+    color: black;
+    text-align: center;
+  }
+
+  .reseña-texto {
+    font-family: 'comic-sans', sans-serif;
+    font-weight: 400;
+    color: #333;
+    text-align: center;
+  }
 /* --- BLOQUE QUE EVITA LA FRANJA NEGRA --- */
 html, body {
   width: 100vw !important;
