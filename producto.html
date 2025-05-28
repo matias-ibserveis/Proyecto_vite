@@ -1,122 +1,31 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Ficha del producto</title>
+  <title>Productos - LURÁ</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" />
   <link rel="stylesheet" href="/src/style.css" />
+  <link href="https://db.onlinewebfonts.com/c/b12cce617218fe8bfa367def9a61af72?family=Aloja+Extended" rel="stylesheet" />
 </head>
-
 <body>
-  <div class="producto_solo" id="producto_solo-container">
-    Cargando...
+  <!-- Navbar Container -->
+  <div id="navbar"></div>
+
+  <!-- Placeholder Content -->
+  <div class="container mt-3">
+    <div class="row">
+      <div class="col-12">
+        <p class="placeholder-message">Productos en construcción</p>
+      </div>
+    </div>
   </div>
 
+  <!-- Load JavaScript -->
   <script type="module">
-
-    window.addEventListener('DOMContentLoaded', () => {
-      const container = document.getElementById('producto_solo-container');
-      const params = new URLSearchParams(window.location.search);
-      const id = params.get('id');
-
-      async function cargarProducto() {
-        try {
-          const res = await fetch(`https://proyectorailway-production-9739.up.railway.app/api/producto/${id}`);
-          if (!res.ok) throw new Error('Error en la respuesta del servidor');
-          const p = await res.json();
-
-          container.innerHTML = `
-        <img src="${p.imagen1}" alt="${p.titulo}">
-        <h1>${p.titulo}</h1>
-        <p>${p.descripcion}</p>
-        <p class="precio_solo">Precio: ${p.precio} €</p>
-      `;
-
-          // Botón Volver dentro de cargarProducto, tras insertar contenido
-          const prevY = sessionStorage.getItem('prevScrollY');
-          const prevURL = sessionStorage.getItem('prevURL');
-          if (prevURL && prevY !== null) {
-            const volverBtn = document.createElement('button');
-            volverBtn.textContent = 'Volver';
-            volverBtn.className = 'btn btn-outline-primary mb-3';
-            volverBtn.addEventListener('click', () => {
-              window.location.href = prevURL;
-            });
-            container.appendChild(volverBtn); // AÑADIR después de contenido
-          }
-
-        } catch (err) {
-          container.innerHTML = `<p>Error cargando el producto.</p>`;
-          console.error(err);
-        }
-      }
-
-      cargarProducto();
-
-
-
-      const style = document.createElement("style");
-      style.innerHTML = `
-
-      body {
-        font-family: 'Segoe UI', sans-serif;
-        background: #f5f7fa;
-        margin: 0;
-        padding: 2rem;
-        display: flex;
-        justify-content: center;
-      }
-
-      .producto_solo {
-        max-width: 800px;
-        background: white;
-        padding: 2rem;
-        border-radius: 12px;
-        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
-      }
-
-      .producto_solo img {
-        width: 100%;
-        max-height: 400px;
-        object-fit: cover;
-        border-radius: 10px;
-        margin-bottom: 1rem;
-      }
-
-      .producto_solo h1 {
-        font-size: 2rem;
-        margin-bottom: 0.5rem;
-      }
-
-      .producto_solo p {
-        line-height: 1.6;
-        margin: 0.5rem 0;
-      }
-
-      .precio_solo {
-        font-weight: bold;
-        color: #2e7d32;
-        font-size: 1.2rem;
-      }
-
-      .volver_solo {
-        display: inline-block;
-        margin-top: 2rem;
-        text-decoration: none;
-        color: #0077cc;
-      }
-
-      .volver_solo:hover {
-        text-decoration: underline;
-      }
-  `;
-      document.head.appendChild(style);
-
-  });
+    import { CestaNavbar } from '/src/components/CestaNavbar.js';
+    document.getElementById('navbar').appendChild(CestaNavbar());
   </script>
-
-
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
-
 </html>
