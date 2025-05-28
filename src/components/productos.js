@@ -14,12 +14,14 @@ export async function Productos() {
     <div class="mb-4">
       <input type="text" id="busquedaInput" class="form-control" placeholder="Buscar productos ...">
       <button id="buscarBtn" class="btn btn-primary mt-2">Buscar</button>
+      <button id="todosBtn" class="btn btn-secondary mt-2 ms-2">ver todos</button>
     </div>
     <div class="row" id="productos-lista"></div>
   `;
 
   const contenedor = productos.querySelector("#productos-lista");
-
+  const buscarBtn = productos.querySelector("#buscarBtn");
+  const todosBtn = productos.querySelector("#todosBtn");
 
   const renderizarProductos = (lista) => {
     contenedor.innerHTML = ""; // limpiar
@@ -29,7 +31,6 @@ export async function Productos() {
 
       const frases = producto.descripcion.split(/[.!?]\s/);
       const primerasFrases = frases.slice(0, 2).join('. ') + '.';
-      const descripcionCompleta = producto.descripcion;
 
       const imageId = producto.imagen1.split('/d/')[1]?.split('/')[0];
       const imageUrl = `https://drive.google.com/thumbnail?id=${imageId}&sz=w800-h600`;
@@ -38,9 +39,7 @@ export async function Productos() {
         <div class="card mb-4">
           <img src="${imageUrl}" class="card-img-top" alt="${producto.titulo}">
           <div class="card-body">
-              <h5 class="card-title">
-                  ${producto.titulo}
-              </h5>
+              <h5 class="card-title">${producto.titulo}</h5>
               <p class="card-text" id="desc-${producto.id}">
                 ${primerasFrases}
                 <span class="ver_mas" data-id="${producto.id}">ver +</span>
@@ -50,59 +49,32 @@ export async function Productos() {
           </div>
         </div>
       `;
-
       contenedor.appendChild(col);
 
-      // Evento "a la cesta"
-      const botonCesta = col.querySelector(".btn-a-cesta");
-      botonCesta.addEventListener("click", () => {
+      // Eventos por producto
+      col.querySelector(".btn-a-cesta").addEventListener("click", () => {
         irACestaConProducto(producto.id);
       });
 
-      // Evento "ver más"
-      const botonvermas = col.querySelector(".ver_mas");
-      botonvermas.addEventListener("click", () => {
+      col.querySelector(".ver_mas").addEventListener("click", () => {
         irAsoloProducto(producto.id);
       });
 
-      // Evento "Info IA"
       const botonia = col.querySelector(".btn-ia");
       botonia.addEventListener("click", () => {
-        // Cambiar estilo y texto del botón mientras espera
         botonia.textContent = "Espera un momento ";
         botonia.classList.remove("btn-secondary");
         botonia.classList.add("btn-warning", "text-dark");
 
         mostrarRespuestaIA(producto).finally(() => {
-          // Opcional: restaurar botón después de recibir respuesta
           botonia.textContent = "Información IA";
           botonia.classList.remove("btn-warning", "text-dark");
           botonia.classList.add("btn-secondary");
         });
       });
 
-
-      // Ir a POS Y
-      const y = sessionStorage.getItem("prevScrollY");
-      if (y !== null) {
-        const intentarScroll = () => {
-          if (document.querySelector("#productos")) {
-            setTimeout(() => {
-              window.scrollTo(0, parseInt(y));
-              sessionStorage.removeItem("prevScrollY");
-            }, 100);
-          } else {
-            requestAnimationFrame(intentarScroll);
-          }
-        };
-        intentarScroll();
-      }
-
-
     });
   };
-
-
 
   function irACestaConProducto(id) {
     sessionStorage.setItem("prevScrollY", window.scrollY);
@@ -110,57 +82,69 @@ export async function Productos() {
     window.location.href = `/cesta.html?id=${id}`;
   }
 
-   function irAsoloProducto(id) {
+  function irAsoloProducto(id) {
     sessionStorage.setItem("prevScrollY", window.scrollY);
     sessionStorage.setItem("prevURL", window.location.href);
     window.location.href = `/producto.html?id=${id}`;
   }
 
+  // Variable para guardar datos originales
+  let dataOriginal = [];
 
+  async function inicioProductos() {
+    buscarBtn.disabled = true;
+    todosBtn.disabled = true;
 
-  // fetch inicial y búsqueda
-  try {
-    const res = await fetch('https://proyectorailway-production-9739.up.railway.app/datos');
-    //const res = await fetch('http://localhost:3000/datos');
-    const data = await res.json();
+    try {
+      const res = await fetch('https://proyectorailway-production-9739.up.railway.app/datos');
+      dataOriginal = await res.json();
 
+      const productosRecientes = dataOriginal.slice(0, 10);
+      renderizarProductos(productosRecientes);
 
-    //const productosOrdenados = data.sort((a, b) => new Date(b.fecha) - new Date(a.fecha));
-
-    //console.log("data",data)
-    const productosRecientes = data.slice(0, 10);
-
-    console.log("productosrecientes",productosRecientes)
-    renderizarProductos(productosRecientes);
-
-    const buscarBtn = productos.querySelector("#buscarBtn");
-    buscarBtn.addEventListener("click", async () => {
-      const consulta = productos.querySelector("#busquedaInput").value.trim();
-      if (!consulta) return;
-
-      try {
-        const resp = await fetch('https://proyectorailway-production-9739.up.railway.app/buscar', {
-          //const resp = await fetch('http://localhost:3000/buscar', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ consulta })
-        });
-
-        const resultados = await resp.json();
-        console.log("resultados",resultados)
-        renderizarProductos(resultados);
-
-      } catch (err) {
-        console.error("Error en búsqueda:", err);
-        contenedor.innerHTML = `<p class="text-danger">Error al buscar productos</p>`;
-      }
-    });
-
-  } catch (error) {
-    productos.innerHTML += `<p class="text-danger text-center">Error al cargar productos</p>`;
-    console.error("Error cargando productos:", error);
+    } catch (error) {
+      contenedor.innerHTML = `<p class="text-danger text-center">Error al cargar productos</p>`;
+      console.error("Error cargando productos:", error);
+    } finally {
+      buscarBtn.disabled = false;
+      todosBtn.disabled = false;
+    }
   }
 
+  // Listener buscar (solo una vez)
+  buscarBtn.addEventListener("click", async () => {
+    const consulta = productos.querySelector("#busquedaInput").value.trim();
+    if (!consulta) return;
+
+    buscarBtn.disabled = true;
+    todosBtn.disabled = true;
+
+    try {
+      const resp = await fetch('https://proyectorailway-production-9739.up.railway.app/buscar', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ consulta })
+      });
+
+      const resultados = await resp.json();
+      renderizarProductos(resultados);
+
+    } catch (err) {
+      contenedor.innerHTML = `<p class="text-danger">Error al buscar productos</p>`;
+      console.error("Error en búsqueda:", err);
+    } finally {
+      buscarBtn.disabled = false;
+      todosBtn.disabled = false;
+    }
+  });
+
+  // Listener todos (solo una vez)
+  todosBtn.addEventListener("click", () => {
+    renderizarProductos(dataOriginal);
+    productos.querySelector("#busquedaInput").value = "";
+  });
+
+  await inicioProductos();
 
 
   // Estilos
