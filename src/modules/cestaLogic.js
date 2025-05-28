@@ -2,8 +2,7 @@ export async function renderCesta(container) {
   const urlParams = new URLSearchParams(window.location.search);
   const nuevoId = urlParams.get("id");
 
-  let cesta = await inicializarCestaSiNecesario(); // devuelve la cesta actual
-  //console.log("CESTA DESPUÉS DE INICIALIZAR:", cesta);
+  let cesta = await inicializarCestaSiNecesario();
 
   if (nuevoId) {
     if (cesta[nuevoId]) {
@@ -26,7 +25,6 @@ export async function renderCesta(container) {
     localStorage.setItem("cesta", JSON.stringify(cesta));
   }
 
-
   const tabla = document.createElement('table');
   tabla.className = 'table table-bordered';
   tabla.innerHTML = `<thead>
@@ -47,9 +45,11 @@ export async function renderCesta(container) {
   container.appendChild(tabla);
 
   const botonesDiv = document.createElement('div');
-  botonesDiv.style.display = 'flex'; botonesDiv.style.justifyContent = 'space-between';
-  botonesDiv.style.width = '90%'; botonesDiv.style.margin = '6rem 2rem 0 2rem'; // top right bottom left
-  botonesDiv.style.gap = '1rem'; // opcional: espacio entre botones
+  botonesDiv.style.display = 'flex';
+  botonesDiv.style.justifyContent = 'space-between';
+  botonesDiv.style.width = '90%';
+  botonesDiv.style.margin = '6rem 2rem 0 2rem';
+  botonesDiv.style.gap = '1rem';
 
   // Botón Volver
   const prevY = sessionStorage.getItem('prevScrollY');
@@ -61,19 +61,25 @@ export async function renderCesta(container) {
     volverBtn.className = 'btn btn-outline-primary mb-3';
     volverBtn.addEventListener('click', () => {
       window.location.href = prevURL;
-      // También podrías guardar prevY en sessionStorage para restaurarlo después si usas SPA
     });
     botonesDiv.appendChild(volverBtn);
   }
 
+  // Botón Vaciar Cesta
+  const vaciarBtn = document.createElement('button');
+  vaciarBtn.textContent = 'Vaciar cesta';
+  vaciarBtn.className = 'btn btn-danger mb-3';
+  vaciarBtn.addEventListener('click', () => {
+    localStorage.removeItem('cesta');
+    location.reload();
+  });
+  botonesDiv.appendChild(vaciarBtn);
 
-  // Añadir al contenedor principal
   container.appendChild(botonesDiv);
 
-
-  await mostrarCesta()
-
+  await mostrarCesta();
 }
+
 
 
 async function inicializarCestaSiNecesario() {
