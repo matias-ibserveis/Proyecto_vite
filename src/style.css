@@ -325,6 +325,14 @@ button:focus-visible {
     padding: 50px
   }
 
+  @media (max-width: 600px) {
+    .carousel-bg {
+      background-color: var(--terciary-color);
+      padding: 50px;
+      min-height: 495px;
+    }
+  }
+
   .reseña-nombre {
     font-family: 'Aloja Extended', sans-serif;
     font-weight: 700;
