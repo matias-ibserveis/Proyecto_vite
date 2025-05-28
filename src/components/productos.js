@@ -1,8 +1,6 @@
-import { crearModalIA, mostrarRespuestaIA } from "./iaModal.js"; // Ajusta ruta según tu estructura
-
+import { crearModalIA, mostrarRespuestaIA } from "./iaModal.js";
 
 export async function Productos() {
-
   crearModalIA();
 
   const productos = document.createElement("section");
@@ -17,14 +15,20 @@ export async function Productos() {
       <button id="todosBtn" class="btn btn-secondary mt-2 ms-2">ver todos</button>
     </div>
     <div class="row" id="productos-lista"></div>
+    <div id="paginacion" class="text-center my-3"></div>
   `;
 
   const contenedor = productos.querySelector("#productos-lista");
   const buscarBtn = productos.querySelector("#buscarBtn");
   const todosBtn = productos.querySelector("#todosBtn");
 
+  let currentPage = 1;
+  const itemsPerPage = 10;
+  let totalPages = 1;
+  let dataOriginal = [];
+
   const renderizarProductos = (lista) => {
-    contenedor.innerHTML = ""; // limpiar
+    contenedor.innerHTML = "";
     lista.forEach(producto => {
       const col = document.createElement("div");
       col.className = "col-md-4";
@@ -51,7 +55,6 @@ export async function Productos() {
       `;
       contenedor.appendChild(col);
 
-      // Eventos por producto
       col.querySelector(".btn-a-cesta").addEventListener("click", () => {
         irACestaConProducto(producto.id);
       });
@@ -72,7 +75,6 @@ export async function Productos() {
           botonia.classList.add("btn-secondary");
         });
       });
-
     });
   };
 
@@ -88,8 +90,36 @@ export async function Productos() {
     window.location.href = `/producto.html?id=${id}`;
   }
 
-  // Variable para guardar datos originales
-  let dataOriginal = [];
+  function paginar(lista, pagina) {
+    totalPages = Math.ceil(lista.length / itemsPerPage);
+    const inicio = (pagina - 1) * itemsPerPage;
+    const fin = inicio + itemsPerPage;
+    renderizarProductos(lista.slice(inicio, fin));
+    renderizarFlechas(lista);
+  }
+
+  function renderizarFlechas(lista) {
+    const paginacion = productos.querySelector("#paginacion");
+    paginacion.innerHTML = `
+      <button class="btn btn-outline-primary me-2" id="anterior" ${currentPage === 1 ? "disabled" : ""}>⬅ Anterior</button>
+      <span>Página ${currentPage} de ${totalPages}</span>
+      <button class="btn btn-outline-primary ms-2" id="siguiente" ${currentPage === totalPages ? "disabled" : ""}>Siguiente ➡</button>
+    `;
+
+    paginacion.querySelector("#anterior").onclick = () => {
+      if (currentPage > 1) {
+        currentPage--;
+        paginar(lista, currentPage);
+      }
+    };
+
+    paginacion.querySelector("#siguiente").onclick = () => {
+      if (currentPage < totalPages) {
+        currentPage++;
+        paginar(lista, currentPage);
+      }
+    };
+  }
 
   async function inicioProductos() {
     buscarBtn.disabled = true;
@@ -98,10 +128,8 @@ export async function Productos() {
     try {
       const res = await fetch('https://proyectorailway-production-9739.up.railway.app/datos');
       dataOriginal = await res.json();
-
-      const productosRecientes = dataOriginal.slice(0, 10);
-      renderizarProductos(productosRecientes);
-
+      currentPage = 1;
+      paginar(dataOriginal, currentPage);
     } catch (error) {
       contenedor.innerHTML = `<p class="text-danger text-center">Error al cargar productos</p>`;
       console.error("Error cargando productos:", error);
@@ -111,7 +139,6 @@ export async function Productos() {
     }
   }
 
-  // Listener buscar (solo una vez)
   buscarBtn.addEventListener("click", async () => {
     const consulta = productos.querySelector("#busquedaInput").value.trim();
     if (!consulta) return;
@@ -127,8 +154,8 @@ export async function Productos() {
       });
 
       const resultados = await resp.json();
-      renderizarProductos(resultados);
-
+      currentPage = 1;
+      paginar(resultados, currentPage);
     } catch (err) {
       contenedor.innerHTML = `<p class="text-danger">Error al buscar productos</p>`;
       console.error("Error en búsqueda:", err);
@@ -138,16 +165,14 @@ export async function Productos() {
     }
   });
 
-  // Listener todos (solo una vez)
   todosBtn.addEventListener("click", () => {
-    renderizarProductos(dataOriginal);
+    currentPage = 1;
+    paginar(dataOriginal, currentPage);
     productos.querySelector("#busquedaInput").value = "";
   });
 
   await inicioProductos();
 
-
-  // Estilos
   const style = document.createElement("style");
   style.innerHTML = `
     .card-img-top {
