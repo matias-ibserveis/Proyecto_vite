@@ -24,27 +24,6 @@ export function CartComponent() {
     cestaName.classList.add('cesta-name');
     leftPanel.appendChild(cestaName);
 
-    const addToCartButton = document.createElement('button');
-    addToCartButton.textContent = 'Añadir Carro';
-    addToCartButton.classList.add('add-to-cart-btn');
-    addToCartButton.addEventListener('click', () => {
-      const cesta = JSON.parse(localStorage.getItem('cesta') || '{}');
-      const uniqueId = `cesta_${Date.now()}`;
-      cesta[uniqueId] = {
-        id: uniqueId,
-        titulo: cestaData.name,
-        cantidad: 1,
-        ingredients: ingredientsData.map(ingredient => ({
-          name: ingredient.name,
-          selected: ingredient.selected
-        })),
-        origen: 'manual'
-      };
-      localStorage.setItem('cesta', JSON.stringify(cesta));
-      window.location.href = '/producto.html';
-    });
-    leftPanel.appendChild(addToCartButton);
-
     const rightPanel = document.createElement('div');
     rightPanel.classList.add('right-panel');
 
@@ -54,16 +33,9 @@ export function CartComponent() {
     rightPanel.appendChild(ingredientsHeader);
 
     const ingredientsData = [
-      { name: 'Eggs', quantities: ['6x', '12x'], selected: '6x' },
-      { name: 'Milk', quantities: ['1L', '2L'], selected: '1L' },
-      { name: 'Bread', quantities: ['1 loaf', '2 loaves'], selected: '1 loaf' },
-      { name: 'Cheese', quantities: ['200g', '500g'], selected: '200g' },
-      { name: 'Butter', quantities: ['250g', '500g'], selected: '250g' },
-      { name: 'Tomatoes', quantities: ['500g', '1kg'], selected: '500g' },
-      { name: 'Lettuce', quantities: ['1 head', '2 heads'], selected: '1 head' },
-      { name: 'Chicken Breast', quantities: ['500g', '1kg'], selected: '500g' },
-      { name: 'Rice', quantities: ['1kg', '2kg'], selected: '1kg' },
-      { name: 'Pasta', quantities: ['500g', '1kg'], selected: '500g' }
+      { name: 'Eggs', quantities: ['6x', '12x'], selected: '6x', place: 'Inca', supplier: 'Manel Ortiz' },
+      { name: 'Milk', quantities: ['1L', '2L'], selected: '1L', place: 'Manacor', supplier: 'Ana Pérez' },
+      { name: 'Bread', quantities: ['1 loaf', '2 loaves'], selected: '1 loaf', place: 'Palma', supplier: 'Jaume Nadal' },
     ];
 
     const ingredientsList = document.createElement('div');
@@ -73,10 +45,28 @@ export function CartComponent() {
       const ingredientRow = document.createElement('div');
       ingredientRow.classList.add('ingredient-row');
 
+      // Add source info inside the ingredient row
+      const sourceInfo = document.createElement('div');
+      sourceInfo.classList.add('source-info');
+
+      // Place "quien" first
+      const supplierSpan = document.createElement('span');
+      supplierSpan.classList.add('supplier-text');
+      supplierSpan.textContent = `quién: ${ingredient.supplier}`;
+      sourceInfo.appendChild(supplierSpan);
+
+      // Place "place" second
+      const placeSpan = document.createElement('span');
+      placeSpan.classList.add('place-text');
+      placeSpan.textContent = `lugar: ${ingredient.place}`;
+      sourceInfo.appendChild(placeSpan);
+
+      const ingredientDetails = document.createElement('div');
+      ingredientDetails.classList.add('ingredient-details');
+
       const ingredientName = document.createElement('span');
       ingredientName.textContent = ingredient.name;
       ingredientName.classList.add('ingredient-name');
-      ingredientRow.appendChild(ingredientName);
 
       const quantityWrapper = document.createElement('div');
       quantityWrapper.classList.add('quantity-wrapper');
@@ -88,23 +78,33 @@ export function CartComponent() {
       const customDropdown = document.createElement('div');
       customDropdown.classList.add('custom-dropdown');
 
-      const tempSpan = document.createElement('span');
-      tempSpan.style.visibility = 'hidden';
-      tempSpan.style.position = 'absolute';
-      tempSpan.style.fontFamily = '"Aloja Extended", Arial, sans-serif';
-      tempSpan.style.fontSize = '0.9rem';
-      tempSpan.style.padding = '0.5rem 1rem';
-      tempSpan.style.whiteSpace = 'nowrap';
-      document.body.appendChild(tempSpan);
+      const setDropdownWidth = (selectedQty) => {
+        const tempSpan = document.createElement('span');
+        tempSpan.style.visibility = 'hidden';
+        tempSpan.style.position = 'absolute';
+        tempSpan.style.fontFamily = '"Aloja Extended", Arial, sans-serif';
+        tempSpan.style.fontSize = '0.9rem';
+        tempSpan.style.padding = '0.5rem 1rem';
+        tempSpan.style.whiteSpace = 'nowrap';
+        document.body.appendChild(tempSpan);
 
-      let maxWidth = 60;
-      ingredient.quantities.forEach(qty => {
-        tempSpan.textContent = qty;
-        const textWidth = tempSpan.offsetWidth;
-        maxWidth = Math.max(maxWidth, textWidth);
-      });
-      document.body.removeChild(tempSpan);
-      customDropdown.style.width = `${Math.min(maxWidth + 20, 150)}px`;
+        let maxWidth = 60;
+        ingredient.quantities.forEach(qty => {
+          tempSpan.textContent = qty;
+          const textWidth = tempSpan.offsetWidth;
+          maxWidth = Math.max(maxWidth, textWidth);
+        });
+
+        tempSpan.textContent = selectedQty;
+        const selectedWidth = tempSpan.offsetWidth;
+        maxWidth = Math.max(maxWidth, selectedWidth);
+
+        document.body.removeChild(tempSpan);
+        customDropdown.style.width = `${Math.min(maxWidth + 20, 150)}px`;
+        quantityButton.style.width = `${Math.min(selectedWidth + 20, 150)}px`;
+      };
+
+      setDropdownWidth(ingredient.selected);
 
       ingredient.quantities.forEach(qty => {
         const option = document.createElement('span');
@@ -114,6 +114,7 @@ export function CartComponent() {
           ingredient.selected = qty;
           quantityButton.textContent = ingredient.selected;
           customDropdown.style.display = 'none';
+          setDropdownWidth(qty);
         });
         customDropdown.appendChild(option);
       });
@@ -130,7 +131,12 @@ export function CartComponent() {
 
       quantityWrapper.appendChild(quantityButton);
       quantityWrapper.appendChild(customDropdown);
-      ingredientRow.appendChild(quantityWrapper);
+
+      ingredientDetails.appendChild(ingredientName);
+      ingredientDetails.appendChild(quantityWrapper);
+
+      ingredientRow.appendChild(sourceInfo);
+      ingredientRow.appendChild(ingredientDetails);
       ingredientsList.appendChild(ingredientRow);
     });
 
@@ -140,9 +146,33 @@ export function CartComponent() {
           dropdown.style.display = 'none';
         });
       }
-    }, { once: true });
+    });
 
     rightPanel.appendChild(ingredientsList);
+
+    const addToCartButton = document.createElement('button');
+    addToCartButton.textContent = 'Añadir Carro';
+    addToCartButton.classList.add('add-to-cart-btn');
+    addToCartButton.addEventListener('click', () => {
+      const cesta = JSON.parse(localStorage.getItem('cesta') || '{}');
+      const uniqueId = `cesta_${Date.now()}`;
+      cesta[uniqueId] = {
+        id: uniqueId,
+        titulo: cestaData.name,
+        cantidad: 1,
+        ingredients: ingredientsData.map(ingredient => ({
+          name: ingredient.name,
+          selected: ingredient.selected,
+          place: ingredient.place,
+          supplier: ingredient.supplier
+        })),
+        origen: 'manual'
+      };
+      localStorage.setItem('cesta', JSON.stringify(cesta));
+      window.location.href = '/producto.html';
+    });
+    rightPanel.appendChild(addToCartButton);
+
     cartContainer.appendChild(leftPanel);
     cartContainer.appendChild(rightPanel);
   }

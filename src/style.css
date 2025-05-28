@@ -165,7 +165,7 @@ button:focus-visible {
 /* ------------------- Carousel Controls ------------------- */
 .carousel-control-prev,
 .carousel-control-next {
-  background: rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 0.08);
   border-radius: 50%;
   width: 3rem;
   height: 3rem;
@@ -265,71 +265,393 @@ button:focus-visible {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.cart-item {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 1rem;
-}
-
-.cart-item img {
-  width: 50px;
-  height: 50px;
-  object-fit: cover;
-  margin-right: 1rem;
-  border-radius: 5px;
-}
-
-.remove-btn {
-  background-color: #dc3545;
-  color: white;
-  border: none;
-  border-radius: 50%;
-  width: 24px;
-  height: 24px;
-  font-size: 14px;
-  font-weight: bold;
-  cursor: pointer;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  transition: background-color 0.3s ease;
-}
-
-.remove-btn:hover {
-  background-color: #c82333;
-}
-
-.total-price {
-  font-weight: bold;
-  font-size: 1.2rem;
-  text-align: right;
-}
-
-.right-panel form {
+.right-panel {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
-  margin-bottom: 1rem;
+  justify-content: space-between;
 }
 
-.pay-btn {
-  background-color: #28a745;
-  color: white;
-  padding: 0.5rem 1rem;
+.cesta-image {
+  width: 100%;
+  max-width: 500px;
+  height: auto;
+  border-radius: 5px;
+  background-color: var(--main-color);
+  padding: 10px;
+  object-fit: contain;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.cesta-name {
+  color: var(--secondary-color);
+  font-family: 'Aloja Extended', 'Arial', sans-serif;
+  font-size: 1.5rem;
+  text-align: center;
+  margin-top: 1rem;
+  font-weight: 400;
+}
+
+.ingredients-header {
+  color: var(--secondary-color);
+  font-family: 'Aloja Extended', 'Arial', sans-serif;
+  font-size: 1.5rem;
+  text-align: center;
+  margin-bottom: 1rem;
+  font-weight: 400;
+}
+
+.ingredients-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+/* Update the .ingredient-row rule in the Cart Page Styles section */
+.ingredient-row {
+  display: flex;
+  flex-direction: column;
+  padding: 0.5rem;
+  background-color: #ffffff;
+  border-radius: 5px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  margin-bottom: 0.5rem;
+}
+
+.ingredient-name {
+  color: var(--secondary-color);
+  font-family: 'Aloja Extended', 'Arial', sans-serif;
+  font-size: 1rem;
+  font-weight: 400;
+  flex: 1;
+  min-width: 0;
+}
+
+.quantity-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.ingredient-details {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+/* Update the .source-info rule in the Cart Page Styles section */
+.source-info {
+  display: flex;
+  flex-direction: column;
+  padding: 0.3rem 0;
+  background-color: transparent;
+}
+
+.place-text,
+.supplier-text {
+  color: var(--secondary-color);
+  font-family: 'Aloja Extended', 'Arial', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 400;
+  margin-bottom: 0.2rem;
+}
+
+.place-text {
+  margin-right: 1rem;
+}
+
+.quantity-btn {
+  background-color: var(--main-color);
+  color: #ffffff;
   border: none;
   border-radius: 5px;
+  padding: 0.3rem 0.6rem;
+  font-family: 'Aloja Extended', 'Arial', sans-serif;
+  font-size: 0.9rem;
   cursor: pointer;
-  font-weight: bold;
+  transition: background-color 0.2s ease, color 0.2s ease;
 }
 
+.quantity-btn:hover,
+.quantity-btn:focus {
+  background-color: #ffffff;
+  color: var(--secondary-color);
+}
+
+.custom-dropdown {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background-color: #ffffff;
+  border: 1px solid var(--main-color);
+  border-radius: 5px;
+  padding: 0.3rem;
+  z-index: 10;
+  display: none;
+}
+
+.dropdown-option {
+  display: block;
+  padding: 0.3rem 0.6rem;
+  font-family: 'Aloja Extended', 'Arial', sans-serif;
+  font-size: 0.9rem;
+  color: var(--secondary-color);
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.dropdown-option:hover {
+  background-color: var(--main-color);
+  color: #ffffff;
+}
+
+/* Responsive Design */
 @media (max-width: 768px) {
   .cart-container {
     flex-direction: column;
   }
 
-  .pay-btn {
-    padding: 0.5rem 2rem;
+  .cesta-image {
+    max-width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .cesta-name {
+    font-size: 1.2rem;
+    margin-top: 0.5rem;
+  }
+
+  .ingredients-header {
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .ingredient-row {
+    padding: 0.3rem;
+  }
+
+  .source-info {
+    padding: 0.4rem 0;
+  }
+
+  .place-text,
+  .supplier-text {
+    font-size: 0.8rem;
+  }
+
+  .ingredient-details {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .ingredient-name {
+    font-size: 0.9rem;
+  }
+
+  .quantity-btn {
+    font-size: 0.8rem;
+    padding: 0.2rem 0.5rem;
+  }
+
+  .custom-dropdown {
+    padding: 0.2rem;
+  }
+
+  .dropdown-option {
+    font-size: 0.8rem;
+    padding: 0.2rem 0.5rem;
+  }
+}
+/* Dropdown Options */
+.dropdown-option {
+  display: block;
+  padding: 0.5rem 1rem;
+  font-family: 'Aloja Extended', 'Arial', sans-serif;
+  font-size: 0.9rem;
+  color: var(--secondary-color);
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease;
+  white-space: nowrap;
+  text-align: left;
+}
+
+.dropdown-option:hover {
+  background-color: var(--main-color);
+  color: #ffffff;
+}
+
+/* Quantity Button */
+.quantity-btn {
+  background-color: var(--main-color);
+  color: #ffffff;
+  border: none;
+  border-radius: 5px;
+  padding: 0.4rem 0.8rem;
+  font-family: 'Aloja Extended', 'Arial', sans-serif;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease;
+  min-width: 60px;
+  text-align: center;
+}
+
+.quantity-btn:hover,
+.quantity-btn:focus {
+  background-color: #ffffff;
+  color: var(--secondary-color);
+}
+
+/* Animation for Dropdown */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive Design for Dropdown */
+@media (max-width: 768px) {
+  .custom-dropdown {
+    min-width: 50px;
+    max-width: 100%;
+    right: 0;
+    box-sizing: border-box;
+  }
+
+  .dropdown-option {
+    font-size: 0.8rem;
+    padding: 0.4rem 0.8rem;
+  }
+
+  .quantity-btn {
+    font-size: 0.8rem;
+    padding: 0.3rem 0.6rem;
+    min-width: 50px;
+  }
+}
+
+.ingredients-list::-webkit-scrollbar-track {
+  background: #f8f9fa;
+  border-radius: 3px;
+}
+
+.ingredients-list::-webkit-scrollbar-thumb {
+  background: var(--main-color);
+  border-radius: 3px;
+}
+
+.ingredients-list::-webkit-scrollbar-thumb:hover {
+  background: var(--secondary-color);
+}
+
+/* Add to Cart Button */
+.add-to-cart-btn {
+  display: block;
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0.6rem 1.2rem;
+  background-color: var(--main-color);
+  color: var(--secondary-color);
+  border: 1px solid var(--main-color);
+  border-radius: 8px;
+  font-family: 'Aloja Extended', 'Arial', sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+  text-align: center;
+  max-width: 200px;
+}
+
+.add-to-cart-btn:hover {
+  background-color: var(--secondary-color);
+  color: var(--main-color);
+  border-color: var(--secondary-color);
+  transform: translateY(-2px);
+}
+
+.add-to-cart-btn:focus {
+  outline: 4px auto var(--main-color);
+}
+
+/* Placeholder Message for producto.html */
+.placeholder-message {
+  font-family: 'Aloja Extended', 'Arial', sans-serif;
+  font-size: 1.2rem;
+  color: var(--secondary-color);
+  text-align: center;
+  margin-top: 2rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .cart-container {
+    flex-direction: column;
+  }
+
+  .cesta-image {
+    max-width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .cesta-name {
+    font-size: 1.2rem;
+    margin-top: 0.5rem;
+  }
+
+  .ingredients-header {
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .ingredient-row {
+    padding: 0.3rem;
+  }
+
+  .source-info {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0.4rem 0;
+  }
+
+  .place-text,
+  .supplier-text {
+    font-size: 0.8rem;
+  }
+
+  .place-text {
+    margin-bottom: 0.2rem;
+  }
+
+  .ingredient-details {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .ingredient-name {
+    font-size: 0.9rem;
+  }
+
+  .quantity-btn {
+    font-size: 0.8rem;
+    padding: 0.2rem 0.5rem;
+  }
+
+  .custom-dropdown {
+    padding: 0.2rem;
+  }
+
+  .dropdown-option {
+    font-size: 0.8rem;
+    padding: 0.2rem 0.5rem;
   }
 }
 
@@ -472,395 +794,4 @@ button:focus-visible {
   src: url('/public/fonts/AlojaExtended.ttf') format('truetype');
   font-weight: 400;
   font-style: normal;
-}
-
-/* ------------------- Cart Page Styles ------------------- */
-.cart-container {
-  display: flex;
-  justify-content: space-between;
-  gap: 2rem;
-  padding: 1rem;
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
-.left-panel,
-.right-panel {
-  flex: 1;
-  background-color: #f8f9fa;
-  padding: 1rem;
-  border-radius: 5px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.cesta-image {
-  width: 100%;
-  max-width: 300px;
-  height: auto;
-  border-radius: 5px;
-  background-color: var(--main-color);
-  padding: 10px;
-  object-fit: contain;
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.cesta-name {
-  color: var(--secondary-color);
-  font-family: 'Aloja Extended', 'Arial', sans-serif;
-  font-size: 1.5rem;
-  text-align: center;
-  margin-top: 1rem;
-  font-weight: 400;
-}
-
-.ingredients-header {
-  color: var(--secondary-color);
-  font-family: 'Aloja Extended', 'Arial', sans-serif;
-  font-size: 1.5rem;
-  text-align: center;
-  margin-bottom: 1rem;
-  font-weight: 400;
-}
-
-.ingredients-list {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-
-.ingredient-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0.5rem;
-  background-color: #ffffff;
-  border-radius: 5px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-}
-
-.ingredient-name {
-  color: var(--secondary-color);
-  font-family: 'Aloja Extended', 'Arial', sans-serif;
-  font-size: 1rem;
-  font-weight: 400;
-}
-
-.quantity-wrapper {
-  position: relative;
-  display: flex;
-  align-items: center;
-}
-
-.quantity-btn {
-  background-color: var(--secondary-color); /* Initial brown color */
-  color: #ffffff;
-  border: none;
-  border-radius: 5px;
-  padding: 0.3rem 0.6rem;
-  font-family: 'Aloja Extended', 'Arial', sans-serif;
-  font-size: 0.9rem;
-  cursor: pointer;
-  transition: background-color 0.2s ease, color 0.2s ease;
-}
-
-.quantity-btn:hover,
-.quantity-btn:focus {
-  background-color: #ffffff; /* White on hover/click */
-  color: var(--secondary-color); /* Brown text */
-}
-
-.custom-dropdown {
-  position: absolute;
-  top: 100%;
-  right: 0;
-  background-color: #ffffff;
-  border: 1px solid var(--main-color);
-  border-radius: 5px;
-  padding: 0.3rem;
-  z-index: 10;
-  display: none; /* Controlled by JavaScript */
-}
-
-.dropdown-option {
-  display: block;
-  padding: 0.3rem 0.6rem;
-  font-family: 'Aloja Extended', 'Arial', sans-serif;
-  font-size: 0.9rem;
-  color: var(--secondary-color);
-  cursor: pointer;
-  transition: background-color 0.2s ease;
-}
-
-.dropdown-option:hover {
-  background-color: var(--main-color);
-  color: #ffffff;
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-  .cart-container {
-    flex-direction: column;
-  }
-
-  .cesta-image {
-    max-width: 100%;
-    margin-left: auto;
-    margin-right: auto;
-  }
-
-  .cesta-name {
-    font-size: 1.2rem;
-    margin-top: 0.5rem;
-  }
-
-  .ingredients-header {
-    font-size: 1.2rem;
-    margin-bottom: 0.5rem;
-  }
-
-  .ingredient-row {
-    padding: 0.3rem;
-  }
-
-  .ingredient-name {
-    font-size: 0.9rem;
-  }
-
-  .quantity-btn {
-    font-size: 0.8rem;
-    padding: 0.2rem 0.5rem;
-  }
-
-  .custom-dropdown {
-    padding: 0.2rem;
-  }
-
-  .dropdown-option {
-    font-size: 0.8rem;
-    padding: 0.2rem 0.5rem;
-  }
-}
-
-/* Dropdown Container */
-.custom-dropdown {
-  position: absolute;
-  top: 100%;
-  right: 0;
-  background-color: #ffffff;
-  border: 1px solid var(--main-color);
-  border-radius: 5px;
-  padding: 0.5rem 0;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  z-index: 1000;
-  display: none;
-  animation: fadeIn 0.2s ease-in-out;
-  min-width: 60px; /* Minimum width for short options like "1L" */
-  max-width: 150px; /* Maximum width for long options */
-}
-
-/* Dropdown Options */
-.dropdown-option {
-  display: block;
-  padding: 0.5rem 1rem;
-  font-family: 'Aloja Extended', 'Arial', sans-serif;
-  font-size: 0.9rem;
-  color: var(--secondary-color);
-  cursor: pointer;
-  transition: background-color 0.2s ease, color 0.2s ease;
-  white-space: nowrap; /* Prevent text wrapping */
-  text-align: left;
-}
-
-.dropdown-option:hover {
-  background-color: var(--main-color);
-  color: #ffffff;
-}
-
-/* Quantity Button */
-.quantity-btn {
-  background-color: var(--secondary-color);
-  color: #ffffff;
-  border: none;
-  border-radius: 5px;
-  padding: 0.4rem 0.8rem;
-  font-family: 'Aloja Extended', 'Arial', sans-serif;
-  font-size: 0.9rem;
-  cursor: pointer;
-  transition: background-color 0.2s ease, color 0.2s ease;
-  min-width: 60px; /* Minimum width for button */
-  text-align: center;
-}
-
-.quantity-btn:hover,
-.quantity-btn:focus {
-  background-color: #ffffff;
-  color: var(--secondary-color);
-}
-
-/* Animation for Dropdown */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(-5px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* Responsive Design for Dropdown */
-@media (max-width: 768px) {
-  .custom-dropdown {
-    min-width: 50px; /* Smaller minimum for mobile */
-    max-width: 100%; /* Prevent overflow */
-    right: 0;
-  }
-
-  .dropdown-option {
-    font-size: 0.8rem;
-    padding: 0.4rem 0.8rem; /* Larger touch target */
-  }
-
-  .quantity-btn {
-    font-size: 0.8rem;
-    padding: 0.3rem 0.6rem;
-    min-width: 50px;
-  }
-
-  .ingredient-row {
-    padding: 0.4rem;
-  }
-
-  .ingredient-name {
-    font-size: 0.9rem;
-  }
-}
-
-.ingredients-list::-webkit-scrollbar-track {
-  background: #f8f9fa;
-  border-radius: 3px;
-}
-
-.ingredients-list::-webkit-scrollbar-thumb {
-  background: var(--main-color);
-  border-radius: 3px;
-}
-
-.ingredients-list::-webkit-scrollbar-thumb:hover {
-  background: var(--secondary-color);
-}
-
-/* Add to Cart Button */
-.add-to-cart-btn {
-  display: block;
-  margin: 1rem auto 0; /* Center horizontally with top margin */
-  padding: 0.6rem 1.2rem;
-  background-color: var(--main-color);
-  color: var(--secondary-color);
-  border: 1px solid var(--main-color);
-  border-radius: 8px;
-  font-family: 'Aloja Extended', 'Arial', sans-serif;
-  font-size: 1rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
-  text-align: center;
-  max-width: 200px; /* Prevent button from being too wide */
-}
-
-.add-to-cart-btn:hover {
-  background-color: var(--secondary-color);
-  color: var(--main-color);
-  border-color: var(--secondary-color);
-  transform: translateY(-2px); /* Subtle lift effect */
-}
-
-.add-to-cart-btn:focus {
-  outline: 4px auto var(--main-color);
-}
-
-/* Placeholder Message for producto.html */
-.placeholder-message {
-  font-family: 'Aloja Extended', 'Arial', sans-serif;
-  font-size: 1.2rem;
-  color: var(--secondary-color);
-  text-align: center;
-  margin-top: 2rem;
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-  .add-to-cart-btn {
-    padding: 0.5rem 1rem;
-    font-size: 0.9rem;
-    max-width: 150px;
-  }
-}
-
-/* Cart Item */
-.cart-item {
-  display: flex;
-  align-items: center;
-  background-color: #f8f9fa;
-  border-radius: 5px;
-  padding: 1rem;
-  margin-bottom: 1rem;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.cart-item-image {
-  width: 80px;
-  height: 80px;
-  object-fit: cover;
-  border-radius: 5px;
-  margin-right: 1rem;
-}
-
-.cart-item-details {
-  flex: 1;
-}
-
-.cart-item-name {
-  font-family: 'Aloja Extended', 'Arial', sans-serif;
-  font-size: 1.2rem;
-  color: var(--secondary-color);
-  margin-bottom: 0.5rem;
-}
-
-.cart-ingredients-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  font-family: 'Aloja Extended', 'Arial', sans-serif;
-  font-size: 0.9rem;
-  color: var(--secondary-color);
-}
-
-.cart-ingredients-list li {
-  margin-bottom: 0.3rem;
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-  .cart-item {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .cart-item-image {
-    width: 100%;
-    max-width: 120px;
-    margin: 0 auto 0.5rem;
-  }
-
-  .cart-item-name {
-    font-size: 1.1rem;
-  }
-
-  .cart-ingredients-list {
-    font-size: 0.8rem;
-  }
 }
