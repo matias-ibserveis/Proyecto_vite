@@ -224,6 +224,7 @@ button:focus-visible {
 .botones-con-enlaces-instagram p {
   margin: 0;
   font-size: 15px;
+  font-family: "Hanken Grotesk", sans-serif !important;
   word-break: break-word;
   white-space: normal;
 }
@@ -235,18 +236,22 @@ button:focus-visible {
     width: 92vw;
     max-width: 98vw;
     height: 38px;
-    font-size: 12px;
+    font-size: 15px;
     gap: 6px;
     padding: 0 4vw;
   }
-  .botones-con-enlaces img,
+  .botones-con-enlaces img {
+    width: 25px;
+    height: 25px;
+  }
   .botones-con-enlaces-instagram img {
     width: 20px;
     height: 20px;
   }
   .botones-con-enlaces p,
   .botones-con-enlaces-instagram p {
-    font-size: 11px;
+    font-family: 'Hanken Grotesk', sans-serif !important;
+    font-size: 13px;
   }
 }
 
@@ -293,8 +298,12 @@ button:focus-visible {
   .reseña-item img {
     width: 75px !important;
     height: 75px !important;
-    border-radius: 0% !important;
+    border-radius: 100% !important;
     margin-bottom: 0.5rem !important;
+  }
+  
+  .reseña-item img.reseña-img-sin-borde {
+    border-radius: 0 !important;
   }
   
   .reseña-item h3 {
@@ -341,11 +350,86 @@ button:focus-visible {
   }
 
   .reseña-texto {
-    font-family: 'comic-sans', sans-serif;
+    font-family: "Hanken Grotesk", sans-serif;
     font-weight: 400;
     color: #333;
     text-align: center;
   }
+
+/* --- Sobre Nosotras --- */
+.sobre-nosotras-bg {
+  background-image: url("/images/sobrenosotras1.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  padding: 250px;
+  text-align: center;
+  margin-bottom: 20px;
+}
+.sobre-nosotras-titulo {
+  font-family: 'Aloja Extended', sans-serif;
+  font-size: 30px;
+  font-weight: 700;
+  color: black;
+  margin-bottom: 20px;
+  background-attachment: fixed;
+  background-color: var(--main-color) !important;
+  display: inline-block;
+  border-radius: 10px;
+  padding: 15px;
+}
+
+.sobre-nosotras-texto {
+  font-family: "Hanken Grotesk", sans-serif;
+  font-weight: 400;
+  font-size: 20px;
+  color: #333;
+  max-width: 800px;
+  margin: 0 auto;
+  line-height: 1.6;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  border-radius: 10px;
+  background: fixed;
+  background-color: var(--terciary-color);
+}
+
+/* Responsive para móvil */
+@media (max-width: 900px) {
+  .sobre-nosotras-bg {
+    padding: 40px 8px;
+    min-height: 270px;
+  }
+  .sobre-nosotras-titulo {
+    font-size: 20px;
+    padding: 8px 12px;
+    margin-bottom: 14px;
+  }
+  .sobre-nosotras-texto {
+    font-size: 15px;
+    padding: 8px 8px;
+    max-width: 98vw;
+  }
+}
+
+@media (max-width: 600px) {
+  .sobre-nosotras-bg {
+    padding: 24px 2vw;
+    min-height: 150px;
+  }
+  .sobre-nosotras-titulo {
+    font-size: 15px;
+    padding: 6px 6px;
+    margin-bottom: 10px;
+    max-width: 98vw;
+  }
+  .sobre-nosotras-texto {
+    font-size: 10px;
+    padding: 6px 4px;
+    max-width: 99vw;
+  }
+}
+
 /* --- BLOQUE QUE EVITA LA FRANJA NEGRA --- */
 html, body {
   width: 100vw !important;

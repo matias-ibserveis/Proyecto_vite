@@ -1,5 +1,6 @@
 // Importar componentes
 import { Navbar } from './components/navbar.js';
+import { SobreNosotras } from './components/sobrenosotras.js';
 import { Header } from './components/header.js';
 import { Productos } from './components/productos.js';
 import { Comentarios } from './components/comentarios.js';
@@ -12,6 +13,9 @@ const app = document.getElementById('app');
 (async () => {
   // Navbar
   app.append(Navbar());
+
+  // Apartado Sobre Nosotras
+  app.append(SobreNosotras());
 
   // Carrusel de productos destacados (Header)
   const productosPortada = await Header();
