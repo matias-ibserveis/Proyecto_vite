@@ -25,7 +25,7 @@ export function CategoryNavbar() {
 
   let currentIndex = 0;
   const itemsPerPage = 5;
-  const itemWidth = 160;
+  const itemWidth = nav.querySelector(".category-item")?.offsetWidth || 160;
 
   const renderCategories = () => {
     return categories

@@ -30,6 +30,7 @@
   <script type="module">
     import { CestaNavbar } from '/src/components/CestaNavbar.js';
     import { CategoryNavbar } from '/src/components/CategoryNavbar.js';
+    import { Productos } from '/src/components/productos.js';
 
     try {
       const mainNavbar = CestaNavbar();
@@ -44,6 +45,9 @@
       } else {
         console.error("Category navbar wrapper not found in DOM");
       }
+
+        const productSection = Productos(); // ⬅️ Render products
+        document.querySelector(".container .row").replaceChildren(productSection); // ⬅️ Replace placeholder
     } catch (error) {
       console.error("Error loading navbars:", error);
     }

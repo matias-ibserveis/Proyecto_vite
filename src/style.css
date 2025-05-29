@@ -989,10 +989,6 @@ button:focus-visible {
   }
 }
 
-.container {
-  padding-top: 120px;
-}
-
 .category-scroll-wrapper {
   overflow: hidden;
   width: 800px;
