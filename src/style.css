@@ -808,7 +808,7 @@ button:focus-visible {
 
 .category-nav-container {
   max-width: 1200px;
-  margin: 0 auto;
+  margin: 0rem;
   width: 100%;
 }
 .category-scroll-wrapper {
@@ -1043,4 +1043,213 @@ button:focus-visible {
   .category-navbar-wrapper {
     margin-top: 20px;
   }
+}
+
+/* Existing styles remain unchanged, updating styles below */
+
+/* ------------------- Category Cards Section ------------------- */
+.category-cards-section {
+  background-color: var(--main-color);
+  padding: 20px 0;
+  margin-top: 10px;
+  text-align: center;
+}
+
+.category-title {
+  color: var(--secondary-color);
+  font-family: 'Aloja Extended', 'Arial', sans-serif;
+  font-size: 2rem;
+  margin-bottom: 20px;
+}
+
+.category-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* 4 columns on larger screens */
+  grid-template-rows: repeat(2, auto); /* 2 rows */
+  gap: 10px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  overflow: hidden; /* Hide cards beyond the first 8 */
+}
+
+/* Hide cards beyond the first 8 by default (JS will handle pagination) */
+.category-card:nth-child(n+9) {
+  display: none;
+}
+
+.category-card {
+  background-color: #ffffff;
+  border: 1px solid var(--main-color);
+  border-radius: 5px;
+  padding: 10px;
+  text-align: center;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  cursor: pointer;
+}
+
+.category-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.category-card-image {
+  width: 100%;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 5px;
+}
+
+.category-card-name {
+  color: var(--secondary-color);
+  font-family: 'Aloja Extended', 'Arial', sans-serif;
+  font-size: 1rem;
+  margin-top: 10px;
+}
+
+/* Pagination Buttons for Category Cards */
+.category-pagination {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.category-pagination-btn {
+  background-color: var(--secondary-color);
+  color: #ffffff;
+  border: 1px solid var(--secondary-color);
+  border-radius: 5px;
+  font-size: 1rem;
+  padding: 0.4rem 0.8rem;
+  font-family: 'Aloja Extended', 'Arial', sans-serif;
+  cursor: pointer;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.category-pagination-btn:hover {
+  background-color: #ffffff;
+  color: var(--secondary-color);
+}
+
+.category-pagination-btn:disabled {
+  background-color: #cccccc;
+  border-color: #cccccc;
+  color: #666666;
+  cursor: not-allowed;
+}
+
+/* Responsive Adjustments for Category Cards */
+@media (max-width: 768px) {
+  .category-cards-grid {
+    grid-template-columns: repeat(2, 1fr); /* 2 columns on mobile */
+    grid-template-rows: repeat(2, auto); /* 2 rows */
+  }
+
+  /* Hide cards beyond the first 4 on mobile */
+  .category-card:nth-child(n+5) {
+    display: none;
+  }
+
+  .category-card-image {
+    height: 80px;
+  }
+
+  .category-card-name {
+    font-size: 0.9rem;
+  }
+}
+
+/* ------------------- Updated Category Navbar ------------------- */
+.category-nav-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  margin-top: 1rem;
+  padding: 10px 20px;
+  display: flex;
+  justify-content: flex-end;
+  background-color: var(--main-color);
+  border-radius: 10px;
+}
+
+.category-navbar {
+  background-color: transparent;
+  box-shadow: none;
+  padding: 0;
+  font-family: 'Aloja Extended', 'Arial', sans-serif;
+  position: static;
+  width: auto;
+}
+
+.search-form {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.category-search {
+  border-radius: 5px;
+  border: 1px solid var(--secondary-color);
+  font-size: 0.9rem;
+  padding: 0.4rem 0.8rem;
+  background-color: #ffffff;
+  width: 200px;
+}
+
+.search-btn {
+  background-color: var(--secondary-color);
+  color: #ffffff;
+  border: 1px solid var(--secondary-color);
+  border-radius: 5px;
+  font-size: 0.9rem;
+  padding: 0.4rem 0.8rem;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.search-btn:hover {
+  background-color: #ffffff;
+  color: var(--secondary-color);
+}
+
+/* Responsive Adjustments for Navbar */
+@media (max-width: 767px) {
+  .category-nav-container {
+    justify-content: center;
+    padding: 10px;
+  }
+
+  .search-form {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .category-search {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+
+  .search-btn {
+    width: 100%;
+  }
+}
+
+/* ------------------- Product Container ------------------- */
+.product-container {
+  max-width: 1200px;
+  margin: 0.5rem;
+  padding: 20px;
+}
+
+.product-container .row {
+  margin: 0;
+}
+
+.product-container .col-12 {
+  padding: 0;
+}
+
+/* Ensure Product Section Spacing */
+.product-container {
+  margin-top: 0.5rem !important;
+  padding-top: 0rem !important;
 }

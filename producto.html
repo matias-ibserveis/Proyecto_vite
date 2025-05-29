@@ -12,16 +12,22 @@
   <!-- Main Navbar -->
   <div id="navbar"></div>
 
-  <!-- Category Navbar with Wrapper -->
-  <div class="category-navbar-wrapper">
+  <!-- Categories Section -->
+  <section class="category-cards-section">
+    <h2 class="category-title">CATEGORIAS</h2>
+    <div id="category-cards"></div>
+  </section>
+
+  <!-- Search Bar -->
+  <div class="category-nav-container">
     <div id="category-navbar"></div>
   </div>
 
   <!-- Product Content -->
-  <div class="container mt-5 pt-5">
+  <div class="product-container">
     <div class="row">
       <div class="col-12">
-        <p class="placeholder-message">Productos en construcción</p>
+        <div id="product-section"></div>
       </div>
     </div>
   </div>
@@ -30,6 +36,7 @@
   <script type="module">
     import { CestaNavbar } from '/src/components/CestaNavbar.js';
     import { CategoryNavbar } from '/src/components/CategoryNavbar.js';
+    import { CategoryCards } from '/src/components/CategoryCards.js';
     import { Productos } from '/src/components/productos.js';
 
     try {
@@ -37,21 +44,31 @@
       document.getElementById('navbar').appendChild(mainNavbar);
       console.log("Main navbar appended successfully:", mainNavbar);
 
-      const categoryNavbar = CategoryNavbar();
-      const categoryWrapper = document.getElementById('category-navbar');
-      if (categoryWrapper) {
-        categoryWrapper.appendChild(categoryNavbar);
-        console.log("Category navbar appended successfully:", categoryNavbar);
+      const categoryCards = CategoryCards();
+      const categoryCardsContainer = document.getElementById('category-cards');
+      if (categoryCardsContainer) {
+        categoryCardsContainer.appendChild(categoryCards);
+        console.log("Category cards appended successfully:", categoryCards);
       } else {
-        console.error("Category navbar wrapper not found in DOM");
+        console.error("Category cards container not found in DOM");
       }
 
-        const productSection = Productos(); // ⬅️ Render products
-        document.querySelector(".container .row").replaceChildren(productSection); // ⬅️ Replace placeholder
+      const categoryNavbar = CategoryNavbar();
+      const categoryNavbarContainer = document.getElementById('category-navbar');
+      if (categoryNavbarContainer) {
+        categoryNavbarContainer.appendChild(categoryNavbar);
+        console.log("Category navbar appended successfully:", categoryNavbar);
+      } else {
+        console.error("Category navbar container not found in DOM");
+      }
+
+      const productSection = Productos();
+      document.getElementById('product-section').appendChild(productSection);
+      console.log("Product section appended successfully:", productSection);
     } catch (error) {
-      console.error("Error loading navbars:", error);
+      console.error("Error loading components:", error);
     }
   </script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
 </body>
 </html>

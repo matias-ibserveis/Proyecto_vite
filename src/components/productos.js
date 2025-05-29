@@ -22,7 +22,22 @@ export function Productos() {
       category: "Micros",
       price: 85,
       image: "/images/producto1_2.jpeg"
+    },        
+    {
+      id: 4,
+      name: "Micrófono Condensador1",
+      category: "Micros",
+      price: 85,
+      image: "/images/producto1_2.jpeg"
+    },
+    {
+      id: 5,
+      name: "Micrófono Condensador2",
+      category: "Micros",
+      price: 85,
+      image: "/images/producto1_2.jpeg"
     }
+
   ];
 
   const container = document.createElement("div");
