@@ -305,7 +305,7 @@ button:focus-visible {
   .reseña-item img.reseña-img-sin-borde {
     border-radius: 0 !important;
   }
-  
+
   .reseña-item h3 {
     margin: 0.5rem 0;
   }
@@ -357,20 +357,13 @@ button:focus-visible {
   }
 
 /* --- Sobre Nosotras --- */
-.sobre-nosotras-bg {
-  background-image: url("/images/sobrenosotras1.jpg");
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center;
-  padding: 250px;
-  text-align: center;
-  margin-bottom: 20px;
-}
 .sobre-nosotras-titulo {
   font-family: 'Aloja Extended', sans-serif;
   font-size: 30px;
   font-weight: 700;
   color: black;
+  border: none;
+  margin-top: 20px;
   margin-bottom: 20px;
   background-attachment: fixed;
   background-color: var(--main-color) !important;
@@ -391,15 +384,64 @@ button:focus-visible {
   padding-bottom: 5px;
   border-radius: 10px;
   background: fixed;
+  margin-bottom: 20px;
   background-color: var(--terciary-color);
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s ease, transform 0.8s cubic-bezier(.4,2,.6,1);
+}
+
+.sobre-nosotras-texto.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.sobre-nosotras img {
+  width: 200px;
+  height: 200px;
+  border-radius: 10%;
+  margin-bottom: 20px;
+}
+
+.carrusel-marquee {
+  overflow: hidden;
+  width: 100%;
+  background: var(--terciary-color);
+  padding: 20px 0;
+}
+
+.carrusel-marquee-inner {
+  display: flex;
+  gap: 5px;
+  width: max-content;
+  animation: marquee 24s linear infinite;
+}
+
+.carrusel-marquee-inner img {
+  height: 300px;
+  width: 300px;
+  display: block;
+  object-fit: cover;
+  flex-shrink: 0; /* Evita compresión en algunos navegadores */
+}
+
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(calc(-100% - 5px)); }
+}
+
+@media (max-width: 900px) {
+  .carrusel-marquee-inner img {
+    height: 150px;
+    width: 150px;
+  }
+  
+  /* Misma animación para móvil (no necesita cambio) */
 }
 
 /* Responsive para móvil */
 @media (max-width: 900px) {
-  .sobre-nosotras-bg {
-    padding: 40px 8px;
-    min-height: 270px;
-  }
+
   .sobre-nosotras-titulo {
     font-size: 20px;
     padding: 8px 12px;
@@ -413,10 +455,7 @@ button:focus-visible {
 }
 
 @media (max-width: 600px) {
-  .sobre-nosotras-bg {
-    padding: 24px 2vw;
-    min-height: 150px;
-  }
+
   .sobre-nosotras-titulo {
     font-size: 15px;
     padding: 6px 6px;
