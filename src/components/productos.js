@@ -1,205 +1,103 @@
-import { crearModalIA, mostrarRespuestaIA } from "./iaModal.js"; // Ajusta ruta según tu estructura
+// src/components/productos.js
 
+export function Productos() {
+  const products = [
+    {
+      id: 1,
+      name: "Empanada de Queso",
+      category: "Tradicional",
+      price: 2.5,
+      image: "/images/Empanada.png"
+    },
+    {
+      id: 2,
+      name: "Teclado MIDI 49",
+      category: "Teclados",
+      price: 120,
+      image: "/images/producto1_1.jpeg"
+    },
+    {
+      id: 3,
+      name: "Micrófono Condensador",
+      category: "Micros",
+      price: 85,
+      image: "/images/producto1_2.jpeg"
+    }
+  ];
 
-export async function Productos() {
+  const container = document.createElement("div");
+  container.className = "row product-list";
 
-  crearModalIA();
+  products.forEach((product) => {
+    const col = document.createElement("div");
+    col.className = "col-md-4 mb-4";
 
-  const productos = document.createElement("section");
-  productos.className = "container py-5";
-  productos.id = "productos";
+    const card = document.createElement("div");
+    card.className = "card h-100 shadow-sm";
 
-  productos.innerHTML = `
-    <h2 class="text-center titulo">Nuestros Productos</h2>
-    <div class="mb-4">
-      <input type="text" id="busquedaInput" class="form-control" placeholder="Buscar productos ...">
-      <button id="buscarBtn" class="btn btn-primary mt-2">Buscar</button>
-    </div>
-    <div class="row" id="productos-lista"></div>
-  `;
+    const img = document.createElement("img");
+    img.src = product.image;
+    img.alt = product.name;
+    img.className = "card-img-top product-image";
 
-  const contenedor = productos.querySelector("#productos-lista");
+    const cardBody = document.createElement("div");
+    cardBody.className = "card-body";
 
+    const title = document.createElement("h5");
+    title.className = "card-title";
+    title.textContent = product.name;
 
-  const renderizarProductos = (lista) => {
-    contenedor.innerHTML = ""; // limpiar
-    lista.forEach(producto => {
-      const col = document.createElement("div");
-      col.className = "col-md-4";
+    const price = document.createElement("p");
+    price.className = "card-text text-muted";
+    price.textContent = `Precio: €${product.price}`;
 
-      const frases = producto.descripcion.split(/[.!?]\s/);
-      const primerasFrases = frases.slice(0, 2).join('. ') + '.';
-      const descripcionCompleta = producto.descripcion;
+    const quantityControl = document.createElement("div");
+    quantityControl.className = "d-flex justify-content-between align-items-center";
 
-      const imageId = producto.imagen1.split('/d/')[1]?.split('/')[0];
-      const imageUrl = `https://drive.google.com/thumbnail?id=${imageId}&sz=w800-h600`;
+    const minusBtn = document.createElement("button");
+    minusBtn.className = "btn btn-outline-secondary btn-sm";
+    minusBtn.textContent = "-";
 
-      col.innerHTML = `
-        <div class="card mb-4">
-          <img src="${imageUrl}" class="card-img-top" alt="${producto.titulo}">
-          <div class="card-body">
-              <h5 class="card-title">
-                  ${producto.titulo}
-              </h5>
-              <p class="card-text" id="desc-${producto.id}">
-                ${primerasFrases}
-                <span class="ver_mas" data-id="${producto.id}">ver +</span>
-              </p>
-              <button class="btn btn-secondary mt-2 btn-ia" data-id="${producto.id}">+información IA</button>
-              <button class="btn btn-secondary mt-2 btn-a-cesta" data-id="${producto.id}">a la cesta</button>
-          </div>
-        </div>
-      `;
+    const quantityDisplay = document.createElement("span");
+    quantityDisplay.className = "mx-2";
+    quantityDisplay.textContent = "0";
 
-      contenedor.appendChild(col);
+    const plusBtn = document.createElement("button");
+    plusBtn.className = "btn btn-outline-secondary btn-sm";
+    plusBtn.textContent = "+";
 
-      // Evento "a la cesta"
-      const botonCesta = col.querySelector(".btn-a-cesta");
-      botonCesta.addEventListener("click", () => {
-        irACestaConProducto(producto.id);
-      });
-
-      // Evento "ver más"
-      const botonvermas = col.querySelector(".ver_mas");
-      botonvermas.addEventListener("click", () => {
-        irAsoloProducto(producto.id);
-      });
-
-      // Evento "Info IA"
-      const botonia = col.querySelector(".btn-ia");
-      botonia.addEventListener("click", () => {
-        // Cambiar estilo y texto del botón mientras espera
-        botonia.textContent = "Espera un momento ";
-        botonia.classList.remove("btn-secondary");
-        botonia.classList.add("btn-warning", "text-dark");
-
-        mostrarRespuestaIA(producto).finally(() => {
-          // Opcional: restaurar botón después de recibir respuesta
-          botonia.textContent = "Información IA";
-          botonia.classList.remove("btn-warning", "text-dark");
-          botonia.classList.add("btn-secondary");
-        });
-      });
-
-
-      // Ir a POS Y
-      const y = sessionStorage.getItem("prevScrollY");
-      if (y !== null) {
-        const intentarScroll = () => {
-          if (document.querySelector("#productos")) {
-            setTimeout(() => {
-              window.scrollTo(0, parseInt(y));
-              sessionStorage.removeItem("prevScrollY");
-            }, 100);
-          } else {
-            requestAnimationFrame(intentarScroll);
-          }
-        };
-        intentarScroll();
-      }
-
-
-    });
-  };
-
-
-
-  function irACestaConProducto(id) {
-    sessionStorage.setItem("prevScrollY", window.scrollY);
-    sessionStorage.setItem("prevURL", window.location.href);
-    window.location.href = `/cesta.html?id=${id}`;
-  }
-
-   function irAsoloProducto(id) {
-    sessionStorage.setItem("prevScrollY", window.scrollY);
-    sessionStorage.setItem("prevURL", window.location.href);
-    window.location.href = `/producto.html?id=${id}`;
-  }
-
-
-
-  // fetch inicial y búsqueda
-  try {
-    const res = await fetch('https://proyectorailway-production-9739.up.railway.app/datos');
-    //const res = await fetch('http://localhost:3000/datos');
-    const data = await res.json();
-
-
-    //const productosOrdenados = data.sort((a, b) => new Date(b.fecha) - new Date(a.fecha));
-
-    //console.log("data",data)
-    const productosRecientes = data.slice(0, 10);
-
-    console.log("productosrecientes",productosRecientes)
-    renderizarProductos(productosRecientes);
-
-    const buscarBtn = productos.querySelector("#buscarBtn");
-    buscarBtn.addEventListener("click", async () => {
-      const consulta = productos.querySelector("#busquedaInput").value.trim();
-      if (!consulta) return;
-
-      try {
-        const resp = await fetch('https://proyectorailway-production-9739.up.railway.app/buscar', {
-          //const resp = await fetch('http://localhost:3000/buscar', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ consulta })
-        });
-
-        const resultados = await resp.json();
-        console.log("resultados",resultados)
-        renderizarProductos(resultados);
-
-      } catch (err) {
-        console.error("Error en búsqueda:", err);
-        contenedor.innerHTML = `<p class="text-danger">Error al buscar productos</p>`;
-      }
+    minusBtn.addEventListener("click", () => {
+      const current = parseInt(quantityDisplay.textContent);
+      if (current > 0) quantityDisplay.textContent = current - 1;
     });
 
-  } catch (error) {
-    productos.innerHTML += `<p class="text-danger text-center">Error al cargar productos</p>`;
-    console.error("Error cargando productos:", error);
-  }
+    plusBtn.addEventListener("click", () => {
+      const current = parseInt(quantityDisplay.textContent);
+      quantityDisplay.textContent = current + 1;
+    });
 
+    quantityControl.appendChild(minusBtn);
+    quantityControl.appendChild(quantityDisplay);
+    quantityControl.appendChild(plusBtn);
 
+    const removeBtn = document.createElement("button");
+    removeBtn.className = "btn btn-danger btn-sm mt-3 w-100";
+    removeBtn.textContent = "Eliminar producto";
 
-  // Estilos
-  const style = document.createElement("style");
-  style.innerHTML = `
-    .card-img-top {
-      height: 200px;
-      object-fit: cover;
-      border-radius: 8px;
-    }
-    .card-body {
-      padding: .5rem;
-      text-align:left;
-    }
-    .card-title {
-      font-size: 1.2rem;
-      font-weight: bold;
-    }
-    .card-text {
-      font-size: 1rem;
-      color: #6c757d;
-    }
-    .btn-success {
-      width: 100%;
-      font-size: 1.1rem;
-    }
-    .ver_mas {
-      color: var(--secondary-color); 
-      text-decoration: underline;
-      cursor: pointer;
-      font-size: 1.1rem; 
-      font-weight: 500;
-      font-family: inherit;
-    }
-    .container {
-      max-width: 1200px;
-    }
-  `;
-  document.head.appendChild(style);
+    removeBtn.addEventListener("click", () => {
+      col.remove();
+    });
 
-  return productos;
+    cardBody.appendChild(title);
+    cardBody.appendChild(price);
+    cardBody.appendChild(quantityControl);
+    cardBody.appendChild(removeBtn);
+
+    card.appendChild(img);
+    card.appendChild(cardBody);
+    col.appendChild(card);
+    container.appendChild(col);
+  });
+
+  return container;
 }

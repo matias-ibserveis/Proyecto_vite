@@ -9,11 +9,16 @@
   <link href="https://db.onlinewebfonts.com/c/b12cce617218fe8bfa367def9a61af72?family=Aloja+Extended" rel="stylesheet" />
 </head>
 <body>
-  <!-- Navbar Container -->
+  <!-- Main Navbar -->
   <div id="navbar"></div>
 
-  <!-- Placeholder Content -->
-  <div class="container mt-3">
+  <!-- Category Navbar with Wrapper -->
+  <div class="category-navbar-wrapper">
+    <div id="category-navbar"></div>
+  </div>
+
+  <!-- Product Content -->
+  <div class="container mt-5 pt-5">
     <div class="row">
       <div class="col-12">
         <p class="placeholder-message">Productos en construcción</p>
@@ -24,7 +29,28 @@
   <!-- Load JavaScript -->
   <script type="module">
     import { CestaNavbar } from '/src/components/CestaNavbar.js';
-    document.getElementById('navbar').appendChild(CestaNavbar());
+    import { CategoryNavbar } from '/src/components/CategoryNavbar.js';
+    import { Productos } from '/src/components/productos.js';
+
+    try {
+      const mainNavbar = CestaNavbar();
+      document.getElementById('navbar').appendChild(mainNavbar);
+      console.log("Main navbar appended successfully:", mainNavbar);
+
+      const categoryNavbar = CategoryNavbar();
+      const categoryWrapper = document.getElementById('category-navbar');
+      if (categoryWrapper) {
+        categoryWrapper.appendChild(categoryNavbar);
+        console.log("Category navbar appended successfully:", categoryNavbar);
+      } else {
+        console.error("Category navbar wrapper not found in DOM");
+      }
+
+        const productSection = Productos(); // ⬅️ Render products
+        document.querySelector(".container .row").replaceChildren(productSection); // ⬅️ Replace placeholder
+    } catch (error) {
+      console.error("Error loading navbars:", error);
+    }
   </script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
