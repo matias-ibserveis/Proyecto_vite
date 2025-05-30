@@ -14,7 +14,7 @@ export function Productos() {
       category: "Teclados",
       price: 120,
       description: "Teclado MIDI de 49 teclas con sensibilidad a la velocidad, ideal para producción musical.",
-      image: "/images/producto1_1.jpeg"
+      image: "/images/producto1_2.jpeg"
     },
     {
       id: 3,
@@ -52,17 +52,19 @@ export function Productos() {
     const card = document.createElement("div");
     card.className = "card h-100 shadow-sm position-relative";
 
+    const cardContent = document.createElement("div");
+    cardContent.className = "product-card-content";
+
+    const imageWrapper = document.createElement("div");
+    imageWrapper.className = "product-image-wrapper";
+
     const img = document.createElement("img");
     img.src = product.image;
     img.alt = product.name;
     img.className = "card-img-top product-image";
 
-    const cardBody = document.createElement("div");
-    cardBody.className = "card-body d-flex flex-column";
-
-    const description = document.createElement("p");
-    description.className = "card-text product-description";
-    description.textContent = product.description;
+    const details = document.createElement("div");
+    details.className = "product-details";
 
     const title = document.createElement("h5");
     title.className = "card-title";
@@ -72,11 +74,15 @@ export function Productos() {
     price.className = "card-text text-muted";
     price.textContent = `Precio: €${product.price}`;
 
+    const description = document.createElement("p");
+    description.className = "card-text product-description";
+    description.textContent = product.description;
+
     const cardFooter = document.createElement("div");
-    cardFooter.className = "card-footer d-flex justify-content-between align-items-center mt-auto";
+    cardFooter.className = "card-footer";
 
     const quantityControl = document.createElement("div");
-    quantityControl.className = "d-flex align-items-center";
+    quantityControl.className = "d-flex align-items-center quantity-control";
 
     const minusBtn = document.createElement("button");
     minusBtn.className = "btn btn-outline-secondary btn-sm quantity-btn";
@@ -93,7 +99,7 @@ export function Productos() {
     // Quantity control logic
     function updateQuantity() {
       const current = parseInt(quantityDisplay.textContent);
-      minusBtn.style.visibility = current <= 0 ? "hidden" : "visible"; // Hide "-" when 0
+      minusBtn.style.visibility = current <= 0 ? "hidden" : "visible";
     }
 
     minusBtn.addEventListener("click", () => {
@@ -112,6 +118,9 @@ export function Productos() {
     quantityControl.appendChild(quantityDisplay);
     quantityControl.appendChild(plusBtn);
 
+    const addBtnContainer = document.createElement("div");
+    addBtnContainer.className = "add-btn-container";
+
     const addBtn = document.createElement("button");
     addBtn.className = "btn btn-success btn-sm add-btn";
     addBtn.textContent = "Añadir";
@@ -119,25 +128,37 @@ export function Productos() {
     addBtn.addEventListener("click", () => {
       const quantity = parseInt(quantityDisplay.textContent);
       if (quantity > 0) {
+        const addToCartEvent = new CustomEvent("addToCart", {
+          detail: {
+            id: product.id,
+            name: product.name,
+            quantity: quantity,
+            price: product.price
+          }
+        });
+        document.dispatchEvent(addToCartEvent);
         console.log(`Added ${quantity} x ${product.name} to cart`);
-        // Future cart logic can go here
       }
     });
 
+    addBtnContainer.appendChild(addBtn);
     cardFooter.appendChild(quantityControl);
-    cardFooter.appendChild(addBtn);
+    cardFooter.appendChild(addBtnContainer);
 
-    cardBody.appendChild(description);
-    cardBody.appendChild(title);
-    cardBody.appendChild(price);
-    cardBody.appendChild(cardFooter);
+    // Ensure title and price are in the details section, not the footer
+    details.appendChild(title);
+    details.appendChild(price);
+    details.appendChild(description);
 
-    card.appendChild(img);
-    card.appendChild(cardBody);
+    imageWrapper.appendChild(img);
+    cardContent.appendChild(imageWrapper);
+    cardContent.appendChild(details);
+
+    card.appendChild(cardContent);
+    card.appendChild(cardFooter);
     col.appendChild(card);
     container.appendChild(col);
 
-    // Initialize quantity visibility
     updateQuantity();
   });
 
