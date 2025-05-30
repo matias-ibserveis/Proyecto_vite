@@ -1,7 +1,7 @@
 // Importar componentes
 import { Navbar } from './components/navbar.js';
 import { SobreNosotras } from './components/sobrenosotras.js';
-import { NuestraFilosofia } from './nuestrafilosofia.js';
+import { NuestraFilosofia } from './components/nuestrafilosofia.js';
 import { Header } from './components/header.js';
 import { Productos } from './components/productos.js';
 import { Comentarios } from './components/comentarios.js';
@@ -17,9 +17,6 @@ const app = document.getElementById('app');
 
   // Apartado Sobre Nosotras
   app.append(SobreNosotras());
-
-  // Apartado Nuestra Filosofía
-  app.append(NuestraFilosofia());
   
   // Carrusel de productos destacados (Header)
   const productosPortada = await Header();
@@ -28,6 +25,9 @@ const app = document.getElementById('app');
   // Sección de productos
   const productos = await Productos();
   app.append(productos);
+
+    // Apartado Nuestra Filosofía
+  app.append(NuestraFilosofia());
 
   // Carrusel de reseñas (Comentarios)
   app.append(Comentarios());

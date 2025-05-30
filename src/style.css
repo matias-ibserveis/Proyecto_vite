@@ -27,8 +27,11 @@ body {
   margin: 0;
   display: flex;
   place-items: center;
+  justify-content: center;
+  align-items: start; /* o flex-start */
   min-width: 320px;
   min-height: 100vh;
+
 }
 
 h1 {
@@ -37,9 +40,9 @@ h1 {
 }
 
 #app {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
+  width: 100%;
+  max-width: 1360px;
+  padding: 1rem;
   text-align: center;
 }
 
@@ -294,239 +297,6 @@ button:focus-visible {
   }
 }
 
-/* Estilos reseñas */
-  .reseña-item img {
-    width: 75px !important;
-    height: 75px !important;
-    border-radius: 100% !important;
-    margin-bottom: 0.5rem !important;
-  }
-  
-  .reseña-item img.reseña-img-sin-borde {
-    border-radius: 0 !important;
-  }
-
-  .reseña-item h3 {
-    margin: 0.5rem 0;
-  }
-  
-  .reseña-item p {
-    font-style: italic;
-    font-size: 0.95rem;
-  }
-
-  .stars {
-    color: gold;
-    font-size: 1.2rem;
-    margin-top: 0.5rem;
-  }
-  
-  .carousel-control-prev {
-    left: 3%;
-  }
-
-  .carousel-control-next {
-    right: 3%;
-  }
-
-  .carousel-bg {
-    background-color: var(--terciary-color);
-    padding: 50px
-  }
-
-  @media (max-width: 600px) {
-    .carousel-bg {
-      background-color: var(--terciary-color);
-      padding: 50px;
-      min-height: 495px;
-    }
-  }
-
-  .reseña-nombre {
-    font-family: 'Aloja Extended', sans-serif;
-    font-weight: 700;
-    color: black;
-    text-align: center;
-  }
-
-  .reseña-texto {
-    font-family: "Hanken Grotesk", sans-serif;
-    font-weight: 400;
-    color: #333;
-    text-align: center;
-  }
-
-/* --- Sobre Nosotras --- */
-.sobre-nosotras-titulo {
-  font-family: 'Aloja Extended', sans-serif;
-  font-size: 2rem;
-  font-weight: 700;
-  color: white;
-  border: none;
-  margin-top: 20px;
-  margin-bottom: 20px;
-  background-attachment: fixed;
-  background-color: var(--main-color) !important;
-  display: inline-block;
-  border-radius: 10px;
-  padding: 15px;
-}
-
-.sobre-nosotras-texto {
-  font-family: "Hanken Grotesk", sans-serif;
-  font-weight: 400;
-  font-size: 18px;
-  color: #303030;
-  max-width: 800px;
-  margin: 0 auto;
-  line-height: 1.6;
-  padding-top: 5px;
-  padding-bottom: 5px;
-  border-radius: 10px;
-  background: fixed;
-  margin-bottom: 20px;
-  background-color: var(--terciary-color);
-  opacity: 0;
-  transform: translateY(30px);
-  transition: opacity 0.8s ease, transform 0.8s cubic-bezier(.4,2,.6,1);
-}
-
-@media (max-width: 600px) {
-  .sobre-nosotras-titulo {
-    font-size: 27px;
-    padding: 10px;
-  }
-  
-  .sobre-nosotras-texto {
-    font-size: 16px;
-    padding: 10px;
-    max-width: 90vw;
-  }
-}
-
-.sobre-nosotras-texto.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.sobre-nosotras img {
-  width: 200px;
-  height: 200px;
-  border-radius: 10%;
-  margin-bottom: 20px;
-}
-
-.carrusel-marquee {
-  overflow: hidden;
-  width: 100%;
-  height: 340xpx;
-  background: var(--terciary-color);
-  padding: 20px;
-  position: relative;
-  margin-bottom: 20px;
-}
-
-.carrusel-marquee-inner {
-  display: flex;
-  gap: 5px;
-  animation: marquee 36s linear infinite;
-  will-change: transform;
-  backface-visibility: hidden;
-}
-
-.carrusel-marquee-inner img {
-  height: 300px;
-  width: 300px;
-  display: block;
-  object-fit: cover;
-  flex-shrink: 0;
-}
-
-/* Animación mejorada para loop perfecto */
-@keyframes marquee {
-  0% {
-    transform: translateX(0);
-  }
-  100% {
-    transform: translateX(-50%); /* Usamos porcentaje fijo */
-  }
-}
-
-@media (max-width: 900px) {
-  .carrusel-marquee-inner img {
-    height: 150px;
-    width: 150px;
-  }
-
-  .carrusel-marquee {
-    min-height: 200px;
-    max-height: 200px;
-  }
-  
-  /* Ajuste para móviles */
-  @keyframes marquee {
-    100% {
-      transform: translateX(-50%);
-    }
-  }
-}
-
-/*NUESTRA FILOSOFÍA*/
-    .bloque {
-      opacity: 0;
-      transform: translateX(-100px);
-      transition: all 1s ease;
-      background: var(--main-color);
-      padding: 2rem;
-      margin: 25px auto;
-      max-width: 600px;
-      border-radius: 12px;
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-      font-family: "Hanken Grotesk", sans-serif;
-      font-size: 18px;
-    }
-
-    .bloque.derecha {
-      transform: translateX(100px);
-      background: var(--terciary-color);
-      margin: 25px auto;
-    }
-
-    .bloque.titulo {
-      font-family: "Aloha Extended", sans-serif ;
-      font-size: 2rem;
-      background: var(--main-color);
-      text-align: center;
-      border-radius: 10px;
-      margin: 0 auto 1.5rem auto;
-      padding: 0.5em 2em 0.3em 2em;
-      opacity: 0;
-      transform: translateY(-100px);
-      transition: all 1s ease;
-    }
-
-    .bloque.mostrar {
-      opacity: 1;
-      transform: translateX(0) translateY(0);
-    }
-
-    @media (max-width: 600px) {
-      .bloque,
-      .bloque.derecha {
-        margin-left: auto;
-        margin-right: auto;
-        max-width: 80%;
-        padding: 1rem;
-        font-size: 16px;
-      }
-
-      .bloque.titulo {
-        max-width: 85%;
-        font-size: 1.5rem;
-        padding: 0.5em 1em;
-      }
-    }
-    
 
 /* --- BLOQUE QUE EVITA LA FRANJA NEGRA --- */
 html, body {
@@ -538,9 +308,9 @@ html, body {
   margin: 0 !important;
 }
 
-#app, .container, .row, .col-12 {
+.container, .row, .col-12 {
   max-width: 100vw !important;
-  width: 100vw !important;
+  /* width: 100vw !important; */
   box-sizing: border-box;
   padding-left: 0 !important;
   padding-right: 0 !important;
