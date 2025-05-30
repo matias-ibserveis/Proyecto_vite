@@ -408,13 +408,15 @@ button:focus-visible {
   width: 100%;
   background: var(--terciary-color);
   padding: 20px 0;
+  position: relative;
 }
 
 .carrusel-marquee-inner {
   display: flex;
   gap: 5px;
-  width: max-content;
-  animation: marquee 24s linear infinite;
+  animation: marquee 36s linear infinite;
+  will-change: transform;
+  backface-visibility: hidden;
 }
 
 .carrusel-marquee-inner img {
@@ -422,12 +424,17 @@ button:focus-visible {
   width: 300px;
   display: block;
   object-fit: cover;
-  flex-shrink: 0; /* Evita compresión en algunos navegadores */
+  flex-shrink: 0;
 }
 
+/* Animación mejorada para loop perfecto */
 @keyframes marquee {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(calc(-100% - 5px)); }
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%); /* Usamos porcentaje fijo */
+  }
 }
 
 @media (max-width: 900px) {
@@ -436,36 +443,11 @@ button:focus-visible {
     width: 150px;
   }
   
-  /* Misma animación para móvil (no necesita cambio) */
-}
-
-/* Responsive para móvil */
-@media (max-width: 900px) {
-
-  .sobre-nosotras-titulo {
-    font-size: 20px;
-    padding: 8px 12px;
-    margin-bottom: 14px;
-  }
-  .sobre-nosotras-texto {
-    font-size: 15px;
-    padding: 8px 8px;
-    max-width: 98vw;
-  }
-}
-
-@media (max-width: 600px) {
-
-  .sobre-nosotras-titulo {
-    font-size: 15px;
-    padding: 6px 6px;
-    margin-bottom: 10px;
-    max-width: 98vw;
-  }
-  .sobre-nosotras-texto {
-    font-size: 10px;
-    padding: 6px 4px;
-    max-width: 99vw;
+  /* Ajuste para móviles */
+  @keyframes marquee {
+    100% {
+      transform: translateX(-50%);
+    }
   }
 }
 
