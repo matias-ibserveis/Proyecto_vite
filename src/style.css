@@ -23,6 +23,7 @@ body {
   align-items: center;
   min-width: 320px;
   min-height: 100vh;
+  overflow-x: hidden;
 }
 
 a {
@@ -757,6 +758,7 @@ button:focus-visible {
 .cesta-navbar .navbar-toggler {
   border-color: #ffffff;
   background-color: var(--main-color);
+  margin-right: 1rem;
 }
 
 /* Toggler icon styling */
@@ -1063,13 +1065,13 @@ button:focus-visible {
 
 .category-cards-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr); /* 4 columns on larger screens */
-  grid-template-rows: repeat(2, auto); /* 2 rows */
+  grid-template-columns: repeat(4, minmax(230px, 1fr));
+  grid-template-rows: auto;
   gap: 10px;
-  max-width: 1200px;
+  max-width: 100%;
   margin: 0 auto;
   padding: 0 20px;
-  overflow: hidden; /* Hide cards beyond the first 8 */
+  overflow: visible;
 }
 
 /* Hide cards beyond the first 8 by default (JS will handle pagination) */
@@ -1109,13 +1111,13 @@ button:focus-visible {
 /* Pagination Buttons for Category Cards */
 .category-pagination {
   display: flex;
-  justify-content: flex-end; /* Position at the bottom right */
+  justify-content: flex-end;
   gap: 10px;
   margin-top: 20px;
-  padding: 0 20px; /* Match container padding */
+  padding: 0 20px;
 }
 
-/* Existing .category-pagination-btn styles (keep these) */
+/* Existing .category-pagination-btn styles */
 .category-pagination-btn {
   background-color: var(--secondary-color);
   color: #ffffff;
@@ -1138,6 +1140,34 @@ button:focus-visible {
   border-color: #cccccc;
   color: #666666;
   cursor: not-allowed;
+}
+
+/* Responsive Adjustments for Category Cards */
+@media (max-width: 991px) {
+  .category-cards-grid {
+    grid-template-columns: repeat(3, 1fr); /* 3 columns for 768px–991px */
+  }
+  .category-card-image {
+    height: 90px;
+  }
+  .category-card-name {
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 767px) {
+  .category-cards-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .category-card:nth-child(n+5) {
+    display: none;
+  }
+  .category-card-image {
+    height: 80px;
+  }
+  .category-card-name {
+    font-size: 0.9rem;
+  }
 }
 /* ------------------- Product Card Styles ------------------- */
 .card-footer {
@@ -1241,7 +1271,7 @@ button:focus-visible {
 
   .col-md-4,
   .col-sm-6 {
-    width: 100% !important;
+    width: 100 !important;
     margin-bottom: 10px;
   }
 
@@ -1255,7 +1285,7 @@ button:focus-visible {
 
   .product-card-content {
     flex-direction: row;
-    align-items: center;
+    align-items: self-end;
     gap: 10px;
   }
 
@@ -1391,6 +1421,7 @@ button:focus-visible {
   }
 }
 
+/* Updated Layout for screens below 425px with proper alignment */
 @media (max-width: 425px) {
   .card {
     display: flex;
@@ -1400,16 +1431,18 @@ button:focus-visible {
   }
 
   .product-card-content {
-    flex-direction: column;
-    align-items: flex-start;
+    flex-direction: row;
+    align-items: flex-end; /* Align items to the top */
     gap: 0.5rem;
+    height: 100%; /* Ensure it takes full height */
   }
 
   .product-image-wrapper {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 100%;
+    width: 60px;
+    flex-shrink: 0;
   }
 
   .product-image {
@@ -1421,6 +1454,42 @@ button:focus-visible {
   .product-details {
     width: 100%;
     text-align: left;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end; /* Push name and price to the bottom */
+    gap: 0.3rem;
+    padding: 0.2rem 0;
+    margin-left: 7rem; /* Remove the excessive margin */
+    flex: 1; /* Allow it to take remaining space */
+    min-height: 60px; /* Match the image height to ensure proper alignment */
+  }
+
+  .card-title {
+    font-size: 0.75rem;
+    max-width: 150px;
+    white-space: normal;
+    word-break: break-word;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin: 0;
+    line-height: 1.2;
+    min-height: 1.2rem;
+  }
+
+  .card-text.text-muted {
+    font-size: 0.7rem;
+    max-width: 150px;
+    white-space: normal;
+    word-break: break-word;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin: 0;
+    line-height: 1.2;
+    min-height: 1.2rem;
+  }
+
+  .product-description {
+    display: none;
   }
 
   .card-footer {
@@ -1459,7 +1528,6 @@ button:focus-visible {
   }
 }
 
-
 /* Very Small Screens (max-width: 375px) */
 @media (max-width: 375px) {
   .col-md-4,
@@ -1479,7 +1547,7 @@ button:focus-visible {
   .product-card-content {
     gap: 4px;
     flex-wrap: nowrap;
-    align-items: center;
+    align-items: flex-end;
   }
 
   .product-image-wrapper {
@@ -1496,31 +1564,35 @@ button:focus-visible {
   .product-details {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-end;
     flex: 1;
-    gap: 2px;
+    gap: 0.3rem;
     min-width: 0;
     overflow: hidden;
   }
 
   .card-title {
-    font-size: 0.85rem;
-    max-width: 100%;
-    white-space: nowrap;
+    font-size: 0.75rem;
+    max-width: 120px;
+    white-space: normal;
+    word-break: break-word;
     overflow: hidden;
     text-overflow: ellipsis;
     margin: 0;
     line-height: 1.2;
+    min-height: 1.2rem;
   }
 
   .card-text.text-muted {
-    font-size: 0.8rem;
-    max-width: 100%;
-    white-space: nowrap;
+    font-size: 0.7rem;
+    max-width: 120px;
+    white-space: normal;
+    word-break: break-word;
     overflow: hidden;
     text-overflow: ellipsis;
     margin: 0;
     line-height: 1.2;
+    min-height: 1.2rem;
   }
 
   .product-description {
@@ -1549,7 +1621,7 @@ button:focus-visible {
   .quantity-display {
     width: 24px;
     font-size: 0.7rem;
-    line-height: 24px;
+    line-height: 34px;
   }
 
   .quantity-btn {
@@ -1587,27 +1659,31 @@ button:focus-visible {
   }
 
   .card-title {
-    font-size: 0.8rem;
-    max-width: 100%;
-    white-space: nowrap;
+    font-size: 0.7rem;
+    max-width: 100px;
+    white-space: normal;
+    word-break: break-word;
     overflow: hidden;
     text-overflow: ellipsis;
     line-height: 1.2;
+    min-height: 1.2rem;
   }
 
   .card-text.text-muted {
-    font-size: 0.75rem;
-    max-width: 100%;
-    white-space: nowrap;
+    font-size: 0.65rem;
+    max-width: 100px;
+    white-space: normal;
+    word-break: break-word;
     overflow: hidden;
     text-overflow: ellipsis;
     line-height: 1.2;
+    min-height: 1.2rem;
   }
 
   .quantity-display {
     width: 20px;
     font-size: 0.65rem;
-    line-height: 20px;
+    line-height: 34px;
   }
 
   .quantity-btn {
@@ -1622,8 +1698,6 @@ button:focus-visible {
     font-size: 0.6rem;
   }
 }
-
-
 
 /* Responsive Adjustments for Category Cards */
 @media (max-width: 768px) {
@@ -1644,7 +1718,6 @@ button:focus-visible {
     font-size: 0.9rem;
   }
 }
-
 
 /* ------------------- Updated Category Navbar ------------------- */
 .category-nav-container {
@@ -1766,10 +1839,13 @@ button:focus-visible {
   .product-description {
     font-size: 0.8rem;
     margin-bottom: 0.8rem;
+    margin-left: 7rem;
   }
 
   .product-image {
     height: 150px;
+    width: auto;
+    margin-left: 7rem;
   }
 
   .card-title {
