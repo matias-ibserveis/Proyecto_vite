@@ -102,7 +102,7 @@ export async function Productos() {
     const paginacion = productos.querySelector("#paginacion");
     paginacion.innerHTML = `
       <button class="btn btn-outline-primary me-2" id="anterior" ${currentPage === 1 ? "disabled" : ""}>⬅ Anterior</button>
-      <span>Página ${currentPage} de ${totalPages}</span>
+      <span>pág ${currentPage} de ${totalPages}</span>
       <button class="btn btn-outline-primary ms-2" id="siguiente" ${currentPage === totalPages ? "disabled" : ""}>Siguiente ➡</button>
     `;
 

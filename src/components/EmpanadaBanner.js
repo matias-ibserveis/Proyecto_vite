@@ -123,7 +123,7 @@ function deleteEmpanada(name) {
     if (document.getElementById('btn-flotante-empanadas')) return;
     const btnFlotante = document.createElement('button');
     btnFlotante.id = 'btn-flotante-empanadas';
-    btnFlotante.textContent = "Gestionar Empanadas";
+    btnFlotante.textContent = "cookies";
     btnFlotante.className = "empanadas-btn-flotante";
     btnFlotante.onclick = mostrarBanner;
     document.body.appendChild(btnFlotante);

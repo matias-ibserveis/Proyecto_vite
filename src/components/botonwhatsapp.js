@@ -6,7 +6,7 @@ export function BotonVerde() {
   // Botón principal (WhatsApp)
   const boton = document.createElement('button');
   boton.className = 'btn-verde btn-aloja';
-  boton.textContent = 'Contáctanos por WhatsApp';
+  boton.textContent = 'WhatsApp';
   boton.onclick = () => window.location.href = "https://wa.me/34613959689";
   Object.assign(boton.style, {
     position: 'fixed',

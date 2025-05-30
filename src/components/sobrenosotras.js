@@ -14,12 +14,12 @@ export function SobreNosotras() {
     `;
 
     const images = [
-        "public/imagenes/infinito1.jpg",
-        "public/imagenes/infinito2.jpg",
-        "public/imagenes/infinito3.jpg",
-        "public/imagenes/infinito4.jpg",
-        "public/imagenes/infinito5.jpg",
-        "public/imagenes/infinito6.jpg"
+        "/imagenes/infinito1.jpg",
+        "/imagenes/infinito2.jpg",
+        "/imagenes/infinito3.jpg",
+        "/imagenes/infinito4.jpg",
+        "/imagenes/infinito5.jpg",
+        "/imagenes/infinito6.jpg"
     ];
 
     const marqueeInner = section.querySelector('#marqueeInner');
