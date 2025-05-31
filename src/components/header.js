@@ -33,7 +33,7 @@ export async function Header() {
                 .contenedor{
                     display:flex; 
                     max-width:1320px; 
-                    margin:2rem ; 
+                    margin:1rem ; 
                     align-items:center;
                 }
                 .carousel-img {
@@ -58,7 +58,7 @@ export async function Header() {
                         font-size: 2rem;
                     }
                     .container{
-                        margin:2rem 0.5rem 2rem 0.5rem ; 
+                        margin:2rem 0.5rem 1rem 0.5rem ; 
                     }
 
             </style>
