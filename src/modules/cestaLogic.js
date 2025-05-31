@@ -16,7 +16,8 @@ export async function renderCesta(container) {
           cantidad: 1,
           unidad_medido: producto.unidad_medido,
           precio: producto.precio,
-          origen: 'manual'
+          origen: 'manual',
+          imagen1: producto.imagen1
         };
       } catch (err) {
         console.error("Error al añadir producto por ID en URL:", err);
@@ -29,20 +30,20 @@ export async function renderCesta(container) {
   tabla.className = 'table table-bordered';
   tabla.innerHTML = `<thead>
     <tr>
-      <th>Producto</th>
-      <th>Cantidad</th>
-      <th>Unidad</th>
-      <th>Precio</th>
-      <th>Total</th>
+      <th>Productos en la cesta</th>
     </tr>
   </thead>
-  <tbody id="cesta-body"></tbody>
-  <tfoot>
-    <tr><td colspan="4" class="text-end">Total general:</td><td id="total-general">0 €</td></tr>
-  </tfoot>`;
+    <tbody id="cesta-body"></tbody>
+  <div id="contenedor-cesta"></div>
+  <div class="total-general-container">
+    <strong>Total:</strong> <span id="total-general">0 €</span>
+  </div>
+  `;
 
   container.innerHTML = '';
   container.appendChild(tabla);
+
+  
 
   const botonesDiv = document.createElement('div');
   botonesDiv.style.display = 'flex';
@@ -94,10 +95,12 @@ async function inicializarCestaSiNecesario() {
           titulo: p.titulo,
           cantidad: 1,
           unidad_medido: p.unidad_medido,
-          precio: p.precio
+          precio: p.precio,
+          imagen1: p.imagenes[0]
         };
       });
       localStorage.setItem('cesta', JSON.stringify(cestaInicial));
+      console.log("cesta inicial", JSON.stringify(cestaInicial))
       return cestaInicial; // <-- RETORNA UN OBJETO SIEMPRE
     } catch (err) {
       console.error('Error cargando productos:', err);
@@ -112,64 +115,156 @@ async function inicializarCestaSiNecesario() {
   }
 }
 
-
-
 function mostrarCesta() {
-  const cuerpo = document.getElementById('cesta-body');
+  const container = document.getElementById('contenedor-cesta');
   const totalGeneralEl = document.getElementById('total-general');
-  cuerpo.innerHTML = '';
+  if (!container || !totalGeneralEl) return;
+
+  container.innerHTML = '';
   let total = 0;
 
   const cesta = JSON.parse(localStorage.getItem('cesta') || '{}');
   const ids = Object.keys(cesta);
+  console.log("cesta", cesta)
 
   if (ids.length === 0) {
-    cuerpo.innerHTML = `<tr><td colspan="5" class="text-center">Tu cesta está vacía</td></tr>`;
+    container.innerHTML = `<div class="empty-msg">Tu cesta está vacía</div>`;
     totalGeneralEl.textContent = '0 €';
     return;
   }
 
   ids.forEach(id => {
-    const { titulo, cantidad, unidad_medido, precio, origen } = cesta[id];
+    const { titulo, cantidad, unidad_medido, precio, origen, imagen1 } = cesta[id];
+    console.log("cesta[id]", cesta[id])
     const totalItem = cantidad * precio;
     total += totalItem;
 
-    const tr = document.createElement('tr');
-    tr.innerHTML = `
-      <td>${titulo}</td>
-      <td>
-          <button class="btn btn-sm btn-outline-secondary" data-id="${id}" data-action="restar">–</button>
-          <span class="mx-2" id="cantidad-${id}">${cantidad}</span>
-          <button class="btn btn-sm btn-outline-secondary" data-id="${id}" data-action="sumar">+</button>
-      </td>
-      <td>${unidad_medido}</td>
-      <td>${precio.toFixed(2)} €</td>
-      <td id="total-${id}">${totalItem.toFixed(2)} €</td>
+    const imageId = imagen1 ? imagen1.split('/d/')[1]?.split('/')[0] : '1j5enJj_lx-tKrlw9veE2DAkJZ9ORrsZu'
+    const imageUrl = `https://drive.google.com/thumbnail?id=${imageId}&sz=w800-h600`;
+
+    const card = document.createElement('div');
+    card.className = 'producto-card';
+
+    card.innerHTML = `
+      <img src="${imageUrl  || 'https://drive.google.com/file/d/1j5enJj_lx-tKrlw9veE2DAkJZ9ORrsZu/view'}" alt="${titulo}" class="producto-img">
+      <div class="producto-info">
+        <h5>${titulo}</h5>
+        <p class="precio-unidad">${precio.toFixed(2).replace('.', ',')} € / ${unidad_medido}</p>
+        <p><strong>Total:</strong> <span id="total-${id}">${totalItem.toFixed(2).replace('.', ',')} €</span></p>
+        <div class="cantidad-controls">
+          <button data-id="${id}" data-action="restar">–</button>
+          <span id="cantidad-${id}">${cantidad}</span>
+          <button data-id="${id}" data-action="sumar">+</button>
+        </div>
+      </div>
     `;
-    cuerpo.appendChild(tr);
+
+    container.appendChild(card);
   });
 
-  totalGeneralEl.textContent = `${total.toFixed(2)} €`;
+  totalGeneralEl.textContent = `${total.toFixed(2).replace('.', ',')} €`;
 
-  cuerpo.querySelectorAll('button[data-action]').forEach(btn => {
+  container.querySelectorAll('button[data-action]').forEach(btn => {
     btn.addEventListener('click', () => {
       const id = btn.dataset.id;
       const action = btn.dataset.action;
       const cesta = JSON.parse(localStorage.getItem('cesta') || '{}');
       if (!cesta[id]) return;
 
-      action === 'sumar'
-        ? cesta[id].cantidad += 1
-        : (
-          cesta[id].cantidad > 1 || cesta[id].origen === 'manual'
-            ? cesta[id].cantidad -= 1
-            : null,
-          cesta[id].cantidad <= 0 && delete cesta[id]
-        );
-
+      if (action === 'sumar') {
+        cesta[id].cantidad += 1;
+      } else {
+        if (cesta[id].cantidad > 1 || cesta[id].origen === 'manual') {
+          cesta[id].cantidad -= 1;
+        }
+        if (cesta[id].cantidad <= 0) delete cesta[id];
+      }
 
       localStorage.setItem('cesta', JSON.stringify(cesta));
       mostrarCesta();
     });
   });
+
+
+
+      // Estilos
+    const style = document.createElement("style");
+    style.innerHTML = `
+          #contenedor-cesta {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        padding: 1rem;
+      }
+
+      .producto-card {
+        display: flex;
+        gap: 1rem;
+        background: #fff;
+        border-radius: 12px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        padding: 1rem;
+        align-items: center;
+      }
+
+      .producto-img {
+        width: 80px;
+        height: 80px;
+        object-fit: cover;
+        border-radius: 8px;
+        background: #eee;
+      }
+
+      .producto-info {
+        flex: 1;
+      }
+
+      .producto-info h5 {
+        margin: 0 0 0.25rem;
+        font-size: 1rem;
+      }
+
+      .precio-unidad {
+        color: #555;
+        font-size: 0.9rem;
+        margin-bottom: 0.5rem;
+      }
+
+      .cantidad-controls {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        margin-top: 0.5rem;
+      }
+
+      .cantidad-controls button {
+        background: #eee;
+        border: none;
+        padding: 0.3rem 0.7rem;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 1rem;
+      }
+
+      .cantidad-controls button:hover {
+        background: #ccc;
+      }
+
+      .total-general-container {
+        text-align: end;
+        font-size: 1.1rem;
+        padding: 1rem;
+        border-top: 1px solid #ddd;
+        margin-top: 1rem;
+      }
+
+      .empty-msg {
+        text-align: center;
+        color: #666;
+        padding: 2rem;
+        font-style: italic;
+      }
+    
+  `;
+    document.head.appendChild(style);
 }

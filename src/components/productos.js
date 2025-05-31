@@ -9,7 +9,7 @@ export async function Productos() {
 
   productos.innerHTML = `
     <h2 class="titulo">Nuestros Productos</h2>
-    <div class="mb-4">
+    <div class="mb-4" style="padding-left:1rem">
       <input type="text" id="busquedaInput" class="form-control" placeholder="Buscar productos ...">
       <button id="buscarBtn" class="btn btn-primary mt-2">Buscar</button>
       <button id="todosBtn" class="btn btn-secondary mt-2 ms-2">ver todos</button>
@@ -205,7 +205,8 @@ export async function Productos() {
       font-family: inherit;
     }
     .container {
-      max-width: 1200px;
+      max-width: 1280px;
+      margin: 1rem 0rem 1rem 0rem;
     }
   `;
   document.head.appendChild(style);
