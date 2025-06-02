@@ -1,3 +1,5 @@
+import { enviarCestaAlBackend } from "./enviar_cesta";
+
 export function renderizaListaCesta(appContenedor) {
   const ul = appContenedor.querySelector("#lista-cesta");
   const cesta = JSON.parse(localStorage.getItem("nuevaCesta") || "{}");
@@ -68,18 +70,44 @@ export function renderizaListaCesta(appContenedor) {
   `;
   ul.appendChild(totalLi);
 
-  // Botón para vaciar cesta
-  const vaciarLi = document.createElement("li");
-  vaciarLi.className = "list-group-item text-end";
-  vaciarLi.innerHTML = `
-    <button class="btn btn-sm btn-outline-danger">Vaciar cesta</button>
-  `;
-  vaciarLi.querySelector("button").onclick = () => {
+  // Botones para enviar y vaciar cesta
+  const accionesLi = document.createElement("li");
+  accionesLi.className = "list-group-item d-flex justify-content-between";
+
+  // Botón Enviar 
+  const btnEnviar = document.createElement("button");
+  btnEnviar.className = "btn btn-sm btn-outline-success";
+  btnEnviar.textContent = "Enviar cesta";
+  btnEnviar.onclick = async () => {
+    const numeroCestaActual = localStorage.getItem("nuevaCesta") || "";
+    const numeroCesta = prompt("Introduce el número de cesta a guardar:", numeroCestaActual);
+    if (!numeroCesta) return;
+
+    try {
+      await enviarCestaAlBackend(numeroCesta);
+      alert("Cesta enviada correctamente");
+    } catch (error) {
+      alert("Error al enviar la cesta");
+    }
+  };
+
+
+  // Botón Vaciar 
+  const btnVaciar = document.createElement("button");
+  btnVaciar.className = "btn btn-sm btn-outline-danger";
+  btnVaciar.textContent = "Vaciar cesta";
+  btnVaciar.onclick = () => {
     if (confirm("¿Estás seguro de que quieres vaciar la cesta?")) {
       localStorage.removeItem("nuevaCesta");
       renderizaListaCesta(appContenedor);
     }
   };
 
-  ul.appendChild(vaciarLi);
+  // Añadir ambos botones al li
+  accionesLi.appendChild(btnEnviar);
+  accionesLi.appendChild(btnVaciar);
+
+  // Añadir al ul
+  ul.appendChild(accionesLi);
+
 }
