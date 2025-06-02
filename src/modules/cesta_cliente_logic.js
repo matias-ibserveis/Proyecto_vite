@@ -56,6 +56,9 @@ export async function renderCesta(container) {
   const prevY = sessionStorage.getItem('prevScrollY');
   const prevURL = sessionStorage.getItem('prevURL');
 
+  //console.log("prevY", prevY)
+  //console.log("prevURL", prevURL)
+
   if (prevURL && prevY !== null) {
     const volverBtn = document.createElement('button');
     volverBtn.textContent = 'Volver';
@@ -72,7 +75,7 @@ export async function renderCesta(container) {
   vaciarBtn.className = 'btn btn-danger mb-3';
   vaciarBtn.addEventListener('click', () => {
     localStorage.removeItem('cesta');
-    location.reload();
+    window.location.href = window.location.pathname;
   });
   botonesDiv.appendChild(vaciarBtn);
 
