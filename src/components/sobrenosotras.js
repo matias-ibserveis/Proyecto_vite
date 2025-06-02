@@ -1,6 +1,7 @@
 export function SobreNosotras() {
     const section = document.createElement('section');
     section.className = 'sobre-nosotras';
+    section.id ="inicio"
 
     section.innerHTML = `
     <h2 class="sobre-nosotras-titulo">Sobre Nosotras</h2>
