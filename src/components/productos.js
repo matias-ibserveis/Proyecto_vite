@@ -81,7 +81,7 @@ export async function Productos() {
   function irACestaConProducto(id) {
     sessionStorage.setItem("prevScrollY", window.scrollY);
     sessionStorage.setItem("prevURL", window.location.href);
-    window.location.href = `/cesta.html?id=${id}`;
+    window.location.href = `/cesta_cliente.html?id=${id}`;
   }
 
   function irAsoloProducto(id) {

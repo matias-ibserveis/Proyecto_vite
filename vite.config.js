@@ -9,7 +9,7 @@ export default defineConfig({
       input: {
         main: resolve(__dirname, 'index.html'),
         utils: resolve(__dirname, 'utils.html'),
-        cesta: resolve(__dirname, 'cesta.html'),
+        cesta_cliente: resolve(__dirname, 'cesta_cliente.html'),
         crear_cesta: resolve(__dirname, 'crear_cesta.html'),
         producto: resolve(__dirname, 'producto.html')
       },

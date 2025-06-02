@@ -43,7 +43,7 @@ export async function renderCesta(container) {
   container.innerHTML = '';
   container.appendChild(tabla);
 
-  
+
 
   const botonesDiv = document.createElement('div');
   botonesDiv.style.display = 'flex';
@@ -115,6 +115,18 @@ async function inicializarCestaSiNecesario() {
   }
 }
 
+
+function safeNumber(value) {
+  if (typeof value === 'number') return value;
+  if (typeof value === 'string') {
+    // Cambia coma decimal a punto si existe, y parsea
+    const num = parseFloat(value.replace(',', '.'));
+    return isNaN(num) ? 0 : num;
+  }
+  return 0;
+}
+
+
 function mostrarCesta() {
   const container = document.getElementById('contenedor-cesta');
   const totalGeneralEl = document.getElementById('total-general');
@@ -135,8 +147,13 @@ function mostrarCesta() {
 
   ids.forEach(id => {
     const { titulo, cantidad, unidad_medido, precio, origen, imagen1 } = cesta[id];
-    console.log("cesta[id]", cesta[id])
-    const totalItem = cantidad * precio;
+
+    const cantidadNum = safeNumber(cantidad);
+    const precioNum = safeNumber(precio);
+    const precioFormateado = precioNum.toFixed(2).replace('.', ',');
+
+
+    const totalItem = cantidadNum * precioNum
     total += totalItem;
 
     const imageId = imagen1 ? imagen1.split('/d/')[1]?.split('/')[0] : '1j5enJj_lx-tKrlw9veE2DAkJZ9ORrsZu'
@@ -146,14 +163,14 @@ function mostrarCesta() {
     card.className = 'producto-card';
 
     card.innerHTML = `
-      <img src="${imageUrl  || 'https://drive.google.com/file/d/1j5enJj_lx-tKrlw9veE2DAkJZ9ORrsZu/view'}" alt="${titulo}" class="producto-img">
+      <img src="${imageUrl || 'https://drive.google.com/file/d/1j5enJj_lx-tKrlw9veE2DAkJZ9ORrsZu/view'}" alt="${titulo}" class="producto-img">
       <div class="producto-info">
         <h5>${titulo}</h5>
-        <p class="precio-unidad">${precio.toFixed(2).replace('.', ',')} € / ${unidad_medido}</p>
+        <p class="precio-unidad">${precioFormateado} € / ${unidad_medido}</p>
         <p><strong>Total:</strong> <span id="total-${id}">${totalItem.toFixed(2).replace('.', ',')} €</span></p>
         <div class="cantidad-controls">
           <button data-id="${id}" data-action="restar">–</button>
-          <span id="cantidad-${id}">${cantidad}</span>
+          <span id="cantidad-${id}">${cantidadNum}</span>
           <button data-id="${id}" data-action="sumar">+</button>
         </div>
       </div>
@@ -171,14 +188,15 @@ function mostrarCesta() {
       const cesta = JSON.parse(localStorage.getItem('cesta') || '{}');
       if (!cesta[id]) return;
 
+      const cantidadNum = safeNumber(cesta[id].cantidad);
+
       if (action === 'sumar') {
-        cesta[id].cantidad += 1;
+        cesta[id].cantidad = cantidadNum + 1;
       } else {
-        if (cesta[id].cantidad > 1 || cesta[id].origen === 'manual') {
-          cesta[id].cantidad -= 1;
-        }
+        cesta[id].cantidad = (cantidadNum > 1 || cesta[id].origen === 'manual') ? cantidadNum - 1 : cantidadNum;
         if (cesta[id].cantidad <= 0) delete cesta[id];
       }
+
 
       localStorage.setItem('cesta', JSON.stringify(cesta));
       mostrarCesta();
@@ -187,9 +205,9 @@ function mostrarCesta() {
 
 
 
-      // Estilos
-    const style = document.createElement("style");
-    style.innerHTML = `
+  // Estilos
+  const style = document.createElement("style");
+  style.innerHTML = `
           #contenedor-cesta {
         display: flex;
         flex-direction: column;
@@ -266,5 +284,5 @@ function mostrarCesta() {
       }
     
   `;
-    document.head.appendChild(style);
+  document.head.appendChild(style);
 }

@@ -1,4 +1,4 @@
-import { renderizaListaCesta } from "./renderizaListaCesta.js";
+import { renderizaListaCesta } from "./crear_cesta_lista.js";
 
 
 export async function productos_crear_cesta(appContenedor) {
