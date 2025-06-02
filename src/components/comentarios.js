@@ -69,106 +69,66 @@ export function Comentarios() {
 
   const style = document.createElement("style");
   style.innerHTML = `
-      .reseña-item img {
-      width: 75px !important;
-      height: 75px !important;
-      border-radius: 100% !important;
-      margin-bottom: 0.5rem !important;
-    }
-    .reseña-item img.reseña-img-sin-borde {
-      border-radius: 0 !important;
-    }
-    .reseña-item h3 {
-      margin: 0.5rem 0;
-    }
-    .reseña-item p {
-      font-style: italic;
-      font-size: 0.95rem;
-    }
+    .reseña-item img {
+    width: 75px !important;
+    height: 75px !important;
+    border-radius: 100% !important;
+    margin-bottom: 0.5rem !important;
+  }
+  
+  .reseña-item img.reseña-img-sin-borde {
+    border-radius: 0 !important;
+  }
 
-    .stars {
-      color: gold;
-      font-size: 1.2rem;
-      margin-top: 0.5rem;
-    }
+  .reseña-item h3 {
+    margin: 0.5rem 0;
+  }
+  
+  .reseña-item p {
+    font-style: italic;
+    font-size: 0.95rem;
+  }
 
-    .carousel-control-prev {
-      left: 3%;
-    }
-    .carousel-control-next {
-      right: 3%;
-    }
+  .stars {
+    color: gold;
+    font-size: 1.2rem;
+    margin-top: 0.5rem;
+  }
+  
+  .carousel-control-prev {
+    left: 3%;
+  }
 
+  .carousel-control-next {
+    right: 3%;
+  }
+
+  .carousel-bg {
+    background-color: var(--terciary-color);
+    padding: 50px
+  }
+
+  @media (max-width: 600px) {
     .carousel-bg {
       background-color: var(--terciary-color);
       padding: 50px;
+      max-height: 495px;
     }
-    @media (max-width: 600px) {
-      .carousel-bg {
-        min-height: 495px;
-      }
-    }
+  }
 
-    .reseña-nombre {
-      font-family: 'Aloja Extended', sans-serif;
-      font-weight: 700;
-      color: black;
-      text-align: center;
-    }
+  .reseña-nombre {
+    font-family: 'Aloja Extended', sans-serif;
+    font-weight: 700;
+    color: black;
+    text-align: center;
+  }
 
-    .reseña-texto {
-      font-family: "Hanken Grotesk", sans-serif;
-      font-weight: 400;
-      color: #333;
-      text-align: center;
-    }
-
-    .carrusel-marquee {
-      overflow: hidden;
-      width: 100%;
-      height: 340px; /* Corregido typo: xpx → px */
-      background: var(--terciary-color);
-      padding: 20px;
-      position: relative;
-      margin-bottom: 20px;
-    }
-
-    .carrusel-marquee-inner {
-      display: flex;
-      gap: 5px;
-      animation: marquee 36s linear infinite;
-      will-change: transform;
-      backface-visibility: hidden;
-    }
-
-    .carrusel-marquee-inner img {
-      height: 300px;
-      width: 300px;
-      display: block;
-      object-fit: cover;
-      flex-shrink: 0;
-    }
-
-    @keyframes marquee {
-      0% {
-        transform: translateX(0);
-      }
-      100% {
-        transform: translateX(-50%);
-      }
-    }
-
-    @media (max-width: 900px) {
-      .carrusel-marquee-inner img {
-        height: 150px;
-        width: 150px;
-      }
-      .carrusel-marquee {
-        min-height: 200px;
-        max-height: 200px;
-      }
-    }
-
+  .reseña-texto {
+    font-family: "Hanken Grotesk", sans-serif;
+    font-weight: 400;
+    color: #333;
+    text-align: center;
+  }
    `;
   
    document.head.appendChild(style);
