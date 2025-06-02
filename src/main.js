@@ -16,17 +16,18 @@ import { Footer } from './components/Footer.js';
 
   // Apartado Sobre Nosotras
   app.append(SobreNosotras());
-  
+
+
+  // Apartado Nuestra Filosofía
+  app.append(NuestraFilosofia());
+
   // Carrusel de productos destacados (Header)
-  const productosPortada = await Header();
-  app.append(productosPortada);
+  //const productosPortada = await Header();
+  //app.append(productosPortada);
 
   // Sección de productos
-  const productos = await Productos();
-  app.append(productos);
-
-    // Apartado Nuestra Filosofía
-  app.append(NuestraFilosofia());
+  //const productos = await Productos();
+  //app.append(productos);
 
   // Carrusel de reseñas (Comentarios)
   app.append(Comentarios());
@@ -37,7 +38,7 @@ import { Footer } from './components/Footer.js';
   // Botón flotante de WhatsApp
   app.append(BotonVerde());
 
-  EmpanadaBanner(); // <-- Añade esta línea
+  EmpanadaBanner();
 
   app.append(Footer());
 })();

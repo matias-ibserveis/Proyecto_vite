@@ -1,7 +1,7 @@
 export function SobreNosotras() {
     const section = document.createElement('section');
     section.className = 'sobre-nosotras';
-    section.id ="inicio"
+    section.id ="sobre-nosotras"
 
     section.innerHTML = `
     <h2 class="sobre-nosotras-titulo">Sobre Nosotras</h2>
@@ -56,7 +56,7 @@ export function SobreNosotras() {
         font-weight: 700;
         color: white;
         border: none;
-        margin-top: 20px;
+        margin-top: 60px;
         margin-bottom: 20px;
         background-attachment: fixed;
         background-color: var(--main-color) !important;

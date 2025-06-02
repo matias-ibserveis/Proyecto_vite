@@ -1,4 +1,5 @@
 export function Footer() {
+  
   const frame = document.createElement('div');
   frame.className = 'final_legal';
   frame.style.cssText = `

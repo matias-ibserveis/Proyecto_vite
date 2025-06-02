@@ -1,4 +1,4 @@
-export function BotonVerde() {
+/*export function BotonVerde() {
   // Colores
   const PRIMARY_COLOR = '#28a745';
   const SECONDARY_COLOR = '#218838';
@@ -28,7 +28,7 @@ export function BotonVerde() {
 
   // Botón pequeño (toggle)
   const toggleBtn = document.createElement('button');
-  toggleBtn.innerHTML = '<img src="images/whatsapp.png" alt="Mostrar/Ocultar" style="width:25px; height:25px;">';
+  toggleBtn.innerHTML = '<img src="images/whatsapp.png" alt="Mostrar/Ocultar" style="width:50px; height:50px;">';
   toggleBtn.title = 'Ocultar botón WhatsApp';
   toggleBtn.className = 'toggle-boton';
   Object.assign(toggleBtn.style, {
@@ -37,8 +37,8 @@ export function BotonVerde() {
     backgroundColor: PRIMARY_COLOR, // color primario
     border: 'none',
     borderRadius: '50%',
-    width: '50px',
-    height: '50px',
+    width: '70px',
+    height: '70px',
     cursor: 'pointer',
     display: 'flex',
     alignItems: 'center',
@@ -54,7 +54,7 @@ export function BotonVerde() {
     }, 150);
   });
 
-  let visible = true;
+  let visible =false;
 
   function ajustarBotoncito() {
     const isMobile = window.innerWidth <= 600;
@@ -97,6 +97,35 @@ export function BotonVerde() {
 
   document.body.appendChild(boton);
   document.body.appendChild(toggleBtn);
+
+  return document.createElement('div');
+}
+*/
+
+export function BotonVerde() {
+  const boton = document.createElement('button');
+  boton.className = 'btn-verde btn-aloja';
+  boton.title = 'Chatea por WhatsApp';
+  boton.style.position = 'fixed';
+  boton.style.right = '20px';
+  boton.style.bottom = '20px';
+  boton.style.zIndex = '1000';
+  boton.style.backgroundColor = '#28a745';
+  boton.style.color = 'white';
+  boton.style.padding = '10px 10px';
+  boton.style.border = 'none';
+  boton.style.borderRadius = '50%';
+  boton.style.fontSize = '0';
+  boton.style.cursor = 'pointer';
+  boton.style.display = 'flex';
+  boton.style.alignItems = 'center';
+  boton.style.justifyContent = 'center';
+  boton.style.boxShadow = '0 4px 12px rgba(0,0,0,0.2)';
+  boton.innerHTML = `<img src="images/whatsapp.png" alt="WhatsApp" style="width:40px; height:40px;">`;
+
+  boton.onclick = () => window.open("https://wa.me/34613959689", "_blank");
+
+  document.body.appendChild(boton);
 
   return document.createElement('div');
 }
