@@ -42,7 +42,7 @@ export function CategoryCards() {
       card.dataset.category = category.name;
 
       const image = document.createElement("img");
-      image.src = "/images/logo.png";
+      image.src = "/images/logo1.png";
       image.alt = `${category.name} category`;
       image.className = "category-card-image";
 

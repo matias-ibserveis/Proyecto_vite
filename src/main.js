@@ -1,6 +1,5 @@
 import { Navbar } from './components/navbar.js';
 import { Header } from './components/header.js';
-import { Productos } from './components/productos.js';
 import { Comentarios } from './components/comentarios.js';
 import { BotonVerde } from './components/botonwhatsapp.js';
 import { Contacto} from './components/contacto.js';
@@ -9,20 +8,11 @@ import { Footer } from './components/Footer.js';
 
 (async () => {
   app.append(Navbar());
-
   const productosPortada = await Header();
   app.append(productosPortada);
-
-  const productos = await Productos();
-  app.append(productos);
   app.append(Comentarios());
   app.append(Contacto());
   app.append(Footer());
   app.append(BotonVerde());
-
-  EmpanadaBanner(); // <-- Añade esta línea
+  EmpanadaBanner();
 })();
-
-
-
-
