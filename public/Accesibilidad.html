@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Accesibilidad</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/src/style.css" />
+  <style>
+    body {
+      display: block !important;
+      justify-content: unset !important;
+      align-items: unset !important;
+    }
+    .container.margen-navbar {
+      max-width: 900px !important;
+      margin: 3rem auto 2rem auto !important;
+      padding: 2rem 2rem 2rem 2rem !important;
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 2px 16px #0001;
+      color: #222;
+    }
+    @media (max-width: 600px) {
+      .container.margen-navbar {
+        padding: 1rem !important;
+        margin: 1rem 0 !important;
+      }
+    }
+    h2, h3 {
+      margin-top: 2.5em;
+     margin-bottom: 0.5em;
+    }
+  </style>
+</head>
+<body>
+  <!--   Navbar -->
+  <div id="navbar"></div>
+  <!--   Navbar -->
+
+  <div class="container margen-navbar">
+
+    <h1 class="top_legalidades">Accesibilidad</h1>
+    <hr>
+    <p>
+      En Fempo, creemos firmemente en la importancia de ofrecer un entorno digital inclusivo, accesible y usable para todas las personas, independientemente de sus capacidades físicas, sensoriales, cognitivas o tecnológicas. Nuestro compromiso con la accesibilidad web forma parte integral de nuestros valores como empresa y del respeto por los derechos de todas las personas.
+    </p>
+
+    <p>
+      Estamos trabajando activamente para que nuestro sitio web cumpla con los estándares y recomendaciones establecidos en las <a href="https://www.w3.org/WAI/standards-guidelines/wcag/" target="_blank" rel="noopener noreferrer">Pautas de Accesibilidad al Contenido en la Web (WCAG)</a>, publicadas por el World Wide Web Consortium (W3C). En concreto, nuestro objetivo es alcanzar el nivel de conformidad WCAG 2.1 AA.
+    </p>
+
+    <h3>Medidas adoptadas</h3>
+    <p>
+      Algunas de las medidas implementadas para mejorar la accesibilidad de este sitio incluyen:
+    </p>
+    <ul>
+      <li>Uso de una estructura semántica clara del HTML para facilitar la navegación con lectores de pantalla.</li>
+      <li>Compatibilidad con navegación por teclado en todas las secciones funcionales del sitio.</li>
+      <li>Contrastes adecuados entre el texto y el fondo para mejorar la visibilidad de los contenidos.</li>
+      <li>Descripciones alternativas (<code>alt</code>) en las imágenes para facilitar la comprensión del contenido visual.</li>
+      <li>Etiquetas y roles ARIA para reforzar la comprensión por tecnologías de asistencia.</li>
+      <li>Evitar el uso de contenido parpadeante o con movimiento excesivo que pueda afectar a personas con epilepsia fotosensible o dificultades cognitivas.</li>
+    </ul>
+
+    <h3>Mejoras previstas</h3>
+    <p>
+      Actualmente, nos encontramos trabajando en el desarrollo de un módulo de accesibilidad que ofrecerá al usuario un botón flotante desde el cual podrá:
+    </p>
+    <ul>
+      <li>Aumentar o disminuir el tamaño de la fuente para facilitar la lectura.</li>
+      <li>Activar un modo de alto contraste para personas con visión reducida.</li>
+      <li>Alternar una tipografía especial adaptada para personas con dislexia.</li>
+      <li>Subrayar enlaces para mejorar su visibilidad.</li>
+      <li>Desactivar animaciones si interfieren con la concentración o causan molestias.</li>
+    </ul>
+
+    <h3>Evaluación y mejora continua</h3>
+    <p>
+      La accesibilidad es un proceso continuo. Por ello, realizamos revisiones periódicas y auditorías para detectar posibles barreras y aplicar soluciones efectivas. También agradecemos cualquier sugerencia, informe de error o comentario que nos permita seguir mejorando.
+    </p>
+
+    <h3>Contacto</h3>
+    <p>
+      Si tienes dificultades para acceder a algún contenido de este sitio web o deseas hacernos llegar una sugerencia relacionada con la accesibilidad, no dudes en contactarnos. Estaremos encantados de ayudarte y trabajar contigo para encontrar una solución.
+    </p>
+    <ul>
+      <li>Correo electrónico: <a href="mailto:luraproyecto@gmail.com">luraproyecto@gmail.com</a></li>
+      <li>Teléfono: 613 95 96 89</li>
+    </ul>
+
+    <p>
+      Fecha de última revisión de esta política: 2 de junio de 2025.
+    </p>
+  </div>
+
+  <!--   Footer -->
+  <div id="footer"></div>
+  <!--   Footer -->
+
+  <!-- SCRIPTS al final del body -->
+<script type="module">
+  import '/src/components/EmpanadaBanner.js';
+  import { Navbar } from '/src/components/navbar.js';
+  document.getElementById('navbar').append(Navbar());
+</script>
+<script type="module">
+  import { Footer } from '/src/components/Footer.js';
+  document.getElementById('footer').append(Footer());
+</script>
+</body>
+</html>

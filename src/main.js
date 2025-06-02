@@ -38,6 +38,8 @@ import { Footer } from './components/Footer.js';
   app.append(BotonVerde());
 
   EmpanadaBanner(); // <-- Añade esta línea
+
+  app.append(Footer());
 })();
 
 

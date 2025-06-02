@@ -1,6 +1,6 @@
 :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  --main-color: #d1ab72;
+  --main-color: #e0ba81;
   --secondary-color: #6d5839;
   --terciary-color: #feffaa;
   line-height: 1.5;
@@ -315,3 +315,4 @@ html, body {
   margin-left: 0 !important;
   margin-right: 0 !important;
 }
+

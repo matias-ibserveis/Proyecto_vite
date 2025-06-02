@@ -1,110 +1,8 @@
 export function EmpanadaBanner() {
-  function injectEmpanadasStyles() {
-    if (document.getElementById('empanadas-styles')) return;
-    const style = document.createElement('style');
-    style.id = 'empanadas-styles';
-    style.textContent = `
-      .empanadas-btn-flotante {
-        position: fixed;
-        bottom: 70px;
-        right: 24px;
-        background: #222;
-        color: #fff;
-        border: none;
-        padding: 12px 20px;
-        border-radius: 8px;
-        cursor: pointer;
-        z-index: 1100;
-        opacity: 0.7;
-        transition: filter 0.2s, transform 0.2s, opacity 0.2s;
-      }
-      .empanadas-btn-flotante:hover {
-        opacity: 1;
-        filter: brightness(2);
-        transform: scale(1.13);
-      }
+  mostrarBanner();
+}
 
-      .empanadas-overlay {
-        position: fixed;
-        top: 0; left: 0;
-        width: 100vw; height: 100vh;
-        background: rgba(0,0,0,0.35);
-        z-index: 999;
-        pointer-events: auto;
-        user-select: none;
-      }
-
-      .empanadas-banner {
-        position: fixed;
-        top: 50%; left: 50%;
-        transform: translate(-50%, -50%);
-        width: 400px;
-        background: rgba(0, 0, 0, 0.5);
-        color: #fff;
-        padding: 15px;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        gap: 16px;
-        border-radius: 12px;
-        box-shadow: 0 4px 16px rgb(0, 0, 0);
-        z-index: 1001;
-      }
-      .empanadas-banner-text {
-        text-align: center;
-      }
-      .empanadas-banner-inner {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 11px;
-        border-radius: 10px;
-      }
-      .empanadas-banner-img {
-        width: 150px;
-        height: 150px;
-      }
-      .empanadas-banner-btns {
-        display: flex;
-        gap: 12px;
-        justify-content: center;
-      }
-      .empanadas-btn-info,
-      .empanadas-btn-aceptar,
-      .empanadas-btn-rechazar {
-        background: #222;
-        opacity: 0.7;
-        color: #fff;
-        border: none;
-        padding: 8px 24px;
-        border-radius: 4px;
-        cursor: pointer;
-        transition: background 0.2s, opacity 0.2s, filter 0.2s, transform 0.2s;
-      }
-      .empanadas-btn-info:hover {
-        opacity: 1;
-        background: #0af;
-        filter: brightness(1.3);
-        transform: scale(1.13);
-      }
-      .empanadas-btn-aceptar:hover {
-        opacity: 1;
-        background: #27ae60;
-        filter: brightness(1.3);
-        transform: scale(1.13);
-      }
-      .empanadas-btn-rechazar:hover {
-        opacity: 1;
-        background: #c0392b;
-        filter: brightness(1.3);
-        transform: scale(1.13);
-      }
-    `;
-    document.head.appendChild(style);
-  }
-
-  // --- Utilidades para empanadas ---
+// --- Utilidades para empanadas ---
 function setEmpanada(name, value, days) {
   const expires = days
     ? "; expires=" + new Date(Date.now() + days * 864e5).toUTCString()
@@ -118,96 +16,181 @@ function deleteEmpanada(name) {
   document.cookie = name + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
 }
 
-  // --- Botón flotante para gestionar empanadas ---
-  function crearBotonFlotante() {
-    if (document.getElementById('btn-flotante-empanadas')) return;
-    const btnFlotante = document.createElement('button');
-    btnFlotante.id = 'btn-flotante-empanadas';
-    btnFlotante.textContent = "cookies";
-    btnFlotante.className = "empanadas-btn-flotante";
-    btnFlotante.onclick = mostrarBanner;
-    document.body.appendChild(btnFlotante);
-  }
-  function eliminarBotonFlotante() {
-    const btn = document.getElementById('btn-flotante-empanadas');
-    if (btn) btn.remove();
-  }
-
-  // --- Banner de empanadas (el frame central) ---
-  function mostrarBanner() {
-    if (document.getElementById('empanadas-banner')) return;
-    eliminarBotonFlotante();
-
-    // --- Elimina overlays anteriores si existen ---
-    const oldOverlay = document.getElementById('empanadas-overlay');
-    if (oldOverlay) oldOverlay.remove();
-
-    // Overlay para bloquear la página
-    const overlay = document.createElement('div');
-    overlay.id = 'empanadas-overlay';
-    overlay.className = 'empanadas-overlay';
-    overlay.onclick = (e) => e.stopPropagation();
-    overlay.onwheel = (e) => e.preventDefault();
-    document.body.appendChild(overlay);
-
-    // Banner de empanadas
-    const banner = document.createElement('div');
-    banner.id = 'empanadas-banner';
-    banner.className = 'empanadas-banner';
-
-    banner.innerHTML = `
-      <span class="empanadas-banner-text">
-        Este sitio utiliza empanadas para mejorar tu experiencia y darnos información para hacer su estancia en nuestra web más reconfortante.<br>
-      </span>
-      <div class="empanadas-banner-inner">
-        <img src="/images/Empanada.png" alt="Empanadas" class="empanadas-banner-img"/>
-        <button id="mas-informacion" class="empanadas-btn-info">Más información</button>
-        <div class="empanadas-banner-btns">
-          <button id="aceptar-empanadas" class="empanadas-btn-aceptar">Aceptar</button>
-          <button id="rechazar-empanadas" class="empanadas-btn-rechazar">Rechazar</button>
-        </div>
-      </div>
-    `;
-    document.body.appendChild(banner);
-
-    // Bloquear scroll de fondo mientras el banner está activo
-    document.body.style.overflow = 'hidden';
-
-    // --- Botón aceptar empanadas ---
-    document.getElementById('aceptar-empanadas').onclick = () => {
-      setEmpanada("session_id", Math.random().toString(36).slice(2), 7);
-      setEmpanada("cart_item", "[]", 7);
-      setEmpanada("user_logged", "false", 7);
-      setEmpanada("empanada_content", "accepted", 365);
-      banner.remove();
-      overlay.remove();
-      document.body.style.overflow = '';
-      crearBotonFlotante();
-    };
-
-    // --- Botón rechazar empanadas ---
-    document.getElementById('rechazar-empanadas').onclick = () => {
-      deleteEmpanada("session_id");
-      deleteEmpanada("cart_item");
-      deleteEmpanada("user_logged");
-      deleteEmpanada("empanada_content");
-      banner.remove();
-      overlay.remove();
-      document.body.style.overflow = '';
-      crearBotonFlotante();
-    };
-
-    // --- Botón más información ---
-    document.getElementById('mas-informacion').onclick = () => {
-      window.open('/Política-Empanadas.html', '_blank');
-    };
-  }
-
-  // --- Lógica de inicio: mostrar banner o botón flotante ---
-  injectEmpanadasStyles(); // Inserta los estilos solo una vez
-  if (!getEmpanada("empanada_content")) {
-    mostrarBanner();
-  } else {
-    crearBotonFlotante();
-  }
+function injectEmpanadasStyles() {
+  if (document.getElementById('empanadas-styles')) return;
+  const style = document.createElement('style');
+  style.id = 'empanadas-styles';
+  style.textContent = `
+    .empanadas-btn-flotante {
+      background: #222;
+      color: #fff;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 8px;
+      cursor: pointer;
+      z-index: 1100;
+      opacity: 0.7;
+      transition: filter 0.2s, transform 0.2s, opacity 0.2s;
+      position: static;
+      margin: 1.5em auto 0 auto;
+      display: block;
+    }
+    .empanadas-btn-flotante:hover {
+      opacity: 1;
+      filter: brightness(2);
+      transform: scale(1.13);
+    }
+    .empanadas-overlay {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      background: rgba(0,0,0,0.35);
+      z-index: 999;
+      pointer-events: auto;
+      user-select: none;
+    }
+    .empanadas-banner {
+      position: fixed;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 400px;
+      background: rgba(0, 0, 0, 0.5);
+      color: #fff;
+      padding: 15px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 16px;
+      border-radius: 12px;
+      box-shadow: 0 4px 16px rgb(0, 0, 0);
+      z-index: 1001;
+    }
+    .empanadas-banner-text {
+      text-align: center;
+    }
+    .empanadas-banner-inner {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 11px;
+      border-radius: 10px;
+    }
+    .empanadas-banner-img {
+      width: 150px;
+      height: 150px;
+    }
+    .empanadas-banner-btns {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+    }
+    .empanadas-btn-info,
+    .empanadas-btn-aceptar,
+    .empanadas-btn-rechazar {
+      background: #222;
+      opacity: 0.7;
+      color: #fff;
+      border: none;
+      padding: 8px 24px;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background 0.2s, opacity 0.2s, filter 0.2s, transform 0.2s;
+    }
+    .empanadas-btn-info:hover {
+      opacity: 1;
+      background: #0af;
+      filter: brightness(1.3);
+      transform: scale(1.13);
+    }
+    .empanadas-btn-aceptar:hover {
+      opacity: 1;
+      background: #27ae60;
+      filter: brightness(1.3);
+      transform: scale(1.13);
+    }
+    .empanadas-btn-rechazar:hover {
+      opacity: 1;
+      background: #c0392b;
+      filter: brightness(1.3);
+      transform: scale(1.13);
+    }
+  `;
+  document.head.appendChild(style);
 }
+
+// --- Banner de empanadas (el frame central) ---
+function mostrarBanner() {
+  if (document.getElementById('empanadas-banner')) return;
+
+  // Elimina overlays anteriores si existen
+  const oldOverlay = document.getElementById('empanadas-overlay');
+  if (oldOverlay) oldOverlay.remove();
+
+  // Overlay para bloquear la página
+  const overlay = document.createElement('div');
+  overlay.id = 'empanadas-overlay';
+  overlay.className = 'empanadas-overlay';
+  overlay.onclick = (e) => e.stopPropagation();
+  overlay.onwheel = (e) => e.preventDefault();
+  document.body.appendChild(overlay);
+
+  // Banner de empanadas
+  const banner = document.createElement('div');
+  banner.id = 'empanadas-banner';
+  banner.className = 'empanadas-banner';
+
+  banner.innerHTML = `
+    <span class="empanadas-banner-text">
+      Este sitio utiliza empanadas para mejorar tu experiencia y darnos información para hacer su estancia en nuestra web más reconfortante.<br>
+    </span>
+    <div class="empanadas-banner-inner">
+      <img src="/images/Empanada.png" alt="Empanadas" class="empanadas-banner-img"/>
+      <button id="mas-informacion" class="empanadas-btn-info">Más información</button>
+      <div class="empanadas-banner-btns">
+        <button id="aceptar-empanadas" class="empanadas-btn-aceptar">Aceptar</button>
+        <button id="rechazar-empanadas" class="empanadas-btn-rechazar">Rechazar</button>
+      </div>
+    </div>
+  `;
+  document.body.appendChild(banner);
+
+  // Bloquear scroll de fondo mientras el banner está activo
+  document.body.style.overflow = 'hidden';
+
+  // --- Botón aceptar empanadas ---
+  document.getElementById('aceptar-empanadas').onclick = () => {
+    setEmpanada("session_id", Math.random().toString(36).slice(2), 7);
+    setEmpanada("cart_item", "[]", 7);
+    setEmpanada("user_logged", "false", 7);
+    setEmpanada("empanada_content", "accepted", 365);
+    banner.remove();
+    overlay.remove();
+    document.body.style.overflow = '';
+  };
+
+  // --- Botón rechazar empanadas ---
+  document.getElementById('rechazar-empanadas').onclick = () => {
+    deleteEmpanada("session_id");
+    deleteEmpanada("cart_item");
+    deleteEmpanada("user_logged");
+    deleteEmpanada("empanada_content");
+    banner.remove();
+    overlay.remove();
+    document.body.style.overflow = '';
+  };
+
+  // --- Botón más información ---
+  document.getElementById('mas-informacion').onclick = () => {
+    window.open('/Política-Cookies.html', '_blank');
+  };
+}
+
+// --- Lógica de inicio: mostrar banner si no hay cookie ---
+injectEmpanadasStyles();
+if (!getEmpanada("empanada_content")) {
+  mostrarBanner();
+}
+
+// Expón la función globalmente para el footer SIEMPRE
+window.mostrarBannerEmpanadas = mostrarBanner;
