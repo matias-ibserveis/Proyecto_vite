@@ -71,7 +71,7 @@ export async function renderCesta(container) {
 
   // Botón Vaciar Cesta
   const vaciarBtn = document.createElement('button');
-  vaciarBtn.textContent = 'Vaciar cesta';
+  vaciarBtn.textContent = 'Vaciar';
   vaciarBtn.className = 'btn btn-danger mb-3';
   vaciarBtn.addEventListener('click', () => {
     localStorage.removeItem('cesta');
@@ -196,7 +196,7 @@ function mostrarCesta() {
       if (action === 'sumar') {
         cesta[id].cantidad = cantidadNum + 1;
       } else {
-        cesta[id].cantidad = (cantidadNum > 1 || cesta[id].origen === 'manual') ? cantidadNum - 1 : cantidadNum;
+        cesta[id].cantidad = cantidadNum - 1;
         if (cesta[id].cantidad <= 0) delete cesta[id];
       }
 
@@ -285,6 +285,64 @@ function mostrarCesta() {
         padding: 2rem;
         font-style: italic;
       }
+
+      @media (max-width: 600px) {
+
+        #contenedor-cesta {
+          padding: 0.5rem;
+        }
+
+        .producto-card {
+          flex-direction: row;
+          align-items: flex-start;
+          padding: 0.75rem;
+          gap: 0.75rem;
+        }
+
+        .producto-img {
+          width: 70px;
+          height: 70px;
+          flex-shrink: 0;
+          border-radius: 8px;
+        }
+
+        .producto-info {
+          flex: 1;
+        }
+
+        .producto-info h5 {
+          font-size: 1.1rem;
+        }
+
+        .precio-unidad,
+        .producto-info p {
+          font-size: 1.1rem;
+        }
+
+        .cantidad-controls {
+          justify-content: space-between;
+          width: 100%;
+          margin-top: 1rem;
+        }
+
+        .cantidad-controls button {
+          font-size: 1.1rem;
+          padding: 0.6rem 1.2rem;
+        }
+
+        .total-general-container {
+          font-size: 1.4rem;
+          padding: 1rem 0.5rem;
+        }
+
+        .btn {
+          font-size: 1rem !important;
+          padding: 0.75rem 1.25rem !important;
+        }
+      }
+
+
+                
     
   `;
   document.head.appendChild(style);
