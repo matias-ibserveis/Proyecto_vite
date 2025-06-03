@@ -21,13 +21,17 @@
       const id = params.get('id');
 
       async function cargarProducto() {
+
         try {
           const res = await fetch(`https://proyectorailway-production-9739.up.railway.app/api/producto/${id}`);
           if (!res.ok) throw new Error('Error en la respuesta del servidor');
           const p = await res.json();
 
+          const imageId = p.imagen1.split('/d/')[1]?.split('/')[0];
+          const imageUrl = `https://drive.google.com/thumbnail?id=${imageId}&sz=w800-h600`;
+
           container.innerHTML = `
-        <img src="${p.imagen1}" alt="${p.titulo}">
+        <img src="${imageUrl}" alt="${p.titulo}">
         <h1>${p.titulo}</h1>
         <p>${p.descripcion}</p>
         <p class="precio_solo">Precio: ${p.precio} €</p>
@@ -113,7 +117,7 @@
   `;
       document.head.appendChild(style);
 
-  });
+    });
   </script>
 
 

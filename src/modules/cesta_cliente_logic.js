@@ -56,9 +56,6 @@ export async function renderCesta(container) {
   const prevY = sessionStorage.getItem('prevScrollY');
   const prevURL = sessionStorage.getItem('prevURL');
 
-  //console.log("prevY", prevY)
-  //console.log("prevURL", prevURL)
-
   if (prevURL && prevY !== null) {
     const volverBtn = document.createElement('button');
     volverBtn.textContent = 'Volver';
