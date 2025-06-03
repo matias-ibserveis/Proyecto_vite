@@ -9,14 +9,21 @@ import { BotonVerde } from './components/botonwhatsapp.js';
 import { Contacto} from './components/contacto.js';
 import { EmpanadaBanner } from './components/EmpanadaBanner.js';
 import { Footer } from './components/Footer.js';
+import { NuestraHistoria } from './components/nuestrahistoria.js';
 
 (async () => {
   // Navbar
   app.append(Navbar());
 
+  // Nuestra Filosofía
+  app.append(NuestraFilosofia());
+  
   // Apartado Sobre Nosotras
   app.append(SobreNosotras());
   
+  // Nuestra Historia
+  app.append(NuestraHistoria())
+
   // Carrusel de productos destacados (Header)
   const productosPortada = await Header();
   app.append(productosPortada);
@@ -24,9 +31,6 @@ import { Footer } from './components/Footer.js';
   // Sección de productos
   const productos = await Productos();
   app.append(productos);
-
-    // Apartado Nuestra Filosofía
-  app.append(NuestraFilosofia());
 
   // Carrusel de reseñas (Comentarios)
   app.append(Comentarios());
