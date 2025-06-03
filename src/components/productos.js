@@ -27,9 +27,9 @@ function injectEmpanadasStyles() {
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      width: 300px;
-      background: #fff; /* Solid white background */
-      color: #000; /* Black text for contrast */
+      width: 350px;
+      background: #fff;
+      color: #000;
       padding: 15px;
       border-radius: 12px;
       box-shadow: 0 4px 16px rgb(0, 0, 0);
@@ -49,7 +49,15 @@ function injectEmpanadasStyles() {
     }
     .cart-popup li {
       padding: 5px 0;
-      border-bottom: 1px solid #ccc; /* Lighter border for visibility */
+      border-bottom: 1px solid #ccc;
+    }
+    .cart-popup .cesta-details {
+      margin-left: 10px;
+      font-size: 0.9rem;
+    }
+    .cart-popup .cesta-details li {
+      border: none;
+      padding: 2px 0;
     }
     .cart-popup .close-btn {
       background: #c0392b;
@@ -84,7 +92,6 @@ function injectEmpanadasStyles() {
   document.head.appendChild(style);
 }
 
-// Call the function to inject styles
 injectEmpanadasStyles();
 
 export async function Productos() {
@@ -131,8 +138,7 @@ export async function Productos() {
 
       const frases = producto.descripcion?.split(/[.!?]\s/).slice(0, 2).join(". ") + "." || "Sin descripción.";
       
-      // Handle image URL
-      let imageUrl = "/images/logo1.png"; // Default fallback
+      let imageUrl = "/images/logo1.png";
       if (producto.imagen1) {
         console.log("Raw imagen1 for", producto.titulo, ":", producto.imagen1);
         if (producto.imagen1.includes("drive.google.com")) {
@@ -266,11 +272,11 @@ export async function Productos() {
         const quantity = parseInt(quantityDisplay.textContent);
         if (quantity > 0) {
           const cart = JSON.parse(sessionStorage.getItem('cart') || '[]');
-          const existingItem = cart.find(item => item.id === producto.id);
+          const existingItem = cart.find(item => item.id === producto.id && !item.type);
           if (existingItem) {
             existingItem.quantity += quantity;
           } else {
-            cart.push({ id: producto.id, name: producto.titulo, quantity: quantity, price: producto.precio });
+            cart.push({ id: producto.id, name: producto.titulo, quantity: quantity, price: producto.precio, type: 'product' });
           }
           sessionStorage.setItem('cart', JSON.stringify(cart));
           console.log(`Added ${quantity} x ${producto.titulo} to cart`);
@@ -373,19 +379,17 @@ export async function Productos() {
     }
   }
 
-  // Add the single floating "Ver Carro" button with cart icon and popup
   function crearBotonVerCarro() {
     if (document.getElementById('btn-flotante-ver-carro')) return;
     const btnVerCarro = document.createElement('button');
     btnVerCarro.id = 'btn-flotante-ver-carro';
-    btnVerCarro.textContent = "🛒"; // Unicode cart icon
+    btnVerCarro.textContent = "🛒";
     btnVerCarro.className = "empanadas-btn-flotante";
-    btnVerCarro.style.bottom = "120px"; // Position above "Gestionar Empanadas"
-    btnVerCarro.style.padding = "10px"; // Adjust padding for icon size
-    btnVerCarro.style.fontSize = "24px"; // Increase icon size for visibility
-    btnVerCarro.title = "Ver Carro"; // Add tooltip for accessibility
+    btnVerCarro.style.bottom = "120px";
+    btnVerCarro.style.padding = "10px";
+    btnVerCarro.style.fontSize = "24px";
+    btnVerCarro.title = "Ver Carro";
 
-    // Create and append the popup and overlay
     const overlay = document.createElement('div');
     overlay.className = 'cart-overlay';
     const popup = document.createElement('div');
@@ -401,9 +405,28 @@ export async function Productos() {
     btnVerCarro.addEventListener('click', () => {
       const cart = JSON.parse(sessionStorage.getItem('cart') || '[]');
       const cartItems = popup.querySelector('#cart-items');
-      cartItems.innerHTML = cart.length
-        ? cart.map(item => `<li>${item.name} - ${item.quantity} x €${item.price} = €${item.quantity * item.price}</li>`).join('')
-        : '<li>El carrito está vacío</li>';
+      if (cart.length === 0) {
+        cartItems.innerHTML = '<li>El carrito está vacío</li>';
+      } else {
+        cartItems.innerHTML = cart.map(item => {
+          if (item.type === 'cesta') {
+            // Display cesta item with ingredients
+            return `
+              <li>
+                ${item.name} - ${item.quantity} x €${item.price} = €${item.quantity * item.price}
+                <ul class="cesta-details">
+                  ${item.ingredients.map(ing => `
+                    <li>${ing.name}: ${ing.selected} (de ${ing.place}, por ${ing.supplier})</li>
+                  `).join('')}
+                </ul>
+              </li>
+            `;
+          } else {
+            // Display regular product
+            return `<li>${item.name} - ${item.quantity} x €${item.price} = €${item.quantity * item.price}</li>`;
+          }
+        }).join('');
+      }
       popup.classList.add('active');
       overlay.classList.add('active');
     });
@@ -421,7 +444,6 @@ export async function Productos() {
     document.body.appendChild(btnVerCarro);
   }
 
-  // Call the function to create the button
   crearBotonVerCarro();
 
   productos.fetchProductos = fetchProductos;

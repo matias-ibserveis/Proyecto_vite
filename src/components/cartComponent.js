@@ -150,55 +150,32 @@ export function CartComponent() {
     const addToCartButton = document.createElement('button');
     addToCartButton.textContent = 'Añadir Carro';
     addToCartButton.classList.add('add-to-cart-btn');
-    addToCartButton.addEventListener('click', async () => {
-      const cesta = JSON.parse(localStorage.getItem('cesta') || '{}');
+    addToCartButton.addEventListener('click', () => {
+      // Retrieve existing cart from sessionStorage
+      const cart = JSON.parse(sessionStorage.getItem('cart') || '[]');
+      
+      // Create new cesta entry
       const uniqueId = `cesta_${Date.now()}`;
-      cesta[uniqueId] = {
+      const newCesta = {
         id: uniqueId,
-        titulo: cestaData.name,
-        cantidad: 1,
-        unidad_medido: 'cesta',
-        precio: 0, // You may want to calculate a price based on ingredients
+        name: cestaData.name,
+        quantity: 1,
+        price: 0, // Price could be calculated if needed
+        type: 'cesta', // Flag to identify this as a cesta item
         ingredients: ingredientsData.map(ingredient => ({
           name: ingredient.name,
           selected: ingredient.selected,
           place: ingredient.place,
           supplier: ingredient.supplier
-        })),
-        origen: 'manual'
+        }))
       };
-      localStorage.setItem('cesta', JSON.stringify(cesta));
 
-      // Open the cart popup
-      const modal = document.getElementById('cart-modal');
-      const cartItemsContainer = document.getElementById('cart-modal-items');
-      if (modal && cartItemsContainer) {
-        modal.style.display = 'block';
-        const { initializeCesta, mostrarCesta } = await import('../modules/cestaLogic.js');
-        await initializeCesta();
-        cartItemsContainer.innerHTML = '';
-        const tempContainer = document.createElement('div');
-        tempContainer.innerHTML = `
-          <table class="table table-bordered">
-            <thead>
-              <tr>
-                <th>Producto</th>
-                <th>Cantidad</th>
-                <th>Unidad</th>
-                <th>Precio</th>
-                <th>Total</th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody id="cesta-body"></tbody>
-            <tfoot>
-              <tr><td colspan="5" class="text-end">Total general:</td><td id="total-general">0 €</td></tr>
-            </tfoot>
-          </table>
-        `;
-        cartItemsContainer.appendChild(tempContainer);
-        await mostrarCesta();
-      }
+      // Add the cesta to the cart
+      cart.push(newCesta);
+      sessionStorage.setItem('cart', JSON.stringify(cart));
+
+      // Redirect to producto.html
+      window.location.href = '/producto.html';
     });
     rightPanel.appendChild(addToCartButton);
 
