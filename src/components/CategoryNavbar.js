@@ -6,7 +6,7 @@ export function CategoryNavbar() {
     <form class="search-form" role="search">
       <input class="form-control category-search" type="search" placeholder="Buscar productos" aria-label="Search">
       <button class="btn search-btn" type="submit">Buscar</button>
-      <button class="btn nav-btn ms-2" type="button" id="todosBtn">Ver todos</button>
+      <button class="btn ver-todos-btn ms-2" type="button" id="todosBtn">Ver todos</button>
     </form>
   `;
 
@@ -18,42 +18,43 @@ export function CategoryNavbar() {
     const searchTerm = nav.querySelector(".category-search").value.trim();
     console.log("Search submitted with term:", searchTerm);
 
-    // If not on producto.html, navigate to it
     if (!window.location.pathname.includes("producto.html")) {
       window.location.href = `/producto.html?search=${encodeURIComponent(searchTerm)}`;
       return;
     }
 
-    // On producto.html, fetch and render filtered products
     const productosSection = document.querySelector("#productos");
     if (productosSection && productosSection.fetchProductos) {
       await productosSection.fetchProductos(searchTerm);
     } else {
-      console.error("Productos section or fetchProductos not found");
+      console.error("Productos section or fetchProductos method not found");
     }
   });
 
-  todosBtn.addEventListener("click", (e) => {
+  todosBtn.addEventListener("click", async (e) => {
     e.preventDefault();
-    console.log("Resetting to all products");
+    console.log("Ver todos clicked: Resetting to all products");
     const productosSection = document.querySelector("#productos");
-    if (productosSection && productosSection.getDataOriginal && productosSection.paginar && productosSection.setCurrentPage) {
-      const dataOriginal = productosSection.getDataOriginal();
-      productosSection.setCurrentPage(1);
-      productosSection.paginar(dataOriginal, 1);
-      nav.querySelector(".category-search").value = "";
+    const searchInput = nav.querySelector(".category-search");
+
+    if (productosSection && productosSection.fetchProductos) {
+      try {
+        await productosSection.fetchProductos("");
+        searchInput.value = "";
+        console.log("Successfully reset to all products");
+      } catch (error) {
+        console.error("Error resetting to all products:", error);
+      }
     } else {
-      console.error("Productos section or required methods not found");
+      console.error("Productos section or fetchProductos method not found");
     }
   });
 
-  // If on producto.html with a search term, pre-fill and search
   if (window.location.pathname.includes("producto.html")) {
     const urlParams = new URLSearchParams(window.location.search);
     const initialSearchTerm = urlParams.get("search") || "";
     if (initialSearchTerm) {
       nav.querySelector(".category-search").value = initialSearchTerm;
-      // Initial search is handled by productos.js
     }
   }
 
