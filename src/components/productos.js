@@ -16,44 +16,134 @@ function injectEmpanadasStyles() {
       z-index: 1100;
       opacity: 0.7;
       transition: filter 0.2s, transform 0.2s, opacity 0.2s;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.12);
     }
     .empanadas-btn-flotante:hover {
       opacity: 1;
-      filter: brightness(2);
-      transform: scale(1.13);
+      filter: brightness(1.3);
+      transform: scale(1.09);
     }
     .cart-popup {
       position: fixed;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      width: 350px;
+      width: 540px;
+      max-width: 99vw;
+      max-height: 88vh;
       background: #fff;
-      color: #000;
-      padding: 15px;
-      border-radius: 12px;
-      box-shadow: 0 4px 16px rgb(0, 0, 0);
+      color: #222;
+      padding: 28px 22px 18px 22px;
+      border-radius: 20px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.18);
       z-index: 1200;
       display: none;
+      overflow: visible;
+      font-family: inherit;
     }
     .cart-popup.active {
       display: block;
+      animation: cartPopupIn 0.18s;
+    }
+    @keyframes cartPopupIn {
+      from { opacity: 0; transform: translate(-50%, -60%) scale(0.98);}
+      to { opacity: 1; transform: translate(-50%, -50%) scale(1);}
     }
     .cart-popup h3 {
       text-align: center;
-      margin-bottom: 10px;
+      margin-bottom: 14px;
+      font-size: 1.35rem;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      color: #1a1a1a;
     }
     .cart-popup ul {
       list-style: none;
       padding: 0;
+      margin: 0;
+      max-height: 54vh;
+      overflow-y: auto;
     }
     .cart-popup li {
-      padding: 5px 0;
-      border-bottom: 1px solid #ccc;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 12px 12px 12px 0;
+      border-bottom: 1px solid #ececec;
+      min-height: 72px;
+      font-size: 1.08rem;
+      background: none;
+      position: relative;
+      transition: background 0.15s;
+    }
+    .cart-popup li:last-child {
+      border-bottom: none;
+    }
+    .cart-popup li:hover {
+      background: #f8f8f8;
+    }
+    .cart-popup .cart-img {
+      width: 64px;
+      height: 64px;
+      object-fit: cover;
+      border-radius: 10px;
+      flex-shrink: 0;
+      background: #f2f2f2;
+      margin-right: 2px;
+      border: 1px solid #eee;
+      display: block;
+    }
+    .cart-popup .cart-item-content {
+      flex: 1 1 auto;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      overflow: hidden;
+    }
+    .cart-popup .cart-item-title {
+      font-weight: 500;
+      font-size: 1.08em;
+      color: #222;
+      margin-bottom: 2px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 220px;
+    }
+    .cart-popup .cart-item-price {
+      font-size: 1em;
+      color: #444;
+      margin-top: 1px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 220px;
+    }
+    .cart-popup .remove-cart-item {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: none;
+      border: none;
+      color: #e74c3c;
+      font-size: 1.25em;
+      cursor: pointer;
+      padding: 2px 8px;
+      border-radius: 50%;
+      transition: background 0.15s, color 0.15s;
+      line-height: 1;
+      z-index: 2;
+    }
+    .cart-popup .remove-cart-item:hover {
+      background: #ffeaea;
+      color: #b71c1c;
     }
     .cart-popup .cesta-details {
-      margin-left: 10px;
-      font-size: 0.9rem;
+      margin-left: 0;
+      font-size: 0.93rem;
+      color: #666;
+      margin-top: 2px;
     }
     .cart-popup .cesta-details li {
       border: none;
@@ -63,17 +153,19 @@ function injectEmpanadasStyles() {
       background: #c0392b;
       color: #fff;
       border: none;
-      padding: 5px 10px;
-      border-radius: 4px;
+      padding: 10px 24px;
+      border-radius: 6px;
       cursor: pointer;
-      margin-top: 10px;
+      margin-top: 18px;
       display: block;
       margin-left: auto;
+      font-size: 1.12rem;
+      font-weight: 500;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.07);
+      transition: background 0.18s;
     }
     .cart-popup .close-btn:hover {
-      opacity: 1;
-      filter: brightness(1.3);
-      transform: scale(1.13);
+      background: #a93226;
     }
     .cart-overlay {
       position: fixed;
@@ -81,12 +173,85 @@ function injectEmpanadasStyles() {
       left: 0;
       width: 100%;
       height: 100%;
-      background: rgba(0, 0, 0, 0.5);
+      background: rgba(0, 0, 0, 0.35);
       z-index: 1100;
       display: none;
     }
     .cart-overlay.active {
       display: block;
+    }
+    .cart-popup .cart-nav {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 1.2rem;
+      margin: 14px 0 0 0;
+    }
+    .cart-popup .cart-nav-btn {
+      background: #f2f2f2;
+      border: none;
+      color: #333;
+      font-size: 1.18rem;
+      border-radius: 5px;
+      padding: 7px 18px;
+      cursor: pointer;
+      transition: background 0.18s, color 0.18s;
+      font-weight: 500;
+    }
+    .cart-popup .cart-nav-btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      color: #aaa;
+    }
+    .cart-popup #cart-page {
+      font-size: 1.04rem;
+      color: #444;
+      font-weight: 500;
+      letter-spacing: 0.2px;
+    }
+    @media (max-width: 700px) {
+      .cart-popup {
+        width: 99vw;
+        min-width: 0;
+        padding: 8px 2vw 8px 2vw;
+        border-radius: 12px;
+      }
+      .cart-popup h3 {
+        font-size: 1.1rem;
+      }
+      .cart-popup li {
+        font-size: 0.97rem;
+        min-height: 48px;
+        padding-right: 6vw;
+      }
+      .cart-popup .cart-img {
+        width: 44px;
+        height: 44px;
+      }
+      .cart-popup .cart-item-title,
+      .cart-popup .cart-item-price {
+        max-width: 60vw;
+      }
+      .cart-popup .close-btn {
+        font-size: 0.97rem;
+        padding: 7px 12px;
+      }
+      .cart-popup .cart-nav {
+        gap: 0.7rem;
+      }
+    }
+    @media (max-width: 400px) {
+      .cart-popup {
+        padding: 4px 1vw 4px 1vw;
+      }
+      .cart-popup .cart-img {
+        width: 32px;
+        height: 32px;
+      }
+      .cart-popup .cart-item-title,
+      .cart-popup .cart-item-price {
+        max-width: 40vw;
+      }
     }
   `;
   document.head.appendChild(style);
@@ -272,17 +437,23 @@ export async function Productos() {
         const quantity = parseInt(quantityDisplay.textContent);
         if (quantity > 0) {
           const cart = JSON.parse(sessionStorage.getItem('cart') || '[]');
-          const existingItem = cart.find(item => item.id === producto.id && !item.type);
+          const existingItem = cart.find(item => item.id === producto.id && item.type === 'product');
           if (existingItem) {
             existingItem.quantity += quantity;
           } else {
-            cart.push({ id: producto.id, name: producto.titulo, quantity: quantity, price: producto.precio, type: 'product' });
+            cart.push({
+              id: producto.id,
+              name: producto.titulo,
+              quantity: quantity,
+              price: producto.precio,
+              type: 'product',
+              imagen1: producto.imagen1 // <-- Store image!
+            });
           }
           sessionStorage.setItem('cart', JSON.stringify(cart));
           console.log(`Added ${quantity} x ${producto.titulo} to cart`);
-          sessionStorage.setItem("prevScrollY", window.scrollY);
-          sessionStorage.setItem("prevURL", window.location.href);
-          window.location.href = `/cesta_cliente.html?id=${producto.id}&quantity=${quantity}`;
+          quantityDisplay.textContent = '0';
+          updateQuantity();
         }
       });
 
@@ -381,6 +552,7 @@ export async function Productos() {
 
   function crearBotonVerCarro() {
     if (document.getElementById('btn-flotante-ver-carro')) return;
+
     const btnVerCarro = document.createElement('button');
     btnVerCarro.id = 'btn-flotante-ver-carro';
     btnVerCarro.textContent = "🛒";
@@ -397,36 +569,133 @@ export async function Productos() {
     popup.innerHTML = `
       <h3>Carrito</h3>
       <ul id="cart-items"></ul>
+      <div class="cart-nav" style="display:none;">
+        <button class="cart-nav-btn" id="cart-prev">⬅</button>
+        <span id="cart-page"></span>
+        <button class="cart-nav-btn" id="cart-next">➡</button>
+      </div>
       <button class="close-btn">Cerrar</button>
     `;
     document.body.appendChild(overlay);
     document.body.appendChild(popup);
 
-    btnVerCarro.addEventListener('click', () => {
+    // Navigation logic
+    const ITEMS_PER_PAGE = 6;
+    let cartPage = 1;
+
+    function getProductImage(item) {
+      if (item.imagen1) return item.imagen1;
+      if (window.dataOriginal && Array.isArray(window.dataOriginal)) {
+        const found = window.dataOriginal.find(p => p.id === item.id);
+        if (found && found.imagen1) return found.imagen1;
+      }
+      return "/images/logo1.png";
+    }
+
+    function renderCartPopup() {
       const cart = JSON.parse(sessionStorage.getItem('cart') || '[]');
       const cartItems = popup.querySelector('#cart-items');
+      const nav = popup.querySelector('.cart-nav');
+      const prevBtn = popup.querySelector('#cart-prev');
+      const nextBtn = popup.querySelector('#cart-next');
+      const pageSpan = popup.querySelector('#cart-page');
+
+      // Expose dataOriginal for image lookup
+      window.dataOriginal = window.dataOriginal || (typeof dataOriginal !== "undefined" ? dataOriginal : []);
+
       if (cart.length === 0) {
         cartItems.innerHTML = '<li>El carrito está vacío</li>';
+        nav.style.display = "none";
       } else {
-        cartItems.innerHTML = cart.map(item => {
+        const totalPages = Math.ceil(cart.length / ITEMS_PER_PAGE);
+        cartPage = Math.max(1, Math.min(cartPage, totalPages));
+        const start = (cartPage - 1) * ITEMS_PER_PAGE;
+        const end = start + ITEMS_PER_PAGE;
+        const pageItems = cart.slice(start, end);
+
+        cartItems.innerHTML = pageItems.map((item, idx) => {
+          const realIdx = start + idx;
+          let imgSrc = getProductImage(item);
+          // If Google Drive, convert to thumbnail
+          if (imgSrc && imgSrc.includes("drive.google.com")) {
+            const driveRegex = /\/d\/([a-zA-Z0-9_-]+)|id=([a-zA-Z0-9_-]+)/;
+            const match = imgSrc.match(driveRegex);
+            if (match && (match[1] || match[2])) {
+              imgSrc = `https://drive.google.com/thumbnail?id=${match[1] || match[2]}&sz=w300-h300`;
+            }
+          }
           if (item.type === 'cesta') {
-            // Display cesta item with ingredients
             return `
               <li>
-                ${item.name} - ${item.quantity} x €${item.price} = €${item.quantity * item.price}
-                <ul class="cesta-details">
-                  ${item.ingredients.map(ing => `
-                    <li>${ing.name}: ${ing.selected} (de ${ing.place}, por ${ing.supplier})</li>
-                  `).join('')}
-                </ul>
+                <img class="cart-img" src="${imgSrc}" alt="${item.name}" />
+                <div class="cart-item-content">
+                  <span class="cart-item-title">${item.name}</span>
+                  <span class="cart-item-price">€${item.price}</span>
+                  <ul class="cesta-details">
+                    ${item.ingredients.map(ing => `
+                      <li>${ing.name}: ${ing.selected} (de ${ing.place}, por ${ing.supplier})</li>
+                    `).join('')}
+                  </ul>
+                </div>
+                <button class="remove-cart-item" data-idx="${realIdx}">✕</button>
               </li>
             `;
           } else {
-            // Display regular product
-            return `<li>${item.name} - ${item.quantity} x €${item.price} = €${item.quantity * item.price}</li>`;
+            return `<li>
+              <img class="cart-img" src="${imgSrc}" alt="${item.name}" />
+              <div class="cart-item-content">
+                <span class="cart-item-title">${item.name}</span>
+                <span class="cart-item-price">${item.quantity} x €${item.price} = €${(item.quantity * item.price).toFixed(2)}</span>
+              </div>
+              <button class="remove-cart-item" data-idx="${realIdx}">✕</button>
+            </li>`;
           }
         }).join('');
+
+        // Navigation controls
+        if (totalPages > 1) {
+          nav.style.display = "flex";
+          pageSpan.textContent = `Página ${cartPage} de ${totalPages}`;
+          prevBtn.disabled = cartPage === 1;
+          nextBtn.disabled = cartPage === totalPages;
+        } else {
+          nav.style.display = "none";
+        }
+
+        // Remove buttons
+        cartItems.querySelectorAll('.remove-cart-item').forEach(btn => {
+          btn.addEventListener('click', (e) => {
+            const idx = parseInt(btn.getAttribute('data-idx'));
+            cart.splice(idx, 1);
+            sessionStorage.setItem('cart', JSON.stringify(cart));
+            // If removing last item on page, go to previous page if needed
+            if ((cartPage - 1) * ITEMS_PER_PAGE >= cart.length && cartPage > 1) {
+              cartPage--;
+            }
+            renderCartPopup();
+            e.stopPropagation();
+          });
+        });
+
+        prevBtn.onclick = () => {
+          if (cartPage > 1) {
+            cartPage--;
+            renderCartPopup();
+          }
+        };
+        nextBtn.onclick = () => {
+          const totalPages = Math.ceil(cart.length / ITEMS_PER_PAGE);
+          if (cartPage < totalPages) {
+            cartPage++;
+            renderCartPopup();
+          }
+        };
       }
+    }
+
+    btnVerCarro.addEventListener('click', () => {
+      cartPage = 1;
+      renderCartPopup();
       popup.classList.add('active');
       overlay.classList.add('active');
     });
