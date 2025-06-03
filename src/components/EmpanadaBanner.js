@@ -45,10 +45,11 @@ function injectEmpanadasStyles() {
       top: 0; left: 0;
       width: 100vw; height: 100vh;
       background: rgba(0,0,0,0.35);
-      z-index: 999;
+      z-index: 2000;
       pointer-events: auto;
       user-select: none;
     }
+
     .empanadas-banner {
       position: fixed;
       top: 50%; left: 50%;
@@ -64,7 +65,7 @@ function injectEmpanadasStyles() {
       gap: 16px;
       border-radius: 12px;
       box-shadow: 0 4px 16px rgb(0, 0, 0);
-      z-index: 1001;
+      z-index: 2001;
     }
     .empanadas-banner-text {
       text-align: center;
@@ -89,7 +90,7 @@ function injectEmpanadasStyles() {
     .empanadas-btn-aceptar,
     .empanadas-btn-rechazar {
       background: #222;
-      opacity: 0.7;
+      opacity: 1;
       color: #fff;
       border: none;
       padding: 8px 24px;

@@ -3,18 +3,19 @@ export function Footer() {
   const frame = document.createElement('div');
   frame.className = 'final_legal';
   frame.style.cssText = `
-    text-align:center;
-    color:#d1ab72;
-    font-size:0.95em;
-    box-shadow:0 0 32px 0 #ccc;
-    max-width:900px;
-    width:100%;
-    background:#d1ab72;
-    padding: 1em 0 0 0;
-    border-radius: 18px;
-    margin: 3rem auto 2rem auto;
-    overflow: hidden;
-  `;
+  text-align:center;
+  color:#d1ab72;
+  font-size:0.95em;
+  box-shadow:0 0 32px 0 #ccc;
+  max-width:900px;
+  width:100%;
+  background:#d1ab72;
+  padding: 1em 0 0 0;
+  border-radius: 18px;
+  margin: 3rem auto 2rem auto;
+  overflow: hidden;
+  box-sizing: border-box;
+`;
 
   if (!document.getElementById('footer-legal-style')) {
     const style = document.createElement('style');
@@ -153,52 +154,23 @@ export function Footer() {
 
 // --- Mathias a la izquierda, igual que España a la derecha ---
 const bloqueMathias = `
-  <div style="
-    flex: 0 0 220px;
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    min-height: 60px;
-    height: 100%;
-    max-width: 220px;
-  ">
+  <a href="https://creativecommons.org/licenses/by-nd/4.0/" target="_blank" rel="noopener" style="flex: 1 1 0; display: flex; align-items: center; justify-content: center; height: 100px; background: rgb(243, 243, 243); text-decoration: none;">
     <img 
       src="images/CCLicense.png" 
       alt="Licencia Creative Commons" 
-      style="
-        width: auto;
-        height: 80px;
-        max-height: 80px;
-        display: block;
-        object-fit: contain;
-        background: transparent;
-      "
+      style="width: 100%; height: 100%; object-fit: contain; display: block; background: transparent;"
     />
-  </div>
+  </a>
 `;
 
 const bloqueEspana = `
-  <div style="
-    flex: 1 1 0;
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    min-height: 60px;
-    height: 100%;
-    max-height: 100%;
-  ">
+  <a href="https://www.lamoncloa.gob.es/Paginas/index.aspx" target="_blank" rel="noopener" style="flex: 1 1 0; display: flex; align-items: center; justify-content: center; height: 100px; background: #ffcf2b; text-decoration: none;">
     <img 
       src="images/Logo_Gobierno_España.png" 
       alt="Logo Gobierno España" 
-      style="
-        width: auto;
-        height: 80px;
-        display: block;
-        object-fit: contain;
-        background: transparent;
-      "
+      style="width: 100%; height: 100%; object-fit: contain; display: block; background: transparent;"
     />
-  </div>
+  </a>
 `;
 
 // --- Contenedor de ambos, CON fondo marrón ---
@@ -208,11 +180,11 @@ const atribucionesMathiasHTML = `
     display: flex;
     flex-direction: row;
     align-items: stretch;
-    justify-content: space-between;
+    justify-content: center;
     min-height: 60px;
     box-sizing: border-box;
-    background: #7a6647; /* MANTENIENDO EL FONDO MARRÓN */
     border-radius: 0 0 16px 16px;
+    overflow: hidden;
   ">
     ${bloqueMathias}
     ${bloqueEspana}
