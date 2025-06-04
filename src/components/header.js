@@ -20,19 +20,31 @@ export async function Header() {
     items.forEach(item => carouselInner.appendChild(item));
     header.appendChild(carouselInner);
 
-    header.innerHTML += `
-      <button class="carousel-control-prev" type="button" data-bs-target="#headerCarousel" data-bs-slide="prev">
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Previous</span>
-      </button>
-      <button class="carousel-control-next" type="button" data-bs-target="#headerCarousel" data-bs-slide="next">
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Next</span>
-      </button>
+    // Botones prev y next creados con DOM para evitar innerHTML +=
+    const btnPrev = document.createElement('button');
+    btnPrev.className = 'carousel-control-prev';
+    btnPrev.type = 'button';
+    btnPrev.setAttribute('data-bs-target', '#headerCarousel');
+    btnPrev.setAttribute('data-bs-slide', 'prev');
+    btnPrev.innerHTML = `
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
     `;
 
-    header.appendChild(style);
+    const btnNext = document.createElement('button');
+    btnNext.className = 'carousel-control-next';
+    btnNext.type = 'button';
+    btnNext.setAttribute('data-bs-target', '#headerCarousel');
+    btnNext.setAttribute('data-bs-slide', 'next');
+    btnNext.innerHTML = `
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    `;
 
+    header.appendChild(btnPrev);
+    header.appendChild(btnNext);
+
+    header.appendChild(style);
     agregarEventos(items);
 
   } catch (error) {
@@ -98,23 +110,23 @@ function agregarEventos(items) {
 const style = (() => {
   const s = document.createElement('style');
   s.textContent = `
-        .carousel-control-prev { left: 3%; }
-        .carousel-control-next { right: 3%; }
-        .tooltip-recomendacion {
-        position: absolute;
-        bottom: 15px;
-        left: 50%;
-        transform: translateX(-50%);
-        background: rgba(0,0,0,0.75);
-        color: white;
-        padding: 8px 16px;
-        border-radius: 8px;
-        font-size: 1.2rem;
-        display: none;
-        pointer-events: none;
-        z-index: 10;
-        white-space: nowrap;
-        }
-    `;
+    .carousel-control-prev { left: 3%; }
+    .carousel-control-next { right: 3%; }
+    .tooltip-recomendacion {
+      position: absolute;
+      bottom: 15px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(0,0,0,0.75);
+      color: white;
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-size: 1.2rem;
+      display: none;
+      pointer-events: none;
+      z-index: 10;
+      white-space: nowrap;
+    }
+  `;
   return s;
 })();
