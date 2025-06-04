@@ -3,7 +3,7 @@ export function SobreNosotras() {
     section.className = 'sobre-nosotras';
 
     section.innerHTML = `
-    <h2 class="sobre-nosotras-titulo">Sobre Nosotras</h2>
+    <h2 class="titulo">Sobre Nosotras</h2>
         <p class="sobre-nosotras-texto">
             Somos Lura, una tienda de productos ecológicos y locales gestionada con pasión para una alimentación saludable. </br>¡Gracias por confiar en nosotras!
         </p>
@@ -49,20 +49,6 @@ export function SobreNosotras() {
     // Estilos
     const style = document.createElement("style");
     style.innerHTML = `
-        .sobre-nosotras-titulo {
-        font-family: 'Aloja Extended', sans-serif;
-        font-size: 2rem;
-        font-weight: 700;
-        color: white;
-        border: none;
-        margin-top: 20px;
-        margin-bottom: 20px;
-        background-attachment: fixed;
-        background-color: var(--main-color) !important;
-        display: inline-block;
-        border-radius: 10px;
-        padding: 15px;
-        }
 
         .sobre-nosotras-texto {
         font-family: "Hanken Grotesk", sans-serif;
@@ -165,8 +151,5 @@ export function SobreNosotras() {
 
   `;
     document.head.appendChild(style);
-
-
-
     return section;
 }

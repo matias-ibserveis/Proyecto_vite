@@ -3,7 +3,7 @@ export function NuestraFilosofia() {
     section.className = 'nuestra-filosofia';
 
     section.innerHTML = `
-        <h2 class="bloque titulo">Nuestra filosofía</h2>
+        <h2 class="titulo">Nuestra filosofía</h2>
         <div class="row">
             <div class="col-text">
                 <p class="bloque bloque-1">En Lura, creemos en la importancia de una alimentación saludable y sostenible.</p>
