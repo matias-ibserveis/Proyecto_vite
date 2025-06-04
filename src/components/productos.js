@@ -1,5 +1,6 @@
 import { crearModalIA, mostrarRespuestaIA } from "./iaModal.js";
 import { crearEstructuraHTML, aplicarEstilos } from './estructuraProductos.js';
+import { getBusqueda } from "./store.js";
 
 
 export async function Productos() {
@@ -16,6 +17,7 @@ export async function Productos() {
     currentPage = 1;
     paginar(dataOriginal, currentPage);
     productos.querySelector("#busquedaInput").value = "";
+    console.log("boton todos")
   });
   const contenedor = productos.querySelector("#productos-lista");
   const buscarBtn = productos.querySelector("#buscarBtn");
@@ -26,7 +28,20 @@ export async function Productos() {
   restaurarScrollPrevio();
   aplicarEstilos();
 
+  // 🔽 escucha cambios en la búsqueda global
+  document.addEventListener("busquedaCambiada", () => {
+    const input = productos.querySelector("#busquedaInput");
+    if (input) {
+      input.value = getBusqueda();
+      buscarProductos();
+      // Scroll suave al contenedor productos
+      productos.scrollIntoView({ behavior: "smooth" });
+    }
+  });
+
+
   return productos;
+
 
 
   // ==========================
@@ -136,6 +151,7 @@ export async function Productos() {
     sessionStorage.setItem("prevScrollY", window.scrollY);
     sessionStorage.setItem("prevURL", window.location.href);
     sessionStorage.setItem("prevPage", currentPage);
+    sessionStorage.setItem("palabraBusqueda", productos.querySelector("#busquedaInput").value);
   }
 
   function restaurarScrollPrevio() {
@@ -143,6 +159,12 @@ export async function Productos() {
     sessionStorage.removeItem("prevScrollY");
 
     if (isNaN(y)) return;
+
+    if (sessionStorage.getItem("palabraBusqueda")) {
+      productos.querySelector("#busquedaInput").value = sessionStorage.getItem("palabraBusqueda")
+      buscarProductos()
+      console.log("busqueda")
+    }
 
     const intentarScroll = () => {
       if (document.body.scrollHeight > y + window.innerHeight) {
@@ -183,13 +205,14 @@ export async function Productos() {
       paginar(dataOriginal, currentPage);
     } catch (error) {
       contenedor.innerHTML = `<p class="text-danger text-center">Error al cargar productos</p>`;
-      console.error("Error cargando productos:", error);
+      console.error("No se pudo cargar productos:", error);
     } finally {
       toggleBotones(false);
     }
   }
 
   async function buscarProductos() {
+
     const consulta = productos.querySelector("#busquedaInput").value.trim();
     if (!consulta) return;
 
@@ -206,7 +229,7 @@ export async function Productos() {
       paginar(resultados, currentPage);
     } catch (err) {
       contenedor.innerHTML = `<p class="text-danger">Error al buscar productos</p>`;
-      console.error("Error en búsqueda:", err);
+      console.error("No se pudo búscar:", err);
     } finally {
       toggleBotones(false);
     }
@@ -216,4 +239,6 @@ export async function Productos() {
     buscarBtn.disabled = desactivar;
     todosBtn.disabled = desactivar;
   }
+
+
 }
