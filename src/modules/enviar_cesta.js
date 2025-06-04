@@ -1,5 +1,6 @@
 async function prepararCestaParaBackend(numeroCesta) {
-  const cesta = JSON.parse(localStorage.getItem('cesta') || '{}');
+  const cesta = JSON.parse(localStorage.getItem('nuevaCesta') || '{}');
+  console.log("cesta preparada", cesta)
   return Object.entries(cesta).map(([id_producto, producto]) => ({
     numero_cesta: numeroCesta,
     id_producto: parseInt(id_producto, 10),
@@ -7,19 +8,23 @@ async function prepararCestaParaBackend(numeroCesta) {
   }));
 }
 
-export async function enviarCestaAlBackend(numeroCesta) {
-  const filasParaBackend = prepararCestaParaBackend(numeroCesta);
 
+export async function enviarCestaAlBackend(numeroCesta) {
+  const productos = await prepararCestaParaBackend(numeroCesta); // <- nombre coherente
+  
   try {
-    const respuesta = await fetch('/api/guardar-cesta', {
+    const respuesta = await fetch('http://localhost:3000/api/crear_cesta', {  
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ filas: filasParaBackend })
+      body: JSON.stringify({
+        numero_cesta: numeroCesta,
+        productos // <- debe coincidir con backend
+      })
     });
 
-    if (!respuesta.ok) throw new Error(`HTTP error! status: ${respuesta.status}`);
+    //if (!respuesta.ok) throw new Error(`HTTP error! status: ${respuesta.status}`);
 
     const datos = await respuesta.json();
     console.log('Cesta guardada:', datos);
@@ -29,3 +34,4 @@ export async function enviarCestaAlBackend(numeroCesta) {
     throw error;
   }
 }
+

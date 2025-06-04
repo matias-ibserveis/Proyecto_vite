@@ -3,6 +3,7 @@ import { enviarCestaAlBackend } from "./enviar_cesta";
 export function renderizaListaCesta(appContenedor) {
   const ul = appContenedor.querySelector("#lista-cesta");
   const cesta = JSON.parse(localStorage.getItem("nuevaCesta") || "{}");
+  console.log("nuevacesta en lista", localStorage.getItem('nuevaCesta'))
 
   ul.innerHTML = "";
 
@@ -79,8 +80,8 @@ export function renderizaListaCesta(appContenedor) {
   btnEnviar.className = "btn btn-sm btn-outline-success";
   btnEnviar.textContent = "Enviar cesta";
   btnEnviar.onclick = async () => {
-    const numeroCestaActual = localStorage.getItem("nuevaCesta") || "";
-    const numeroCesta = prompt("Introduce el número de cesta a guardar:", numeroCestaActual);
+    //const numeroCestaActual = localStorage.getItem("nuevaCesta") || "";
+    const numeroCesta = prompt("Introduce el número de cesta a guardar:", 1);
     if (!numeroCesta) return;
 
     try {

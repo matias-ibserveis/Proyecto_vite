@@ -9,8 +9,8 @@ export async function productos_crear_cesta(appContenedor) {
   let productos = [];
 
   // 1. INTERFAZ INICIAL
- async function renderInicio() {
-  appContenedor.innerHTML = `
+  async function renderInicio() {
+    appContenedor.innerHTML = `
     <div id="cesta-contenido" class="mt-4 p-3 border rounded bg-light">
       <h4>Creación de cesta</h4>
       <ul id="lista-cesta" class="list-group"></ul>
@@ -26,8 +26,8 @@ export async function productos_crear_cesta(appContenedor) {
 
   `;
 
-  renderizaListaCesta(appContenedor);
-}
+    renderizaListaCesta(appContenedor);
+  }
 
 
   // 2. RENDERIZA UNA FICHA
@@ -63,7 +63,7 @@ export async function productos_crear_cesta(appContenedor) {
   // 3. AÑADIR A CESTA
   function añadirACesta(producto) {
     const cesta = JSON.parse(localStorage.getItem("nuevaCesta") || "{}");
-
+    console.log("hola5")
     cesta[producto.id] = cesta[producto.id] || {
       titulo: producto.titulo,
       precio: producto.precio,
@@ -76,6 +76,14 @@ export async function productos_crear_cesta(appContenedor) {
     cesta[producto.id].cantidad += 1;
 
     localStorage.setItem("nuevaCesta", JSON.stringify(cesta));
+
+    localStorage.setItem("nuevaCesta", JSON.stringify(cesta));
+    const prueba = localStorage.getItem("nuevaCesta");
+    console.log("contenido guardado:", prueba);
+
+
+
+    console.log("nuevaCesta en añadir", localStorage.getItem('nuevaCesta'))
     renderizaListaCesta(appContenedor);
     window.scrollTo({ top: 0, behavior: "smooth" });
 
@@ -210,6 +218,6 @@ export async function productos_crear_cesta(appContenedor) {
   // EJECUCIÓN
   insertarEstilos();
   renderInicio();
-  configurarEventos();
   await cargarDatos();
+  configurarEventos();
 }
