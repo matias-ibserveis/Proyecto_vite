@@ -15,6 +15,9 @@ export function Contacto() {
                         <img src="images/instagram.png" alt="Nuestro Instagram" class="instagram-icon">
                         <p>Entérate de todas las novedades en nuestro Instagram</p>
                     </button>
+                    <button class="btn btn-primary botones-con-enlaces" id="btn-maps">
+                        <img src="images/maps.webp" alt="Google Maps" class="maps-icon">
+                        <p>Visítanos en nuestra tienda física</p>
                 </div>
             </div>
         </div>
@@ -43,5 +46,8 @@ export function Contacto() {
         window.location.href = "https://www.instagram.com/lura.mallorca/?hl=es";
     };
 
+    contacto.querySelector('#btn-maps').onclick = () => {
+        window.location.href = "https://maps.app.goo.gl/BDjL34vRRkti6YiG8";
+    }
     return contacto;
 }

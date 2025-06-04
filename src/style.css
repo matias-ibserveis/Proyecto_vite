@@ -220,7 +220,11 @@ button:focus-visible {
   box-sizing: border-box;
 }
 
-.botones-con-enlaces img,
+.botones-con-enlaces img {
+  width: 35px;
+  height: 35px;
+}
+
 .botones-con-enlaces-instagram img {
   width: 32px;
   height: 32px;
