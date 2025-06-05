@@ -4,7 +4,7 @@ export function NuestraFilosofia() {
 
     section.innerHTML = `
         <h2 class="titulo">Nuestra filosofía</h2>
-        <div class="row">
+        <div class="row-filo">
             <div class="col-text">
                 <p class="bloque bloque-1">En Lura, creemos en la importancia de una alimentación saludable y sostenible.</p>
                 <p class="bloque derecha bloque-2">Nuestra filosofía se basa en el respeto por el medio ambiente, la salud de las personas y el apoyo a la economía local.</p>
@@ -99,7 +99,7 @@ export function NuestraFilosofia() {
         box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     }
     
-    .row {
+    .row-filo {
         display: flex;
         align-items: center;
         gap: 2rem;
@@ -186,7 +186,7 @@ export function NuestraFilosofia() {
     }
     
     @media(max-width: 992px) {
-        .row {
+        .row-filo {
             flex-direction: column;
         }
         

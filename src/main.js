@@ -1,15 +1,16 @@
 // Importar componentes
 import { Navbar } from './components/navbar.js';
-import { SobreNosotras } from './components/sobrenosotras.js';
 import { NuestraFilosofia } from './components/nuestrafilosofia.js';
+import { SobreNosotras } from './components/sobrenosotras.js';
 import { Header } from './components/header.js';
 import { Productos } from './components/productos.js';
+import { NuestraHistoria } from './components/nuestrahistoria.js';
+import { DondeOcurre } from './components/dondeocurre.js';
 import { Comentarios } from './components/comentarios.js';
 import { BotonVerde } from './components/botonwhatsapp.js';
 import { Contacto} from './components/contacto.js';
 import { EmpanadaBanner } from './components/EmpanadaBanner.js';
 import { Footer } from './components/Footer.js';
-import { NuestraHistoria } from './components/nuestrahistoria.js';
 
 (async () => {
   // Navbar
@@ -20,9 +21,6 @@ import { NuestraHistoria } from './components/nuestrahistoria.js';
   
   // Apartado Sobre Nosotras
   app.append(SobreNosotras());
-  
-  // Nuestra Historia
-  app.append(NuestraHistoria())
 
   // Carrusel de productos destacados (Header)
   const productosPortada = await Header();
@@ -31,6 +29,12 @@ import { NuestraHistoria } from './components/nuestrahistoria.js';
   // Sección de productos
   const productos = await Productos();
   app.append(productos);
+
+  // Nuestra Historia
+  app.append(NuestraHistoria());
+
+  // Sección Donde ocurre la magia
+  app.append(DondeOcurre());
 
   // Carrusel de reseñas (Comentarios)
   app.append(Comentarios());
@@ -43,7 +47,3 @@ import { NuestraHistoria } from './components/nuestrahistoria.js';
 
   EmpanadaBanner(); // <-- Añade esta línea
 })();
-
-
-
-

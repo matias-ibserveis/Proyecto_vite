@@ -140,6 +140,5 @@ export function NuestraHistoria() {
   `;
 
   document.head.appendChild(style);
-
   return section;
 }
