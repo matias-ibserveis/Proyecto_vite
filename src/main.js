@@ -6,6 +6,7 @@ import { Header } from './components/header.js';
 import { Productos } from './components/productos.js';
 import { NuestraHistoria } from './components/nuestrahistoria.js';
 import { DondeOcurre } from './components/dondeocurre.js';
+import { direccion } from './components/direccion.js';
 import { Comentarios } from './components/comentarios.js';
 import { BotonVerde } from './components/botonwhatsapp.js';
 import { Contacto} from './components/contacto.js';
@@ -35,6 +36,9 @@ import { Footer } from './components/Footer.js';
 
   // Sección Donde ocurre la magia
   app.append(DondeOcurre());
+
+  // Sección Dirección
+  app.append(direccion());
 
   // Carrusel de reseñas (Comentarios)
   app.append(Comentarios());
