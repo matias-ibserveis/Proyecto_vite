@@ -1,21 +1,18 @@
-import { validarCamposFormulario } from "../modules/validar_nuevo_producto.js";
-
-
-// Espera a que el DOM esté listo
+// Espera a que el DOM esté completamente cargado antes de iniciar la app
 document.addEventListener("DOMContentLoaded", async () => {
   const appContenedor = document.getElementById("app");
   await productos_gestion(appContenedor);
-  validarCamposFormulario(document);
 });
 
-// Función principal que controla toda la gestión de productos
+// Función principal que gestiona la aplicación de productos
 export async function productos_gestion(appContenedor) {
+  // Variables de estado
   let currentPage = 1;
   const itemsPerPage = 6;
   let totalPages = 1;
   let productos = [];
 
-  // Renderiza la vista principal con formulario y contenedor
+  // ----- VISTA INICIAL -----
   async function renderInicio() {
     appContenedor.innerHTML = `
       <h3 class="titulo my-4">Gestión de productos</h3>
@@ -36,8 +33,26 @@ export async function productos_gestion(appContenedor) {
     `;
   }
 
+  // ----- FORMULARIO NUEVO PRODUCTO -----
+  function crearFormularioProducto() {
+    const campos = [
+      ["nuevoTitulo", "Título"],
+      ["nuevaDescripcion", "Descripción"],
+      ["nuevoPrecio", "Precio"],
+      ["nuevoPortada", "Portada (número)"],
+      ["nuevaImagen", "URL imagen de Google Drive"],
+      ["nuevaFecha", "Fecha"],
+      ["nuevaCategoria", "Categoría"],
+      ["nuevoValorMedido", "Valor medido"],
+      ["nuevaUnidadMedido", "Unidad de medida"],
+      ["nuevoProveedor", "Proveedor"]
+    ];
+    return campos.map(([id, placeholder]) =>
+      `<input type="text" id="${id}" class="form-control mb-2" placeholder="${placeholder}">`
+    ).join('');
+  }
 
-  // Muestra los productos de una página
+  // ----- RENDER DE PRODUCTOS -----
   function mostrarPagina(lista, pagina) {
     const inicio = (pagina - 1) * itemsPerPage;
     const paginaItems = lista.slice(inicio, inicio + itemsPerPage);
@@ -50,7 +65,7 @@ export async function productos_gestion(appContenedor) {
     renderFlechas(lista);
   }
 
-  // Muestra botones para cambiar de página
+  // ----- PAGINACIÓN -----
   function renderFlechas(lista) {
     const zona = appContenedor.querySelector("#paginacion");
     zona.innerHTML = `
@@ -62,7 +77,7 @@ export async function productos_gestion(appContenedor) {
     zona.querySelector("#siguiente").onclick = () => currentPage < totalPages && mostrarPagina(lista, ++currentPage);
   }
 
-  // Crea el HTML de una ficha de producto
+  // ----- FICHA DE PRODUCTO -----
   function crearFicha(producto) {
     const col = document.createElement("div");
     col.className = "col-12";
@@ -88,7 +103,6 @@ export async function productos_gestion(appContenedor) {
       </div>
     `;
 
-    // Eliminar producto
     col.querySelector('[data-action="eliminar"]').onclick = async () => {
       if (confirm("¿Eliminar este producto?")) {
         await fetch(`https://proyectorailway-production-9739.up.railway.app/api/producto/${producto.id}`, { method: 'DELETE' });
@@ -96,12 +110,11 @@ export async function productos_gestion(appContenedor) {
       }
     };
 
-    // Editar producto (con prompts)
     col.querySelector('[data-action="editar"]').onclick = async () => {
       const campos = ["fecha", "titulo", "descripcion", "categoria", "precio", "valor_medido", "unidad_medido", "portada", "proveedor", "imagen1"];
       const datos = {};
       for (const campo of campos) {
-        datos[campo] = prompt(`${campo}:`, producto[campo]);
+        datos[campo] = prompt(`${campo.charAt(0).toUpperCase() + campo.slice(1)}:`, producto[campo]);
       }
       try {
         const res = await fetch(`https://proyectorailway-production-9739.up.railway.app/api/producto/${producto.id}`, {
@@ -117,61 +130,15 @@ export async function productos_gestion(appContenedor) {
         if (!res.ok) throw new Error("Error al actualizar");
         await cargarDatos();
       } catch (err) {
-        alert("Error al editar producto");
+        console.error("Error al editar producto:", err);
+        alert("No se pudo editar el producto.");
       }
     };
 
     return col;
   }
 
-  function crearFormularioProducto() {
-    const hoy = new Date().toISOString().split("T")[0];
-    return `
-      <label for="nuevoTitulo">Título</label>
-      <input type="text" id="nuevoTitulo" class="form-control mb-2" placeholder="nombre producto" >
-      <small class="mensaje-error"></small> 
-
-      <label for="nuevaDescripcion">Descripción</label>
-      <input type="text" id="nuevaDescripcion" class="form-control mb-2" placeholder="texto " >
-      <small class="mensaje-error"></small> 
-
-      <label for="nuevoPrecio">Precio</label>
-      <input type="number" id="nuevoPrecio" class="form-control mb-2" placeholder="€" >
-      <small class="mensaje-error"></small> 
-
-      <label for="nuevoPortada">Portada (número 1-5)</label>
-      <input type="number" id="nuevoPortada" class="form-control mb-2" placeholder="Portada (número)" value="0">
-      <small class="mensaje-error"></small> 
-
-      <label for="nuevaImagen">URL imagen de Google Drive</label>
-      <input type="text" id="nuevaImagen" class="form-control mb-2" placeholder="">
-      <small class="mensaje-error"></small> 
-
-      <label for="nuevaFecha">Fecha</label>
-      <input type="date" id="nuevaFecha" class="form-control mb-2" value="${hoy}">
-      <small class="mensaje-error"></small> 
-
-      <label for="nuevaCategoria">Categoría</label>
-      <input type="text" id="nuevaCategoria" class="form-control mb-2" placeholder="Categoría" value="no" >
-      <small class="mensaje-error"></small> 
-
-      <label for="nuevoValorMedido">Cantidad</label>
-      <input type="number" id="nuevoValorMedido" class="form-control mb-2" placeholder="numero" >
-      <small class="mensaje-error"></small> 
-
-      <label for="nuevaUnidadMedido">Unidad de medida</label>
-      <input type="text" id="nuevaUnidadMedido" class="form-control mb-2" placeholder="kg, unidad, docena..." >
-      <small class="mensaje-error"></small> 
-
-      <label for="nuevoProveedor">Proveedor</label>
-      <input type="text" id="nuevoProveedor" class="form-control mb-2" placeholder="Proveedor" >
-      <small class="mensaje-error"></small> 
-
-    `;
-  }
-
-
-  // Carga todos los productos desde la API
+  // ----- CARGAR TODOS LOS PRODUCTOS -----
   async function cargarDatos() {
     try {
       const res = await fetch('https://proyectorailway-production-9739.up.railway.app/datos');
@@ -183,7 +150,7 @@ export async function productos_gestion(appContenedor) {
     }
   }
 
-  // Envía una consulta al endpoint de búsqueda
+  // ----- BÚSQUEDA -----
   async function buscarProductos(consulta) {
     try {
       const res = await fetch('https://proyectorailway-production-9739.up.railway.app/buscar', {
@@ -199,7 +166,7 @@ export async function productos_gestion(appContenedor) {
     }
   }
 
-  // Configura eventos de búsqueda, ver todos y crear
+  // ----- EVENTOS -----
   function configurarEventos() {
     const input = appContenedor.querySelector("#busquedaInput");
     const btnBuscar = appContenedor.querySelector("#buscarBtn");
@@ -230,20 +197,21 @@ export async function productos_gestion(appContenedor) {
         proveedor: appContenedor.querySelector("#nuevoProveedor").value.trim()
       };
 
-      await fetch('http://localhost:3000/api/producto', {
-        //await fetch('https://proyectorailway-production-9739.up.railway.app/api/producto', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(valores)
-      });
-      await renderInicio(); // Restablece formulario
-      await cargarDatos();  // Refresca productos
-      configurarEventos();  // Reconecta eventos
-
+      const camposValidos = Object.values(valores).every(v => v !== "" && !isNaN(v) !== typeof v === "string");
+      if (camposValidos) {
+        await fetch('https://proyectorailway-production-9739.up.railway.app/api/producto', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(valores)
+        });
+        await cargarDatos();
+      } else {
+        alert("Rellena todos los campos correctamente");
+      }
     };
   }
 
-  // Inserta estilos CSS básicos para la vista
+  // ----- ESTILOS CSS -----
   function insertarEstilos() {
     const style = document.createElement("style");
     style.innerHTML = `
@@ -254,40 +222,13 @@ export async function productos_gestion(appContenedor) {
       .card-title { font-size: 1rem; margin-bottom: 0.25rem; }
       .card-text { font-size: 0.85rem; margin-bottom: 0.5rem; }
       .btn + .btn { margin-left: 0.4rem; }
-            input {
-          border: 2px solid #ccc;
-          padding: 5px;
-          width: 100%;
-          box-sizing: border-box;
-        }
-
-        input.valido {
-          border-color: green;
-          background-color: #e6ffe6;
-        }
-
-        input.invalido {
-          border-color: red;
-          background-color: #ffe6e6;
-        }
-
-        .mensaje-error {
-          color: red;
-          font-size: 0.8rem;
-          margin: 0 0 4px 0;
-          display: block;
-        }
-
     `;
     document.head.appendChild(style);
   }
 
-  // Ejecuta el flujo principal
+  // ----- INICIO -----
   insertarEstilos();
   await renderInicio();
   await cargarDatos();
   configurarEventos();
 }
-
-
-//validarCamposFormulario(contexto)
