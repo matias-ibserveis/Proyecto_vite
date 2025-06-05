@@ -3,7 +3,6 @@ import { enviarCestaAlBackend } from "./enviar_cesta";
 export function renderizaListaCesta(appContenedor) {
   const ul = appContenedor.querySelector("#lista-cesta");
   const cesta = JSON.parse(localStorage.getItem("nuevaCesta") || "{}");
-  console.log("nuevacesta en lista", localStorage.getItem('nuevaCesta'))
 
   ul.innerHTML = "";
 
