@@ -92,12 +92,22 @@ export function Comentarios() {
       margin-top: 0.5rem;
     }
 
-    .carousel-control-prev {
-      left: 3%;
-    }
+    .carousel-control-prev,
     .carousel-control-next {
-      right: 3%;
+      background: transparent !important;
+      box-shadow: none !important;
+      border: none !important;
     }
+
+    .carousel-control-prev-icon,
+.carousel-control-next-icon {
+  background-color: transparent !important;
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='black' viewBox='0 0 8 8'%3E%3Cpath d='M5.5 0L4.8.7 1.5 4l3.3 3.3.7-.7L3 4l2.5-2.5z'/%3E%3C/svg%3E") !important;
+  filter: none !important;
+}
+.carousel-control-next-icon {
+  transform: rotate(180deg);
+}
 
     .carousel-bg {
       background-color: var(--terciary-color);
@@ -168,6 +178,33 @@ export function Comentarios() {
         max-height: 200px;
       }
     }
+
+    .carousel-control-prev:focus,
+.carousel-control-next:focus,
+.carousel-control-prev:active,
+.carousel-control-next:active {
+  background: transparent !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+.carousel-control-prev-icon:focus,
+.carousel-control-next-icon:focus,
+.carousel-control-prev-icon:active,
+.carousel-control-next-icon:active {
+  background: transparent !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.carousel-control-prev:hover,
+.carousel-control-next:hover {
+  background: transparent !important;
+  box-shadow: none !important;
+}
+.carousel-control-prev-icon:hover,
+.carousel-control-next-icon:hover {
+  background: transparent !important;
+}
 
    `;
   

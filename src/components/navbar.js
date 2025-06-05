@@ -31,26 +31,46 @@ export function Navbar() {
   let animating = false;
 
   toggler.addEventListener('click', function () {
-    if (animating) return; // Evita doble click durante la animación
+    if (animating) return;
+
+    const isDesktop = window.innerWidth >= 1201;
 
     if (links.classList.contains('show')) {
-      // Cerrar: animación de salida
       links.classList.remove('show');
       links.classList.add('hiding');
-      links.style.display = ''; // Mantener visible
+      links.style.display = isDesktop ? 'flex' : '';
       animating = true;
       setTimeout(() => {
         links.classList.remove('hiding');
         links.style.display = 'none';
         animating = false;
-      }, 940); // igual que la duración de fadeOutMenuLink
+      }, 1100);
     } else {
-      // Abrir: animación de entrada
-      links.style.display = '';
-      void links.offsetWidth; // Forzar reflow
+      links.style.display = isDesktop ? 'flex' : '';
+      void links.offsetWidth;
       links.classList.add('show');
     }
     this.classList.toggle('active');
+  });
+
+  // Cerrar menú al hacer click fuera
+  document.addEventListener('click', function (e) {
+    const isDesktop = window.innerWidth >= 1201;
+    if (
+      links.classList.contains('show') &&
+      !links.contains(e.target) &&
+      !toggler.contains(e.target)
+    ) {
+      // Cierra igual que desde el botón
+      links.classList.remove('show');
+      links.classList.add('hiding');
+      links.style.display = isDesktop ? 'flex' : '';
+      toggler.classList.remove('active');
+      setTimeout(() => {
+        links.classList.remove('hiding');
+        links.style.display = 'none';
+      }, 1100);
+    }
   });
 
   return nav;

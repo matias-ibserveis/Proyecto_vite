@@ -11,8 +11,8 @@ export function Footer() {
   width:100%;
   background:#d1ab72;
   padding: 1em 0 0 0;
-  border-radius: 18px;
-  margin: 3rem auto 2rem auto;
+  border-radius: 2em 2em 0px 0px;
+  margin: 3rem auto 0rem auto;
   overflow: hidden;
   box-sizing: border-box;
 `;
@@ -183,7 +183,7 @@ const atribucionesMathiasHTML = `
     justify-content: center;
     min-height: 60px;
     box-sizing: border-box;
-    border-radius: 0 0 16px 16px;
+    border-radius: 0 0 0 0;
     overflow: hidden;
   ">
     ${bloqueMathias}
