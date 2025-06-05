@@ -11,6 +11,7 @@ export default defineConfig({
         utils: resolve(__dirname, 'utils.html'),
         cesta_cliente: resolve(__dirname, 'cesta_cliente.html'),
         crear_cesta: resolve(__dirname, 'crear_cesta.html'),
+        gestion_productos: resolve(__dirname, 'gestion_productos.html'),
         producto: resolve(__dirname, 'producto.html')
       },
     },

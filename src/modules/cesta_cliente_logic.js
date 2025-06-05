@@ -13,7 +13,7 @@ export async function renderCesta(container) {
         const producto = await res.json();
         cesta[nuevoId] = {
           titulo: producto.titulo,
-          cantidad: 1,
+          cantidad: producto.cantidad,
           unidad_medido: producto.unidad_medido,
           precio: producto.precio,
           origen: 'manual',
@@ -68,7 +68,7 @@ export async function renderCesta(container) {
 
   // Botón Vaciar Cesta
   const vaciarBtn = document.createElement('button');
-  vaciarBtn.textContent = 'Vaciar';
+  vaciarBtn.textContent = 'Reiniciar';
   vaciarBtn.className = 'btn btn-danger mb-3';
   vaciarBtn.addEventListener('click', () => {
     localStorage.removeItem('cesta');
@@ -93,7 +93,7 @@ async function inicializarCestaSiNecesario() {
       productos.forEach(p => {
         cestaInicial[p.id] = {
           titulo: p.titulo,
-          cantidad: 1,
+          cantidad: p.cantidad,
           unidad_medido: p.unidad_medido,
           precio: p.precio,
           imagen1: p.imagenes[0]
