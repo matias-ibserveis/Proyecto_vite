@@ -473,7 +473,7 @@ button[title*="WhatsApp"]:hover, .btn-verde.btn-aloja:hover {
 }
 
 .top_legalidades { margin-top: 70px; }
-.modulo, section, .nuestra-filosofia, .productos, .comentarios, .contacto { margin-bottom: 100px; }
+.modulo, section, .nuestra-filosofia, .productos, .comentarios, .contacto { margin-bottom: 1000px; }
 .sobre-nosotras { margin-top: 70px; }
 
 /* ================= BOTONES Y COMPONENTES ================= */
