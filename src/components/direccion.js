@@ -15,9 +15,9 @@ export function direccion() {
                     <p>Google Maps</p>
                 </button>
                 <h5 class="text-direccion slide-from-left" style="animation-delay: 0.8s">Nuestro horario de atención es:</h5>
-                <p class="text-direccion slide-from-left" style="animation-delay: 1s">Lunes a Viernes: 9:30 AM - 19:00 PM</p>
-                <p class="text-direccion slide-from-left" style="animation-delay: 1.2s">Sábados: 10:00 AM - 13:30 PM</p>
-                <p class="text-direccion slide-from-left" style="animation-delay: 1.4s">Domingos: Cerrado</p>
+                <p class="text-direccion slide-from-left horario-texto" style="animation-delay: 1s">Lunes a Viernes: 9:30 AM - 19:00 PM</p>
+                <p class="text-direccion slide-from-left horario-texto" style="animation-delay: 1.2s">Sábados: 10:00 AM - 13:30 PM</p>
+                <p class="text-direccion slide-from-left horario-texto" style="animation-delay: 1.4s">Domingos: Cerrado</p>
             </div>
         </div>
     `;
@@ -121,6 +121,10 @@ export function direccion() {
         .titulo-direccion.text-decoration-underline {
             text-decoration: none !important;
         }
+
+        .horario-texto {
+        margin-top: 5px !important;
+        margin-bottom: 5px !important;
     `;
 
     document.head.appendChild(style);
