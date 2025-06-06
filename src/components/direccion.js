@@ -149,16 +149,6 @@ export function direccion() {
             observer.observe(section);
         }
     }, 0);
- 
-// Add onclick event listener to the button
-    setTimeout(() => {
-        const button = document.getElementById('btn-maps');
-        if (button) {
-            button.onclick = () => {
-                window.open("https://maps.app.goo.gl/BDjL34vRRkti6YiG8", "_blank");
-            };
-        }
-    }, 0);
 
     return direccion;
 }
