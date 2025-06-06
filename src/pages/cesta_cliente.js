@@ -2,6 +2,7 @@
 // lógica y renderizado de la cesta
 renderCesta(document.getElementById('app'));
 
+console.log("aaui");
 
 export async function renderCesta(container) {
   const urlParams = new URLSearchParams(window.location.search);

@@ -8,9 +8,11 @@ export async function Productos() {
 
   // Variables de estado
   let currentPage = 1;
-  const itemsPerPage = 10;
+  let itemsPerPage = 3;
   let totalPages = 1;
   let dataOriginal = [];
+  let paginacionActiva = false;
+
 
   // Crear estructura HTML
   const productos = crearEstructuraHTML(buscarProductos, () => {
@@ -23,8 +25,27 @@ export async function Productos() {
   const buscarBtn = productos.querySelector("#buscarBtn");
   const todosBtn = productos.querySelector("#todosBtn");
 
+  function verMasProductos() {
+    const btnVerMas = document.createElement("button");
+    btnVerMas.id = "btnVerMas";
+    btnVerMas.textContent = "Ver más productos";
+    btnVerMas.className = "btn btn-primary mt-4 px-5 py-3 fs-6 rounded-pill";
+    btnVerMas.style.minWidth = "280px";
+    btnVerMas.style.boxShadow = "0 0.5rem 1rem rgba(0,0,0,0.3)";
+    btnVerMas.onclick = () => {
+      paginacionActiva = true;
+      itemsPerPage = 9;
+      currentPage = 1;
+      paginar(dataOriginal, currentPage);
+      btnVerMas.remove(); // oculta el botón
+    };
+    productos.appendChild(btnVerMas);
+
+  }
+
   // Función principal: cargar al inicio
   await cargarProductosIniciales();
+  verMasProductos();
   restaurarScrollPrevio();
   aplicarEstilos();
 
@@ -89,8 +110,9 @@ export async function Productos() {
     const inicio = (pagina - 1) * itemsPerPage;
     const fin = inicio + itemsPerPage;
     renderizarProductos(lista.slice(inicio, fin));
-    renderizarControlesPaginacion(lista);
+    if (paginacionActiva) renderizarControlesPaginacion(lista);
   }
+
 
   function renderizarControlesPaginacion(lista) {
     const paginacion = productos.querySelector("#paginacion");
@@ -198,13 +220,14 @@ export async function Productos() {
       const res = await fetch('https://proyectorailway-production-9739.up.railway.app/datos');
       dataOriginal = await res.json();
 
-      const storedPage = sessionStorage.getItem("prevPage");
-      currentPage = storedPage ? parseInt(storedPage, 10) : 1;
-      sessionStorage.removeItem("prevPage");
+      const aleatorios = [...dataOriginal]
+        .sort(() => 0.5 - Math.random())
+        .slice(0, 3);
 
-      paginar(dataOriginal, currentPage);
+      renderizarProductos(aleatorios); // Mostrar solo esos 3
+
     } catch (error) {
-      contenedor.innerHTML = `<p class="text-danger text-center">Error al cargar productos</p>`;
+      contenedor.innerHTML = `<p class="text-danger text-center">NO se puede cargar productos</p>`;
       console.error("No se pudo cargar productos:", error);
     } finally {
       toggleBotones(false);
@@ -216,6 +239,11 @@ export async function Productos() {
     const consulta = productos.querySelector("#busquedaInput").value.trim();
     if (!consulta) return;
 
+    currentPage = 1;
+    itemsPerPage = 9;
+    paginacionActiva = true;
+    paginar(dataOriginal, currentPage);
+
     toggleBotones(true);
     try {
       const resp = await fetch('https://proyectorailway-production-9739.up.railway.app/buscar', {
@@ -225,13 +253,16 @@ export async function Productos() {
       });
 
       const resultados = await resp.json();
+      resultados.sort((a, b) => new Date(b.fecha) - new Date(a.fecha));
+
       currentPage = 1;
       paginar(resultados, currentPage);
     } catch (err) {
-      contenedor.innerHTML = `<p class="text-danger">Error al buscar productos</p>`;
+      contenedor.innerHTML = `<p class="text-danger">No puedo buscar productos</p>`;
       console.error("No se pudo búscar:", err);
     } finally {
       toggleBotones(false);
+      document.querySelector("#btnVerMas")?.remove();
     }
   }
 

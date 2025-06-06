@@ -1,14 +1,26 @@
 import { setBusqueda } from "./store.js";
 
-export async function Header() {
-  const header = document.createElement('header');
-  header.className = 'carousel slide';
-  header.id = 'headerCarousel';
-  header.setAttribute('data-bs-ride', 'carousel');
+function shuffleArray(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+  return array;
+}
+
+export async function CarouselProductos() {
+  const containerDiv = document.createElement('div'); // Cambiado a 'div'
+  containerDiv.className = 'carousel slide';
+  containerDiv.id = 'mainCarousel'; 
+  containerDiv.setAttribute('data-bs-ride', 'carousel');
+  containerDiv.style.paddingBottom = '2rem';
+  containerDiv.style.marginTop = '4rem'; 
 
   try {
     const res = await fetch('https://proyectorailway-production-9739.up.railway.app/productos_portada');
-    const productos = await res.json();
+    const leerproductos = await res.json();
+
+    const productos = shuffleArray(leerproductos);
 
     const carouselInner = document.createElement('div');
     carouselInner.className = 'carousel-inner';
@@ -18,14 +30,15 @@ export async function Header() {
     });
 
     items.forEach(item => carouselInner.appendChild(item));
-    header.appendChild(carouselInner);
+    containerDiv.appendChild(carouselInner); // Añadido al nuevo div
 
     // Botones prev y next creados con DOM para evitar innerHTML +=
     const btnPrev = document.createElement('button');
     btnPrev.className = 'carousel-control-prev';
     btnPrev.type = 'button';
-    btnPrev.setAttribute('data-bs-target', '#headerCarousel');
+    btnPrev.setAttribute('data-bs-target', '#mainCarousel'); // Actualizado el data-bs-target
     btnPrev.setAttribute('data-bs-slide', 'prev');
+    btnPrev.style.height = '45vh'; 
     btnPrev.innerHTML = `
       <span class="carousel-control-prev-icon" aria-hidden="true"></span>
       <span class="visually-hidden">Previous</span>
@@ -34,25 +47,28 @@ export async function Header() {
     const btnNext = document.createElement('button');
     btnNext.className = 'carousel-control-next';
     btnNext.type = 'button';
-    btnNext.setAttribute('data-bs-target', '#headerCarousel');
+    btnNext.setAttribute('data-bs-target', '#mainCarousel'); // Actualizado el data-bs-target
     btnNext.setAttribute('data-bs-slide', 'next');
+    btnNext.style.height = '45vh'; 
     btnNext.innerHTML = `
       <span class="carousel-control-next-icon" aria-hidden="true"></span>
       <span class="visually-hidden">Next</span>
     `;
 
-    header.appendChild(btnPrev);
-    header.appendChild(btnNext);
+    containerDiv.appendChild(btnPrev); // Añadido al nuevo div
+    containerDiv.appendChild(btnNext); // Añadido al nuevo div
 
-    header.appendChild(style);
+    containerDiv.appendChild(style); // Añadido al nuevo div
     agregarEventos(items);
 
   } catch (error) {
     console.error('Error cargando los productos:', error);
   }
 
-  return header;
+  return containerDiv; // Retorna el nuevo div
 }
+
+// --- Funciones auxiliares (mantienen su nombre y contenido) ---
 
 function crearTooltip(texto) {
   const tooltip = document.createElement('div');
@@ -76,7 +92,7 @@ function crearCarouselItem(producto, isActive) {
   img.alt = `Producto: ${primeraPalabraDesc}`;
   img.className = 'd-block w-100';
   img.style.cursor = 'pointer';
-  img.style.height = '50vh';
+  img.style.height = '45vh';
   img.style.objectFit = 'cover';
   img.style.borderRadius = '10px';
   img.style.width = '100%';
