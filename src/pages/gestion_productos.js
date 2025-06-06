@@ -139,7 +139,7 @@ export async function productos_gestion(appContenedor) {
       <input type="number" id="nuevoPrecio" class="form-control mb-2" placeholder="€" >
       <small class="mensaje-error"></small> 
 
-      <label for="nuevoPortada">Portada (número 1-5)</label>
+      <label for="nuevoPortada">Portada (0  o del 1 al 5)</label>
       <input type="number" id="nuevoPortada" class="form-control mb-2" placeholder="Portada (número)" value="0">
       <small class="mensaje-error"></small> 
 
@@ -199,6 +199,32 @@ export async function productos_gestion(appContenedor) {
     }
   }
 
+  // Comprueba campos vacios del form
+  function camposVaciosAntesDePost() {
+    const campos = [
+      { id: "nuevoTitulo", nombre: "Título" },
+      { id: "nuevaDescripcion", nombre: "Descripción" },
+      { id: "nuevoPrecio", nombre: "Precio" },
+      { id: "nuevoPortada", nombre: "Portada" },
+      { id: "nuevaImagen", nombre: "Imagen" },
+      { id: "nuevaFecha", nombre: "Fecha" },
+      { id: "nuevaCategoria", nombre: "Categoría" },
+      { id: "nuevoValorMedido", nombre: "Cantidad" },
+      { id: "nuevaUnidadMedido", nombre: "Unidad de medida" },
+      { id: "nuevoProveedor", nombre: "Proveedor" },
+    ];
+    const vacios = campos
+      .filter(c => document.querySelector(`#${c.id}`).value.trim() === "")
+      .map(c => c.nombre);
+
+    if (vacios.length > 0) {
+      alert("Faltan campos por rellenar:\n" + vacios.join("\n"));
+      return false; // evita hacer el POST
+    }
+    return true; // permite hacer el POST
+  }
+
+
   // Configura eventos de búsqueda, ver todos y crear
   function configurarEventos() {
     const input = appContenedor.querySelector("#busquedaInput");
@@ -230,8 +256,10 @@ export async function productos_gestion(appContenedor) {
         proveedor: appContenedor.querySelector("#nuevoProveedor").value.trim()
       };
 
-      await fetch('http://localhost:3000/api/producto', {
-        //await fetch('https://proyectorailway-production-9739.up.railway.app/api/producto', {
+      if (!camposVaciosAntesDePost()) return;
+
+      //await fetch('http://localhost:3000/api/producto', {
+      await fetch('https://proyectorailway-production-9739.up.railway.app/api/producto', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(valores)
