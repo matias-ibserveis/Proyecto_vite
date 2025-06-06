@@ -289,7 +289,116 @@ export async function Productos() {
   const initialSearchTerm = urlParams.get("search") || "";
   console.log("Initial search term:", initialSearchTerm);
 
-  const renderizarProductos = (lista) => {
+  function createProductPopup(producto) {
+    const overlay = document.createElement('div');
+    overlay.className = 'product-overlay';
+
+    const popup = document.createElement('div');
+    popup.className = 'product-popup';
+    
+    // Construct image URL (consistent with existing logic)
+    let imageUrl = producto.imagen1 || '/images/logo1.png';
+    if (imageUrl.includes('drive.google.com')) {
+      const driveRegex = /\/d\/([a-zA-Z0-9_-]+)|id=([a-zA-Z0-9_-]+)/;
+      const match = imageUrl.match(driveRegex);
+      if (match && (match[1] || match[2])) {
+        imageUrl = `https://drive.google.com/thumbnail?id=${match[1] || match[2]}&sz=w300-h300`;
+      }
+    }
+
+    popup.innerHTML = `
+      <div class="product-popup-content">
+        <span class="product-popup-close">×</span>
+        <img class="product-popup-image" src="${imageUrl}" alt="${producto.titulo || 'Producto'}" />
+        <h3 class="product-popup-title">${producto.titulo || 'Sin título'}</h3>
+        <p class="product-popup-description">${producto.descripcion || 'Sin descripción.'}</p>
+        <p class="product-popup-price">Precio: €${producto.precio || 'N/A'}</p>
+        <div class="quantity-control">
+          <button class="btn quantity-btn" data-action="minus">-</button>
+          <span class="quantity-display">1</span>
+          <button class="btn quantity-btn" data-action="plus">+</button>
+        </div>
+        <div class="add-btn-container">
+          <button class="btn add-btn">Añadir</button>
+        </div>
+      </div>
+    `;
+
+    document.body.appendChild(overlay);
+    document.body.appendChild(popup);
+
+    // Handle close button
+    const closeBtn = popup.querySelector('.product-popup-close');
+    closeBtn.addEventListener('click', () => {
+      popup.remove();
+      overlay.remove();
+    });
+
+    // Handle overlay click to close
+    overlay.addEventListener('click', () => {
+      popup.remove();
+      overlay.remove();
+    });
+
+    // Quantity controls and price update
+    const quantityDisplay = popup.querySelector('.quantity-display');
+    const minusBtn = popup.querySelector('[data-action="minus"]');
+    const plusBtn = popup.querySelector('[data-action="plus"]');
+    const priceElement = popup.querySelector('.product-popup-price');
+    const basePrice = producto.precio || 0;
+
+    function updateQuantity() {
+      const current = parseInt(quantityDisplay.textContent);
+      minusBtn.style.visibility = current <= 1 ? 'hidden' : 'visible'; // Hide at 1
+      // Update price display based on quantity
+      const totalPrice = basePrice * current;
+      priceElement.textContent = `Precio: €${totalPrice.toFixed(2)}`;
+    }
+
+    minusBtn.addEventListener('click', () => {
+      const current = parseInt(quantityDisplay.textContent);
+      if (current > 1) quantityDisplay.textContent = current - 1; // Prevent going below 1
+      updateQuantity();
+    });
+
+    plusBtn.addEventListener('click', () => {
+      const current = parseInt(quantityDisplay.textContent);
+      quantityDisplay.textContent = current + 1;
+      updateQuantity();
+    });
+
+    updateQuantity();
+
+    // Add to cart
+    const addBtn = popup.querySelector('.add-btn');
+    addBtn.addEventListener('click', () => {
+      const quantity = parseInt(quantityDisplay.textContent);
+      if (quantity > 0) {
+        const cart = JSON.parse(sessionStorage.getItem('cart') || '[]');
+        const existingItem = cart.find(item => item.id === producto.id && item.type === 'product');
+        if (existingItem) {
+          existingItem.quantity += quantity;
+        } else {
+          cart.push({
+            id: producto.id,
+            name: producto.titulo,
+            quantity: quantity,
+            price: producto.precio,
+            type: 'product',
+            imagen1: producto.imagen1
+          });
+        }
+        sessionStorage.setItem('cart', JSON.stringify(cart));
+        console.log(`Added ${quantity} x ${producto.titulo} to cart from popup`);
+        quantityDisplay.textContent = '1'; // Reset to 1
+        updateQuantity();
+        popup.remove();
+        overlay.remove();
+      }
+    });
+  }
+
+  function renderizarProductos(lista) {
     console.log("Rendering products:", lista.length, "items");
     contenedor.innerHTML = "";
     if (lista.length === 0) {
@@ -358,19 +467,20 @@ export async function Productos() {
       descriptionText.className = "description-text";
       descriptionText.textContent = frases;
 
-      const verMasLink = document.createElement("span");
-      verMasLink.className = "ver-mas-link";
-      verMasLink.innerHTML = `<a href="/producto.html?id=${producto.id || Math.random().toString(36).substr(2, 9)}" class="ver_mas">ver +</a>`;
+      const verMasBtn = document.createElement("button");
+      verMasBtn.className = "ver-mas-btn";
+      verMasBtn.textContent = "Ver +";
 
-      descriptionWrapper.appendChild(descriptionText);
-      descriptionWrapper.appendChild(verMasLink);
-
+      // Store base price and initialize price display
+      const basePrice = producto.precio || 0;
       const price = document.createElement("p");
       price.className = "card-text text-muted";
-      price.textContent = `Precio: €${producto.precio || 'N/A'}`;
+      price.textContent = `Precio: €${basePrice.toFixed(2)}`;
 
+      descriptionWrapper.appendChild(descriptionText);
       details.appendChild(title);
       details.appendChild(descriptionWrapper);
+      details.appendChild(verMasBtn);
       details.appendChild(price);
 
       const cardFooter = document.createElement("div");
@@ -385,7 +495,7 @@ export async function Productos() {
 
       const quantityDisplay = document.createElement("span");
       quantityDisplay.className = "quantity-display";
-      quantityDisplay.textContent = '0';
+      quantityDisplay.textContent = '1'; // Start at 1
 
       const plusBtn = document.createElement("button");
       plusBtn.className = "btn quantity-btn";
@@ -416,12 +526,15 @@ export async function Productos() {
 
       function updateQuantity() {
         const current = parseInt(quantityDisplay.textContent);
-        minusBtn.style.visibility = current <= 0 ? "hidden" : "visible";
+        minusBtn.style.visibility = current <= 1 ? "hidden" : "visible"; // Hide at 1
+        // Update price display based on quantity
+        const totalPrice = basePrice * current;
+        price.textContent = `Precio: €${totalPrice.toFixed(2)}`;
       }
 
       minusBtn.addEventListener("click", () => {
         const current = parseInt(quantityDisplay.textContent);
-        if (current > 0) quantityDisplay.textContent = current - 1;
+        if (current > 1) quantityDisplay.textContent = current - 1; // Prevent going below 1
         updateQuantity();
       });
 
@@ -447,24 +560,21 @@ export async function Productos() {
               quantity: quantity,
               price: producto.precio,
               type: 'product',
-              imagen1: producto.imagen1 // <-- Store image!
+              imagen1: producto.imagen1
             });
           }
           sessionStorage.setItem('cart', JSON.stringify(cart));
           console.log(`Added ${quantity} x ${producto.titulo} to cart`);
-          quantityDisplay.textContent = '0';
+          quantityDisplay.textContent = '1'; // Reset to 1
           updateQuantity();
         }
       });
 
-      verMasLink.querySelector(".ver_mas").addEventListener("click", (e) => {
-        e.preventDefault();
-        sessionStorage.setItem("prevScrollY", window.scrollY);
-        sessionStorage.setItem("prevURL", window.location.href);
-        window.location.href = `/producto.html?id=${producto.id}`;
+      verMasBtn.addEventListener("click", () => {
+        createProductPopup(producto);
       });
     });
-  };
+  }
 
   function renderizarFlechas(lista) {
     const paginacion = productos.querySelector("#paginacion");
