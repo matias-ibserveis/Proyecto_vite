@@ -3,16 +3,10 @@
 
 :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-<<<<<<< HEAD
-  --main-color: hsl(36, 61%, 69%);
-  --secondary-color: #6d5839;
-  --terciary-color: #feffaa;
-=======
   --main-color: rgb(209, 171, 114);
   --secondary-color: rgb(109, 88, 57);
   --terciary-color: rgb(252, 253, 187);
   --shadow-color: rgb(189, 151, 94);
->>>>>>> 691c7f51ac2362e18cb1f5bb7ea16527983ced64
   line-height: 1.5;
   font-weight: 400;
   color-scheme: light dark;
@@ -483,7 +477,7 @@ button[title*="WhatsApp"]:hover, .btn-verde.btn-aloja:hover {
 }
 
 .top_legalidades { margin-top: 70px; }
-.modulo, section, .nuestra-filosofia, .productos, .comentarios, .contacto { margin-bottom: 1000px; }
+/* .modulo, section, .nuestra-filosofia, .productos, .comentarios, .contacto { margin-bottom: 1000px; }  */
 .sobre-nosotras { margin-top: 70px; }
 
 /* ================= BOTONES Y COMPONENTES ================= */
