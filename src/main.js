@@ -1,10 +1,13 @@
 const app = document.getElementById('app');
 // Importar componentes
 import { Navbar } from './components/navbar.js';
-import { SobreNosotras } from './components/sobrenosotras.js';
 import { NuestraFilosofia } from './components/nuestrafilosofia.js';
+import { SobreNosotras } from './components/sobrenosotras.js';
 import { Header } from './components/header.js';
 import { Productos } from './components/productos.js';
+import { NuestraHistoria } from './components/nuestrahistoria.js';
+import { DondeOcurre } from './components/dondeocurre.js';
+import { direccion } from './components/direccion.js';
 import { Comentarios } from './components/comentarios.js';
 import { BotonVerde } from './components/botonwhatsapp.js';
 import { Contacto } from './components/contacto.js';
@@ -19,23 +22,27 @@ import { Servicios } from './components/Servicios.js';
   // Navbar
   app.append(Navbar());
 
+  // Nuestra Filosofía
+  app.append(NuestraFilosofia());
+  
   // Apartado Sobre Nosotras
   app.append(SobreNosotras());
 
-  // Apartado Nuestra Filosofía
-  app.append(NuestraFilosofia());
-
-  // Apartado Cestas
-  app.append(Info_Cestas());
-  
-  // Apartado Servicios
-  app.append(Servicios());
+  // Carrusel de productos destacados (Header)
+  const productosPortada = await Header();
+  app.append(productosPortada);
 
   // Apartado Zona de Trabajo
   app.append(Zona_de_Trabajo());
 
-  // Apartado Talleres
-  app.append(Talleres());
+  // Nuestra Historia
+  app.append(NuestraHistoria());
+
+  // Sección Donde ocurre la magia
+  app.append(DondeOcurre());
+
+  // Sección Dirección
+  app.append(direccion());
 
   // Carrusel de reseñas (Comentarios)
   app.append(Comentarios());
@@ -46,20 +53,5 @@ import { Servicios } from './components/Servicios.js';
   // Botón flotante de WhatsApp
   app.append(BotonVerde());
 
-  EmpanadaBanner();
-
-  app.append(Footer());
-
-  
-  // Carrusel de productos destacados (Header)
-  //const productosPortada = await Header();
-  //app.append(productosPortada);
-
-  // Sección de productos
-  //const productos = await Productos();
-  //app.append(productos);
+  EmpanadaBanner(); // <-- Añade esta línea
 })();
-
-
-
-
