@@ -36,6 +36,9 @@ export function CartComponent() {
       { name: 'Eggs', quantities: ['6x', '12x'], selected: '6x', place: 'Inca', supplier: 'Manel Ortiz' },
       { name: 'Milk', quantities: ['1L', '2L'], selected: '1L', place: 'Manacor', supplier: 'Ana Pérez' },
       { name: 'Bread', quantities: ['1 loaf', '2 loaves'], selected: '1 loaf', place: 'Palma', supplier: 'Jaume Nadal' },
+      { name: 'Bread', quantities: ['1 loaf', '2 loaves'], selected: '1 loaf', place: 'Palma', supplier: 'Jaume Nadal' },
+      { name: 'Cheese', quantities: ['200g', '500g'], selected: '200g', place: 'Sóller', supplier: 'Maria Serra' },
+      { name: 'Tomatoes', quantities: ['500g', '1kg'], selected: '500g', place: 'Algaida', supplier: 'Pere Torres' }, 
     ];
 
     const ingredientsList = document.createElement('div');
