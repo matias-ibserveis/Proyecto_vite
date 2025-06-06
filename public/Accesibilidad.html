@@ -2,7 +2,8 @@
 <html lang="es">
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Política de Devoluciones y Reembolsos</title>
+  <title>Accesibilidad</title>
+  
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="/src/style.css" />
   <style>
@@ -161,7 +162,9 @@ button[title*="WhatsApp"]:hover {
     height: 36px !important;
   }
 }
+
 </style>
+<div id="google_translate_element"></div>
 
 <script type="text/javascript">
   function googleTranslateElementInit() {
@@ -171,53 +174,75 @@ button[title*="WhatsApp"]:hover {
 
 </head>
 <body>
-  <!-- Navbar -->
+  <script type="module">
+  import { BotonVerde } from '/src/components/botonwhatsapp.js';
+  BotonVerde();
+  </script>
+  <!--   Navbar -->
   <div id="navbar"></div>
-  <!-- Navbar -->
+  <!--   Navbar -->
 
   <div class="container margen-navbar">
-    <h1 class="Inicio-Informacion top_legalidades">Política de Devoluciones y Reembolsos</h1>
-    <p>En <strong>Fempo</strong> nos comprometemos a ofrecer productos frescos y de calidad. Si algo no sale como esperabas, te explicamos cómo proceder:</p>
-    
-    <h3 class="top_legalidades">Cancelación de pedidos</h3>
-    <p>Puedes cancelar tu pedido sin coste alguno antes de que sea enviado. Para ello, contáctanos cuanto antes al correo <a href="mailto:luraproyecto@gmail.com">luraproyecto@gmail.com</a> o al teléfono <strong>613 95 96 89</strong>.</p>
-    
-    <h3 class="top_legalidades">Devoluciones</h3>
-    <p>Dado que trabajamos con productos perecederos, solo aceptamos devoluciones en los siguientes casos:</p>
+
+    <h1 class="top_legalidades">Accesibilidad</h1>
+    <hr>
+    <p>
+      En Fempo, creemos firmemente en la importancia de ofrecer un entorno digital inclusivo, accesible y usable para todas las personas, independientemente de sus capacidades físicas, sensoriales, cognitivas o tecnológicas. Nuestro compromiso con la accesibilidad web forma parte integral de nuestros valores como empresa y del respeto por los derechos de todas las personas.
+    </p>
+
+    <p>
+      Estamos trabajando activamente para que nuestro sitio web cumpla con los estándares y recomendaciones establecidos en las <a href="https://www.w3.org/WAI/standards-guidelines/wcag/" target="_blank" rel="noopener noreferrer">Pautas de Accesibilidad al Contenido en la Web (WCAG)</a>, publicadas por el World Wide Web Consortium (W3C). En concreto, nuestro objetivo es alcanzar el nivel de conformidad WCAG 2.1 AA.
+    </p>
+
+    <h3>Medidas adoptadas</h3>
+    <p>
+      Algunas de las medidas implementadas para mejorar la accesibilidad de este sitio incluyen:
+    </p>
     <ul>
-      <li>El producto llegó en mal estado o está defectuoso.</li>
-      <li>Recibiste un producto incorrecto por error nuestro.</li>
+      <li>Uso de una estructura semántica clara del HTML para facilitar la navegación con lectores de pantalla.</li>
+      <li>Compatibilidad con navegación por teclado en todas las secciones funcionales del sitio.</li>
+      <li>Contrastes adecuados entre el texto y el fondo para mejorar la visibilidad de los contenidos.</li>
+      <li>Descripciones alternativas (<code>alt</code>) en las imágenes para facilitar la comprensión del contenido visual.</li>
+      <li>Etiquetas y roles ARIA para reforzar la comprensión por tecnologías de asistencia.</li>
+      <li>Evitar el uso de contenido parpadeante o con movimiento excesivo que pueda afectar a personas con epilepsia fotosensible o dificultades cognitivas.</li>
     </ul>
-    <p>En cualquiera de estos casos, deberás notificarnos dentro de las <strong>48 horas posteriores a la recepción</strong> del pedido. Podremos solicitarte fotografías para evaluar el problema.</p>
-    
-    <h3 class="top_legalidades">Proceso de devolución</h3>
-    <p>Una vez aprobada la devolución, puedes elegir entre:</p>
+
+    <h3>Mejoras previstas</h3>
+    <p>
+      Actualmente, nos encontramos trabajando en el desarrollo de un módulo de accesibilidad que ofrecerá al usuario un botón flotante desde el cual podrá:
+    </p>
     <ul>
-      <li>Un <strong>reembolso total o parcial</strong>, dependiendo del caso.</li>
-      <li>El <strong>envío gratuito de un nuevo producto</strong> de reemplazo.</li>
+      <li>Aumentar o disminuir el tamaño de la fuente para facilitar la lectura.</li>
+      <li>Activar un modo de alto contraste para personas con visión reducida.</li>
+      <li>Alternar una tipografía especial adaptada para personas con dislexia.</li>
+      <li>Subrayar enlaces para mejorar su visibilidad.</li>
+      <li>Desactivar animaciones si interfieren con la concentración o causan molestias.</li>
     </ul>
-    <p>Los gastos de devolución corren por nuestra cuenta si el error fue nuestro.</p>
-    
-    <h3 class="top_legalidades">Excepciones</h3>
-    <p>No aceptamos devoluciones si:</p>
+
+    <h3>Evaluación y mejora continua</h3>
+    <p>
+      La accesibilidad es un proceso continuo. Por ello, realizamos revisiones periódicas y auditorías para detectar posibles barreras y aplicar soluciones efectivas. También agradecemos cualquier sugerencia, informe de error o comentario que nos permita seguir mejorando.
+    </p>
+
+    <h3>Contacto</h3>
+    <p>
+      Si tienes dificultades para acceder a algún contenido de este sitio web o deseas hacernos llegar una sugerencia relacionada con la accesibilidad, no dudes en contactarnos. Estaremos encantados de ayudarte y trabajar contigo para encontrar una solución.
+    </p>
     <ul>
-      <li>Han pasado más de 48 horas desde la entrega.</li>
-      <li>Los productos han sido manipulados, consumidos parcialmente o no se conservó adecuadamente la cadena de frío (si corresponde).</li>
+      <li>Correo electrónico: <a href="mailto:luraproyecto@gmail.com">luraproyecto@gmail.com</a></li>
+      <li>Teléfono: 613 95 96 89</li>
     </ul>
-    
-    <h3 class="top_legalidades">Contacto</h3>
-    <p class="FinalLegalidades">Para solicitar una devolución o resolver cualquier duda, escríbenos a <a href="mailto:luraproyecto@gmail.com">luraproyecto@gmail.com</a> o llámanos al <strong>613 95 96 89</strong>.</p>
+
+    <p>
+      Fecha de última revisión de esta política: 2 de junio de 2025.
+    </p>
   </div>
 
-  <!-- Atribuciones Mathias -->
-  <div id="Atribución_Mathias"></div>
-  <!-- Atribuciones Mathias -->
-
-  <!-- Footer -->
+  <!--   Footer -->
   <div id="footer"></div>
-  <!-- Footer -->
+  <!--   Footer -->
 
-  <!-- Scripts -->
+  <!-- SCRIPTS al final del body -->
 <script type="module">
   import '/src/components/EmpanadaBanner.js';
   import { Navbar } from '/src/components/navbar.js';

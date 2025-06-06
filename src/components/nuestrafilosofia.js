@@ -1,6 +1,7 @@
 export function NuestraFilosofia() {
     const section = document.createElement('section');
     section.className = 'nuestra-filosofia';
+    section.id = 'nuestra-filosofia';
 
     section.innerHTML = `
         <h2 class="bloque titulo titulo">Nuestra filosofía</h2>
