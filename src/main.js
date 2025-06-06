@@ -4,11 +4,14 @@ import { SobreNosotras } from './components/sobrenosotras.js';
 import { NuestraFilosofia } from './components/nuestrafilosofia.js';
 import { Header } from './components/header.js';
 import { Productos } from './components/productos.js';
+import { NuestraHistoria } from './components/nuestrahistoria.js';
+import { DondeOcurre } from './components/dondeocurre.js';
 import { Comentarios } from './components/comentarios.js';
 import { BotonVerde } from './components/botonwhatsapp.js';
 import { Contacto} from './components/contacto.js';
 import { EmpanadaBanner } from './components/EmpanadaBanner.js';
 import { Footer } from './components/Footer.js';
+
 
 (async () => {
   // Navbar
@@ -29,7 +32,13 @@ import { Footer } from './components/Footer.js';
   app.append(NuestraFilosofia());
 
   // Carrusel de reseñas (Comentarios)
-  app.append(Comentarios());
+  //app.append(Comentarios());
+
+    // Nuestra Historia
+   // app.append(NuestraHistoria());
+  
+    // Sección Donde ocurre la magia
+    app.append(DondeOcurre());
 
   // Sección de contacto
   app.append(Contacto());
