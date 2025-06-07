@@ -1,12 +1,8 @@
-/* ================= BASE ================= */
-@import url('https://fonts.googleapis.com/css2?family=Aloja+Extended&display=swap');
-
 :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  --main-color: rgb(209, 171, 114);
-  --secondary-color: rgb(109, 88, 57);
-  --terciary-color: rgb(252, 253, 187);
-  --shadow-color: rgb(189, 151, 94);
+  --main-color: #d1ab72;
+  --secondary-color: #6d5839;
+  --terciary-color: #feffaa;
   line-height: 1.5;
   font-weight: 400;
   color-scheme: light dark;
@@ -18,34 +14,6 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-html, body {
-  width: 100% !important;
-  max-width: 100vw !important;
-  overflow-x: hidden !important;
-  box-sizing: border-box;
-  padding: 0 !important;
-  margin: 0 !important;
-}
-
-body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  justify-content: center;
-  align-items: start;
-  min-width: 320px;
-  min-height: 100vh;
-}
-
-#app {
-  width: 100%;
-  max-width: 1360px;
-  padding: 0rem;
-  padding-bottom: 0 !important;
-  text-align: center;
-  padding-top: 0px;
-}
-
 a {
   font-weight: 500;
   color: #646cff;
@@ -55,9 +23,37 @@ a:hover {
   color: #535bf2;
 }
 
+body {
+  margin: 0;
+  display: flex;
+  place-items: center;
+  justify-content: center;
+  align-items: start; /* o flex-start */
+  min-width: 320px;
+  min-height: 100vh;
+}
+
 h1 {
   font-size: 3.2em;
   line-height: 1.1;
+}
+
+
+h3 {
+  color: var(--main-color);
+  text-align: left;
+  font-size: 1.6rem;
+  font-family: 'Aloja Extended', sans-serif !important;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  word-break: break-word;
+}
+
+#app {
+  width: 100%;
+  max-width: 1360px;
+  padding: 1rem;
+  text-align: center;
 }
 
 .logo {
@@ -81,7 +77,6 @@ h1 {
   color: #888;
 }
 
-/* ================= BOTONES ================= */
 button {
   border-radius: 8px;
   padding: 0.6em 1.2em;
@@ -95,9 +90,11 @@ button {
   cursor: pointer;
   transition: border-color 0.25s, background 0.25s, color 0.25s;
 }
+/* Botón de WhatsApp (La excepción) */
 .btn-aloja {
   font-family: 'Aloja Extended', sans-serif !important;
 }
+
 button:hover {
   border-color: var(--secondary-color) !important;
   background-color: var(--secondary-color) !important;
@@ -108,356 +105,29 @@ button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
-/* Botón de WhatsApp (La excepción) */
-@media (max-width: 600px) {
-  button[title*="WhatsApp"] {
-    right: 20px !important;
-    bottom: 20px !important;
-    width: 48px !important;
-    height: 48px !important;
-    min-width: 48px !important;
-    min-height: 48px !important;
-    font-size: 0 !important;
-    padding: 0 !important;
-    background-color: #28a745 !important
-    ; }
-  button[title*="WhatsApp"] img {
-    width: 32px !important;
-    height: 32px !important;
+@media (prefers-color-scheme: light) {
+  :root {
+    color: #213547;
+    background-color: #ffffff;
+  }
+  a:hover {
+    color: #747bff;
+  }
+  button {
+    background-color: var(--main-color) !important;
+    color: var(--secondary-color) !important;
   }
 }
 
-button[title*="WhatsApp"], .btn-verde.btn-aloja {
-  background-color: #28a745 !important;
-  color: #fff !important;
-  border: none !important;
-}
-button[title*="WhatsApp"]:hover, .btn-verde.btn-aloja:hover {
-  background-color: #218838 !important;
-}
-/* ================= NAVBAR ================= */
-.navbar-custom,
-.navbar-custom *,
-.final_legal,
-.final_legal * {
-  font-family: 'Aloja Extended', sans-serif !important;
-}
 
-.navbar-custom {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  z-index: 1050;
-  background-color: #d1ab72;
-  border: none;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-  min-height: 84px;
-  font-size: 15px;
-  font-family: 'Aloja Extended', sans-serif;
-  letter-spacing: normal;
-  margin-bottom: 5px;
-  overflow: visible;
-}
-
-.navbar-custom .container-fluid {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  gap: 18px;
-}
-
-.navbar-custom .navbar-brand {
-  color: rgb(161, 107, 107) !important;
-  font-family: 'Aloja Extended', sans-serif !important;
-  font-size: 25px;
-  background: transparent;
-  position: relative;
-  display: flex;
-  align-items: center;
-  margin-left: 0 !important;
-  padding-left: 0 !important;
-  z-index: 1;
-}
-
-.navbar-custom .navbar-brand img {
-  height: 80px;
-  width: auto;
-  position: static;
-  margin-right: 10px;
-  vertical-align: middle;
-}
-
-.navbar-links {
-  display: none;
-  flex: 1 1 auto;
-  align-items: center;
-  height: 100%;
-}
-.navbar-links.show {
-  display: flex !important;
-  flex-direction: row;
-  align-items: center;
-  height: 100%;
-}
-.navbar-links ul {
-  display: flex;
-  flex-direction: row;
-  gap: 18px;
-  margin-bottom: 0;
-  padding-left: 0;
-  list-style: none;
-}
-.navbar-custom .navbar-nav {
-  margin-left: 40px;
-}
-.navbar-custom .navbar-nav .nav-item {
-  margin-right: 22px;
-  border-radius: 18px;
-  padding: 0;
-  transition: background 0.2s;
-}
-.navbar-custom .navbar-nav .nav-item:last-child {
-  margin-right: 0;
-}
-.navbar-custom .navbar-nav .nav-link {
-  color: #ffffff !important;
-  font-family: 'Aloja Extended', sans-serif;
-  padding-left: -10px !important;
-  font-size: 18px;
-  border-radius: 18px;
-  background: rgba(0,0,0,0.04);
-  padding: 6px 18px;
-  display: block;
-  transition: background 0.2s, color 0.2s, filter 0.2s, transform 0.2s;
-}
-.navbar-custom .navbar-nav .nav-link:hover,
-.navbar-custom .navbar-nav .nav-link.active {
-  color:#d1ab72 !important;
-  background: rgba(0,0,0,0.5);
-  filter: brightness(1.3);
-  transform: scale(1.08);
-}
-.navbar-custom .navbar-nav .nav-link.nav-link-cestas {
-  color: hsl(24, 79%, 39%) !important;
-  font-weight: bold;
-  border-radius: 18px;
-  background: rgba(0,0,0,0.05);
-}
-.navbar-custom .navbar-nav .nav-link.nav-link-cestas:hover,
-.navbar-custom .navbar-nav .nav-link.nav-link-cestas.active {
-  color: #ffc31f !important;
-  background: rgba(0,0,0,0.5) !important;
-}
-.navbar-custom .navbar-nav .nav-link.active {
-  color: #443723 !important;
-  background-color: #fff !important;
-}
-
-/* Botón hamburguesa */
-.navbar-custom .navbar-toggler {
-  margin-left: auto;
-  margin-right: 30px;
-  z-index: 2;
-  position: relative;
-  background-color: #d1ab72;
-  transition: background 0.2s;
-  border: none;
-  width: 48px !important;
-  height: 48px !important;
-  min-width: 48px !important;
-  min-height: 48px !important;
-  aspect-ratio: 1 / 1 !important;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 10px;
-  padding: 0 !important;
-}
-.navbar-custom .navbar-toggler,
-.navbar-custom .navbar-toggler:hover,
-.navbar-custom .navbar-toggler:focus {
-  border: none !important;
-  outline: none !important;
-  box-shadow: none !important;
-}
-.navbar-custom .navbar-toggler .navbar-toggler-icon {
-  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(0,0,0,0.7)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
-}
-.navbar-custom .navbar-toggler.active {
-  background-color: #6d5839 !important;
-}
-.navbar-custom .navbar-toggler.active .navbar-toggler-icon {
-  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='white' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
-}
-
-
-
-/* Fondo blanco detrás del logo */
-.navbar-custom::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 140px;
-  height: 100%;
-  background: rgba(255, 255, 255, 0.87);
-  border-radius: 0 1em 2em 0;
-  z-index: 0;
-}
-
-/* Animaciones NAVBAR */
-@keyframes fadeInMenuLink {
-  from { opacity: 0; transform: translateY(-10px);}
-  to { opacity: 1; transform: translateY(0);}
-}
-@keyframes fadeOutMenuLink {
-  from { opacity: 1; transform: translateY(0);}
-  to { opacity: 0; transform: translateY(-10px);}
-}
-@media (min-width: 992px) {
-  .navbar-links:not(.show):not(.hiding) .nav-item { opacity: 1; animation: none;}
-  .navbar-links.show .nav-item { opacity: 0; animation: fadeInMenuLink 0.5s forwards;}
-  .navbar-links.show .nav-item:nth-child(1) { animation-delay: 0.05s; }
-  .navbar-links.show .nav-item:nth-child(2) { animation-delay: 0.12s; }
-  .navbar-links.show .nav-item:nth-child(3) { animation-delay: 0.19s; }
-  .navbar-links.show .nav-item:nth-child(4) { animation-delay: 0.26s; }
-  .navbar-links.show .nav-item:nth-child(5) { animation-delay: 0.33s; }
-  .navbar-links.show .nav-item:nth-child(6) { animation-delay: 0.40s; }
-  .navbar-links.show .nav-item:nth-child(7) { animation-delay: 0.47s; }
-  .navbar-links.show .nav-item:nth-child(8) { animation-delay: 0.54s; }
-  .navbar-links.hiding .nav-item { opacity: 1; animation: fadeOutMenuLink 0.4s forwards;}
-  .navbar-links.hiding .nav-item:nth-child(1) { animation-delay: 0.05s; }
-  .navbar-links.hiding .nav-item:nth-child(2) { animation-delay: 0.12s; }
-  .navbar-links.hiding .nav-item:nth-child(3) { animation-delay: 0.19s; }
-  .navbar-links.hiding .nav-item:nth-child(4) { animation-delay: 0.26s; }
-  .navbar-links.hiding .nav-item:nth-child(5) { animation-delay: 0.33s; }
-  .navbar-links.hiding .nav-item:nth-child(6) { animation-delay: 0.40s; }
-  .navbar-links.hiding .nav-item:nth-child(7) { animation-delay: 0.47s; }
-  .navbar-links.hiding .nav-item:nth-child(8) { animation-delay: 0.54s; }
-}
-
-/* Responsive NAVBAR */
-@media (max-width: 1800px) {
-  .navbar-links {
-    position: absolute !important;
-    top: 99%;
-    left: 140px;
-    width: calc(100vw - 140px) !important;
-    height: auto !important;
-    background: #d1ab72 !important;
-    border-radius: 0 0 0px 16px;
-    box-shadow: 0 4px 16px #0002;
-    flex-direction: column;
-    align-items: center;
-    padding-top: 1em;
-    padding-bottom: 0.5em;
-    height: auto;
-    overflow: hidden;
-    transition: max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s;
-    max-height: 0;
-    opacity: 0;
-    pointer-events: none;
-  }
-  .navbar-links.show {
-    max-height: 900px;
-    opacity: 1;
-    pointer-events: auto;
-    overflow: visible;
-    transition: max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s 0.1s;
-  }
-  .navbar-links ul {
-    flex-direction: column !important;
-    gap: 0.7em;
-    width: 100%;
-    align-items: center;
-  }
-  .navbar-links .nav-item:not(:last-child) {
-    width: 100%;
-    margin: 0;
-    display: flex;
-    justify-content: center;
-  }
-  .navbar-links .nav-item:last-child {
-    width: 100%;
-    margin: 0;
-    display: block;
-    text-align: center;
-  }
-  .navbar-links .nav-link {
-    width: 100%;
-    margin: 0 auto;
-    text-align: center;
-    border-radius: 16px 0px 0px 16px !important;
-    padding: 1em 0.5em;
-    border-bottom: 2px solid #e0c28f;
-    background: none;
-    display: block;
-  }
-  @keyframes slideInRight {
-    from { opacity: 0; transform: translateX(60px);}
-    to { opacity: 1; transform: translateX(0);}
-  }
-  .navbar-links.show .nav-item { opacity: 0; animation: slideInRight 0.5s forwards;}
-  .navbar-links.show .nav-item:nth-child(1) { animation-delay: 0.10s; }
-  .navbar-links.show .nav-item:nth-child(2) { animation-delay: 0.18s; }
-  .navbar-links.show .nav-item:nth-child(3) { animation-delay: 0.26s; }
-  .navbar-links.show .nav-item:nth-child(4) { animation-delay: 0.34s; }
-  .navbar-links.show .nav-item:nth-child(5) { animation-delay: 0.42s; }
-  .navbar-links.show .nav-item:nth-child(6) { animation-delay: 0.50s; }
-  .navbar-links.show .nav-item:nth-child(7) { animation-delay: 0.58s; }
-  .navbar-links.show .nav-item:nth-child(8) { animation-delay: 0.66s; }
-}
-
-
-
-.navbar-lang {
-  background: #fff;
-  border: none;
-  border-radius: 50%;
-  width: 44px;
-  height: 44px;
-  margin-left: 10px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.5em;
-  box-shadow: 0 2px 8px #0001;
-  transition: background 0.2s;
-}
-.navbar-lang:hover {
-  background: #f0f0f0;
-}
-.navbar-lang-menu {
-  min-width: 120px;
-  padding: 8px 0;
-}
-.navbar-lang-menu .lang-option {
-  background: none;
-  border: none;
-  width: 100%;
-  text-align: left;
-  padding: 8px 18px;
-  font-size: 1em;
-  cursor: pointer;
-  transition: background 0.2s;
-}
-.navbar-lang-menu .lang-option:hover {
-  background: #eee;
-}
-
-/* ================= TITULOS Y SECCIONES ================= */
+/* Estilo para los titulos */
 .titulo {
   color: #ffffff;
   background: var(--main-color);
   text-align: center;
   border-radius: 10px;
-  margin: 2rem auto 1.5rem auto;
+  margin: 4rem auto 1.5rem auto;
   padding: 0.5em 2em 0.3em 2em;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  border-right: 3px solid var(--shadow-color);
-  border-left: 3px solid var(--shadow-color);
   font-size: 2rem;
   font-family: 'Aloja Extended', sans-serif !important;
   font-weight: 700;
@@ -468,29 +138,18 @@ button[title*="WhatsApp"]:hover, .btn-verde.btn-aloja:hover {
   word-break: break-word;
 }
 
-h3 {
-  color: var(--main-color);
-  text-align: left;
-  font-size: 2rem;
-  font-family: 'Aloja Extended', sans-serif !important;
-  font-weight: 600;
-  letter-spacing: 0.5px;
-  word-break: break-word;
-}
 @media (max-width: 600px) {
   .titulo {
-    font-size: 1.2rem;
-    padding-left: 1em;
-    padding-right: 1em;
+    font-size: 1.6rem;
+    padding-left: 1.5em;
+    padding-right: 1.5em;
     max-width: 100%;
   }
 }
 
-.top_legalidades { margin-top: 70px; }
-/* .modulo, section, .nuestra-filosofia, .productos, .comentarios, .contacto { margin-bottom: 1000px; }  */
-.sobre-nosotras { margin-top: 70px; }
 
-/* ================= BOTONES Y COMPONENTES ================= */
+
+/* BOTONES CONTACTO */
 .botones-con-enlaces,
 .botones-con-enlaces-instagram {
   display: flex;
@@ -506,15 +165,12 @@ h3 {
   box-sizing: border-box;
 }
 
-.botones-con-enlaces img {
-  width: 35px;
-  height: 35px;
-}
-
+.botones-con-enlaces img,
 .botones-con-enlaces-instagram img {
   width: 32px;
   height: 32px;
 }
+
 .botones-con-enlaces p,
 .botones-con-enlaces-instagram p {
   margin: 0;
@@ -523,6 +179,8 @@ h3 {
   word-break: break-word;
   white-space: normal;
 }
+
+/* Responsive para móvil */
 @media (max-width: 600px) {
   .botones-con-enlaces,
   .botones-con-enlaces-instagram {
@@ -533,14 +191,21 @@ h3 {
     gap: 6px;
     padding: 0 4vw;
   }
-  .botones-con-enlaces img { width: 25px; height: 25px; }
-  .botones-con-enlaces-instagram img { width: 20px; height: 20px; }
+  .botones-con-enlaces img {
+    width: 25px;
+    height: 25px;
+  }
+  .botones-con-enlaces-instagram img {
+    width: 20px;
+    height: 20px;
+  }
   .botones-con-enlaces p,
   .botones-con-enlaces-instagram p {
     font-family: 'Hanken Grotesk', sans-serif !important;
     font-size: 13px;
   }
 }
+
 .botones-flex {
   display: flex;
   flex-direction: row;
@@ -549,6 +214,7 @@ h3 {
   gap: 16px;
   flex-wrap: wrap;
 }
+
 @media (max-width: 600px) {
   .botones-flex {
     flex-direction: column;
@@ -557,165 +223,44 @@ h3 {
   }
 }
 
-/* ================= FOOTER ================= */
-.final_legal {
-  text-align: center;
-  color: #d1ab72;
-  font-size: 0.95em;
-  box-shadow: 0 0 32px 0 #ccc;
-  max-width: 900px;
-  width: 100%;
-  background: #d1ab72;
-  padding: 1em 0 0 0;
-  border-radius: 2em 2em 0px 0px;
-  margin: 3rem auto 0rem auto;
-  overflow: hidden;
-  box-sizing: border-box;
-}
-.final_legal,
-.final_legal * {
-  font-family: 'Aloja Extended', sans-serif !important;
-}
-.footer-legal-trigger {
-  display: block;
-  margin: 0.7em auto;
-  background: rgba(0,0,0,0.7);
-  border-radius: 10px;
-  padding: 1em 0.9em;
-  color: #fff !important;
-  text-decoration: none;
-  font-size: 1.25em;
-  cursor: pointer;
-  width: 270px;
-  transition: filter 0.2s, transform 0.2s, background 0.2s;
-  border: none;
-  font-family: inherit;
-  box-shadow: 0 4px 16px 0 #0003;
-  font-weight: bold;
-  letter-spacing: 0.5px;
-  margin-top: 1em;
-}
-.footer-legal-trigger:hover {
-  filter: brightness(1.3);
-  transform: scale(1.08);
-  background: rgba(0,0,0,0.85);
-}
-.footer-legal-links-bg {
-  display: none;
-  background: rgba(0,0,0,0.35);
-  border-radius: 14px;
-  max-width: 720px;
-  margin: 1.5em auto 0 auto;
-  padding: 1.2em 0.5em 1em 0.5em;
-  box-shadow: 0 4px 32px #0003;
-  transition: background 0.2s;
-}
-.footer-legal-links {
-  display: none;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 0.7em 1.2em;
-  justify-items: center;
-  margin: 0 auto;
-  max-width: 700px;
-  animation: fadeIn 0.3s;
-}
-.footer-legal-links-bg.show {
-  display: block;
-}
-.footer-legal-links.show {
-  display: grid;
-}
-.footer-legal-links a {
-  background: rgba(0,0,0,0.4);
-  border-radius: 6px;
-  padding: 0.6em 0.9em;
-  color: #fff !important;
-  text-decoration: none;
-  display: inline-block;
-  transition: filter 0.2s, transform 0.2s, background 0.2s;
-  margin: 0.2em 0;
-  text-align: center;
-  box-shadow: 0 2px 8px 0 #0002;
-  font-weight: bold;
-  font-size: 1em;
-  opacity: 0;
-  transform: translateY(10px);
-  transition: opacity 0.3s, transform 0.3s;
-}
-.footer-legal-links.show a {
-  opacity: 1;
-  transform: translateY(0);
-  transition-delay: 0s;
-}
-.footer-legal-links.show a:nth-child(1) { transition-delay: 0.05s, 0s; }
-.footer-legal-links.show a:nth-child(2) { transition-delay: 0.10s, 0s; }
-.footer-legal-links.show a:nth-child(3) { transition-delay: 0.15s, 0s; }
-.footer-legal-links.show a:nth-child(4) { transition-delay: 0.20s, 0s; }
-.footer-legal-links.show a:nth-child(5) { transition-delay: 0.25s, 0s; }
-.footer-legal-links.show a:nth-child(6) { transition-delay: 0.30s, 0s; }
-.footer-legal-links a:hover {
-  filter: brightness(1.4);
-  transform: scale(1.13);
-  background: rgba(0,0,0,0.6);
-}
-.footer-cookies-row {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 1.5em;
-  margin: 2em 0 0 0;
-}
-.footer-cookies-img {
-  width: 38px;
-  height: 38px;
-  object-fit: contain;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px #0002;
-  background: #fff3;
-}
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px);}
-  to { opacity: 1; transform: translateY(0);}
-}
-@media (max-width: 700px) {
-  .final_legal {
-    width: 100% !important;
-    left: 0 !important;
-    transform: none !important;
+/* Botón principal flotante de WhatsApp y botoncito */
+@media (max-width: 600px) {
+  .btn-verde {
+    font-size: 11px !important;
+    padding: 6px 10px !important;
+    border-radius: 4px !important;
   }
-  .footer-legal-links-bg {
-    max-width: 98vw;
-    padding: 1em 0.2em 1em 0.2em;
-    border-radius: 10px;
+  button[title*="WhatsApp"] {
+    right: 70px !important;
+    bottom: 20px !important;
+    width: 24px !important;
+    height: 24px !important;
+    min-width: 24px !important;
+    min-height: 24px !important;
+    font-size: 12px !important;
   }
-  .footer-legal-links,
-  .footer-legal-links.show {
-    grid-template-columns: 1fr !important;
-    max-width: 98vw;
-  }
-  .footer-legal-links a {
-    width: 60vw;
-    min-width: 140px;
-    max-width: 350px;
-    margin-left: auto;
-    margin-right: auto;
-    box-sizing: border-box;
-    font-size: 1em;
-  }
-  .footer-legal-trigger {
-    width: 70vw;
-    min-width: 0;
-    font-size: 1.1em;
-    box-sizing: border-box;
-  }
-  .footer-cookies-row {
-    gap: 0.7em;
-    margin-top: 1.2em;
-  }
-  .footer-cookies-img {
-    width: 28px;
-    height: 28px;
+  button[title*="WhatsApp"] img {
+    width: 16px !important;
+    height: 16px !important;
   }
 }
-/* ================= FIN FOOTER ================= */
 
+/* --- BLOQUE QUE EVITA LA FRANJA NEGRA --- */
+html, body {
+  width: 100vw !important;
+  max-width: 100vw !important;
+  overflow-x: hidden !important;
+  box-sizing: border-box;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+.container, .row, .col-12 {
+  max-width: 100vw !important;
+  /* width: 100vw !important; */
+  box-sizing: border-box;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+}

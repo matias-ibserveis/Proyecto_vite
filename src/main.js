@@ -13,6 +13,8 @@ import { EmpanadaBanner } from './components/EmpanadaBanner.js';
 import { Footer } from './components/Footer.js';
 import { Info_Cestas } from './components/Info_Cestas.js';
 import { ListaCesta } from './components/verListasCestas.js';
+import { tituloCestas } from './components/tituloCestas.js';
+import { direccion } from './components/direccion.js';
 
 
 (async () => {
@@ -31,8 +33,9 @@ import { ListaCesta } from './components/verListasCestas.js';
   app.append(productos);
 
   
-    // Listas Cestas
-
+  app.append(tituloCestas());
+    
+  // Listas Cestas
   const cesta1 = await ListaCesta(1);
   app.append(cesta1);
 
@@ -50,6 +53,9 @@ import { ListaCesta } from './components/verListasCestas.js';
   
     // Sección Donde ocurre la magia
     app.append(DondeOcurre());
+
+      // Sección Dirección
+      //app.append(direccion());
 
   // Sección de contacto
   app.append(Contacto());

@@ -47,10 +47,8 @@ export async function ListaCesta(idCesta) {
   if (Object.keys(cesta).length === 0) {
     contenedor.innerHTML = `<div class="empty-msg">Tu cesta está vacía</div>`;
   } else {
-    contenedor.innerHTML = `
-      <div><p>Tenemos cestas ya preparadas, con los productos de temporada que te van a gustar 😊</p></div>
-      <h3>Cesta número ${idCesta}</h3>
-    `;
+    contenedor.innerHTML = `<h3>Cesta número ${idCesta}</h3>`;
+
 
     // Añadir productos a la vista
     for (const id in cesta) {
@@ -78,7 +76,7 @@ export async function ListaCesta(idCesta) {
 
     const enlace = document.createElement('a');
     enlace.href = '#';
-    enlace.textContent = `Ver cesta ${idCesta} en la web`;
+    enlace.textContent = `Reserva cesta ${idCesta} `;
     enlace.style.color = '#0077cc';
     enlace.style.textDecoration = 'underline';
 

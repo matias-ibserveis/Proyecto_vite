@@ -1,77 +1,79 @@
 export function Navbar() {
   const nav = document.createElement("nav");
-  nav.className = "navbar navbar-custom fixed-top";
+  nav.className = "navbar navbar-expand-lg navbar-custom";
 
   nav.innerHTML = `
     <div class="container-fluid">
-      <a class="navbar-brand" href="/index.html" style="display: flex; align-items: center; gap: 10px;">
-        <img src="/images/Lura_Icon.png" alt="LURA Logo">
-      </a>
-      <div class="navbar-links" style="display: none;">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li class="nav-item"><a class="nav-link" href="/index.html#sobre-nosotras">Sobre Nosotras</a></li>
-          <li class="nav-item"><a class="nav-link" href="/index.html#nuestrafilosofia">Nuestra Filosofía</a></li>
-          <li class="nav-item"><a class="nav-link nav-link-cestas" href="/index.html#Info_Cestas">Cestas Semanales</a></li>
-          <li class="nav-item"><a class="nav-link" href="/index.html#Servicios">Servicios</a></li>
-          <li class="nav-item"><a class="nav-link" href="/index.html#Zona_de_Trabajo">Zona de Trabajo</a></li>
-          <li class="nav-item"><a class="nav-link" href="/index.html#Talleres">Talleres</a></li>
-          <li class="nav-item"><a class="nav-link" href="/index.html#reseñasCarousel">Reseñas</a></li>
-          <li class="nav-item"><a class="nav-link" href="/index.html#contacto">Contacto</a></li>
-        </ul>
-      </div>
-      <button class="navbar-toggler" type="button" aria-label="Toggle navigation">
+      <a class="navbar-brand" href="#">LUŔA</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#myNavbar" aria-controls="myNavbar" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
+      <div class="collapse navbar-collapse" id="myNavbar">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item active"><a class="nav-link" href="#inicio">Inicio</a></li>
+          <li class="nav-item"><a class="nav-link" href="#productos">Productos</a></li>
+          <li class="nav-item"><a class="nav-link" href="#listas_cestas">Cestas</a></li>
+          <li class="nav-item"><a class="nav-link" href="#nuestra-filosofia">Nuestra filosofia</a></li>
+          <li class="nav-item"><a class="nav-link" href="#contacto">Más Información</a></li>
+          <li class="nav-item"><a class="nav-link" href="Avisos-Legales.html">Aviso Legal</a></li>
+        </ul>
+      </div>
     </div>
   `;
 
-  const toggler = nav.querySelector('.navbar-toggler');
-  const links = nav.querySelector('.navbar-links');
-
-  let animating = false;
-
-  toggler.addEventListener('click', function () {
-    if (animating) return;
-
-    const isDesktop = window.innerWidth >= 1201;
-
-    if (links.classList.contains('show')) {
-      links.classList.remove('show');
-      links.classList.add('hiding');
-      links.style.display = isDesktop ? 'flex' : '';
-      animating = true;
-      setTimeout(() => {
-        links.classList.remove('hiding');
-        links.style.display = 'none';
-        animating = false;
-      }, 1100);
-    } else {
-      links.style.display = isDesktop ? 'flex' : '';
-      void links.offsetWidth;
-      links.classList.add('show');
+  const style = document.createElement("style");
+    style.innerHTML = `
+    .navbar-custom {
+      background-color: #d1ab72;
+      border: none;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      border-radius: 10px 10px 10px 10px;
+      padding: 10px 20px;
+      font-size: 15px;
+      font-family: 'Aloja Extended', sans-serif;
+      letter-spacing: normal;
+      margin-bottom: 5px;
     }
-    this.classList.toggle('active');
-  });
 
-  // Cerrar menú al hacer click fuera
-  document.addEventListener('click', function (e) {
-    const isDesktop = window.innerWidth >= 1201;
-    if (
-      links.classList.contains('show') &&
-      !links.contains(e.target) &&
-      !toggler.contains(e.target)
-    ) {
-      // Cierra igual que desde el botón
-      links.classList.remove('show');
-      links.classList.add('hiding');
-      links.style.display = isDesktop ? 'flex' : '';
-      toggler.classList.remove('active');
-      setTimeout(() => {
-        links.classList.remove('hiding');
-        links.style.display = 'none';
-      }, 1100);
+    /* Marca (nombre/logo) */
+    .navbar-custom .navbar-brand {
+      color: white !important;
+      font-family: 'Aloja Extended', sans-serif !important;
+      font-size: 25px;
     }
-  });
+
+    /* Enlaces de navegación */
+    .navbar-custom .navbar-nav .nav-link {
+      color: #6d5839 !important;
+      font-family: 'Aloja Extended', sans-serif;
+      font-size: 18px;
+      transition: background 0.2s, color 0.2s;
+    }
+
+    /* Hover en enlaces */
+    .navbar-custom .navbar-nav .nav-link:hover,
+    .navbar-custom .navbar-nav .nav-link.active {
+      color: #000000 !important;
+      background-color: #ffffff !important;
+    }
+
+    /* Botón hamburguesa */
+    .navbar-custom .navbar-toggler {
+      border-color: #ffffff;
+      background-color: #d1ab72;
+    }
+    .navbar-custom .navbar-toggler-icon {
+      background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(0,0,0,0.7)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+    }
+
+    /* Enlace activo */
+    .navbar-custom .navbar-nav .nav-link.active {
+      color: #443723 !important;
+      background-color: #fff !important;
+    }
+    `;
+document.head.appendChild(style);
+
 
   return nav;
 }

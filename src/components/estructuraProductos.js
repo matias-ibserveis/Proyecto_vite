@@ -2,7 +2,7 @@
 
 export function crearEstructuraHTML(buscarProductosCallback, mostrarTodosCallback) {
   const seccion = document.createElement("section");
-  seccion.className = "container py-5";
+  seccion.className = "container py-2";
   seccion.id = "productos";
   seccion.innerHTML = `
     <h2 class="titulo">Nuestros Productos</h2>
@@ -58,7 +58,6 @@ export function aplicarEstilos() {
     }
     .container {
       max-width: 1280px;
-      margin: 1rem 0;
     }
   `;
   document.head.appendChild(style);
