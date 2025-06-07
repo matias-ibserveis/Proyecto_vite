@@ -146,7 +146,7 @@ function mostrarCesta() {
   console.log("cesta", cesta)
 
   if (ids.length === 0) {
-    container.innerHTML = `<div class="empty-msg">Tu cesta está vacía</div>`;
+    container.innerHTML = `<div class="empty-msg">más cesta proximamente ...</div>`;
     totalGeneralEl.textContent = '0 €';
     return;
   }

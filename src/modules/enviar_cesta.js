@@ -13,7 +13,7 @@ export async function enviarCestaAlBackend(numeroCesta) {
   const productos = await prepararCestaParaBackend(numeroCesta); // <- nombre coherente
   
   try {
-    const respuesta = await fetch('http://localhost:3000/api/crear_cesta', {  
+    const respuesta = await fetch('https://proyectorailway-production-9739.up.railway.app/api/crear_cesta', {  
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -27,10 +27,10 @@ export async function enviarCestaAlBackend(numeroCesta) {
     //if (!respuesta.ok) throw new Error(`HTTP error! status: ${respuesta.status}`);
 
     const datos = await respuesta.json();
-    console.log('Cesta guardada:', datos);
+    //console.log('Cesta guardada:', datos);
     return datos;
   } catch (error) {
-    console.error('Error enviando cesta:', error);
+    console.error('No se ha podido enviar cesta:', error);
     throw error;
   }
 }

@@ -77,7 +77,7 @@ export function renderizaListaCesta(appContenedor) {
   // Botón Enviar 
   const btnEnviar = document.createElement("button");
   btnEnviar.className = "btn btn-sm btn-outline-success";
-  btnEnviar.textContent = "Enviar cesta";
+  btnEnviar.textContent = "Crear cesta";
   btnEnviar.onclick = async () => {
     //const numeroCestaActual = localStorage.getItem("nuevaCesta") || "";
     const numeroCesta = prompt("Introduce el número de cesta a guardar:", 1);

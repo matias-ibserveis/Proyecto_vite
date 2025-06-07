@@ -45,7 +45,7 @@ export async function ListaCesta(idCesta) {
   contenedor.id = 'contenedor-cesta';
 
   if (Object.keys(cesta).length === 0) {
-    contenedor.innerHTML = `<div class="empty-msg">Tu cesta está vacía</div>`;
+    contenedor.innerHTML = `<div class="empty-msg">más cestas proximamente ....</div>`;
   } else {
     contenedor.innerHTML = `<h3>Cesta número ${idCesta}</h3>`;
 
