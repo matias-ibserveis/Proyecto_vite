@@ -104,12 +104,13 @@ export async function productos_gestion(appContenedor) {
         datos[campo] = prompt(`${campo}:`, producto[campo]);
       }
       try {
+        //const res = await fetch(`http://localhost:3000/api/producto/${producto.id}`, {
         const res = await fetch(`https://proyectorailway-production-9739.up.railway.app/api/producto/${producto.id}`, {
           method: 'PUT',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
             ...datos,
-            precio: parseFloat(datos.precio),
+            precio: parseFloat(datos.precio.replace(',', '.')),
             valor_medido: parseFloat(datos.valor_medido),
             portada: parseFloat(datos.portada)
           })
