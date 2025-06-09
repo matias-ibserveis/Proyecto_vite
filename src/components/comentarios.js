@@ -4,7 +4,7 @@ export function Comentarios() {
   section.id = "reseñas";
   section.innerHTML = `
     <h2 class="reseñas-titulo anim-down">Reseñas</h2>
-    <div class="elfsight-app-58c9909e-9645-410c-bb92-53aa5d541052 anim-down" data-elfsight-app-lazy></div>
+    <div class="elfsight-app-58c9909e-9645-410c-bb92-53aa5d541052 anim-down"></div>
   `;
 
   // Animaciones por scroll
@@ -55,6 +55,16 @@ export function Comentarios() {
       }
     `;
     document.head.appendChild(style);
+  }
+
+  // Agrega el script de Elfsight solo si no existe ya
+  if (!document.getElementById('elfsight-platform-script')) {
+    const script = document.createElement('script');
+    script.id = 'elfsight-platform-script';
+    script.src = 'https://static.elfsight.com/platform/platform.js';
+    script.defer = true;
+    script.setAttribute('data-use-service-core', '');
+    document.body.appendChild(script);
   }
 
   return section;

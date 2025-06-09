@@ -312,7 +312,7 @@ nav.innerHTML = `
         <li class="nav-item"><a class="nav-link" href="/#nuestra-filosofia">Nuestra Filosofía</a></li>
         <li class="nav-item"><a class="nav-link nav-link-cestas" href="/#Info-Cestas">Cestas Semanales</a></li>
         <li class="nav-item"><a class="nav-link" href="/#Servicios">Servicios</a></li>
-        <li class="nav-item"><a class="nav-link" href="/#Zona_de_Trabajo">Zona de Trabajo</a></li>
+        <li class="nav-item"><a class="nav-link" href="/#dondeocurre">Zona de Trabajo</a></li>
         <li class="nav-item"><a class="nav-link" href="/#talleres">Talleres</a></li>
         <li class="nav-item"><a class="nav-link" href="/#reseñas">Reseñas</a></li>
         <li class="nav-item"><a class="nav-link" href="/#contacto">Contacto</a></li>

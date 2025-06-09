@@ -50,10 +50,13 @@ export function DondeOcurre() {
                 </div>
             </div>
         </div>
+    <hr class="divider anim-up" />
     `;
 
     const style = document.createElement('style');
     style.innerHTML = `
+
+        
         .dondeocurreportada img {
             height: 2.5rem;
             width: 2.5rem;

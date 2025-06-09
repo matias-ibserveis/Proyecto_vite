@@ -264,3 +264,14 @@ html, body {
   margin-left: 0 !important;
   margin-right: 0 !important;
 }
+
+  .divider {
+      margin-top: 200px;
+      margin-bottom: 200px;  
+      margin-right: 0 !important;
+      margin-left: calc(-50vw + 50%);
+      width: 100vw !important;
+      border: none;
+      height: 2px;
+      background: rgba(255, 238, 0, 0.09); 
+  }
