@@ -13,7 +13,7 @@ export function CestaNavbar() {
       <div class="collapse navbar-collapse" id="cestaNavbar">
         <ul class="navbar-nav">
           <li class="nav-item">
-            <a class="nav-link ${currentPath === '/quien-somos.html' ? 'active' : ''}" href="/quien-somos.html">¿QUIÉN SOMOS?</a>
+            <a class="nav-link ${currentPath === '/index.html' ? 'active' : ''}" href="/quien-somos.html">¿QUIÉN SOMOS?</a>
           </li>
           <li class="nav-item">
             <a class="nav-link ${currentPath === '/cesta.html' ? 'active' : ''}" href="/cesta.html">CESTA</a>
