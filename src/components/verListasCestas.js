@@ -13,7 +13,7 @@ export async function ListaCesta(idCesta) {
   function irACestaConProducto(id) {
     sessionStorage.setItem("prevScrollY", window.scrollY);
     sessionStorage.setItem("prevURL", window.location.href);
-    window.location.href = `/cesta_cliente.html?id=${id}`;
+    window.location.href = `/cestas_preparadas.html?numero_cesta=${id}`;
   }
 
   // Carga la cesta desde la API y transforma los datos en un objeto
@@ -59,15 +59,26 @@ export async function ListaCesta(idCesta) {
       const card = document.createElement('div');
       card.className = 'producto-card';
       card.innerHTML = `
-        <img src="${imageUrl}" alt="${titulo}" class="producto-img">
-        <div class="producto-info">
-          <h5>${titulo}</h5>
-          <p class="precio-unidad">${safeNumber(precio).toFixed(2).replace('.', ',')} € / ${unidad_medido}</p>
-          <p><strong>Cantidad:</strong> ${cantidad}</p>
-        </div>
-      `;
+    <img src="${imageUrl}" alt="${titulo}" class="producto-img">
+    <div class="producto-info">
+      <h5 class="titulo-clickable" data-id="${id}">${titulo}</h5>
+      <p class="precio-unidad">${safeNumber(precio).toFixed(2).replace('.', ',')} € / ${unidad_medido}</p>
+      <p><strong>Cantidad:</strong> ${cantidad}</p>
+    </div>
+  `;
       contenedor.appendChild(card);
     }
+
+    // Ir a ver ficha UN_PRODUCTO
+    contenedor.querySelectorAll('.titulo-clickable').forEach((h5) => {
+      h5.addEventListener('click', () => {
+        const id = h5.getAttribute('data-id');
+        sessionStorage.setItem("prevScrollY", window.scrollY);
+        sessionStorage.setItem("prevURL", window.location.href);
+        window.location.href = `/producto.html?id=${id}`;
+      });
+    });
+
 
     // Botón para ver cesta en la web
     const wrapper = document.createElement('div');
@@ -76,7 +87,7 @@ export async function ListaCesta(idCesta) {
 
     const enlace = document.createElement('a');
     enlace.href = '#';
-    enlace.textContent = `Reserva cesta ${idCesta} `;
+    enlace.textContent = `ver cesta ${idCesta} `;
     enlace.style.color = '#0077cc';
     enlace.style.textDecoration = 'underline';
 
@@ -130,6 +141,13 @@ export async function ListaCesta(idCesta) {
     .empty-msg {
       text-align: center;
     }
+
+    .titulo-clickable {
+      cursor: pointer;
+      color: #0077cc;
+      text-decoration: underline;
+    }
+
   `;
   document.head.appendChild(style);
 

@@ -87,7 +87,7 @@ export async function Productos() {
             <span class="ver_mas" data-id="${producto.id}">ver +</span>
           </p>
           <button class="btn btn-secondary mt-2 btn-ia" data-id="${producto.id}">+información IA</button>
-          <button class="btn btn-secondary mt-2 btn-a-cesta" data-id="${producto.id}">a la cesta</button>
+          <button class="btn btn-secondary mt-2 btn-a-cesta" data-id="${producto.id}">a Mi cesta</button>
         </div>
       </div>
     `;

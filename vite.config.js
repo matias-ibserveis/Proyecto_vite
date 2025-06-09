@@ -10,6 +10,7 @@ export default defineConfig({
         main: resolve(__dirname, 'index.html'),
         utils: resolve(__dirname, 'utils.html'),
         cesta_cliente: resolve(__dirname, 'cesta_cliente.html'),
+        cestas_preparadas: resolve(__dirname, 'cestas_preparadas.html'),
         crear_cesta: resolve(__dirname, 'crear_cesta.html'),
         gestion_productos: resolve(__dirname, 'gestion_productos.html'),
         producto: resolve(__dirname, 'producto.html')

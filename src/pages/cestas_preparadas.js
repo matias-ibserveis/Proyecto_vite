@@ -1,31 +1,23 @@
-
+// lógica y renderizado de la cesta
 renderCesta(document.getElementById('app'));
 
 export async function renderCesta(container) {
   const urlParams = new URLSearchParams(window.location.search);
-  const nuevoId = urlParams.get("id");
-  let cesta = JSON.parse(localStorage.getItem("cesta") || "{}");
+  const numeroCesta = urlParams.get("numero_cesta");
 
-  if (nuevoId) {
-    if (cesta[nuevoId]) {
-      cesta[nuevoId].cantidad += 1;
-    } else {
-      try {
-        const res = await fetch(`https://proyectorailway-production-9739.up.railway.app/api/producto/${nuevoId}`);
-        const producto = await res.json();
-        cesta[nuevoId] = {
-          titulo: producto.titulo,
-          cantidad: 1,
-          unidad_medido: producto.unidad_medido,
-          precio: producto.precio,
-          origen: 'manual',
-          imagen1: producto.imagen1
-        };
-      } catch (err) {
-        console.error("Error al añadir producto por ID en URL:", err);
-      }
-    }
-    localStorage.setItem("cesta", JSON.stringify(cesta));
+  if (!numeroCesta) {
+    alert("Falta numero cesta en la URL");
+    return;
+  }
+
+  let productos = [];
+  try {
+    const res = await fetch(`https://proyectorailway-production-9739.up.railway.app/listados/cesta/${numeroCesta}`);
+    productos = await res.json();
+  } catch (err) {
+    console.error('Error al cargar la cesta:', err);
+    container.innerHTML = '<p>Error al cargar la cesta.</p>';
+    return;
   }
 
   const tabla = document.createElement('table');
@@ -65,20 +57,20 @@ export async function renderCesta(container) {
     botonesDiv.appendChild(volverBtn);
   }
 
-  const vaciarBtn = document.createElement('button');
-  vaciarBtn.textContent = 'Reiniciar';
-  vaciarBtn.className = 'btn btn-danger mb-3';
-  vaciarBtn.addEventListener('click', () => {
-    localStorage.removeItem('cesta');
-    window.location.href = window.location.pathname;
-  });
-  botonesDiv.appendChild(vaciarBtn);
+  const reservarBtn = document.createElement('button');
+  reservarBtn.textContent = 'Reservar';
+  reservarBtn.className = 'btn btn-primary mb-3';
+  botonesDiv.appendChild(reservarBtn);
+
+  const aCestaGeneralBtn = document.createElement('button');
+  aCestaGeneralBtn.textContent = 'Añadir a MI cesta';
+  aCestaGeneralBtn.className = 'btn btn-secondary mb-3';
+  botonesDiv.appendChild(aCestaGeneralBtn);
 
   container.appendChild(botonesDiv);
 
-  await mostrarCesta();
+  mostrarCesta(productos);
 }
-
 
 function safeNumber(value) {
   if (typeof value === 'number') return value;
@@ -89,7 +81,7 @@ function safeNumber(value) {
   return 0;
 }
 
-function mostrarCesta() {
+function mostrarCesta(productos) {
   const container = document.getElementById('contenedor-cesta');
   const totalGeneralEl = document.getElementById('total-general');
   if (!container || !totalGeneralEl) return;
@@ -97,73 +89,40 @@ function mostrarCesta() {
   container.innerHTML = '';
   let total = 0;
 
-  const cesta = JSON.parse(localStorage.getItem('cesta') || '{}');
-  const ids = Object.keys(cesta);
-  console.log("cesta", cesta);
-
-  if (ids.length === 0) {
+  if (!productos || productos.length === 0) {
     container.innerHTML = `<div class="empty-msg">más cesta próximamente ...</div>`;
     totalGeneralEl.textContent = '0 €';
     return;
   }
 
-  ids.forEach(id => {
-    const { titulo, cantidad, unidad_medido, precio, origen, imagen1 } = cesta[id];
-
+  productos.forEach(p => {
+    const { id, titulo, cantidad, unidad_medido, precio, imagenes } = p;
     const cantidadNum = safeNumber(cantidad);
     const precioNum = safeNumber(precio);
-    const precioFormateado = precioNum.toFixed(2).replace('.', ',');
-
     const totalItem = cantidadNum * precioNum;
     total += totalItem;
 
-    const imageId = imagen1 ? imagen1.split('/d/')[1]?.split('/')[0] : '1j5enJj_lx-tKrlw9veE2DAkJZ9ORrsZu';
+    const imageId = imagenes?.[0]?.split('/d/')[1]?.split('/')[0] || '1j5enJj_lx-tKrlw9veE2DAkJZ9ORrsZu';
     const imageUrl = `https://drive.google.com/thumbnail?id=${imageId}&sz=w800-h600`;
 
     const card = document.createElement('div');
     card.className = 'producto-card';
-
     card.innerHTML = `
       <img src="${imageUrl}" alt="${titulo}" class="producto-img">
       <div class="producto-info">
         <h5>${titulo}</h5>
-        <p class="precio-unidad">${precioFormateado} € / ${unidad_medido}</p>
-        <p><strong>Total:</strong> <span id="total-${id}">${totalItem.toFixed(2).replace('.', ',')} €</span></p>
-        <div class="cantidad-controls">
-          <button data-id="${id}" data-action="restar">–</button>
-          <span id="cantidad-${id}">${cantidadNum}</span>
-          <button data-id="${id}" data-action="sumar">+</button>
-        </div>
+        <p class="precio-unidad">${precioNum.toFixed(2).replace('.', ',')} € / ${unidad_medido}</p>
+        <p><strong>Total:</strong> ${totalItem.toFixed(2).replace('.', ',')} €</p>
+        <p><strong>Cantidad:</strong> ${cantidadNum}</p>
       </div>
     `;
-
     container.appendChild(card);
   });
 
   totalGeneralEl.textContent = `${total.toFixed(2).replace('.', ',')} €`;
 
-  container.querySelectorAll('button[data-action]').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const id = btn.dataset.id;
-      const action = btn.dataset.action;
-      const cesta = JSON.parse(localStorage.getItem('cesta') || '{}');
-      if (!cesta[id]) return;
 
-      const cantidadNum = safeNumber(cesta[id].cantidad);
-
-      if (action === 'sumar') {
-        cesta[id].cantidad = cantidadNum + 1;
-      } else {
-        cesta[id].cantidad = cantidadNum - 1;
-        if (cesta[id].cantidad <= 0) delete cesta[id];
-      }
-
-      localStorage.setItem('cesta', JSON.stringify(cesta));
-      mostrarCesta();
-    });
-  });
-
-   // Estilos
+  // Estilos
   const style = document.createElement("style");
   style.innerHTML = `
           #contenedor-cesta {
@@ -296,7 +255,7 @@ function mostrarCesta() {
         }
       }
   `;
-  
+
   document.head.appendChild(style);
 
 }
