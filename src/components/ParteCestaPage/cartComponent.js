@@ -165,6 +165,7 @@ export function CartComponent() {
         quantity: 1,
         price: 0, // Price could be calculated if needed
         type: 'cesta', // Flag to identify this as a cesta item
+        image: cestaData.image,
         ingredients: ingredientsData.map(ingredient => ({
           name: ingredient.name,
           selected: ingredient.selected,
@@ -177,11 +178,74 @@ export function CartComponent() {
       cart.push(newCesta);
       sessionStorage.setItem('cart', JSON.stringify(cart));
 
-      // Redirect to producto.html
-      window.location.href = '/producto.html';
+      // Show popup and set image, name, and ingredients
+      const popup = document.getElementById('cart-popup');
+      const popupImage = popup?.querySelector('.cart-popup-image');
+      const popupName = popup?.querySelector('.cart-popup-name');
+      const popupIngredients = popup?.querySelector('.cart-popup-ingredients');
+      if (popup && popupImage && popupName && popupIngredients) {
+        popupImage.src = cestaData.image;
+        popupName.textContent = cestaData.name;
+        
+        // Clear existing ingredients
+        popupIngredients.innerHTML = '';
+        
+        // Create ingredients list
+        ingredientsData.forEach(ingredient => {
+          const ingredientItem = document.createElement('div');
+          ingredientItem.classList.add('popup-ingredient-item');
+          
+          const nameQty = document.createElement('span');
+          nameQty.classList.add('popup-ingredient-name');
+          nameQty.textContent = `${ingredient.name} (${ingredient.selected})`;
+          
+          const sourceInfo = document.createElement('span');
+          sourceInfo.classList.add('popup-ingredient-source');
+          sourceInfo.textContent = `Lugar: ${ingredient.place}, Quién: ${ingredient.supplier}`;
+          
+          ingredientItem.appendChild(nameQty);
+          ingredientItem.appendChild(sourceInfo);
+          popupIngredients.appendChild(ingredientItem);
+        });
+        
+        popup.style.display = 'flex';
+      }
     });
-    rightPanel.appendChild(addToCartButton);
 
+    // Handle popup close, comprar button, and continue link
+    const popup = document.getElementById('cart-popup');
+    const closeButton = popup?.querySelector('.cart-popup-close');
+    const comprarButton = popup?.querySelector('.comprar-btn');
+    const continueLink = popup?.querySelector('.continue-productos-link');
+
+    if (closeButton) {
+      closeButton.addEventListener('click', () => {
+        popup.style.display = 'none';
+      });
+    }
+
+    if (comprarButton) {
+      comprarButton.addEventListener('click', () => {
+        popup.style.display = 'none';
+        window.location.href = '/checkout.html';
+      });
+    }
+
+    if (continueLink) {
+      continueLink.addEventListener('click', () => {
+        popup.style.display = 'none';
+        window.location.href = '/producto.html';
+      });
+    }
+
+    // Close popup when clicking outside
+    popup?.addEventListener('click', (event) => {
+      if (event.target === popup) {
+        popup.style.display = 'none';
+      }
+    });
+
+    rightPanel.appendChild(addToCartButton);
     cartContainer.appendChild(leftPanel);
     cartContainer.appendChild(rightPanel);
   }

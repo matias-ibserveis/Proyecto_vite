@@ -22,9 +22,6 @@ export function CestaNavbar() {
             <a class="nav-link ${currentPath === '/producto.html' ? 'active' : ''}" href="/producto.html">PRODUCTOS</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link ${currentPath === '/contacto.html' ? 'active' : ''}" href="/contacto.html">CONTACTO</a>
-          </li>
-          <li class="nav-item">
             <a class="nav-link ${currentPath === '/checkout.html' ? 'active' : ''}" href="/checkout.html">CHECKOUT</a>
           </li>
         </ul>
