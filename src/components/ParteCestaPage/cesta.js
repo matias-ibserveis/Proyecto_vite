@@ -1,5 +1,5 @@
-import { CestaNavbar } from '../components/CestaNavbar.js';
-import { CartComponent } from '../components/cartComponent.js';
+import { CestaNavbar } from '../CestaNavbar.js';
+import { CartComponent } from './cartComponent.js';
 
 document.addEventListener('DOMContentLoaded', () => {
   const navbar = document.getElementById('navbar');
