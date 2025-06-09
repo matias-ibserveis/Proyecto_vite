@@ -1738,17 +1738,6 @@ button:focus-visible {
   text-align: center;
 }
 
-/* Remove unused or conflicting styles */
-.category-navbar-wrapper,
-.category-scroll-wrapper,
-.category-list,
-.category-item,
-.category-link,
-.category-link.active,
-.category-separator {
-  /* Removed to avoid conflicts with updated .category-nav-container */
-}
-
 /* Add at the end of style.css */
 .ver-todos-btn {
   background-color: var(--secondary-color);
@@ -2881,7 +2870,6 @@ button:focus-visible {
   padding: 2rem;
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
   animation: popupIn 0.3s cubic-bezier(0.4, 1.6, 0.6, 1);
 }
 
@@ -2914,12 +2902,20 @@ button:focus-visible {
   outline-offset: 2px;
 }
 
+/* Checkout Popup Title Styles */
+.checkout-popup-title {
+  margin: 0;
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: var(--main-color);
+  text-align: center;
+}
+
 /* Responsive Adjustments for Checkout Popup */
 @media (max-width: 768px) {
   .checkout-popup-content {
     max-width: 350px;
     padding: 1.2rem;
-    gap: 1rem;
   }
 
   .checkout-popup-close {
@@ -2927,12 +2923,15 @@ button:focus-visible {
     height: 1.8rem;
     font-size: 1rem;
   }
+
+  .checkout-popup-title {
+    font-size: 1.5rem;
+  }
 }
 
 @media (max-width: 425px) {
   .checkout-popup-content {
     max-width: 300px;
-    padding: 1rem;
   }
 
   .checkout-popup-close {
@@ -2940,17 +2939,95 @@ button:focus-visible {
     height: 1.6rem;
     font-size: 0.9rem;
   }
+
+  .checkout-popup-title {
+    font-size: 1.3rem;
+  }
 }
 
 @media (max-width: 320px) {
   .checkout-popup-content {
     max-width: 280px;
-    padding: 0.8rem;
   }
 
   .checkout-popup-close {
     width: 1.4rem;
     height: 1.4rem;
     font-size: 0.8rem;
+  }
+
+  .checkout-popup-title {
+    font-size: 1.1rem;
+  }
+}
+
+/* ------------------- Checkout Popup Form Styles ------------------- */
+.client-name-label {
+  font-family: 'Aloja Extended', 'Arial', sans-serif;
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: var(--secondary-color);
+  margin: 0.5rem 0;
+  text-align: left;
+  width: 100%;
+}
+
+.client-name-input {
+  width: 350px; /* Fixed width on desktop */
+  max-width: 100%;
+  padding: 0.6rem 0.8rem;
+  font-family: 'Aloja Extended', 'Arial', sans-serif;
+  font-size: 0.95rem;
+  color: var(--secondary-color);
+  border: 1px solid var(--main-color);
+  border-radius: 5px;
+  background-color: #ffffff;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  margin-left: 1rem;
+}
+
+.client-name-input:focus {
+  border-color: var(--secondary-color);
+  box-shadow: 0 0 0 3px rgba(109, 88, 57, 0.1); /* --secondary-color-rgb */
+  outline: none;
+}
+
+.client-name-input::placeholder {
+  color: #999;
+  font-family: 'Aloja Extended', 'Arial', sans-serif;
+}
+
+/* Responsive Adjustments for Client Name Input */
+@media (max-width: 768px) {
+  .client-name-label {
+    font-size: 1rem;
+  }
+
+  .client-name-input {
+    width: 90%; /* Responsive width on mobile */
+    font-size: 0.9rem;
+    padding: 0.5rem 0.6rem;
+  }
+}
+
+@media (max-width: 425px) {
+  .client-name-label {
+    font-size: 0.9rem;
+  }
+
+  .client-name-input {
+    font-size: 0.85rem;
+    padding: 0.4rem 0.5rem;
+  }
+}
+
+@media (max-width: 320px) {
+  .client-name-label {
+    font-size: 0.8rem;
+  }
+
+  .client-name-input {
+    font-size: 0.8rem;
+    padding: 0.3rem 0.5rem;
   }
 }
