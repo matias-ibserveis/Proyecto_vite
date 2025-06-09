@@ -2855,3 +2855,102 @@ button:focus-visible {
     font-size: 0.7rem;
   }
 }
+
+/* Checkout Popup Styles */
+.checkout-popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(30, 30, 30, 0.55);
+  z-index: 1200;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  animation: fadeInOverlay 0.25s ease;
+}
+
+.checkout-popup-content {
+  position: relative;
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  max-width: 600px;
+  width: 90%;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  animation: popupIn 0.3s cubic-bezier(0.4, 1.6, 0.6, 1);
+}
+
+.checkout-popup-close {
+  position: absolute;
+  top: 0.8rem;
+  right: 0.8rem;
+  background-color: #f5f5f5;
+  border: none;
+  border-radius: 50%;
+  width: 2.5rem;
+  height: 2.5rem;
+  font-size: 1.4rem;
+  color: var(--secondary-color);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+}
+
+.checkout-popup-close:hover {
+  background-color: var(--main-color);
+  color: #ffffff;
+  transform: scale(1.1);
+}
+
+.checkout-popup-close:focus {
+  outline: 2px solid var(--main-color);
+  outline-offset: 2px;
+}
+
+/* Responsive Adjustments for Checkout Popup */
+@media (max-width: 768px) {
+  .checkout-popup-content {
+    max-width: 350px;
+    padding: 1.2rem;
+    gap: 1rem;
+  }
+
+  .checkout-popup-close {
+    width: 1.8rem;
+    height: 1.8rem;
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 425px) {
+  .checkout-popup-content {
+    max-width: 300px;
+    padding: 1rem;
+  }
+
+  .checkout-popup-close {
+    width: 1.6rem;
+    height: 1.6rem;
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 320px) {
+  .checkout-popup-content {
+    max-width: 280px;
+    padding: 0.8rem;
+  }
+
+  .checkout-popup-close {
+    width: 1.4rem;
+    height: 1.4rem;
+    font-size: 0.8rem;
+  }
+}
