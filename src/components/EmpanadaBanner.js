@@ -1,5 +1,7 @@
 export function EmpanadaBanner() {
-  mostrarBanner();
+  if (!getEmpanada("empanada_content")) {
+    mostrarBanner();
+  }
 }
 
 // --- Utilidades para empanadas ---
@@ -115,6 +117,40 @@ function injectEmpanadasStyles() {
       background: #c0392b;
       filter: brightness(1.3);
       transform: scale(1.13);
+    }
+
+    /* SOLO MOVIL */
+    @media (max-width: 600px) {
+      .empanadas-banner {
+        width: 96vw;
+        min-width: unset;
+        max-width: 99vw;
+        left: 50%;
+        top: 10vh;
+        transform: translate(-50%, 0);
+        padding: 10px 2vw;
+        font-size: 1rem;
+        border-radius: 10px;
+      }
+      .empanadas-banner-img {
+        width: 80px;
+        height: 80px;
+      }
+      .empanadas-banner-inner {
+        gap: 6px;
+      }
+      .empanadas-banner-btns {
+        flex-direction: column;
+        gap: 8px;
+        width: 100%;
+      }
+      .empanadas-btn-info,
+      .empanadas-btn-aceptar,
+      .empanadas-btn-rechazar {
+        width: 100%;
+        font-size: 1rem;
+        padding: 10px 0;
+      }
     }
   `;
   document.head.appendChild(style);

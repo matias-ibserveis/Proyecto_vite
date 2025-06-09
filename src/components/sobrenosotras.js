@@ -1,20 +1,25 @@
 export function SobreNosotras() {
     const section = document.createElement('section');
     section.className = 'sobre-nosotras';
-    section.id ="sobre-nosotras"
+    section.id = "sobre-nosotras";
 
     section.innerHTML = `
-    <h2 class="titulo">Sobre Nosotras</h2>
-        <p class="sobre-nosotras-texto">
-            Somos Lura, una tienda de productos ecológicos y locales gestionada con pasión para una alimentación saludable. </br>¡Gracias por confiar en nosotras!
-        </p>
-        <div class="carrusel-marquee">
-          <div class="carrusel-marquee-inner" id="marqueeInner">
-            <!-- Las imágenes se generarán aquí -->
-          </div>
+    <h2 class="sobre-nosotras-titulo anim-up">Sobre Nosotras</h2>
+    <div class="info-nosotras-foto-container anim-up">
+        <img src="/images/reseña1.jpg" alt="Cesta Semanal" class="info-nosotras-foto" />
+    </div>
+    <p class="sobre-nosotras-texto anim-up">
+        Somos Lura, una tienda de productos ecológicos y locales gestionada con pasión para una alimentación saludable. </br>¡Gracias por confiar en nosotras!
+    </p>
+    <div class="nosotras-carrusel-marquee anim-up">
+        <div class="nosotras-carrusel-marquee-inner" id="nosotrasMarqueeInner">
+        <!-- Las imágenes se generarán aquí -->
         </div>
+    </div>
+    <hr class="divider anim-up" />
     `;
 
+    // Carrusel imágenes
     const images = [
         "/imagenes/infinito1.jpg",
         "/imagenes/infinito2.jpg",
@@ -23,134 +28,170 @@ export function SobreNosotras() {
         "/imagenes/infinito5.jpg",
         "/imagenes/infinito6.jpg"
     ];
-
-    const marqueeInner = section.querySelector('#marqueeInner');
-
-    // Generar 4 copias para garantizar continuidad
+    const marqueeInner = section.querySelector('#nosotrasMarqueeInner');
     const imageBlock = images.map(img =>
         `<img src="${img}" alt="${img.split('/').pop().split('.')[0]}" />`
     ).join('');
-
     marqueeInner.innerHTML = imageBlock + imageBlock + imageBlock + imageBlock;
 
-    // Asegurar que el ancho sea suficiente
-    setTimeout(() => {
-        const containerWidth = marqueeInner.scrollWidth / 2;
-        marqueeInner.style.width = `${containerWidth * 2}px`;
-    }, 100);
+    // Espera a que todas las imágenes carguen antes de calcular el ancho
+    const imgs = marqueeInner.querySelectorAll('img');
+    let loaded = 0;
+    imgs.forEach(img => {
+        img.onload = img.onerror = () => {
+            loaded++;
+            if (loaded === imgs.length) {
+                const containerWidth = marqueeInner.scrollWidth / 2;
+                marqueeInner.style.width = `${containerWidth * 2}px`;
+            }
+        };
+    });
 
-    // Animación: fade-in al montar
-    setTimeout(() => {
-        const texto = section.querySelector('.sobre-nosotras-texto');
-        if (texto) texto.classList.add('visible');
-    }, 200);
-
-
+    // Animaciones por scroll (IntersectionObserver)
+    const animElements = section.querySelectorAll('.anim-up, .anim-left, .anim-right, .anim-down');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('anim-visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.3 });
+    animElements.forEach(el => observer.observe(el));
 
     // Estilos
     const style = document.createElement("style");
     style.innerHTML = `
-
-        .sobre-nosotras-texto {
-        font-family: "Hanken Grotesk", sans-serif;
-        font-weight: 400;
-        font-size: 18px;
-        color: #303030;
-        max-width: 800px;
-        margin: 0 auto;
-        line-height: 1.6;
-        padding-top: 5px;
-        padding-bottom: 5px;
-        border-radius: 10px;
-        background: fixed;
-        margin-bottom: 20px;
-        background-color: var(--terciary-color);
-        opacity: 0;
-        transform: translateY(30px);
-        transition: opacity 0.8s ease, transform 0.8s cubic-bezier(.4,2,.6,1);
-        }
-
-        @media (max-width: 600px) {
-        .sobre-nosotras-titulo {
-            font-size: 27px;
-            padding: 10px;
-        }
-        
-        .sobre-nosotras-texto {
-            font-size: 16px;
-            padding: 10px;
-            max-width: 90vw;
-        }
-        }
-
-        .sobre-nosotras-texto.visible {
-        opacity: 1;
-        transform: translateY(0);
-        }
-
-        .sobre-nosotras img {
-        width: 200px;
-        height: 200px;
-        border-radius: 10%;
-        margin-bottom: 20px;
-        }
-
-        .carrusel-marquee {
-        overflow: hidden;
-        width: 100%;
-        height: 340xpx;
-        background: var(--terciary-color);
-        padding: 20px;
-        position: relative;
-        margin-bottom: 20px;
-        }
-
-        .carrusel-marquee-inner {
-        display: flex;
-        gap: 5px;
-        animation: marquee 36s linear infinite;
-        will-change: transform;
-        backface-visibility: hidden;
-        }
-
-        .carrusel-marquee-inner img {
-        height: 300px;
-        width: 300px;
-        display: block;
-        object-fit: cover;
-        flex-shrink: 0;
-        }
-
-        /* Animación mejorada para loop perfecto */
-        @keyframes marquee {
-        0% {
-            transform: translateX(0);
-        }
-        100% {
-            transform: translateX(-50%); /* Usamos porcentaje fijo */
-        }
-        }
-
-        @media (max-width: 900px) {
-        .carrusel-marquee-inner img {
-            height: 150px;
-            width: 150px;
-        }
-
-        .carrusel-marquee {
-            min-height: 200px;
-            max-height: 200px;
-        }
-        
-        /* Ajuste para móviles */
-        @keyframes marquee {
-            100% {
-            transform: translateX(-50%);
-            }
-        }
-        }
-
-  `;
+.sobre-nosotras-titulo {
+    font-family: 'Aloja Extended', sans-serif;
+    font-size: 2rem;
+    font-weight: 700;
+    color: white;
+    border: none;
+    margin-top: 100px;
+    margin-bottom: 40px;
+    background-attachment: fixed;
+    background-color: var(--main-color) !important;
+    display: inline-block;
+    border-radius: 10px;
+    padding: 15px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+}
+.sobre-nosotras-texto {
+    font-family: "Hanken Grotesk", sans-serif;
+    font-weight: 400;
+    font-size: 18px;
+    color: #303030;
+    max-width: 800px;
+    margin: 0 auto;
+    line-height: 1.6;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    border-radius: 10px;
+    background: fixed;
+    margin-bottom: 20px;
+    background-color: var(--terciary-color);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+}
+.info-nosotras-foto {	
+    border-radius: 10%;
+    border: 10px solid var(--main-color);
+    margin-top: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+    width: 70%;
+}
+.sobre-nosotras img {
+    width: 200px;
+    height: 200px;
+    border-radius: 10%;
+    margin-bottom: 20px;
+}
+.nosotras-carrusel-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 24px;
+}
+.nosotras-carrusel-marquee {
+    overflow: hidden;
+    width: 100%;
+    max-width: 1360px;
+    height: 300px;
+    background: var(--terciary-color);
+    padding: 0;
+    position: relative;
+    border: 5px solid var(--main-color);
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+    margin: 0 auto 24px auto;
+    display: flex;
+    justify-content: center;
+}
+.nosotras-carrusel-marquee-inner {
+    display: flex;
+    gap: 5px;
+    height: 100%;
+    animation: nosotras-marquee 60s linear infinite;
+    will-change: transform;
+    backface-visibility: hidden;
+}
+.nosotras-carrusel-marquee-inner img {
+    height: 100%;
+    width: auto;
+    object-fit: cover;
+    display: block;
+    flex-shrink: 0;
+    border-radius: 10%;
+}
+@keyframes nosotras-marquee {
+    0%   { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+}
+@media (max-width: 900px) {
+    .nosotras-carrusel-marquee {
+        min-height: 120px;
+        max-height: 120px;
+        height: 120px;
+        padding: 0;
+    }
+    .nosotras-carrusel-marquee-inner img {
+        height: 90px;
+        width: 90px;
+    }
+}
+@media (max-width: 600px) {
+    .sobre-nosotras-titulo {
+        font-size: 27px;
+        padding: 10px;
+    }
+    .sobre-nosotras-texto {
+        font-size: 16px;
+        padding: 10px;
+        max-width: 90vw;
+    }
+    .nosotras-carrusel-marquee {
+        min-height: 130px;
+        max-height: 120px;
+        height: 70px;
+        padding: 0;
+    }
+    .nosotras-carrusel-marquee-inner img {
+        height: 120px;
+        width: 120px;
+    }
+}
+/* Animaciones scroll */
+.anim-up {
+  opacity: 0;
+  transform: translateY(-60px);
+  transition: opacity 0.8s, transform 0.8s cubic-bezier(.4,2,.6,1);
+}
+.anim-visible {
+  opacity: 1 !important;
+  transform: translateX(0) translateY(0) !important;
+}
+    `;
     document.head.appendChild(style);
+
     return section;
 }
