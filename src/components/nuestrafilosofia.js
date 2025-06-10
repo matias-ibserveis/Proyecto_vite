@@ -61,6 +61,7 @@ export function NuestraFilosofia() {
     max-width: 1300px;      /* Limita el ancho en desktop */
     margin: 40px auto;     /* Centra el bloque */
     width: 100%;           /* Ocupa todo el ancho disponible */
+    border: 6px solid var(--main-color);
 }
 .filosofia-titulo {
     position: relative;
@@ -96,6 +97,9 @@ export function NuestraFilosofia() {
     color: #555;
     word-break: break-all;  
     overflow-wrap: break-word;
+    background-color: rgba(0, 0, 0, 0.06);
+    border-radius: 15px;
+    padding: 20px;
 }
 .info-image {
     flex: 1;
