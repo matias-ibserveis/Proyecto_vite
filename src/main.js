@@ -76,4 +76,7 @@ app.append(Info_Cestas());
 
   // Botón flotante de WhatsApp
   // app.append(BotonVerde());
+window.addEventListener('load', () => {
+  window.scrollTo(0, 0);
+});
 })();
