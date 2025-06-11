@@ -7,7 +7,6 @@ import { Productos } from './components/productos.js';
 import { NuestraHistoria } from './components/nuestrahistoria.js';
 import { DondeOcurre } from './components/dondeocurre.js';
 import { Comentarios } from './components/comentarios.js';
-import { direccion } from './components/direccion.js';
 import { BotonVerde } from './components/botonwhatsapp.js';
 import { Contacto} from './components/contacto.js';
 import { EmpanadaBanner } from './components/EmpanadaBanner.js';
@@ -44,9 +43,6 @@ import { Footer } from './components/Footer.js';
 
   // Servivios
     app.append(Servicios());
-
-  // Sección de dirección
-    app.append(direccion());
 
   // Sección de contacto
     app.append(Contacto());
