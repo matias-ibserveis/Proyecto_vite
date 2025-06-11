@@ -5,17 +5,17 @@ export function DondeOcurre() {
     dondeOcurre.innerHTML = `  
         <h2 class="lugar-titulo3 anim-down">Donde Ocurre la Magia...</h2>
         <div class="video-container anim-down">
-            <iframe
-                id="luraVideo"
-                width="100%"
-                height="540"
-                src="https://www.youtube.com/embed/G-Wt3EwPg3E?enablejsapi=1&mute=1&autoplay=1"
-                title="Estancia Lura Mallorca"
-                frameborder="0"
-                allow="autoplay; encrypted-media"
-                allowfullscreen
-                enablejsapi=1
-            ></iframe>
+<iframe
+    id="luraVideo"
+    width="100%"
+    height="540"
+    src="https://www.youtube.com/embed/G-Wt3EwPg3E?enablejsapi=1&mute=1&autoplay=1&loop=1&playlist=G-Wt3EwPg3E"
+    title="Estancia Lura Mallorca"
+    frameborder="0"
+    allow="autoplay; encrypted-media"
+    allowfullscreen
+    enablejsapi=1
+></iframe>
         </div>
         
         <div class="row">
@@ -26,43 +26,44 @@ export function DondeOcurre() {
 
         <section class="lugar-frame lugar-frame-collapsed anim-down">
             <h2 class="lugar-titulo-encabezado2 anim-down">Zonas de LURA</h2>  
-            <div class="lugar-row anim-down">
-                <div class="lugar-img-container anim-down">
-                    <img src="/images/reseña1.jpg" alt="Foto del lugar" class="lugar-img anim-down" />
-                </div>
-                <div class="lugar-text-container anim-down">
-                    <h3 class="lugar-titulo anim-down">Título de la sección</h3>
-                    <p class="lugar-texto anim-down">
-                        Aquí va el texto descriptivo del lugar, puedes poner lo que quieras sobre la foto de la izquierda.
-                    </p>
-                </div>
-            </div>
+<div class="lugar-row anim-down">
+    <div class="lugar-img-container anim-down">
+        <img src="/images/reseña1.jpg" alt="Foto del lugar" class="lugar-img anim-down" />
+    </div>
+    <div class="lugar-text-container anim-down">
+        <h3 class="lugar-titulo anim-down">Título de la sección</h3>
+        <p class="lugar-texto anim-down">
+            Aquí va el texto descriptivo del lugar, puedes poner lo que quieras sobre la foto de la izquierda.
+        </p>
+    </div>
+</div>
 
 
-            <div class="lugar-row anim-down">
-                <div class="lugar-img-container anim-down">
-                    <img src="/images/reseña1.jpg" alt="Foto del lugar" class="lugar-img anim-down" />
-                </div>
-                <div class="lugar-text-container anim-down">
-                    <h3 class="lugar-titulo anim-down">Título de la sección</h3>
-                    <p class="lugar-texto anim-down">
-                        Aquí va el texto descriptivo del lugar, puedes poner lo que quieras sobre la foto de la izquierda.
-                    </p>
-                </div>
-            </div>
+<div class="lugar-row anim-down">
+    <div class="lugar-img-container anim-down">
+        <img src="/images/reseña1.jpg" alt="Foto del lugar" class="lugar-img anim-down" />
+    </div>
+    <div class="lugar-text-container anim-down">
+        <h3 class="lugar-titulo anim-down">Título de la sección</h3>
+        <p class="lugar-texto anim-down">
+            Aquí va el texto descriptivo del lugar, puedes poner lo que quieras sobre la foto de la izquierda.
+        </p>
+    </div>
+</div>
 
 
-            <div class="lugar-row anim-down">
-                <div class="lugar-img-container anim-down">
-                    <img src="/images/reseña1.jpg" alt="Foto del lugar" class="lugar-img anim-down" />
-                </div>
-                <div class="lugar-text-container anim-down">
-                    <h3 class="lugar-titulo anim-down">Título de la sección</h3>
-                    <p class="lugar-texto anim-down">
-                        Aquí va el texto descriptivo del lugar, puedes poner lo que quieras sobre la foto de la izquierda.
-                    </p>
-                </div>
-            </div>
+<div class="lugar-row anim-down">
+    <div class="lugar-img-container anim-down">
+        <img src="/images/reseña1.jpg" alt="Foto del lugar" class="lugar-img anim-down" />
+    </div>
+    <div class="lugar-text-container anim-down">
+        <h3 class="lugar-titulo anim-down">Título de la sección</h3>
+        <p class="lugar-texto anim-down">
+            Aquí va el texto descriptivo del lugar, puedes poner lo que quieras sobre la foto de la izquierda.
+        </p>
+    </div>
+</div>
+
         </section>
         <hr class="divider anim-down" />
     `;
@@ -75,7 +76,6 @@ export function DondeOcurre() {
     font-weight: 700;
     color: white;
     border: none;
-    margin-top: 200px;
     margin-bottom: 0;
     background-attachment: fixed;
     background-color: var(--main-color) !important;
@@ -102,13 +102,12 @@ export function DondeOcurre() {
     justify-content: center;
     align-items: center;
     width: 100%;
-    max-width: 2500px; /* Más grande aún */
+    max-width: 2500px;
     border: 9px solid var(--main-color);
     border-radius: 16px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.4);
-    background: var(--main-color); /* Cambiado de #000 a var(--main-color) */
+    background: var(--main-color);
 }
-
 .video-container iframe {
     width: 100%;
     aspect-ratio: 16 / 9;
@@ -117,7 +116,7 @@ export function DondeOcurre() {
     display: block;
     max-width: 100%;
     height: auto;
-    min-height: 735px; /* Más alto el video */
+    min-height: 735px;
 }
 .lugar-toggle-btn {
     margin-top: 10px;
@@ -159,7 +158,7 @@ export function DondeOcurre() {
     overflow: hidden;
     transition: max-height 0.7s cubic-bezier(.4,2,.6,1), opacity 0.5s, padding 0.5s;
     opacity: 1;
-    max-height: 2200px;
+    max-height: 2650px;
     padding: 5rem 1rem;
 }
 .lugar-frame-collapsed {
@@ -174,11 +173,11 @@ export function DondeOcurre() {
 }
 .lugar-row {
     display: flex;
+    flex-direction: column;
     align-items: center;
-    justify-content: center;
-    gap: 4rem;
-    margin-bottom: 10rem;
-    margin-top: 4rem;
+    gap: 2rem;
+    margin-bottom: 3rem;
+    margin-top: 2rem;
 }
 .lugar-img-container {
     flex: 1 1 350px;
@@ -193,6 +192,7 @@ export function DondeOcurre() {
     box-shadow: 0 2px 8px rgba(0,0,0,0.4);
     border: 3px solid var(--main-color);
     object-fit: cover;
+    cursor: zoom-in;
 }
 .lugar-text-container {
     flex: 1 1 350px;
@@ -211,14 +211,14 @@ export function DondeOcurre() {
 }
 .lugar-titulo-encabezado2 {
     font-family: 'Aloja Extended', sans-serif;
-    font-size: 3.0rem; /* Antes 3.5rem, ahora más grande */
+    font-size: 3.0rem;
     margin-bottom: 0.5rem;
     color: rgb(255, 255, 255);
     background-attachment: fixed;
     background-color: var(--main-color) !important;
     display: inline-block;
     border-radius: 10px;
-    padding: 22px 40px; /* Más padding para acompañar el tamaño */
+    padding: 22px 40px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.4);
     text-align: center;
 }
@@ -232,12 +232,41 @@ export function DondeOcurre() {
     padding: 20px;
     margin-bottom: 8rem;
 }
+
+/* Lightbox */
+.lightbox-servicio {
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    left: 0; top: 0;
+    width: 100vw; height: 100vh;
+    background: rgba(0,0,0,0.7);
+    align-items: center;
+    justify-content: center;
+}
+.lightbox-servicio.active {
+    display: flex;
+}
+.lightbox-servicio img {
+    max-width: 80vw;
+    max-height: 80vh;
+    width: auto;
+    height: auto;
+    border-radius: 18px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+    background: #fff;
+    padding: 12px;
+    display: block;
+    margin: auto;
+    border: none !important;
+}
+
+/* Responsive */
 @media (max-width: 768px) {
     .lugar-titulo-encabezado {
         font-size: 1.5rem;
         padding: 12px 10px;
     }
-@media (max-width: 768px) {
     .video-container {
         max-width: 100%;
         padding: 0;
@@ -252,10 +281,8 @@ export function DondeOcurre() {
         display: block;
         border-radius: 8px;
         pointer-events: none;
-        background: #000; /* Fondo negro para evitar parpadeos */
+        background: #000;
     }
-}
-}
     .lugar-row {
         flex-direction: column !important;
         gap: 2rem;
@@ -311,12 +338,11 @@ export function DondeOcurre() {
     opacity: 1 !important;
     transform: translateX(0) translateY(0) !important;
 }
-
-    .video-container iframe {
-        height: 220px;
-        border-radius: 8px;
-        pointer-events: none; /* El video no se puede tocar en móvil */
-    }
+.video-container iframe {
+    height: 220px;
+    border-radius: 8px;
+    pointer-events: none;
+}
     `;
 
     document.head.appendChild(style);
@@ -377,6 +403,25 @@ export function DondeOcurre() {
         }, { threshold: 0.5 });
         observer.observe(video);
     }, 0);
+
+// Lightbox para imágenes de .lugar-img
+const lightbox = document.createElement('div');
+lightbox.className = 'lightbox-servicio';
+lightbox.innerHTML = `<img id="lightbox-img-lugar" src="" alt="Imagen ampliada">`;
+document.body.appendChild(lightbox);
+
+const lightboxImg = lightbox.querySelector('img');
+dondeOcurre.querySelectorAll('.lugar-img').forEach(img => {
+    img.style.cursor = 'zoom-in';
+    img.addEventListener('click', () => {
+        lightboxImg.src = img.src;
+        lightbox.classList.add('active');
+    });
+});
+lightbox.addEventListener('click', () => {
+    lightbox.classList.remove('active');
+    lightboxImg.src = '';
+});
 
     return dondeOcurre;
 }

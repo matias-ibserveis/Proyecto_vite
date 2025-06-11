@@ -7,7 +7,7 @@
   font-weight: 400;
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  background-color: #ffffff;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -24,6 +24,11 @@ a:hover {
 }
 
 body {
+        background-image: url('/images/Fondo_WEB.jpg');
+        background-repeat: repeat;
+        background-size: auto;
+
+        
   margin: 0;
   display: flex;
   place-items: center;
@@ -32,6 +37,8 @@ body {
   min-width: 320px;
   min-height: 100vh;
 }
+
+
 
 h1 {
   font-size: 3.2em;
@@ -268,13 +275,11 @@ html, body {
   .divider {
       margin-top: 300px;
       margin-bottom: 300px;  
-      margin-right: 0 !important;
-      margin-left: calc(-50vw + 50%);
       width: 100vw !important;
       border: none;
       height: 2px;
-      background: rgba(255, 238, 0, 0.09); 
-      background-color: rgba(255, 238, 0, 0.09);
+      border-top: 3px dashed rgba(0, 0, 0, 0.07); /* Línea de rayitas negras */
+      background-color: rgba(0, 0, 0, 0);
   }
 
   

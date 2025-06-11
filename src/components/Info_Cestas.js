@@ -292,6 +292,36 @@ export function Info_Cestas() {
     box-shadow: 0 2px 8px rgba(0,0,0,0.4);
     width: 70%;
 }
+
+
+.lightbox-servicio {
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    left: 0; top: 0;
+    width: 100vw; height: 100vh;
+    background: rgba(0,0,0,0.7);
+    align-items: center;
+    justify-content: center;
+}
+.lightbox-servicio.active {
+    display: flex;
+}
+.lightbox-servicio img {
+    max-width: 80vw;
+    max-height: 80vh;
+    width: auto;
+    height: auto;
+    border-radius: 18px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+    background: rgba(0, 0, 0, 0.8);
+    padding: 12px;
+    display: block;
+    margin: auto;
+    
+}
+
+
 /* --- Carrusel CESTAS (SOBREESCRIBE lo anterior) --- */
 .carrusel-marquee {
     overflow: hidden;
@@ -368,5 +398,26 @@ export function Info_Cestas() {
     `;
     document.head.appendChild(style);
 
+    const lightbox = document.createElement('div');
+lightbox.id = 'lightbox-cesta';
+lightbox.className = 'lightbox-servicio';
+lightbox.innerHTML = `<img id="lightbox-img-cesta" src="" alt="Imagen ampliada">`;
+document.body.appendChild(lightbox);
+
+const cestaSemanalImg = section.querySelector('.info-cestas-foto');
+const lightboxImg = document.getElementById('lightbox-img-cesta');
+
+if (cestaSemanalImg) {
+    cestaSemanalImg.style.cursor = 'zoom-in';
+    cestaSemanalImg.addEventListener('click', () => {
+        lightboxImg.src = cestaSemanalImg.src;
+        lightbox.classList.add('active');
+    });
+}
+
+lightbox.addEventListener('click', () => {
+    lightbox.classList.remove('active');
+    lightboxImg.src = '';
+});
     return section;
 }

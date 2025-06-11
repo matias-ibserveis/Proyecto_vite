@@ -147,6 +147,32 @@ export function SobreNosotras() {
     0%   { transform: translateX(0); }
     100% { transform: translateX(-50%); }
 }
+
+.lightbox-servicio {
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    left: 0; top: 0;
+    width: 100vw; height: 100vh;
+    background: rgba(0,0,0,0.7);
+    align-items: center;
+    justify-content: center;
+}
+.lightbox-servicio.active {
+    display: flex;
+}
+.lightbox-servicio img {
+    max-width: 80vw;
+    max-height: 80vh;
+    width: auto;
+    height: auto;
+    border-radius: 18px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+    background: #fff;
+    padding: 12px;
+    display: block;
+    margin: auto;
+}
 @media (max-width: 900px) {
     .nosotras-carrusel-marquee {
         min-height: 120px;
@@ -192,6 +218,29 @@ export function SobreNosotras() {
 }
     `;
     document.head.appendChild(style);
+
+
+    const lightbox = document.createElement('div');
+lightbox.id = 'lightbox-nosotras';
+lightbox.className = 'lightbox-servicio';
+lightbox.innerHTML = `<img id="lightbox-img-nosotras" src="" alt="Imagen ampliada">`;
+document.body.appendChild(lightbox);
+
+const fotoPrincipal = section.querySelector('.info-nosotras-foto');
+const lightboxImg = document.getElementById('lightbox-img-nosotras');
+
+if (fotoPrincipal) {
+    fotoPrincipal.style.cursor = 'zoom-in';
+    fotoPrincipal.addEventListener('click', () => {
+        lightboxImg.src = fotoPrincipal.src;
+        lightbox.classList.add('active');
+    });
+}
+
+lightbox.addEventListener('click', () => {
+    lightbox.classList.remove('active');
+    lightboxImg.src = '';
+});
 
     return section;
 }

@@ -14,12 +14,14 @@ import { Footer } from './components/Footer.js';
 import { Servicios } from './components/servicios.js';
 import { NuestraHistoria } from './components/nuestrahistoria.js';
 
+  window.scrollTo(0, 0);
 (async () => {
   app.append(Navbar());
   app.append(EmpanadaBanner());
   app.append(SobreNosotras());
   app.append(NuestraFilosofia());
   app.append(Info_Cestas());
+  app.append(Servicios());
   app.append(DondeOcurre());
   app.append(Talleres());
   app.append(Comentarios());
@@ -28,8 +30,6 @@ import { NuestraHistoria } from './components/nuestrahistoria.js';
   app.append(Footer());
   app.append(BotonVerde());
 
-  //app.append(direccion());
-  //app.append(Servicios());
   //app.append(NuestraHistoria());
 
   window.addEventListener('load', () => {
