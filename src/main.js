@@ -10,6 +10,7 @@ import { Comentarios } from './components/comentarios.js';
 import { BotonVerde } from './components/botonwhatsapp.js';
 import { Contacto} from './components/contacto.js';
 import { EmpanadaBanner } from './components/EmpanadaBanner.js';
+import { Servicios } from './components/Servicios.js';
 import { Footer } from './components/Footer.js';
 import { Info_Cestas } from './components/Info_Cestas.js';
 import { ListaCesta } from './components/verListasCestas.js';
@@ -19,18 +20,18 @@ import { direccion } from './components/direccion.js';
 
 (async () => {
   // Navbar
-  app.append(Navbar());
+    app.append(Navbar());
 
   // Apartado Sobre Nosotras
-  app.append(SobreNosotras());
+    app.append(SobreNosotras());
   
   // Carrusel de productos destacados (Header)
   const productosPortada = await CarouselProductos();
   app.append(productosPortada);
 
   // Sección de productos
-  const productos = await Productos();
-  app.append(productos);
+    const productos = await Productos();
+    app.append(productos);
 
   
   app.append(tituloCestas());
@@ -46,24 +47,25 @@ import { direccion } from './components/direccion.js';
   app.append(NuestraFilosofia());
 
   // Carrusel de reseñas (Comentarios)
-  //app.append(Comentarios());
+    //app.append(Comentarios());
 
-    // Nuestra Historia
-   // app.append(NuestraHistoria());
+  // Nuestra Historia
+    // app.append(NuestraHistoria());
   
-    // Sección Donde ocurre la magia
+  // Sección Donde ocurre la magia
     app.append(DondeOcurre());
 
-      // Sección Dirección
-      //app.append(direccion());
+  // Servivios
+    app.append(Servicios());
 
   // Sección de contacto
-  app.append(Contacto());
+    app.append(Contacto());
 
   // Botón flotante de WhatsApp
-  app.append(BotonVerde());
+    app.append(BotonVerde());
 
-  //EmpanadaBanner(); // <-- Añade esta línea
+  // Empanadas
+    EmpanadaBanner(); // <-- Añade esta línea
 })();
 
 
