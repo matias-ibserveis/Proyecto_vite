@@ -56,10 +56,10 @@ import { direccion } from './components/direccion.js';
     app.append(DondeOcurre());
 
   // Servivios
-    app.append(Servicios());
+   // app.append(Servicios());
 
   // Sección de contacto
-    app.append(Contacto());
+   app.append(Contacto());
 
   // Botón flotante de WhatsApp
     app.append(BotonVerde());

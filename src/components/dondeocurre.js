@@ -17,7 +17,7 @@ export function DondeOcurre() {
                 </button>
                 <div class="section-content" id="columna1">
                     <div class="content-inner">
-                        <h1 class="titulo">Sección Productos</h1>
+                        <h1 class="titulo">Servicios</h1>
                         <p>Este es el contenido expandido de la primera columna. Aquí puedes añadir más detalles sobre los productos.</p>
                         <button class="btn btn-secondary hide-btn">Ocultar info extra</button>
                     </div>
