@@ -424,5 +424,49 @@ nav.querySelectorAll('.nav-link').forEach(link => {
     }
   });
 });
+
+// Mostrar/ocultar navbar en móvil según scroll
+let lastScrollY = window.scrollY;
+let ticking = false;
+
+function handleMobileNavbarScroll() {
+  if (window.innerWidth >= 1201) {
+    nav.style.top = '0'; // Siempre visible en desktop
+    return;
+  }
+  const currentScrollY = window.scrollY;
+  if (currentScrollY > lastScrollY && currentScrollY > 60) {
+    // Scroll hacia abajo, ocultar navbar
+    nav.style.top = '-120px';
+  } else {
+    // Scroll hacia arriba, mostrar navbar
+    nav.style.top = '0';
+  }
+  lastScrollY = currentScrollY;
+}
+
+window.addEventListener('scroll', function () {
+  if (!ticking) {
+    window.requestAnimationFrame(() => {
+      handleMobileNavbarScroll();
+      ticking = false;
+    });
+    ticking = true;
+  }
+});
+
+// Asegura el estado correcto al cambiar tamaño de ventana
+window.addEventListener('resize', () => {
+  if (window.innerWidth >= 1201) {
+    nav.style.top = '0';
+  }
+});
+
+// Inicializa el estado
+if (window.innerWidth < 1201) {
+  nav.style.transition = 'top 0.3s';
+  nav.style.top = '0';
+}
+
 return nav;
 }

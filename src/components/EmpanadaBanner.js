@@ -120,18 +120,18 @@ function injectEmpanadasStyles() {
     }
 
     /* SOLO MOVIL */
-    @media (max-width: 600px) {
-      .empanadas-banner {
-        width: 96vw;
-        min-width: unset;
-        max-width: 99vw;
-        left: 50%;
-        top: 10vh;
-        transform: translate(-50%, 0);
-        padding: 10px 2vw;
-        font-size: 1rem;
-        border-radius: 10px;
-      }
+@media (max-width: 600px) {
+  .empanadas-banner {
+    width: 96vw;
+    min-width: unset;
+    max-width: 99vw;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    padding: 10px 2vw;
+    font-size: 1rem;
+    border-radius: 10px;
+  }
       .empanadas-banner-img {
         width: 80px;
         height: 80px;

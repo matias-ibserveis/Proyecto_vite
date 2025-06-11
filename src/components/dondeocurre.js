@@ -3,23 +3,19 @@ export function DondeOcurre() {
     dondeOcurre.className = "container py-5";
     dondeOcurre.id = "dondeocurre";
     dondeOcurre.innerHTML = `  
-        <div class="row anim-down">
-            <div class="col-12 text-center anim-down">
-                <h2 class="lugar-titulo-encabezado anim-down">¿Dónde ocurre la magia?</h2>  
-                <div class="video-container anim-down">
-                    <iframe
-                        id="luraVideo"
-                        width="1387"
-                        height="780"
-                        src="https://www.youtube.com/embed/G-Wt3EwPg3E?enablejsapi=1&mute=1"
-                        title="Estancia Lura Mallorca"
-                        frameborder="0"
-                        allow="autoplay; encrypted-media"
-                        allowfullscreen
-                        enablejsapi=1
-                    ></iframe>
-                </div>
-            </div>
+        <h2 class="lugar-titulo3 anim-down">Donde Ocurre la Magia...</h2>
+        <div class="video-container anim-down">
+            <iframe
+                id="luraVideo"
+                width="100%"
+                height="540"
+                src="https://www.youtube.com/embed/G-Wt3EwPg3E?enablejsapi=1&mute=1&autoplay=1"
+                title="Estancia Lura Mallorca"
+                frameborder="0"
+                allow="autoplay; encrypted-media"
+                allowfullscreen
+                enablejsapi=1
+            ></iframe>
         </div>
         
         <div class="row">
@@ -41,17 +37,21 @@ export function DondeOcurre() {
                     </p>
                 </div>
             </div>
+
+
             <div class="lugar-row anim-down">
-                <div class="lugar-text-container anim-down">
-                    <h3 class="lugar-titulo anim-down">Otro título</h3>
-                    <p class="lugar-texto anim-down">
-                        Aquí va el texto descriptivo de la segunda sección, ahora el texto está a la izquierda y la foto a la derecha.
-                    </p>
-                </div>
                 <div class="lugar-img-container anim-down">
                     <img src="/images/reseña1.jpg" alt="Foto del lugar" class="lugar-img anim-down" />
                 </div>
+                <div class="lugar-text-container anim-down">
+                    <h3 class="lugar-titulo anim-down">Título de la sección</h3>
+                    <p class="lugar-texto anim-down">
+                        Aquí va el texto descriptivo del lugar, puedes poner lo que quieras sobre la foto de la izquierda.
+                    </p>
+                </div>
             </div>
+
+
             <div class="lugar-row anim-down">
                 <div class="lugar-img-container anim-down">
                     <img src="/images/reseña1.jpg" alt="Foto del lugar" class="lugar-img anim-down" />
@@ -69,6 +69,56 @@ export function DondeOcurre() {
 
     const style = document.createElement('style');
     style.innerHTML = `
+.lugar-titulo3 {
+    font-family: 'Aloja Extended', sans-serif;
+    font-size: 2rem;
+    font-weight: 700;
+    color: white;
+    border: none;
+    margin-top: 200px;
+    margin-bottom: 0;
+    background-attachment: fixed;
+    background-color: var(--main-color) !important;
+    display: inline-block;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+}
+.lugar-titulo-encabezado {
+    font-family: 'Aloja Extended', sans-serif;
+    font-size: 2.5rem;
+    margin-bottom: 1.5rem;
+    color: #fff;
+    background-color: var(--main-color) !important;
+    display: inline-block;
+    border-radius: 10px;
+    padding: 18px 32px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+    text-align: center;
+}
+.video-container {
+    margin: 2rem auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    max-width: 2500px; /* Más grande aún */
+    border: 9px solid var(--main-color);
+    border-radius: 16px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+    background: var(--main-color); /* Cambiado de #000 a var(--main-color) */
+}
+
+.video-container iframe {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    border-radius: 12px;
+    border: none;
+    display: block;
+    max-width: 100%;
+    height: auto;
+    min-height: 735px; /* Más alto el video */
+}
 .lugar-toggle-btn {
     margin-top: 10px;
     font-size: 1.3rem;
@@ -98,7 +148,6 @@ export function DondeOcurre() {
     background-color: #6a2800 !important;
     filter: brightness(0.85);
 }
-
 .lugar-frame {
     max-width: 1100px;
     margin: 40px auto;
@@ -110,7 +159,7 @@ export function DondeOcurre() {
     overflow: hidden;
     transition: max-height 0.7s cubic-bezier(.4,2,.6,1), opacity 0.5s, padding 0.5s;
     opacity: 1;
-    max-height: 2000px;
+    max-height: 2200px;
     padding: 5rem 1rem;
 }
 .lugar-frame-collapsed {
@@ -119,7 +168,9 @@ export function DondeOcurre() {
     padding-top: 0;
     padding-bottom: 0;
     pointer-events: none;
-    transition: max-height 0.7s cubic-bezier(.4,2,.6,1), opacity 0.5s, padding 0.5s;
+    border: none !important;
+    background: transparent !important;
+    transition: max-height 0.7s cubic-bezier(.4,2,.6,1), opacity 0.5s, padding 0.5s, border 0.3s, background 0.3s;
 }
 .lugar-row {
     display: flex;
@@ -136,7 +187,7 @@ export function DondeOcurre() {
 }
 .lugar-img {
     width: 100%;
-    width: 600px;
+    max-width: 600px;
     height: 400px;
     border-radius: 18px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.4);
@@ -158,29 +209,18 @@ export function DondeOcurre() {
     padding: 15px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.4);
 }
-.lugar-titulo-encabezado {
-    font-family: 'Aloja Extended', sans-serif;
-    font-size: 32px;
-    margin-bottom: 1rem;
-    color:rgb(255, 255, 255);
-    background-attachment: fixed;
-    background-color: var(--main-color) !important;
-    display: inline-block;
-    border-radius: 10px;
-    padding: 15px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.4);
-}
 .lugar-titulo-encabezado2 {
     font-family: 'Aloja Extended', sans-serif;
-    font-size: 40px;
+    font-size: 3.0rem; /* Antes 3.5rem, ahora más grande */
     margin-bottom: 0.5rem;
-    color:rgb(255, 255, 255);
+    color: rgb(255, 255, 255);
     background-attachment: fixed;
     background-color: var(--main-color) !important;
     display: inline-block;
     border-radius: 10px;
-    padding: 15px;
+    padding: 22px 40px; /* Más padding para acompañar el tamaño */
     box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+    text-align: center;
 }
 .lugar-texto {
     font-family: "Hanken Grotesk", sans-serif;
@@ -190,27 +230,81 @@ export function DondeOcurre() {
     background-color: rgba(0, 0, 0, 0.06);
     border-radius: 15px;
     padding: 20px;
+    margin-bottom: 8rem;
 }
-.video-container {
-    margin: 2rem 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    max-width: 1400px;
-    border: 9px solid var(--main-color);
-    border-radius: 10px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+@media (max-width: 768px) {
+    .lugar-titulo-encabezado {
+        font-size: 1.5rem;
+        padding: 12px 10px;
+    }
+@media (max-width: 768px) {
+    .video-container {
+        max-width: 100%;
+        padding: 0;
+        border-width: 5px;
+    }
+    .video-container iframe {
+        width: 100%;
+        height: auto;
+        aspect-ratio: 16 / 9;
+        min-height: unset;
+        max-height: 60vw;
+        display: block;
+        border-radius: 8px;
+        pointer-events: none;
+        background: #000; /* Fondo negro para evitar parpadeos */
+    }
 }
-.video-container iframe {
-    width: 100%;
-    max-width: 1400px;
-    pointer-events: none;
 }
-
+    .lugar-row {
+        flex-direction: column !important;
+        gap: 2rem;
+        margin-bottom: 3rem;
+        margin-top: 2rem;
+        align-items: center;
+    }
+    .lugar-img-container,
+    .lugar-text-container {
+        max-width: 100%;
+        flex: unset;
+    }
+    .lugar-img {
+        width: 90vw;
+        max-width: 350px;
+        height: auto;
+        min-width: 0;
+        min-height: 0;
+        margin-bottom: 1rem;
+    }
+    .lugar-titulo {
+        font-size: 1.2rem;
+        text-align: center;
+        padding: 10px;
+    }
+    .lugar-texto {
+        font-size: 1rem;
+        padding: 1rem;
+        text-align: center;
+    }
+}
 .anim-down {
     opacity: 0;
     transform: translateY(60px);
+    transition: opacity 0.8s, transform 0.8s cubic-bezier(.4,2,.6,1);
+}
+.anim-up {
+    opacity: 0;
+    transform: translateY(-60px);
+    transition: opacity 0.8s, transform 0.8s cubic-bezier(.4,2,.6,1);
+}
+.anim-left {
+    opacity: 0;
+    transform: translateX(-60px);
+    transition: opacity 0.8s, transform 0.8s cubic-bezier(.4,2,.6,1);
+}
+.anim-right {
+    opacity: 0;
+    transform: translateX(60px);
     transition: opacity 0.8s, transform 0.8s cubic-bezier(.4,2,.6,1);
 }
 .anim-visible {
@@ -218,54 +312,14 @@ export function DondeOcurre() {
     transform: translateX(0) translateY(0) !important;
 }
 
-.lugar-frame-collapsed {
-    opacity: 0;
-    max-height: 0;
-    padding-top: 0;
-    padding-bottom: 0;
-    padding-left: 0;
-    padding-right: 0;
-    pointer-events: none;
-    border: none !important;
-    background: transparent !important;
-    transition: max-height 0.7s cubic-bezier(.4,2,.6,1), opacity 0.5s, padding 0.5s, border 0.3s, background 0.3s;
-}
-
-
-
-// 
-@media (max-width: 900px) {
-    .lugar-toggle-btn {
-        position: relative;
-        z-index: 20; /* sube el botón por encima del video */
-        margin-top: 24px;
-        margin-bottom: 24px;
-    }
-    .video-container {
-        position: relative;
-        z-index: 1;
-        max-width: 95vw;
-        margin-left: auto;
-        margin-right: auto;
-        margin-bottom: 16px;
-    }
     .video-container iframe {
-        width: 100%;
-        max-width: 95vw;
-        height: 200px;
-        position: relative;
-        z-index: 10;
+        height: 220px;
+        border-radius: 8px;
+        pointer-events: none; /* El video no se puede tocar en móvil */
     }
-}
-@media (max-width: 700px) {
-    .video-container iframe {
-        height: 180px;
-    }
-}
     `;
 
-
-        document.head.appendChild(style);
+    document.head.appendChild(style);
 
     // Animación y lógica del botón
     setTimeout(() => {
