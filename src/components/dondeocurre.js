@@ -79,6 +79,8 @@ export function DondeOcurre() {
             min-height: 100px;
             position: relative;
             overflow: hidden;
+            padding: 10px;
+            box-sizing: border-box;
         }
 
         .section-title {
@@ -144,6 +146,20 @@ export function DondeOcurre() {
         .margins {
             margin-bottom: 20px;
             margin-top: 20px;
+        }
+
+        /* Responsive para móviles */
+        @media (max-width: 768px) {
+            .row.mt-3 {
+                display: flex;
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .section-container {
+                width: 100% !important;
+                margin: 0 auto;
+            }
         }
     `;
     document.head.appendChild(style);
