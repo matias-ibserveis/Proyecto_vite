@@ -30,7 +30,8 @@ body {
   margin: 0;
   min-width: 320px;
   min-height: 100vh;
-  /* Elimina flex y centrados */
+    display: flex;
+  flex-direction: column;
 }
 
 
@@ -56,13 +57,14 @@ h3 {
   margin-right: auto;
   width: 100%;
   max-width: 1360px;
-  padding: 1rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  padding-top: 0;
   padding-bottom: 0;
   text-align: center;
   flex: 1 0 auto;
   box-sizing: border-box;
 }
-
 .logo {
   height: 6em;
   padding: 1.5em;
@@ -294,9 +296,6 @@ body {
   min-height: 100vh;
 }
 
-#app {
-  flex: 1 0 auto;
-}
 
 .final_legal {
   flex-shrink: 0;

@@ -171,18 +171,27 @@ export function Navbar() {
       from { opacity: 1; transform: translateY(0);}
       to { opacity: 0; transform: translateY(-10px);}
     }
-@media (min-width: 992px) {
-  .navbar-links.show .nav-item { opacity: 0; animation: fadeInMenuLink 0.5s forwards;}
-  .navbar-links.show .nav-item:nth-child(1) { animation-delay: 0.05s; }
-  .navbar-links.show .nav-item:nth-child(2) { animation-delay: 0.12s; }
-  .navbar-links.show .nav-item:nth-child(3) { animation-delay: 0.19s; }
-  .navbar-links.show .nav-item:nth-child(4) { animation-delay: 0.26s; }
-  .navbar-links.show .nav-item:nth-child(5) { animation-delay: 0.33s; }
-  .navbar-links.show .nav-item:nth-child(6) { animation-delay: 0.40s; }
-  .navbar-links.show .nav-item:nth-child(7) { animation-delay: 0.47s; }
-  .navbar-links.show .nav-item:nth-child(8) { animation-delay: 0.54s; }
-  .navbar-links.show .nav-item:nth-child(9) { animation-delay: 0.61s; }
-}
+    @media (min-width: 992px) {
+      .navbar-links:not(.show):not(.hiding) .nav-item { opacity: 1; animation: none;}
+      .navbar-links.show .nav-item { opacity: 0; animation: fadeInMenuLink 0.5s forwards;}
+      .navbar-links.show .nav-item:nth-child(1) { animation-delay: 0.05s; }
+      .navbar-links.show .nav-item:nth-child(2) { animation-delay: 0.12s; }
+      .navbar-links.show .nav-item:nth-child(3) { animation-delay: 0.19s; }
+      .navbar-links.show .nav-item:nth-child(4) { animation-delay: 0.26s; }
+      .navbar-links.show .nav-item:nth-child(5) { animation-delay: 0.33s; }
+      .navbar-links.show .nav-item:nth-child(6) { animation-delay: 0.40s; }
+      .navbar-links.show .nav-item:nth-child(7) { animation-delay: 0.47s; }
+      .navbar-links.show .nav-item:nth-child(8) { animation-delay: 0.54s; }
+      .navbar-links.hiding .nav-item { opacity: 1; animation: fadeOutMenuLink 0.4s forwards;}
+      .navbar-links.hiding .nav-item:nth-child(1) { animation-delay: 0.05s; }
+      .navbar-links.hiding .nav-item:nth-child(2) { animation-delay: 0.12s; }
+      .navbar-links.hiding .nav-item:nth-child(3) { animation-delay: 0.19s; }
+      .navbar-links.hiding .nav-item:nth-child(4) { animation-delay: 0.26s; }
+      .navbar-links.hiding .nav-item:nth-child(5) { animation-delay: 0.33s; }
+      .navbar-links.hiding .nav-item:nth-child(6) { animation-delay: 0.40s; }
+      .navbar-links.hiding .nav-item:nth-child(7) { animation-delay: 0.47s; }
+      .navbar-links.hiding .nav-item:nth-child(8) { animation-delay: 0.54s; }
+    }
     @media (max-width: 1600px) {
       .navbar-links {
         position: absolute !important;
@@ -300,7 +309,6 @@ nav.innerHTML = `
     <div class="navbar-links" style="display: none;">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item"><a class="nav-link" href="/#sobre-nosotras">Sobre Nosotras</a></li>
-        <li class="nav-item"><a class="nav-link" href="/#nuestra-historia">Nuestra Historia</a></li>
         <li class="nav-item"><a class="nav-link" href="/#nuestra-filosofia">Nuestra Filosofía</a></li>
         <li class="nav-item"><a class="nav-link nav-link-cestas" href="/#Info-Cestas">Cestas Semanales</a></li>
         <li class="nav-item"><a class="nav-link" href="/#Servicios">Servicios</a></li>
@@ -366,11 +374,10 @@ nav.innerHTML = `
 
 const NAVBAR_OFFSETS = {
   'sobre-nosotras': 130,
-  'nuestra-historia': 130,    // <-- Añade esta línea
   'nuestra-filosofia': 270,
   'Info-Cestas': 1,
   'Servicios': 130,
-  'dondeocurre': 130,         // <-- Añade esta línea
+  'Zona_de_Trabajo': 130,
   'talleres': 130,
   'reseñas': 200,
   'contacto': 0 
@@ -404,8 +411,6 @@ nav.querySelectorAll('.nav-link').forEach(link => {
         return;
       }
 
-      
-
       if (target) {
         e.preventDefault();
         // Offset configurable por sección
@@ -429,15 +434,12 @@ function handleMobileNavbarScroll() {
     nav.style.top = '0'; // Siempre visible en desktop
     return;
   }
-  // Transición suave solo si cambia el valor
-  if (!nav.style.transition) {
-    nav.style.transition = 'top 0.5s cubic-bezier(.4,0,.2,1)';
-  }
   const currentScrollY = window.scrollY;
-  // Solo cambia si realmente hay desplazamiento
   if (currentScrollY > lastScrollY && currentScrollY > 60) {
-    nav.style.top = '-110px'; // Ajusta según el alto real de tu navbar
+    // Scroll hacia abajo, ocultar navbar
+    nav.style.top = '-120px';
   } else {
+    // Scroll hacia arriba, mostrar navbar
     nav.style.top = '0';
   }
   lastScrollY = currentScrollY;
@@ -466,10 +468,5 @@ if (window.innerWidth < 1201) {
   nav.style.top = '0';
 }
 
-nav.querySelectorAll('.nav-link').forEach(link => {
-  link.addEventListener('click', function (e) {
-    console.log('Click nav-link', this.getAttribute('href')); // <-- Esto debe aparecer en la consola
-  });
-});
 return nav;
 }

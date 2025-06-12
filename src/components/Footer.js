@@ -11,7 +11,7 @@ export function Footer() {
   width:100%;
   background:#d1ab72;
   padding: 1em 0 0 0;
-  border-radius: 2em 2em 0px 0px;
+
   margin: 3rem auto 0rem auto;
   overflow: hidden;
   box-sizing: border-box;
