@@ -434,12 +434,15 @@ function handleMobileNavbarScroll() {
     nav.style.top = '0'; // Siempre visible en desktop
     return;
   }
+  // Transición suave solo si cambia el valor
+  if (!nav.style.transition) {
+    nav.style.transition = 'top 0.5s cubic-bezier(.4,0,.2,1)';
+  }
   const currentScrollY = window.scrollY;
+  // Solo cambia si realmente hay desplazamiento
   if (currentScrollY > lastScrollY && currentScrollY > 60) {
-    // Scroll hacia abajo, ocultar navbar
-    nav.style.top = '-120px';
+    nav.style.top = '-110px'; // Ajusta según el alto real de tu navbar
   } else {
-    // Scroll hacia arriba, mostrar navbar
     nav.style.top = '0';
   }
   lastScrollY = currentScrollY;
