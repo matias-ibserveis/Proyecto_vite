@@ -1,6 +1,7 @@
 export function NuestraHistoria() {
   const section = document.createElement('section');
   section.className = 'nuestra-historia';
+  section.id = 'nuestra-historia';
 section.innerHTML = `
 <div class="historia-grid">
   <div class="historia-card hist-bloque hist-bloque-1">

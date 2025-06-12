@@ -171,27 +171,30 @@ export function Navbar() {
       from { opacity: 1; transform: translateY(0);}
       to { opacity: 0; transform: translateY(-10px);}
     }
-    @media (min-width: 992px) {
-      .navbar-links:not(.show):not(.hiding) .nav-item { opacity: 1; animation: none;}
-      .navbar-links.show .nav-item { opacity: 0; animation: fadeInMenuLink 0.5s forwards;}
-      .navbar-links.show .nav-item:nth-child(1) { animation-delay: 0.05s; }
-      .navbar-links.show .nav-item:nth-child(2) { animation-delay: 0.12s; }
-      .navbar-links.show .nav-item:nth-child(3) { animation-delay: 0.19s; }
-      .navbar-links.show .nav-item:nth-child(4) { animation-delay: 0.26s; }
-      .navbar-links.show .nav-item:nth-child(5) { animation-delay: 0.33s; }
-      .navbar-links.show .nav-item:nth-child(6) { animation-delay: 0.40s; }
-      .navbar-links.show .nav-item:nth-child(7) { animation-delay: 0.47s; }
-      .navbar-links.show .nav-item:nth-child(8) { animation-delay: 0.54s; }
-      .navbar-links.hiding .nav-item { opacity: 1; animation: fadeOutMenuLink 0.4s forwards;}
-      .navbar-links.hiding .nav-item:nth-child(1) { animation-delay: 0.05s; }
-      .navbar-links.hiding .nav-item:nth-child(2) { animation-delay: 0.12s; }
-      .navbar-links.hiding .nav-item:nth-child(3) { animation-delay: 0.19s; }
-      .navbar-links.hiding .nav-item:nth-child(4) { animation-delay: 0.26s; }
-      .navbar-links.hiding .nav-item:nth-child(5) { animation-delay: 0.33s; }
-      .navbar-links.hiding .nav-item:nth-child(6) { animation-delay: 0.40s; }
-      .navbar-links.hiding .nav-item:nth-child(7) { animation-delay: 0.47s; }
-      .navbar-links.hiding .nav-item:nth-child(8) { animation-delay: 0.54s; }
-    }
+@media (min-width: 992px) {
+  .navbar-links:not(.show):not(.hiding) .nav-item { opacity: 1; animation: none;}
+  .navbar-links.show .nav-item { opacity: 0; animation: fadeInMenuLink 0.5s forwards;}
+  .navbar-links.show .nav-item:nth-child(1) { animation-delay: 0.05s; }
+  .navbar-links.show .nav-item:nth-child(2) { animation-delay: 0.12s; }
+  .navbar-links.show .nav-item:nth-child(3) { animation-delay: 0.19s; }
+  .navbar-links.show .nav-item:nth-child(4) { animation-delay: 0.26s; }
+  .navbar-links.show .nav-item:nth-child(5) { animation-delay: 0.33s; }
+  .navbar-links.show .nav-item:nth-child(6) { animation-delay: 0.40s; }
+  .navbar-links.show .nav-item:nth-child(7) { animation-delay: 0.47s; }
+  .navbar-links.show .nav-item:nth-child(8) { animation-delay: 0.54s; }
+  .navbar-links.show .nav-item:nth-child(9) { animation-delay: 0.61s; }
+
+  .navbar-links.hiding .nav-item { opacity: 1; animation: fadeOutMenuLink 0.4s forwards;}
+  .navbar-links.hiding .nav-item:nth-child(1) { animation-delay: 0.05s; }
+  .navbar-links.hiding .nav-item:nth-child(2) { animation-delay: 0.12s; }
+  .navbar-links.hiding .nav-item:nth-child(3) { animation-delay: 0.19s; }
+  .navbar-links.hiding .nav-item:nth-child(4) { animation-delay: 0.26s; }
+  .navbar-links.hiding .nav-item:nth-child(5) { animation-delay: 0.33s; }
+  .navbar-links.hiding .nav-item:nth-child(6) { animation-delay: 0.40s; }
+  .navbar-links.hiding .nav-item:nth-child(7) { animation-delay: 0.47s; }
+  .navbar-links.hiding .nav-item:nth-child(8) { animation-delay: 0.54s; }
+  .navbar-links.hiding .nav-item:nth-child(9) { animation-delay: 0.61s; }
+}
     @media (max-width: 1600px) {
       .navbar-links {
         position: absolute !important;
@@ -310,6 +313,7 @@ nav.innerHTML = `
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item"><a class="nav-link" href="/#sobre-nosotras">Sobre Nosotras</a></li>
         <li class="nav-item"><a class="nav-link" href="/#nuestra-filosofia">Nuestra Filosofía</a></li>
+        <li class="nav-item"><a class="nav-link" href="/#nuestra-historia">Nuestra Historia</a></li>
         <li class="nav-item"><a class="nav-link nav-link-cestas" href="/#Info-Cestas">Cestas Semanales</a></li>
         <li class="nav-item"><a class="nav-link" href="/#Servicios">Servicios</a></li>
         <li class="nav-item"><a class="nav-link" href="/#dondeocurre">Zona de Trabajo</a></li>
