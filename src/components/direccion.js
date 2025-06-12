@@ -48,6 +48,18 @@ direccion.innerHTML = `
             border-radius: 10px;
             font-family: Arial, sans-serif;
             text-transform: uppercase;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            text-align: center;
+            width: 100%;
+            box-sizing: border-box;
+            background-color: var(--main-color);
+            color: white;
+            padding: 10px;
+            border-radius: 10px;
+            font-family: Arial, sans-serif;
+            text-transform: uppercase;
         }
         .text-direccion {
             font-family: "Hanken Grotesk", sans-serif;
