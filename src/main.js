@@ -61,6 +61,12 @@ import { direccion } from './components/direccion.js';
   // Sección de contacto
    app.append(Contacto());
 
+   // Seccion dirección
+   app.append(direccion());
+
+      // Seccion dirección
+   app.append(Footer());
+
   // Botón flotante de WhatsApp
     app.append(BotonVerde());
 
