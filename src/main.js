@@ -15,6 +15,7 @@ import { Footer } from './components/Footer.js';
 import { Servicios } from './components/servicios.js';
 
 
+
   window.scrollTo(0, 0);
 (async () => {
   app.append(Navbar());

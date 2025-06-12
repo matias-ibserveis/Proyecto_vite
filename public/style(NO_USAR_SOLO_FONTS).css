@@ -1,0 +1,310 @@
+:root {
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  --main-color: #d1ab72;
+  --secondary-color: #6d5839;
+  --terciary-color: #feffaa;
+  line-height: 1.5;
+  font-weight: 400;
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #ffffff;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  font-weight: 500;
+  color: #646cff;
+  text-decoration: inherit;
+}
+a:hover {
+  color: #535bf2;
+}
+
+body {
+  background-image: url('/images/Fondo_WEB.jpg');
+  background-repeat: repeat;
+  background-size: auto;
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  /* Elimina flex y centrados */
+}
+
+
+
+h1 {
+  font-size: 3.2em;
+  line-height: 1.1;
+}
+
+
+h3 {
+  color: #292929;
+  text-align: left;
+  font-size: 1.6rem;
+  font-family: 'Aloja Extended', sans-serif !important;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  word-break: break-word;
+}
+
+#app {
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  max-width: 1360px;
+  padding: 1rem;
+  padding-bottom: 0;
+  text-align: center;
+  flex: 1 0 auto;
+  box-sizing: border-box;
+}
+
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+}
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+}
+.logo.vanilla:hover {
+  filter: drop-shadow(0 0 2em #f7df1eaa);
+}
+
+.card {
+  padding: 1em;
+}
+
+.read-the-docs {
+  color: #888;
+}
+
+button {
+  border-radius: 8px;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: "Hanken Grotesk", sans-serif !important;
+  font-weight: 600 !important;
+  background-color: var(--main-color) !important;
+  color: var(--secondary-color) !important;
+  border-color: var(--main-color) !important;
+  cursor: pointer;
+  transition: border-color 0.25s, background 0.25s, color 0.25s;
+}
+/* Botón de WhatsApp (La excepción) */
+.btn-aloja {
+  font-family: 'Aloja Extended', sans-serif !important;
+}
+
+button:hover {
+  border-color: var(--secondary-color) !important;
+  background-color: var(--secondary-color) !important;
+  color: var(--main-color) !important;
+}
+button:focus,
+button:focus-visible {
+  outline: 4px auto -webkit-focus-ring-color;
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    color: #213547;
+    background-color: #ffffff;
+  }
+  a:hover {
+    color: #747bff;
+  }
+  button {
+    background-color: var(--main-color) !important;
+    color: var(--secondary-color) !important;
+  }
+}
+
+
+/* Estilo para los titulos */
+.titulo {
+  color: #ffffff;
+  background: var(--main-color);
+  text-align: center;
+  border-radius: 10px;
+  margin: 4rem auto 1.5rem auto;
+  padding: 0.5em 2em 0.3em 2em;
+  font-size: 2rem;
+  font-family: 'Aloja Extended', sans-serif !important;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  display: table;
+  max-width: 100%;
+  box-sizing: border-box;
+  word-break: break-word;
+}
+
+@media (max-width: 600px) {
+  .titulo {
+    font-size: 1.6rem;
+    padding-left: 1.5em;
+    padding-right: 1.5em;
+    max-width: 100%;
+  }
+}
+
+
+
+/* BOTONES CONTACTO */
+.botones-con-enlaces,
+.botones-con-enlaces-instagram {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Aloja Extended', sans-serif;
+  font-size: 15px;
+  gap: 8px;
+  width: 300px;
+  height: 80px;
+  margin: 0 auto 12px auto;
+  padding: 0 10px;
+  box-sizing: border-box;
+}
+
+.botones-con-enlaces img,
+.botones-con-enlaces-instagram img {
+  width: 32px;
+  height: 32px;
+}
+
+.botones-con-enlaces p,
+.botones-con-enlaces-instagram p {
+  margin: 0;
+  font-size: 15px;
+  font-family: "Hanken Grotesk", sans-serif !important;
+  word-break: break-word;
+  white-space: normal;
+}
+
+/* Responsive para móvil */
+@media (max-width: 600px) {
+  .botones-con-enlaces,
+  .botones-con-enlaces-instagram {
+    width: 92vw;
+    max-width: 98vw;
+    height: 38px;
+    font-size: 15px;
+    gap: 6px;
+    padding: 0 4vw;
+  }
+  .botones-con-enlaces img {
+    width: 25px;
+    height: 25px;
+  }
+  .botones-con-enlaces-instagram img {
+    width: 20px;
+    height: 20px;
+  }
+  .botones-con-enlaces p,
+  .botones-con-enlaces-instagram p {
+    font-family: 'Hanken Grotesk', sans-serif !important;
+    font-size: 13px;
+  }
+}
+
+.botones-flex {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: stretch;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 600px) {
+  .botones-flex {
+    flex-direction: column;
+    gap: 8px;
+    align-items: center;
+  }
+}
+
+/* Botón principal flotante de WhatsApp y botoncito */
+@media (max-width: 600px) {
+  .btn-verde {
+    font-size: 11px !important;
+    padding: 6px 10px !important;
+    border-radius: 4px !important;
+  }
+  button[title*="WhatsApp"] {
+    right: 70px !important;
+    bottom: 20px !important;
+    width: 24px !important;
+    height: 24px !important;
+    min-width: 24px !important;
+    min-height: 24px !important;
+    font-size: 12px !important;
+  }
+  button[title*="WhatsApp"] img {
+    width: 16px !important;
+    height: 16px !important;
+  }
+}
+
+/* --- BLOQUE QUE EVITA LA FRANJA NEGRA --- */
+html, body {
+  overflow-x: hidden !important;
+  box-sizing: border-box;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+.container, .container.margen-navbar {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 1360px;
+  width: 100%;
+  box-sizing: border-box;
+  padding-left: 24px;
+  padding-right: 24px;
+}
+
+  .divider {
+      margin-top: 300px;
+      margin-bottom: 300px;  
+      width: 100%;
+      border: none;
+      height: 2px;
+      border-top: 3px dashed rgba(0, 0, 0, 0.07); /* Línea de rayitas negras */
+      background-color: rgba(0, 0, 0, 0);
+  }
+
+ 
+
+
+  html, body {
+  height: 100%;
+  min-height: 100vh;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+#app {
+  flex: 1 0 auto;
+}
+
+.final_legal {
+  flex-shrink: 0;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.Inicio-Informacion {
+  font-size: 4.2em !important;
+  font-weight: 700 !important;
+}

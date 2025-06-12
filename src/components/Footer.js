@@ -226,12 +226,12 @@ const atribucionesMathiasHTML = `
     <button class="footer-legal-trigger">Información Legal</button>
     <div class="footer-legal-links-bg">
       <div class="footer-legal-links" id="footer-legal-links">
+        <a href="/Accesibilidad.html">Accesibilidad</a>
         <a href="/Avisos-Legales.html">Avisos Legales</a>
         <a href="/Política-Cookies.html">Política Cookies</a>
         <a href="/Política-Reembolsos.html">Política-Reembolso</a>
         <a href="/Privacidad.html">Privacidad</a>
         <a href="/Términos-Condiciones.html">Términos y Condiciones</a>
-        <a href="/Accesibilidad.html">Accesibilidad</a>
       </div>
     </div>
     <div style="display:flex; justify-content:center; align-items:center; gap:3em; margin-top:2em;">
