@@ -13,7 +13,7 @@ import { direccion } from './components/direccion.js';
 import { BotonVerde } from './components/botonwhatsapp.js';
 import { Footer } from './components/Footer.js';
 import { Servicios } from './components/servicios.js';
-
+import '../src/style.css';
 
 
   window.scrollTo(0, 0);
