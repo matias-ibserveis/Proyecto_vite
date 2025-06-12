@@ -13,6 +13,7 @@ import { direccion } from './components/direccion.js';
 import { BotonVerde } from './components/botonwhatsapp.js';
 import { Footer } from './components/Footer.js';
 import { Servicios } from './components/servicios.js';
+import { MasCosas } from './components/mascosas.js';
 import '../src/style.css';
 
 
@@ -26,6 +27,7 @@ import '../src/style.css';
   app.append(Info_Cestas());
   app.append(Servicios());
   app.append(DondeOcurre());
+  app.append(MasCosas());
   app.append(Talleres());
   app.append(Comentarios());
   app.append(Contacto());
