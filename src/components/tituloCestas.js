@@ -3,8 +3,8 @@ export function tituloCestas() {
 
   titulolistascestas.innerHTML = `
     <div class="container-fluid">
-    <h2 id="listas_cestas" class="titulo">Cestas preparadas</h2>
-    <div><p>Tenemos cestas ya preparadas, con los productos de temporada que te van a gustar 😊</p></div>
+    <h2 id="listas_cestas" class="titulo">Cesta preparada</h2>
+    <div><p>Cesta ya preparada, con productos de temporada que te van a gustar 😊</p></div>
     </div>
   `;
 

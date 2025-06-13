@@ -4,7 +4,33 @@ renderCesta(document.getElementById('app'));
 export async function renderCesta(container) {
   const urlParams = new URLSearchParams(window.location.search);
   const nuevoId = urlParams.get("id");
-  let cesta = JSON.parse(localStorage.getItem("cesta") || "{}");
+
+  let cesta;
+  try {
+    cesta = JSON.parse(localStorage.getItem("cesta"));
+  } catch { cesta = null; }
+
+  if (!cesta || Object.keys(cesta).length === 0) {
+    cesta = {};
+    try {
+      const res = await fetch(`https://proyectorailway-production-9739.up.railway.app/api/producto/1`);
+      const primero = await res.json();
+      cesta["1"] = {
+        titulo: primero.titulo,
+        cantidad: 1,
+        unidad_medido: primero.unidad_medido,
+        precio: primero.precio,
+        origen: 'manual',
+        imagen1: primero.imagen1
+      };
+    } catch (err) {
+      console.error("No he podido añadir producto id=1 Panera. ", err);
+    }
+  }
+
+
+
+  localStorage.setItem("cesta", JSON.stringify(cesta));
 
   if (nuevoId) {
     if (cesta[nuevoId]) {
@@ -155,7 +181,12 @@ function mostrarCesta() {
         cesta[id].cantidad = cantidadNum + 1;
       } else {
         cesta[id].cantidad = cantidadNum - 1;
-        if (cesta[id].cantidad <= 0) delete cesta[id];
+
+        if (cesta[id].cantidad <= 0)
+          if (id !== "1") {
+            delete cesta[id];
+          }
+          else { cesta[id].cantidad = 1 }
       }
 
       localStorage.setItem('cesta', JSON.stringify(cesta));
@@ -163,7 +194,7 @@ function mostrarCesta() {
     });
   });
 
-   // Estilos
+  // Estilos
   const style = document.createElement("style");
   style.innerHTML = `
           #contenedor-cesta {
@@ -296,7 +327,7 @@ function mostrarCesta() {
         }
       }
   `;
-  
+
   document.head.appendChild(style);
 
 }
