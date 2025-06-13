@@ -1,4 +1,5 @@
 import { NuestraHistoria } from "./nuestrahistoria.js";
+import { Talleres } from "./Talleres.js";
 
 export function MasCosas() {
     const mascosas = document.createElement("section");
@@ -65,11 +66,15 @@ export function MasCosas() {
 
     const style = document.createElement('style');
 
+    // Insertar modulo historia
     const columna2ContentInner = mascosas.querySelector('#columna2 .content-inner');
-
     const historiaSection = NuestraHistoria();
-
     columna2ContentInner.insertBefore(historiaSection, columna2ContentInner.querySelector('.hide-btn'));
+
+    // Insertar modulo talleres
+    const columna3ContentInner = mascosas.querySelector('#columna3 .content-inner');
+    const talleresSection = Talleres();
+    columna3ContentInner.insertBefore(talleresSection, columna3ContentInner.querySelector('.hide-btn'));
 
 
     style.innerHTML = `
