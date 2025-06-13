@@ -39,7 +39,7 @@ export function Talleres() {
       </p>
     </div>
 
-    <hr class="divider anim-down" />
+    <hr class="anim-down" />
   `;
 
   // Imágenes para los dos carruseles

@@ -55,7 +55,7 @@ export function MasCosas() {
                 </button>
                 <div class="section-content" id="columna3">
                     <div class="content-inner">
-                        <h1 class="titulo margins">Sección Talleres</h1>
+                        <h1 class="titulo margins">Talleres</h1>
                         <p>Este es el contenido expandido de la tercera columna. Aquí puedes añadir más detalles sobre los talleres.</p>
                         <button class="btn btn-secondary hide-btn">Ocultar info extra</button>
                     </div>

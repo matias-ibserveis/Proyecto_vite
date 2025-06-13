@@ -40,7 +40,7 @@ section.innerHTML = `
     <button class="hist-card-btn">...</button>
   </div>
 </div>
-        <hr class="divider anim-down" />
+        <hr class="anim-down" />
 `;
 
   // Observador para animaciones al hacer scroll
