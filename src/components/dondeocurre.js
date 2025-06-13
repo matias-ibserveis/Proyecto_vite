@@ -5,22 +5,23 @@ export function DondeOcurre() {
     dondeOcurre.innerHTML = `  
         <h2 class="lugar-titulo3 anim-down">Donde Ocurre la Magia...</h2>
         <div class="video-container anim-down">
-<iframe
-    id="luraVideo"
-    width="100%"
-    height="540"
-    src="https://www.youtube.com/embed/G-Wt3EwPg3E?enablejsapi=1&mute=1&autoplay=1&loop=1&playlist=G-Wt3EwPg3E"
-    title="Estancia Lura Mallorca"
-    frameborder="0"
-    allow="autoplay; encrypted-media"
-    allowfullscreen
-    enablejsapi=1
-></iframe>
+        <img
+                id="luraImage"
+                src="/images/reseña1.jpg"
+                alt="Estancia Lura Mallorca"
+                style="width: 100%; aspect-ratio: 16 / 9; border-radius: 12px; border: none; display: block; max-width: 100%; height: auto; min-height: 735px;"
+            />
         </div>
         
+        <div class = "row">
+            <div class="col-12 text-align">            
+                <button class="videoBtn" id="videoBtn">Ver video</button>
+            </div>
+        </div>
+
         <div class="row">
             <div class="col-12 text-center">
-                <button id="toggleLuraBtn" class="lugar-toggle-btn anim-down">Ver zonas de LURA</button>
+                <button id="toggleLuraBtn" class="lugar-toggle-btn">Ver zonas de LURA</button>
             </div>
         </div>
 
@@ -63,7 +64,6 @@ export function DondeOcurre() {
         </p>
     </div>
 </div>
-
         </section>
         <hr class="divider anim-down" />
     `;
@@ -118,7 +118,8 @@ export function DondeOcurre() {
     height: auto;
     min-height: 735px;
 }
-.lugar-toggle-btn {
+.lugar-toggle-btn,
+.videoBtn {
     margin-top: 10px;
     font-size: 1.3rem;
     padding: 20px 40px;
@@ -138,10 +139,21 @@ export function DondeOcurre() {
     cursor: pointer;
     will-change: transform;
 }
+
+.videoBtn {
+    background-color: var(--main-color) !important;
+}
+
 .lugar-toggle-btn:hover {
     background: #8a3e0e !important;
     transform: scale(1.08);
 }
+
+.videoBtn:hover {
+    background: var(--terciary-color) !important;
+    transform: scale(1.08);
+}
+
 .lugar-toggle-btn:active,
 .lugar-toggle-btn.lugar-btn-activo {
     background-color: #6a2800 !important;
@@ -343,10 +355,10 @@ export function DondeOcurre() {
     border-radius: 8px;
     pointer-events: none;
 }
-    `;
+`;
 
-    document.head.appendChild(style);
-
+ document.head.appendChild(style);
+        
     // Animación y lógica del botón
     setTimeout(() => {
         const btn = document.getElementById('toggleLuraBtn');
@@ -422,6 +434,21 @@ lightbox.addEventListener('click', () => {
     lightbox.classList.remove('active');
     lightboxImg.src = '';
 });
+
+    // boton.js
+const videoBtn = dondeOcurre.querySelector('#videoBtn');
+if (videoBtn) {
+    videoBtn.onclick = () => {
+        const seccionDestino = document.getElementById('mascosas');
+        if (seccionDestino) {
+            seccionDestino.scrollIntoView({ behavior: 'smooth' });
+        } else {
+            console.error('El elemento con id="mascosas" no se encuentra en el DOM');
+        }
+    };
+} else {
+    console.error('El elemento con id="videoBtn" no se encuentra en el DOM');
+}
 
     return dondeOcurre;
 }
