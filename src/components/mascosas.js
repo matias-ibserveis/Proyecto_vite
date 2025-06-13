@@ -1,3 +1,5 @@
+import { NuestraHistoria } from "./nuestrahistoria.js";
+
 export function MasCosas() {
     const mascosas = document.createElement("section");
     mascosas.className = "container py-5";
@@ -22,7 +24,7 @@ export function MasCosas() {
                             id="luraVideo"
                             width="100%"
                             height="540"
-                            src="https://www.youtube.com/embed/G-Wt3EwPg3E?enablejsapi=1&mute=1&autoplay=1&loop=1&playlist=G-Wt3EwPg3E"
+                            src="https://www.youtube.com/embed/G-Wt3EwPg3E?enablejsapi=1&mute=1&loop=1&playlist=G-Wt3EwPg3E"
                             title="Estancia Lura Mallorca"
                             frameborder="0"
                             allow="autoplay; encrypted-media"
@@ -41,7 +43,6 @@ export function MasCosas() {
                 <div class="section-content" id="columna2">
                     <div class="content-inner">
                         <h1 class="titulo margins">Nuestra Historia</h1>
-                        !--AÑADIR ADAPTACIÓN DE LA HISTORIA AQUÍ--!
                         <button class="btn btn-secondary hide-btn">Ocultar info extra</button>
                     </div>
                 </div>
@@ -63,6 +64,14 @@ export function MasCosas() {
     `;
 
     const style = document.createElement('style');
+
+    const columna2ContentInner = mascosas.querySelector('#columna2 .content-inner');
+
+    const historiaSection = NuestraHistoria();
+
+    columna2ContentInner.insertBefore(historiaSection, columna2ContentInner.querySelector('.hide-btn'));
+
+
     style.innerHTML = `
         .dondeocurreportada img {
             height: 2.5rem;
@@ -131,16 +140,17 @@ export function MasCosas() {
             display: block;
         }
 
-        .content-inner {
-            padding: 20px;
-            background-color: #f8f9fa;
-            border-radius: 8px;
-            margin: 20px;
-            max-height: 80%;
-            overflow-y: auto;
-            width: calc(100% - 40px);
-            height: calc(100% - 40px);
-        }
+    .content-inner {
+        padding: 20px;
+        background-color: #f8f9fa;
+        border-radius: 8px;
+        margin: 20px;
+        width: calc(100% - 40px);
+        margin-top: 4.5rem;
+        height: auto; /* esto adapta la altura al contenido */
+        max-height: 90vh; /* por si acaso, limitamos en pantallas pequeñas */
+        overflow-y: auto; /* solo aparece scroll si es necesario */
+    }
 
         .hide-btn {
             background-color: #dc3545;
