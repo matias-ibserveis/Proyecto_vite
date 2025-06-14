@@ -17,6 +17,7 @@ import { ListaCesta } from './components/verListasCestas.js';
 import { tituloCestas } from './components/tituloCestas.js';
 import { direccion } from './components/direccion.js';
 import { verLaPanera } from './components/verPanera.js';
+import { MasCosas } from './components/mascosas.js';
 
 
 (async () => {
@@ -59,11 +60,8 @@ import { verLaPanera } from './components/verPanera.js';
   // Nuestra Historia
     // app.append(NuestraHistoria());
   
-  // Sección Donde ocurre la magia
-    app.append(DondeOcurre());
-
-  // Servivios
-   // app.append(Servicios());
+  // Tres cosas
+    app.append(MasCosas());
 
   // Sección de contacto
    app.append(Contacto());
