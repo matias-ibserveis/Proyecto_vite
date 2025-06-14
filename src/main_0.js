@@ -16,6 +16,7 @@ import { Info_Cestas } from './components/Info_Cestas.js';
 import { ListaCesta } from './components/verListasCestas.js';
 import { tituloCestas } from './components/tituloCestas.js';
 import { direccion } from './components/direccion.js';
+import { verLaPanera } from './components/verPanera.js';
 
 
 (async () => {
@@ -35,13 +36,19 @@ import { direccion } from './components/direccion.js';
 
   
   app.append(tituloCestas());
+
+    // Crear y añadir contenedor para el producto
+  const Panera = await verLaPanera();
+  app.append(Panera);
+  
     
-  // Listas Cestas
+  /*Listas Cestas
   const cesta1 = await ListaCesta(1);
   app.append(cesta1);
 
     const cesta2 = await ListaCesta(2);
   app.append(cesta2);
+ */
 
     // Apartado Nuestra Filosofía
   app.append(NuestraFilosofia());
@@ -60,6 +67,12 @@ import { direccion } from './components/direccion.js';
 
   // Sección de contacto
    app.append(Contacto());
+
+   // Seccion dirección
+   app.append(direccion());
+
+      // Seccion dirección
+   app.append(Footer());
 
   // Botón flotante de WhatsApp
     app.append(BotonVerde());

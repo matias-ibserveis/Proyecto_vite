@@ -29,7 +29,7 @@ export async function Productos() {
     const btnVerMas = document.createElement("button");
     btnVerMas.id = "btnVerMas";
     btnVerMas.textContent = "Ver más productos";
-    btnVerMas.className = "btn btn-primary mt-4 px-5 py-3 fs-6 rounded-pill";
+    btnVerMas.className = "btn btn-primary mt-1 px-5 py-3 fs-6 rounded-pill";
     btnVerMas.style.minWidth = "280px";
     btnVerMas.style.boxShadow = "0 0.5rem 1rem rgba(0,0,0,0.3)";
     btnVerMas.onclick = () => {

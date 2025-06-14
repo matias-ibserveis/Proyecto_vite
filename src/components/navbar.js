@@ -16,6 +16,11 @@ export function Navbar() {
           <li class="nav-item"><a class="nav-link" href="#nuestra-filosofia">Nuestra filosofia</a></li>
           <li class="nav-item"><a class="nav-link" href="#contacto">Más Información</a></li>
           <li class="nav-item"><a class="nav-link" href="Avisos-Legales.html">Aviso Legal</a></li>
+          <li class="nav-item">
+          <a class="nav-link" href="/cesta_cliente.html">
+            <img src="imagenes/carrito.png" alt="Carrito" style="height: 24px;">
+          </a>
+        </li>
         </ul>
       </div>
     </div>

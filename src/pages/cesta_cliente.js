@@ -79,9 +79,10 @@ export async function renderCesta(container) {
   botonesDiv.style.gap = '1rem';
 
   const prevY = sessionStorage.getItem('prevScrollY');
-  const prevURL = sessionStorage.getItem('prevURL');
+  let prevURL = sessionStorage.getItem('prevURL');
+  prevURL === null ? prevURL = "/" : false
 
-  if (prevURL && prevY !== null) {
+  if (prevURL || prevY !== null) {
     const volverBtn = document.createElement('button');
     volverBtn.textContent = 'Volver';
     volverBtn.className = 'btn btn-outline-primary mb-3';

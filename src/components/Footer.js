@@ -217,7 +217,7 @@ const atribucionesMathiasHTML = `
     overflow: hidden;
   ">
     ${bloqueMathias}
-    ${bloqueEspana}
+    <!--  ${bloqueEspana} --> 
   </div>
 `;
 
@@ -264,7 +264,8 @@ const atribucionesMathiasHTML = `
         Gestionar Cookies
       </button>
     </div>
-  <div id="atribuciones-mathias-footer"></div>
+  <div id="atribuciones-mathias-footer">
+  </div>
 `;
 
 setTimeout(() => {
