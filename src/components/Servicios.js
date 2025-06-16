@@ -76,7 +76,7 @@ export function Servicios() {
         .carousel-background {
             background: var(--main-color);
             padding: 40px 0;
-            margin-bottom: 20px
+            margin-bottom: 20px;
             border-radius: 10px !important;
         }
 

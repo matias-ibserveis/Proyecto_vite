@@ -8,12 +8,12 @@ export function NuestraFilosofia() {
         <div class="row-filo">
             <div class="col-text">
                 <p class="bloque bloque-1">En Lura, creemos en la importancia de una alimentación saludable y sostenible.</p>
-                <p class="bloque derecha bloque-2">Nuestra filosofía se basa en el respeto por el medio ambiente, la salud de las personas y el apoyo a la economía local.</p>
-                <p class="bloque bloque-3">Trabajamos con productores locales que comparten nuestros valores, ofreciendo productos frescos y de calidad.</p>
+                <p class="bloque derecha bloque-2">En nuestra filosofía no solo es importante la procedencia o la certificacion ecológica de un prodcuto, si no todo el proceso y la energia que hay puesta detras de cada uno</p>
+                <p class="bloque bloque-3">Trabajamos con productores locales que comparten nuestros valores, protegen el entorno y miman sus productos.</p>
             </div>
             <div class="col-img">
                 <div class="imagen-container">
-                    <img class="imagen" src="images/carousel1.jpeg" alt="Nuestra Filosofía">
+                    <img class="imagen" src="images/NuestraFilosofia.webp" alt="Nuestra Filosofía">
                 </div>
             </div>
         </div>    
