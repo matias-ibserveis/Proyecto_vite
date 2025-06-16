@@ -286,8 +286,8 @@ nav.innerHTML = `
     <div class="navbar-links" style="display: none;">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item"><a class="nav-link" href="/#sobre-nosotras">Sobre Nosotras</a></li>
-        <li class="nav-item"><a class="nav-link" href="/#nuestra-filosofia">Nuestra Filosofía</a></li>
         <li class="nav-item"><a class="nav-link" href="/#nuestra-historia">Nuestra Historia</a></li>
+        <li class="nav-item"><a class="nav-link" href="/#nuestra-filosofia">Nuestra Filosofía</a></li>
         <li class="nav-item"><a class="nav-link nav-link-cestas" href="/#Info-Cestas">Cestas Semanales</a></li>
         <li class="nav-item"><a class="nav-link" href="/#Servicios">Servicios</a></li>
         <li class="nav-item"><a class="nav-link" href="/#dondeocurre">Zona de Trabajo</a></li>
@@ -353,7 +353,7 @@ nav.innerHTML = `
 const NAVBAR_OFFSETS = {
   'sobre-nosotras': 130,
   'nuestra-filosofia': 270,
-  'Info-Cestas': 1,
+  'Info-Cestas': -230,
   'Servicios': 130,
   'Zona_de_Trabajo': 130,
   'talleres': 130,

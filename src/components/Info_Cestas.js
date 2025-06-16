@@ -48,7 +48,7 @@ export function Info_Cestas() {
       </table>
     </div>
     <div class="anim-down">
-      <a href="/producto.html" class="info-cestas-boton">¡Quiero mi Cesta!</a>
+      <a href="/cesta.html" class="info-cestas-boton">¡Quiero mi Cesta!</a>
     </div>
 
     <h2 class="info-cestas-titulo3 anim-down">¿Dónde se debe de recoger?</h2>

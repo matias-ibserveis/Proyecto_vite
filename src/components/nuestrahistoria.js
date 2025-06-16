@@ -59,14 +59,13 @@ section.innerHTML = `
 
   .historia-titulo {
     position: relative;
-    top: -180px;
+    margin-bottom: 40px;
     font-family: 'Aloja Extended', sans-serif;
     font-size: 2rem;
     font-weight: 700;
     color: white;
     border: none;
     margin-top: 60px;
-    margin-bottom: -20px;
     background-attachment: fixed;
     background-color: var(--main-color) !important;
     display: inline-block;

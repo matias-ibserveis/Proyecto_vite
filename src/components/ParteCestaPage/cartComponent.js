@@ -2,14 +2,64 @@ export function CartComponent() {
   const cartContainer = document.createElement('div');
   cartContainer.classList.add('cart-container');
 
+  // --- LIGHTBOX SOLO UNA VEZ ---
+  if (!document.getElementById('cesta-lightbox')) {
+    const lightbox = document.createElement('div');
+    lightbox.id = 'cesta-lightbox';
+    lightbox.style.position = 'fixed';
+    lightbox.style.top = '0';
+    lightbox.style.left = '0';
+    lightbox.style.width = '100vw';
+    lightbox.style.height = '100vh';
+    lightbox.style.background = 'rgba(0,0,0,0.7)';
+    lightbox.style.display = 'none';
+    lightbox.style.alignItems = 'center';
+    lightbox.style.justifyContent = 'center';
+    lightbox.style.zIndex = '9999';
+
+    const img = document.createElement('img');
+    img.id = 'cesta-lightbox-img';
+    img.style.maxWidth = '90vw';
+    img.style.maxHeight = '90vh';
+    img.style.borderRadius = '16px';
+    img.style.boxShadow = '0 4px 32px rgba(0,0,0,0.3)';
+    lightbox.appendChild(img);
+
+    lightbox.addEventListener('click', () => {
+      lightbox.style.display = 'none';
+    });
+
+    document.body.appendChild(lightbox);
+  }
+
   function renderCart() {
     cartContainer.innerHTML = '';
 
+    // --- TUS DATOS Y LÓGICA ORIGINALES ---
     const cestaData = {
       image: '/images/logo.png',
-      name: 'Cesta Especial'
+      name: 'Cesta de la SEMANA',
+      description: 'Incluye productos frescos de temporada seleccionados para ti.',
+      ingredients: [
+        { name: 'Huevos', quantity: '6x' },
+        { name: 'Leche', quantity: '1L' },
+        { name: 'Pan', quantity: '1 barra' },
+        { name: 'Queso', quantity: '200g' },
+        { name: 'Tomates', quantity: '500g' },
+        { name: 'Tomates', quantity: '500g' },
+        { name: 'Tomates', quantity: '500g' },
+        { name: 'Tomates', quantity: '500g' },
+        { name: 'Tomates', quantity: '500g' },
+        { name: 'Tomates', quantity: '500g' },
+        { name: 'Tomates', quantity: '500g' },
+        { name: 'Tomates', quantity: '500g' },
+        { name: 'Tomates', quantity: '500g' },
+        
+      ],
+      price: 25
     };
 
+    // Panel izquierdo
     const leftPanel = document.createElement('div');
     leftPanel.classList.add('left-panel');
 
@@ -17,13 +67,28 @@ export function CartComponent() {
     cestaImage.src = cestaData.image;
     cestaImage.alt = cestaData.name;
     cestaImage.classList.add('cesta-image');
+    cestaImage.style.cursor = 'zoom-in';
     leftPanel.appendChild(cestaImage);
+
+    // --- LIGHTBOX EVENTO ---
+    cestaImage.addEventListener('click', () => {
+      const lightbox = document.getElementById('cesta-lightbox');
+      const img = document.getElementById('cesta-lightbox-img');
+      img.src = cestaImage.src;
+      lightbox.style.display = 'flex';
+    });
 
     const cestaName = document.createElement('h3');
     cestaName.textContent = cestaData.name;
     cestaName.classList.add('cesta-name');
     leftPanel.appendChild(cestaName);
 
+    const cestaDesc = document.createElement('p');
+    cestaDesc.textContent = cestaData.description;
+    cestaDesc.classList.add('cesta-description');
+    leftPanel.appendChild(cestaDesc);
+
+    // Panel derecho
     const rightPanel = document.createElement('div');
     rightPanel.classList.add('right-panel');
 
@@ -32,222 +97,217 @@ export function CartComponent() {
     ingredientsHeader.classList.add('ingredients-header');
     rightPanel.appendChild(ingredientsHeader);
 
-    const ingredientsData = [
-      { name: 'Eggs', quantities: ['6x', '12x'], selected: '6x', place: 'Inca', supplier: 'Manel Ortiz' },
-      { name: 'Milk', quantities: ['1L', '2L'], selected: '1L', place: 'Manacor', supplier: 'Ana Pérez' },
-      { name: 'Bread', quantities: ['1 loaf', '2 loaves'], selected: '1 loaf', place: 'Palma', supplier: 'Jaume Nadal' },
-      { name: 'Bread', quantities: ['1 loaf', '2 loaves'], selected: '1 loaf', place: 'Palma', supplier: 'Jaume Nadal' },
-      { name: 'Cheese', quantities: ['200g', '500g'], selected: '200g', place: 'Sóller', supplier: 'Maria Serra' },
-      { name: 'Tomatoes', quantities: ['500g', '1kg'], selected: '500g', place: 'Algaida', supplier: 'Pere Torres' }, 
-    ];
-
-    const ingredientsList = document.createElement('div');
+    const ingredientsList = document.createElement('ul');
     ingredientsList.classList.add('ingredients-list');
 
-    ingredientsData.forEach((ingredient) => {
-      const ingredientRow = document.createElement('div');
-      ingredientRow.classList.add('ingredient-row');
+    cestaData.ingredients.forEach(ing => {
+      const li = document.createElement('li');
+      li.classList.add('ingredient-item');
 
-      const sourceInfo = document.createElement('div');
-      sourceInfo.classList.add('source-info');
+      const nameSpan = document.createElement('span');
+      nameSpan.classList.add('ingredient-name');
+      nameSpan.textContent = ing.name;
 
-      const supplierSpan = document.createElement('span');
-      supplierSpan.classList.add('supplier-text');
-      supplierSpan.textContent = `quién: ${ingredient.supplier}`;
-      sourceInfo.appendChild(supplierSpan);
+      const qtySpan = document.createElement('span');
+      qtySpan.classList.add('ingredient-qty');
+      qtySpan.textContent = ing.quantity;
 
-      const placeSpan = document.createElement('span');
-      placeSpan.classList.add('place-text');
-      placeSpan.textContent = `lugar: ${ingredient.place}`;
-      sourceInfo.appendChild(placeSpan);
-
-      const ingredientDetails = document.createElement('div');
-      ingredientDetails.classList.add('ingredient-details');
-
-      const ingredientName = document.createElement('span');
-      ingredientName.textContent = ingredient.name;
-      ingredientName.classList.add('ingredient-name');
-
-      const quantityWrapper = document.createElement('div');
-      quantityWrapper.classList.add('quantity-wrapper');
-
-      const quantityButton = document.createElement('button');
-      quantityButton.textContent = ingredient.selected;
-      quantityButton.classList.add('quantity-btn');
-
-      const customDropdown = document.createElement('div');
-      customDropdown.classList.add('custom-dropdown');
-
-      const setDropdownWidth = (selectedQty) => {
-        const tempSpan = document.createElement('span');
-        tempSpan.style.visibility = 'hidden';
-        tempSpan.style.position = 'absolute';
-        tempSpan.style.fontFamily = '"Aloja Extended", Arial, sans-serif';
-        tempSpan.style.fontSize = '0.9rem';
-        tempSpan.style.padding = '0.5rem 1rem';
-        tempSpan.style.whiteSpace = 'nowrap';
-        document.body.appendChild(tempSpan);
-
-        let maxWidth = 60;
-        ingredient.quantities.forEach(qty => {
-          tempSpan.textContent = qty;
-          const textWidth = tempSpan.offsetWidth;
-          maxWidth = Math.max(maxWidth, textWidth);
-        });
-
-        tempSpan.textContent = selectedQty;
-        const selectedWidth = tempSpan.offsetWidth;
-        maxWidth = Math.max(maxWidth, selectedWidth);
-
-        document.body.removeChild(tempSpan);
-        customDropdown.style.width = `${Math.min(maxWidth + 20, 150)}px`;
-        quantityButton.style.width = `${Math.min(selectedWidth + 20, 150)}px`;
-      };
-
-      setDropdownWidth(ingredient.selected);
-
-      ingredient.quantities.forEach(qty => {
-        const option = document.createElement('span');
-        option.textContent = qty;
-        option.classList.add('dropdown-option');
-        option.addEventListener('click', () => {
-          ingredient.selected = qty;
-          quantityButton.textContent = ingredient.selected;
-          customDropdown.style.display = 'none';
-          setDropdownWidth(qty);
-        });
-        customDropdown.appendChild(option);
-      });
-
-      quantityButton.addEventListener('click', (e) => {
-        e.stopPropagation();
-        document.querySelectorAll('.custom-dropdown').forEach(dropdown => {
-          if (dropdown !== customDropdown) {
-            dropdown.style.display = 'none';
-          }
-        });
-        customDropdown.style.display = customDropdown.style.display === 'block' ? 'none' : 'block';
-      });
-
-      quantityWrapper.appendChild(quantityButton);
-      quantityWrapper.appendChild(customDropdown);
-
-      ingredientDetails.appendChild(ingredientName);
-      ingredientDetails.appendChild(quantityWrapper);
-
-      ingredientRow.appendChild(sourceInfo);
-      ingredientRow.appendChild(ingredientDetails);
-      ingredientsList.appendChild(ingredientRow);
-    });
-
-    document.addEventListener('click', (event) => {
-      if (!event.target.closest('.quantity-wrapper')) {
-        document.querySelectorAll('.custom-dropdown').forEach(dropdown => {
-          dropdown.style.display = 'none';
-        });
-      }
+      li.appendChild(nameSpan);
+      li.appendChild(qtySpan);
+      ingredientsList.appendChild(li);
     });
 
     rightPanel.appendChild(ingredientsList);
 
-    const addToCartButton = document.createElement('button');
-    addToCartButton.textContent = 'Añadir al Carro';
-    addToCartButton.classList.add('add-to-cart-btn');
-    addToCartButton.addEventListener('click', () => {
-      // Retrieve existing cart from sessionStorage
-      const cart = JSON.parse(sessionStorage.getItem('cart') || '[]');
-      
-      // Create new cesta entry
-      const uniqueId = `cesta_${Date.now()}`;
-      const newCesta = {
-        id: uniqueId,
-        name: cestaData.name,
-        quantity: 1,
-        price: 0, // Price could be calculated if needed
-        type: 'cesta', // Flag to identify this as a cesta item
-        image: cestaData.image,
-        ingredients: ingredientsData.map(ingredient => ({
-          name: ingredient.name,
-          selected: ingredient.selected,
-          place: ingredient.place,
-          supplier: ingredient.supplier
-        }))
-      };
+    // Precio y botón
+    const priceDiv = document.createElement('div');
+    priceDiv.classList.add('cesta-price-div');
+    priceDiv.innerHTML = `<span class="cesta-price">Precio: €${cestaData.price.toFixed(2)}</span>`;
+    rightPanel.appendChild(priceDiv);
 
-      // Add the cesta to the cart
-      cart.push(newCesta);
-      sessionStorage.setItem('cart', JSON.stringify(cart));
+    const addToCartBtn = document.createElement('button');
+    addToCartBtn.classList.add('add-to-cart-btn');
+    addToCartBtn.textContent = 'Añadir al Carro';
+    rightPanel.appendChild(addToCartBtn);
 
-      // Show popup and set image, name, and ingredients
-      const popup = document.getElementById('cart-popup');
-      const popupImage = popup?.querySelector('.cart-popup-image');
-      const popupName = popup?.querySelector('.cart-popup-name');
-      const popupIngredients = popup?.querySelector('.cart-popup-ingredients');
-      if (popup && popupImage && popupName && popupIngredients) {
-        popupImage.src = cestaData.image;
-        popupName.textContent = cestaData.name;
-        
-        // Clear existing ingredients
-        popupIngredients.innerHTML = '';
-        
-        // Create ingredients list
-        ingredientsData.forEach(ingredient => {
-          const ingredientItem = document.createElement('div');
-          ingredientItem.classList.add('popup-ingredient-item');
-          
-          const nameQty = document.createElement('span');
-          nameQty.classList.add('popup-ingredient-name');
-          nameQty.textContent = `${ingredient.name} (${ingredient.selected})`;
-          
-          const sourceInfo = document.createElement('span');
-          sourceInfo.classList.add('popup-ingredient-source');
-          sourceInfo.textContent = `Lugar: ${ingredient.place}, Quién: ${ingredient.supplier}`;
-          
-          ingredientItem.appendChild(nameQty);
-          ingredientItem.appendChild(sourceInfo);
-          popupIngredients.appendChild(ingredientItem);
-        });
-        
-        popup.style.display = 'flex';
-      }
-    });
-
-    // Handle popup close, comprar button, and continue link
-    const popup = document.getElementById('cart-popup');
-    const closeButton = popup?.querySelector('.cart-popup-close');
-    const comprarButton = popup?.querySelector('.comprar-btn');
-    const continueLink = popup?.querySelector('.continue-productos-link');
-
-    if (closeButton) {
-      closeButton.addEventListener('click', () => {
-        popup.style.display = 'none';
-      });
-    }
-
-    if (comprarButton) {
-      comprarButton.addEventListener('click', () => {
-        popup.style.display = 'none';
-        window.location.href = '/checkout.html';
-      });
-    }
-
-    if (continueLink) {
-      continueLink.addEventListener('click', () => {
-        popup.style.display = 'none';
-        window.location.href = '/producto.html';
-      });
-    }
-
-    // Close popup when clicking outside
-    popup?.addEventListener('click', (event) => {
-      if (event.target === popup) {
-        popup.style.display = 'none';
-      }
-    });
-
-    rightPanel.appendChild(addToCartButton);
+    // Estructura final
     cartContainer.appendChild(leftPanel);
     cartContainer.appendChild(rightPanel);
+
+    // --- CSS mínimo para que se vea bien (puedes moverlo a tu CSS global) ---
+    if (!document.getElementById('cart-component-style')) {
+      const style = document.createElement('style');
+      style.id = 'cart-component-style';
+      style.textContent = `
+.cart-container {
+  display: flex;
+  gap: 42px;
+  background: #fafafa;
+  border-radius: 20px;
+  padding: 42px;
+  justify-content: center;
+  align-items: flex-start;
+  max-width: 1050px;
+  margin: 55px auto;
+}
+.left-panel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 290px;
+  height: 758px
+}
+.cesta-image {
+  width: 240px;
+  height: 240px;
+  object-fit: cover;
+  border-radius: 18px;
+  background: #d2ab74;
+  margin-bottom: 24px;
+  box-shadow: 0 3px 16px rgba(210,171,116,0.10);
+}
+.cesta-name {
+  font-size: 2rem;
+  color: #a05d36;
+  font-family: 'Aloja Extended', Arial, sans-serif;
+  margin-top: 10px;
+  margin-bottom: 0;
+  font-weight: 600;
+  text-align: center;
+}
+.cesta-description {
+  font-size: 1.2rem;
+  color: #7a653a;
+  margin: 16px 0 0 0;
+  text-align: center;
+}
+.right-panel {
+  flex: 1 1 0;
+  background: #fff;
+  border-radius: 16px;
+  padding: 32px 36px;
+  box-shadow: 0 2px 10px rgba(210,171,116,0.06);
+  min-width: 290px;
+}
+.ingredients-header {
+  font-size: 2.3rem;
+  color: #a05d36;
+  margin-bottom: 24px;
+  font-family: 'Aloja Extended', Arial, sans-serif;
+}
+.ingredients-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.ingredient-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 13px 0;
+  border-bottom: 1.5px solid #f0e6d2;
+  font-size: 1.35rem; /* 1/3 más grande */
+}
+.ingredient-name {
+  color: #a05d36;
+  font-size: 1.6rem; /* 1/3 más grande */
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+}
+.ingredient-qty {
+  background: #d2ab74;
+  color: #fff;
+  border-radius: 8px;
+  padding: 6px 18px;
+  font-size: 1.2rem; /* 1/3 más grande */
+  font-weight: bold;
+}
+.cesta-price-div {
+  margin-top: 32px;
+  margin-bottom: 16px;
+  text-align: right;
+}
+.cesta-price {
+  font-size: 1.5rem;
+  color: #a05d36;
+  font-weight: bold;
+}
+.add-to-cart-btn {
+  background: #d2ab74;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  padding: 16px 36px;
+  font-size: 2.0rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.2s;
+  box-shadow: 0 3px 10px rgba(210, 171, 116, 0.15);
+  text-align: center;
+  line-height: 1.2;
+  width: 100%;
+  letter-spacing: 1.2px;
+}
+.add-to-cart-btn:hover {
+  background: #b8935b;
+}
+@media (max-width: 900px) {
+    .right-panel {
+    width: 100%;
+
+  .cart-container {
+    gap: 18px;
+    padding: 18px;
+    max-width: 98vw;
+  }
+  .left-panel, .right-panel {
+    min-width: 0;
+  }
+  .cesta-image {
+    width: 300px;
+    height: 300px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+  }
+  .cesta-name {
+    font-size: 1.1rem;
+  }
+  .cesta-description {
+    font-size: 0.9rem;
+  }
+  .right-panel {
+    padding: 12px 8px;
+    border-radius: 8px;
+  }
+  .ingredients-header {
+    font-size: 2rem;
+    margin-bottom: 10px;
+  }
+  .ingredient-item,
+  .ingredient-name {
+    font-size: 0.95rem;
+  }
+  .ingredient-qty {
+    font-size: 0.95rem;
+    padding: 3px 10px;
+    border-radius: 5px;
+  }
+  .cesta-price-div {
+    margin-top: 10px;
+    margin-bottom: 6px;
+  }
+  .cesta-price {
+    font-size: 1rem;
+  }
+  .add-to-cart-btn {
+    font-size: 2rem;
+    padding: 8px 0;
+    border-radius: 7px;
+    width: 100%;
+  }
+}
+      `;
+      document.head.appendChild(style);
+    }
   }
 
   renderCart();

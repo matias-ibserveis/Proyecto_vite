@@ -123,42 +123,6 @@ button:focus-visible {
   }
 }
 
-/* ------------------- Navbar ------------------- */
-.navbar-custom {
-  background-color: var(--main-color); /* Updated to use theme color */
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  border-radius: 10px;
-  padding: 10px 20px;
-  font-family: 'Aloja Extended', sans-serif;
-  margin-bottom: 5px;
-}
-
-.navbar-custom .navbar-brand {
-  color: #ffffff;
-  font-size: 25px;
-}
-
-.navbar-custom .navbar-nav .nav-link {
-  color: var(--secondary-color);
-  font-size: 18px;
-  transition: background-color 0.2s, color 0.2s;
-}
-
-.navbar-custom .navbar-nav .nav-link:hover,
-.navbar-custom .navbar-nav .nav-link.active {
-  color: #000000;
-  background-color: #ffffff;
-}
-
-.navbar-custom .navbar-toggler {
-  border-color: #ffffff;
-  background-color: var(--main-color);
-}
-
-.navbar-custom .navbar-toggler-icon {
-  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(0,0,0,0.7)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
-}
-
 /* ------------------- Custom Headers ------------------- */
 .titulo {
   color: #ffffff;
@@ -264,19 +228,8 @@ button:focus-visible {
   margin: 0 auto;
 }
 
-.left-panel{
-  flex: 1;
-  background-color: #f8f9fa;
-  padding: 1rem;
-  border-radius: 5px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  height: 500px;
-  width: 500px;
-  max-width: 500px;
-  max-height: 500px;
 
-}
-.right-panel {
+.right-panel,.left-panel {
   flex: 1;
   background-color: #f8f9fa;
   padding: 1rem;
@@ -291,6 +244,7 @@ button:focus-visible {
 }
 
 .cesta-image {
+  margin-top: 190px;
   width: 500px;
   height: 500px;
   border-radius: 5px;
@@ -309,6 +263,9 @@ button:focus-visible {
   text-align: center;
   margin-top: 1rem;
   font-weight: 400;
+  background-color: rgba(0, 0, 0, 0.1);
+  border-radius: 30px;
+  padding: 7px;
 }
 
 .ingredients-header {
@@ -582,7 +539,7 @@ button:focus-visible {
   border: 1px solid var(--main-color);
   border-radius: 8px;
   font-family: 'Aloja Extended', 'Arial', sans-serif;
-  font-size: 2rem;
+  font-size: 2.3rem;
   font-weight: 600;
   cursor: pointer;
   transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
@@ -676,11 +633,6 @@ button:focus-visible {
   }
 }
 
-/* ------------------- Misc ------------------- */
-.navbar {
-  margin-bottom: 1rem;
-}
-
 .content-wrapper {
   padding-top: 1rem;
 }
@@ -702,144 +654,12 @@ button:focus-visible {
   object-fit: cover;
 }
 
-/* Navbar Container */
-#navbar {
-  width: 100vw;
-  margin-left: calc(-50vw + 50%);
-  padding: 0;
-}
-
-/* Cesta Navbar Styles */
-.cesta-navbar {
-  background-color: var(--main-color);
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  border-radius: 0;
-  padding: 10px 0;
-  width: 100%;
-  margin: 0;
-  font-family: 'Aloja Extended', 'Arial', sans-serif;
-}
-
-/* Container for full-width layout */
-.cesta-navbar .container-fluid {
-  padding: 0;
-}
-
-/* Styling for the brand (LURÁ) */
-.cesta-navbar .navbar-brand {
-  color: #ffffff;
-  font-family: 'Aloja Extended', 'Arial', sans-serif;
-  font-size: 25px;
-  font-weight: 400;
-  line-height: 1.5;
-  padding: 0 15px;
-  margin-right: 5px;
-  margin-left: 30px;
-}
-
-/* Flex container for navigation links and separators */
-.cesta-navbar .nav-links-container {
-  display: flex;
-  align-items: center;
-}
-
-/* Styling for separators (|) */
-.cesta-navbar .nav-separator {
-  color: var(--secondary-color);
-  margin: 0 10px;
-  font-size: 18px;
-}
-
-/* Styling for navigation links */
-.cesta-navbar .navbar-nav .nav-link {
-  color: var(--secondary-color);
-  font-family: 'Aloja Extended', 'Arial', sans-serif;
-  font-size: 18px;
-  font-weight: 400;
-  line-height: 1.5;
-  padding: 5px 10px;
-  transition: background-color 0.2s, color 0.2s;
-}
-
-/* Active link styling */
-.cesta-navbar .navbar-nav .nav-link.active {
-  color: #ffffff;
-  background-color: var(--main-color);
-  border-radius: 5px;
-  padding: 5px 15px;
-}
-
-/* Hover effect for links */
-.cesta-navbar .navbar-nav .nav-link:hover {
-  color: #000000;
-  background-color: #ffffff;
-  border-radius: 5px;
-}
-
-/* Toggler button for mobile view */
-.cesta-navbar .navbar-toggler {
-  border-color: #ffffff;
-  background-color: var(--main-color);
-  margin-right: 1rem;
-}
-
-/* Toggler icon styling */
-.cesta-navbar .navbar-toggler-icon {
-  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(0,0,0,0.7)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
-}
-
-/* Media query for responsiveness on screens below 992px */
-@media (max-width: 992px) {
-  .cesta-navbar .navbar-nav {
-    text-align: left;
-    flex-direction: column;
-    width: 100%;
-  }
-  .cesta-navbar .nav-links-container {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-  .cesta-navbar .nav-separator {
-    display: none;
-  }
-  .cesta-navbar .navbar-nav .nav-item {
-    margin: 5px 0;
-    width: 100%;
-  }
-  .cesta-navbar .navbar-nav .nav-link {
-    padding: 5px 15px;
-    width: 100%;
-    text-align: left;
-  }
-}
-
 /* Font Definition for Aloja Extended */
 @font-face {
   font-family: 'Aloja Extended';
   src: url('/public/fonts/AlojaExtended.ttf') format('truetype');
   font-weight: 400;
   font-style: normal;
-}
-
-/* ------------------- Category Navbar Styles ------------------- */
-.category-nav-container {
-  max-width: 1200px;
-  margin: 0 auto;
-  margin-top: 1rem;
-  padding: 10px 15px; /* Reduced padding for smaller screens */
-  display: flex;
-  justify-content: flex-end;
-  background-color: var(--main-color);
-  border-radius: 10px;
-}
-
-.category-navbar {
-  background-color: transparent;
-  box-shadow: none;
-  padding: 0;
-  font-family: 'Aloja Extended', 'Arial', sans-serif;
-  position: static;
-  width: auto;
 }
 
 .search-form {
@@ -875,10 +695,6 @@ button:focus-visible {
 
 /* Responsive Adjustments for Navbar */
 @media (max-width: 767px) {
-  .category-nav-container {
-    justify-content: center;
-    padding: 8px; /* Further reduced padding */
-  }
 
   .search-form {
     flex-direction: column;
@@ -2544,6 +2360,7 @@ button:focus-visible {
 
 /* Cart Popup Styles */
 .cart-popup {
+  margin-top: 1;
   position: fixed;
   top: 0;
   left: 0;
@@ -2555,6 +2372,10 @@ button:focus-visible {
   align-items: center;
   justify-content: center;
   animation: fadeInOverlay 0.25s ease;
+}
+
+#cart{
+  margin-top: 200px;
 }
 
 .cart-popup-content {
