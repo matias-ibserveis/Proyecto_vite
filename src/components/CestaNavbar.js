@@ -470,7 +470,7 @@ window.addEventListener('resize', () => {
 
 // Inicializa el estado
 if (window.innerWidth < 1201) {
-  nav.style.transition = 'top 0.3s';
+  nav.style.transition = 'top 0.6s';
   nav.style.top = '0';
 }
 

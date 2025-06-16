@@ -151,7 +151,7 @@ export function CartComponent() {
     rightPanel.appendChild(ingredientsList);
 
     const addToCartButton = document.createElement('button');
-    addToCartButton.textContent = 'Añadir Carro';
+    addToCartButton.textContent = 'Añadir al Carro';
     addToCartButton.classList.add('add-to-cart-btn');
     addToCartButton.addEventListener('click', () => {
       // Retrieve existing cart from sessionStorage

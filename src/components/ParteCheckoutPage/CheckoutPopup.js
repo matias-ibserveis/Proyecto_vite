@@ -49,10 +49,3 @@ export function CheckoutPopup() {
   return popup;
 }
 
-// Function to show the popup
-export function showCheckoutPopup() {
-  const popup = document.getElementById('checkout-popup');
-  if (popup) {
-    popup.style.display = 'flex';
-  }
-}

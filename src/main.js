@@ -40,4 +40,4 @@ import { CheckoutPopup, showCheckoutPopup } from './components/ParteCheckoutPage
   });
 })();
 
-export { Navbar, Comentarios, BotonVerde, Contacto, EmpanadaBanner, Footer, CheckoutPopup, showCheckoutPopup };
+export { Navbar, Comentarios, BotonVerde, Contacto, EmpanadaBanner, Footer};

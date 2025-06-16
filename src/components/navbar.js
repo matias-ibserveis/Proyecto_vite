@@ -266,7 +266,15 @@ export function Navbar() {
       .navbar-links.show .nav-item:nth-child(8) { animation-delay: 0.66s; }
       .navbar-links.show .nav-item:nth-child(9) { animation-delay: 0.74s; }
     }
+
+
+
+
+
+    
   `;
+
+  
   document.head.appendChild(style);
 }
 

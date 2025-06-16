@@ -15,8 +15,8 @@
       <table class="cart-table">
         <thead>
           <tr style="display: flex; width: 100%;">
-            <th class="caption-with-letter-spacing product-column" colspan="2" scope="col">Product</th>
-            <th class="quantity-column" scope="col">Quantity</th>
+            <th class="caption-with-letter-spacing product-column" colspan="2" scope="col">Productos</th>
+            <th class="quantity-column" scope="col">Cantidad</th>
             <th class="small-right caption-with-letter-spacing total-column" scope="col">Total</th>
           </tr>
         </thead>
@@ -25,22 +25,29 @@
     </div>
     <div class="checkout-footer">
       <div class="special-instructions">
-        <label for="order-instructions" class="instructions-label">Special Instructions:</label>
-        <textarea id="order-instructions" rows="3" placeholder="Enter any special instructions (e.g., delivery notes, preferences)"></textarea>
+        <label for="order-instructions" class="instructions-label">Instrucción Especial:</label>
+        <textarea id="order-instructions" rows="3" placeholder="Introduzca algun comentario si desea realizar algún tipo de especificación (Opcional)"></textarea>
       </div>
-      <div class="subtotal-section">
-        <h3 class="subtotal-text">Subtotal: <span id="subtotal-amount">€0.00</span></h3>
-        <button class="checkout-btn">Checkout</button>
+      <div class="special-instructions">
+        <label for="order-instructions" class="instructions-label">Nombre</label>
+        <textarea id="order-instructions" rows="4" placeholder="Escriba un Nombre para que pueda ser Reconocible su Pedido."></textarea>
       </div>
     </div>
   </div>
   <div id="checkout-popup-container"></div>
 
+
+
+  <div class="subtotal-float">
+    <h3 class="subtotal-text">Subtotal: <span id="subtotal-amount">€0.00</span></h3>
+    <button class="checkout-btn">FINALIZAR <br>PEDIDO</button>
+  </div>
+
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
   <script type="module">
     import { CestaNavbar } from '/src/components/CestaNavbar.js';
     import { CartHeader } from '/src/components/CartHeader.js';
-    import { CheckoutPopup, showCheckoutPopup } from '/src/components/ParteCheckoutPage/CheckoutPopup.js';
+    import { CheckoutPopup } from '/src/components/ParteCheckoutPage/CheckoutPopup.js';
 
     // Render components
     const navbar = document.getElementById('navbar');
@@ -204,20 +211,6 @@
       }
     }
 
-    // Handle checkout button
-    function setupCheckoutButton() {
-      const checkoutBtn = document.querySelector('.checkout-btn');
-      if (checkoutBtn) {
-        checkoutBtn.addEventListener('click', () => {
-          const cart = JSON.parse(sessionStorage.getItem('cart') || '[]');
-          if (cart.length > 0) {
-            showCheckoutPopup();
-          } else {
-            alert('Your cart is empty. Add items before checking out.');
-          }
-        });
-      }
-    }
 
     // Initial render
     renderCheckoutCart();
