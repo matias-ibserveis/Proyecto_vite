@@ -77,6 +77,7 @@ export function Servicios() {
             background: var(--main-color);
             padding: 40px 0;
             margin-bottom: 20px
+            border-radius: 10px !important;
         }
 
         .carousel-servicios-wrapper {
@@ -104,11 +105,13 @@ export function Servicios() {
             width: 160px;
             opacity: 0.3;
             transition: all 0.5s ease;
+            border-radius: 10px !important;
         }
 
         .imagen-servicios img {
             width: 100%;
             display: block;
+            border-radius: 10px !important;
         }
 
         .imagen-servicios.active {
@@ -118,6 +121,7 @@ export function Servicios() {
             top: 50%;
             z-index: 3;
             width: 160px; /* Ajuste para mantener proporción con scale(1.4) */
+            border-radius: 10px !important;
         }
 
         .imagen-servicios.left-item,
