@@ -13,7 +13,6 @@ import { direccion } from './components/direccion.js';
 import { BotonVerde } from './components/botonwhatsapp.js';
 import { Footer } from './components/Footer.js';
 import { Servicios } from './components/servicios.js';
-import { CheckoutPopup, showCheckoutPopup } from './components/ParteCheckoutPage/CheckoutPopup.js';
 
 
   window.scrollTo(0, 0);
