@@ -147,7 +147,7 @@ export function Navbar() {
       background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(0,0,0,0.7)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
     }
     .navbar-custom .navbar-toggler.active {
-      background-color: #6d5839 !important;
+      background-color:rgb(107, 85, 51) !important;
     }
     .navbar-custom .navbar-toggler.active .navbar-toggler-icon {
       background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='white' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
@@ -264,6 +264,7 @@ export function Navbar() {
       .navbar-links.show .nav-item:nth-child(6) { animation-delay: 0.50s; }
       .navbar-links.show .nav-item:nth-child(7) { animation-delay: 0.58s; }
       .navbar-links.show .nav-item:nth-child(8) { animation-delay: 0.66s; }
+      .navbar-links.show .nav-item:nth-child(9) { animation-delay: 0.74s; }
     }
     .navbar-lang {
       background: #fff;
