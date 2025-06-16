@@ -211,7 +211,7 @@ export function Navbar() {
         padding-bottom: 0.5em;
         height: auto;
         overflow: hidden;
-        transition: max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s;
+        transition: max-height 0.9s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s;
         max-height: 0;
         opacity: 0;
         pointer-events: none;
@@ -265,41 +265,6 @@ export function Navbar() {
       .navbar-links.show .nav-item:nth-child(7) { animation-delay: 0.58s; }
       .navbar-links.show .nav-item:nth-child(8) { animation-delay: 0.66s; }
       .navbar-links.show .nav-item:nth-child(9) { animation-delay: 0.74s; }
-    }
-    .navbar-lang {
-      background: #fff;
-      border: none;
-      border-radius: 50%;
-      width: 44px;
-      height: 44px;
-      margin-left: 10px;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.5em;
-      box-shadow: 0 2px 8px #0001;
-      transition: background 0.2s;
-    }
-    .navbar-lang:hover {
-      background: #f0f0f0;
-    }
-    .navbar-lang-menu {
-      min-width: 120px;
-      padding: 8px 0;
-    }
-    .navbar-lang-menu .lang-option {
-      background: none;
-      border: none;
-      width: 100%;
-      text-align: left;
-      padding: 8px 18px;
-      font-size: 1em;
-      cursor: pointer;
-      transition: background 0.2s;
-    }
-    .navbar-lang-menu .lang-option:hover {
-      background: #eee;
     }
   `;
   document.head.appendChild(style);
@@ -469,7 +434,7 @@ window.addEventListener('resize', () => {
 
 // Inicializa el estado
 if (window.innerWidth < 1201) {
-  nav.style.transition = 'top 0.3s';
+  nav.style.transition = 'top 0.6s';
   nav.style.top = '0';
 }
 

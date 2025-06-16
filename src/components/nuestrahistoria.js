@@ -3,6 +3,7 @@ export function NuestraHistoria() {
   section.className = 'nuestra-historia';
   section.id = 'nuestra-historia';
 section.innerHTML = `
+<h2 class="historia-titulo">¿Cómo empezó todo?</h2>
 <div class="historia-grid">
   <div class="historia-card hist-bloque hist-bloque-1">
     <div class="hist-card-year">2015</div>
@@ -55,6 +56,24 @@ section.innerHTML = `
   // Estilos insertados desde JS
   const style = document.createElement("style");
   style.innerHTML = `
+
+  .historia-titulo {
+    position: relative;
+    top: -180px;
+    font-family: 'Aloja Extended', sans-serif;
+    font-size: 2rem;
+    font-weight: 700;
+    color: white;
+    border: none;
+    margin-top: 60px;
+    margin-bottom: -20px;
+    background-attachment: fixed;
+    background-color: var(--main-color) !important;
+    display: inline-block;
+    border-radius: 10px;
+    padding: 15px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+}
   .nuestra-historia {
     padding: 2rem 1rem;
     max-width: 1200px;
@@ -228,7 +247,7 @@ section.innerHTML = `
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 32px;
+  gap: 70px;
 }
 .historia-card {
   width: 95vw;
@@ -277,6 +296,23 @@ section.innerHTML = `
     margin-left: calc(16.666% + 20px);
     margin-right: calc(16.666% + 20px);
   }
+}
+
+
+
+@keyframes animDown {
+  from {
+    opacity: 0;
+    transform: translateY(-40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.historia-titulo {
+  animation: animDown 0.8s ease;
 }
   `;
 
