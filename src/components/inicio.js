@@ -1,11 +1,11 @@
-export function SobreNosotras() {
+export function Inicio() {
     const section = document.createElement('section');
-    section.className = 'sobre-nosotras';
-    section.id ="sobre-nosotras"
+    section.className = 'inicio';
+    section.id = "inicio";
 
     section.innerHTML = `
-    <h2 class="titulo">Sobre Nosotras</h2>
-        <p class="sobre-nosotras-texto">
+    <h2 class="titulo">Inicio</h2>
+        <p class="inicio-texto">
             Somos Lura, una tienda de productos ecológicos y locales gestionada con pasión para una alimentación saludable. </br>¡Gracias por confiar en nosotras!
         </p>
         <div class="carrusel-marquee">
@@ -25,33 +25,25 @@ export function SobreNosotras() {
     ];
 
     const marqueeInner = section.querySelector('#marqueeInner');
-
-    // Generar 4 copias para garantizar continuidad
     const imageBlock = images.map(img =>
         `<img src="${img}" alt="${img.split('/').pop().split('.')[0]}" />`
     ).join('');
+    marqueeInner.innerHTML = imageBlock.repeat(4);
 
-    marqueeInner.innerHTML = imageBlock + imageBlock + imageBlock + imageBlock;
-
-    // Asegurar que el ancho sea suficiente
     setTimeout(() => {
         const containerWidth = marqueeInner.scrollWidth / 2;
         marqueeInner.style.width = `${containerWidth * 2}px`;
     }, 100);
 
-    // Animación: fade-in al montar
     setTimeout(() => {
-        const texto = section.querySelector('.sobre-nosotras-texto');
+        const texto = section.querySelector('.inicio-texto');
         if (texto) texto.classList.add('visible');
     }, 200);
 
-
-
-    // Estilos
     const style = document.createElement("style");
     style.innerHTML = `
 
-        .sobre-nosotras-texto {
+        .inicio-texto {
         font-family: "Hanken Grotesk", sans-serif;
         font-weight: 400;
         font-size: 18px;
@@ -71,24 +63,24 @@ export function SobreNosotras() {
         }
 
         @media (max-width: 600px) {
-        .sobre-nosotras-titulo {
+        .inicio-titulo {
             font-size: 27px;
             padding: 10px;
         }
-        
-        .sobre-nosotras-texto {
+
+        .inicio-texto {
             font-size: 16px;
             padding: 10px;
             max-width: 90vw;
         }
         }
 
-        .sobre-nosotras-texto.visible {
+        .inicio-texto.visible {
         opacity: 1;
         transform: translateY(0);
         }
 
-        .sobre-nosotras img {
+        .inicio img {
         width: 200px;
         height: 200px;
         border-radius: 10%;
@@ -121,13 +113,12 @@ export function SobreNosotras() {
         flex-shrink: 0;
         }
 
-        /* Animación mejorada para loop perfecto */
         @keyframes marquee {
         0% {
             transform: translateX(0);
         }
         100% {
-            transform: translateX(-50%); /* Usamos porcentaje fijo */
+            transform: translateX(-50%);
         }
         }
 
@@ -141,8 +132,7 @@ export function SobreNosotras() {
             min-height: 200px;
             max-height: 200px;
         }
-        
-        /* Ajuste para móviles */
+
         @keyframes marquee {
             100% {
             transform: translateX(-50%);
@@ -150,6 +140,10 @@ export function SobreNosotras() {
         }
         }
 
+        /* Sobrescribir margen superior de .titulo */
+        .titulo {
+            margin-top: 2rem;
+        }
   `;
     document.head.appendChild(style);
     return section;

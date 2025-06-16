@@ -1,6 +1,6 @@
 // Importar componentes
 import { Navbar } from './components/navbar.js';
-import { SobreNosotras } from './components/sobrenosotras.js';
+
 import { NuestraFilosofia } from './components/nuestrafilosofia.js';
 import { CarouselProductos } from './components/header.js';
 import { Productos } from './components/productos.js';
@@ -18,14 +18,15 @@ import { tituloCestas } from './components/tituloCestas.js';
 import { direccion } from './components/direccion.js';
 import { verLaPanera } from './components/verPanera.js';
 import { MasCosas } from './components/mascosas.js';
-
+import { SobreNosotras2 } from './components/sobrenosotras2.js';
+import { Inicio } from './components/inicio.js';
 
 (async () => {
   // Navbar
     app.append(Navbar());
 
   // Apartado Sobre Nosotras
-    app.append(SobreNosotras());
+    app.append(Inicio());
   
   // Carrusel de productos destacados (Header)
   const productosPortada = await CarouselProductos();
@@ -63,8 +64,15 @@ import { MasCosas } from './components/mascosas.js';
   // Tres cosas
     app.append(MasCosas());
 
+
+      // Apartado Sobre Nosotras2
+    app.append(SobreNosotras2());
+  
+
   // Sección de contacto
    app.append(Contacto());
+
+
 
    // Seccion dirección
    app.append(direccion());
