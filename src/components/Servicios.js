@@ -18,26 +18,29 @@ export function Servicios() {
             <div class="carousel-servicios-wrapper">
                 <button class="btn-servicios" id="prevBtn">←</button>
                 <div class="carousel-servicios">
-                    <div class="imagen-servicios" id="x1"><img src="images/reseña1.jpg" alt="Imagen 1"></div>
-                    <div class="imagen-servicios" id="x2"><img src="images/reseña1.jpg" alt="Imagen 2"></div>
-                    <div class="imagen-servicios" id="x3"><img src="images/reseña1.jpg" alt="Imagen 3"></div>
+                    <div class="imagen-servicios" id="serviciosimg1"><img src="images/fresa.webp" alt="Zumo fresas"></div>
+                    <div class="imagen-servicios" id="serviciosimg2"><img src="images/naranja.webp" alt="Zumo naranja"></div>
+                    <div class="imagen-servicios" id="serviciosimg3"><img src="images/arandano.webp" alt="Zumo arandanos"></div>
+                    <div class="imagen-servicios" id="serviciosimg4"><img src="images/verde.webp" alt="Zumo verde"></div>
+                    <div class="imagen-servicios" id="serviciosimg5"><img src="images/cafe.webp" alt="Café"></div>
+                    <div class="imagen-servicios" id="serviciosimg6"><img src="images/cafetarta.webp" alt="Café con tarta de queso"></div>
+                    <div class="imagen-servicios" id="serviciosimg7"><img src="images/matcha.webp" alt="Matcha"></div>
                 </div>
                 <button class="btn-servicios" id="nextBtn">→</button>
             </div>
         </div>
 
         <div class="container">
-        <h1 class="subtitulo-servicios">Trato cercano</h1>
-        <p class="servicios-texto"> Nuestro equipo está comprometido a brindarte un trato cercano y personalizado, asegurando que cada visita sea especial.</p>
-        <img src="images/reseña1.jpg" alt="Imagen 4" id="x4">
+            <h1 class="subtitulo-servicios">Trato cercano</h1>
+            <p class="servicios-texto"> Nuestro equipo está comprometido a brindarte un trato cercano y personalizado, asegurando que cada visita sea especial.</p>
+            <img src="images/reseña1.jpg" alt="Imagen 4" id="x4">
         </div>
     `;
 
     const style = document.createElement('style');
     style.textContent = `
-
         .subtitulo-servicios {
-            color:rgb(255, 255, 255);
+            color: rgb(255, 255, 255);
             background: var(--secondary-color);
             text-align: center;
             border-radius: 10px;
@@ -52,8 +55,8 @@ export function Servicios() {
             max-width: 100%;
             box-sizing: border-box;
             word-break: break-word;
-            }
-        
+        }
+
         .servicios-texto {
             font-family: "Hanken Grotesk", sans-serif;
             font-weight: 400;
@@ -73,6 +76,7 @@ export function Servicios() {
         .carousel-background {
             background: var(--main-color);
             padding: 40px 0;
+            margin-bottom: 20px
         }
 
         .carousel-servicios-wrapper {
@@ -80,20 +84,23 @@ export function Servicios() {
             align-items: center;
             justify-content: center;
             position: relative;
-            width: 100%;
-            max-width: 100%;
+            max-width: 1200px;
             margin: 0 auto;
         }
 
         .carousel-servicios {
             position: relative;
             width: 100%;
+            max-width: 800px;
             height: 200px;
+            margin: 0 auto;
+            box-sizing: border-box;
         }
 
         .imagen-servicios {
             position: absolute;
-            top: 0;
+            top: 50%;
+            transform: translateY(-50%);
             width: 160px;
             opacity: 0.3;
             transition: all 0.5s ease;
@@ -106,15 +113,18 @@ export function Servicios() {
 
         .imagen-servicios.active {
             opacity: 1;
-            transform: translateX(-50%) scale(1.4);
+            transform: translate(-50%, -50%) scale(1.4);
             left: 50%;
+            top: 50%;
             z-index: 3;
+            width: 160px; /* Ajuste para mantener proporción con scale(1.4) */
         }
 
         .imagen-servicios.left-item,
         .imagen-servicios.right-item {
             z-index: 1;
-            transform: translateX(-50%) scale(1);
+            transform: translate(-50%, -50%) scale(1);
+            left: 50%;
         }
 
         .btn-servicios {
@@ -130,6 +140,9 @@ export function Servicios() {
         @media (max-width: 600px) {
             .imagen-servicios {
                 width: 120px;
+            }
+            .imagen-servicios.active {
+                width: 168px; /* Ajuste proporcional para móvil con scale(1.4) */
             }
         }
     `;

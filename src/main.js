@@ -59,6 +59,9 @@ import { MasCosas } from './components/mascosas.js';
 
   // Nuestra Historia
     // app.append(NuestraHistoria());
+
+  // Servicios
+    app.append(Servicios());
   
   // Tres cosas
     app.append(MasCosas());

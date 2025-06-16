@@ -9,7 +9,7 @@ export function MasCosas() {
         <div class="row">
             <div class="col-12 text-center">
                 <h2 class="titulo margins">Más cosas</h2>  
-                <p class="descripcion">Explora nuestras secciones para descubrir más.</p>
+                <p class="descripcion">Descubre más sobre nuestro local.</p>
             </div>
         </div>
         <div class="row mt-3">
@@ -49,14 +49,12 @@ export function MasCosas() {
                 </div>
             </div>
             <div class="col-4 section-container">
-                <h1 class="section-title titulo margins">Sección Talleres</h1>
+                <h1 class="section-title titulo margins">Talleres</h1>
                 <button class="btn btn-primary DO-secciones show-btn" type="button" data-target="columna3">
                     Ver más +
                 </button>
                 <div class="section-content" id="columna3">
                     <div class="content-inner">
-                        <h1 class="titulo margins">Talleres</h1>
-                        <p>Este es el contenido expandido de la tercera columna. Aquí puedes añadir más detalles sobre los talleres.</p>
                         <button class="btn btn-secondary hide-btn">Ocultar info extra</button>
                     </div>
                 </div>
