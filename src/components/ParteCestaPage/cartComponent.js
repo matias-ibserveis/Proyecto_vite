@@ -134,6 +134,68 @@ export function CartComponent() {
     cartContainer.appendChild(leftPanel);
     cartContainer.appendChild(rightPanel);
 
+
+
+
+    addToCartBtn.addEventListener('click', () => {
+  // Muestra el popup
+  const popup = document.getElementById('cart-popup');
+  const popupImage = popup.querySelector('.cart-popup-image');
+  const popupName = popup.querySelector('.cart-popup-name');
+  const popupIngredients = popup.querySelector('.cart-popup-ingredients');
+
+  // Rellena los datos (ajusta según tus variables)
+  popupImage.src = cestaData.image;
+  popupName.textContent = cestaData.name;
+  popupIngredients.innerHTML = '';
+(cestaData.ingredients || []).forEach(ingredient => {
+  const div = document.createElement('div');
+  div.style.display = 'flex';
+  div.style.justifyContent = 'space-between';
+  div.style.alignItems = 'center';
+  div.style.marginBottom = '8px';
+  div.style.padding = '3px 0';
+  div.style.borderRadius = '8px';
+  div.style.background = '#fafbfc';
+
+  const nameSpan = document.createElement('span');
+  nameSpan.textContent = ingredient.name;
+  nameSpan.style.marginLeft = '18px'; // margen izquierdo para el nombre
+
+  const qtySpan = document.createElement('span');
+  qtySpan.textContent = ingredient.quantity;
+  qtySpan.style.fontWeight = 'bold';
+  qtySpan.style.color = '#a05d36';
+  qtySpan.style.marginRight = '18px'; // margen derecho para la cantidad
+
+  div.appendChild(nameSpan);
+  div.appendChild(qtySpan);
+  popupIngredients.appendChild(div);
+});
+
+  popup.style.display = 'flex';
+});
+
+// Botón cerrar (X)
+document.querySelector('.cart-popup-close').addEventListener('click', () => {
+  document.getElementById('cart-popup').style.display = 'none';
+  // Redirige a donde quieras, por ejemplo:
+  window.location.href = '/cesta.html';
+});
+
+// Botón Comprar
+document.querySelector('.comprar-btn').addEventListener('click', () => {
+  document.getElementById('cart-popup').style.display = 'none';
+  window.location.href = '/checkout.html';
+});
+
+// Link Seguir comprando
+document.querySelector('.continue-productos-link').addEventListener('click', (e) => {
+  e.preventDefault();
+  document.getElementById('cart-popup').style.display = 'none';
+  window.location.href = '/producto.html';
+});
+
     // --- CSS mínimo para que se vea bien (puedes moverlo a tu CSS global) ---
     if (!document.getElementById('cart-component-style')) {
       const style = document.createElement('style');
@@ -222,6 +284,64 @@ export function CartComponent() {
   font-size: 1.35rem; /* 1/3 más grande */
 }
 
+.comprar-btn,
+.continue-productos-link {
+  font-size: 1.7rem; /* Más grande el texto */
+  text-align: center;  /* Centrado el texto */
+    font-weight: bold;
+}
+
+.comprar-btn {
+  background: #d2ab74;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 28px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  cursor: pointer;
+  margin-bottom: 4px;
+  margin-top: 16px;
+}
+.comprar-btn:hover {
+  background: #b8935b;
+}
+.continue-productos-link {
+  background:rgb(211, 126, 92);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 28px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  cursor: pointer;
+  margin-bottom: 4px;
+}
+.continue-btn:hover {
+  background: #b8935b;
+}
+
+
+/* Scrollbar uniforme para PC y móvil */
+.cart-popup-ingredients {
+  scrollbar-width: thin;
+  scrollbar-color: #b8935b #f5f5f5;
+}
+
+/* Para navegadores basados en Webkit (Chrome, Edge, Safari, Android) */
+.cart-popup-ingredients::-webkit-scrollbar {
+  width: 8px;
+  background: #f5f5f5;
+  border-radius: 8px;
+}
+.cart-popup-ingredients::-webkit-scrollbar-thumb {
+  background: #b8935b;
+  border-radius: 8px;
+}
+.cart-popup-ingredients::-webkit-scrollbar-thumb:hover {
+  background: #a07c3b;
+}
+
 
 
 
@@ -251,7 +371,7 @@ export function CartComponent() {
   font-weight: bold;
 }
 .add-to-cart-btn {
-  background: #d2ab74;
+  background:rgb(211, 126, 92);
   color: #fff;
   border: none;
   border-radius: 10px;
@@ -322,6 +442,57 @@ export function CartComponent() {
     padding: 8px 0;
     border-radius: 7px;
     width: 100%;
+  }
+}
+
+
+.cart-popup {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.5);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+.cart-popup-content {
+  background: #fff;
+  border-radius: 16px;
+  padding: 32px 24px;
+  max-width: 400px;
+  width: 90vw;
+  box-shadow: 0 4px 32px rgba(0,0,0,0.2);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+.cart-popup-close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: none;
+  border: none;
+  font-size: 2rem;
+  cursor: pointer;
+}
+
+
+
+
+@media (max-width: 580px) {
+  .cart-popup-ingredients div {
+    margin-bottom: 8px !important;
+    padding: 3px 0 !important;
+    border-radius: 8px !important;
+    background: #fafbfc !important;
+    width: 250px !important;
+  }
+  .cart-popup-ingredients span:first-child {
+    margin-left: 8px !important;
+  }
+  .cart-popup-ingredients span:last-child {
+    margin-right: 8px !important;
   }
 }
       `;

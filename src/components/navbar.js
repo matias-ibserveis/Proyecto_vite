@@ -184,7 +184,7 @@ export function Navbar() {
   display: block;
   max-width: 50px;
   max-height:50px;
-  margin-right: 5px;
+  margin-right: 1px;
 }
   
 
@@ -359,7 +359,7 @@ nav.innerHTML = `
 
 <div class="navbar-btn-group" style="display: flex; align-items: center; gap: 10px; margin-left: auto;">
   <a href="/cesta.html" class="navbar-cart-btn" aria-label="Ir a la cesta">
-    <img src="/images/Carrito.png" alt="Carrito" class="navbar-cart-icon" />
+    <img src="/images/Cesta.webp" alt="Carrito" class="navbar-cart-icon" />
   </a>
   <button class="navbar-toggler" type="button" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>

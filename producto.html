@@ -34,7 +34,7 @@
 
   <!-- Load JavaScript -->
   <script type="module">
-    import { CestaNavbar } from '/src/components/CestaNavbar.js';
+    import { ProductosNavbar } from '/src/components/ProductosNavbar.js';
     import { CategoryNavbar } from '/src/components/ParteProductoPage/CategoryNavbar.js';
     import { CategoryCards } from '/src/components/ParteProductoPage/CategoryCards.js';
     import { Productos } from '/src/components/ParteProductoPage/productos.js';
@@ -42,7 +42,7 @@
     (async () => {
       try {
         // Main Navbar
-        const mainNavbar = CestaNavbar();
+        const mainNavbar = ProductosNavbar();
         document.getElementById('navbar').appendChild(mainNavbar);
         console.log("Main navbar appended successfully:", mainNavbar);
 

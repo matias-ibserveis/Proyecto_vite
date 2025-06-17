@@ -1,4 +1,4 @@
-export function CestaNavbar() {
+export function ProductosNavbar() {
   const nav = document.createElement("nav");
   nav.className = "navbar navbar-custom fixed-top";
   if (!document.getElementById('navbar-style')) {
@@ -347,10 +347,15 @@ nav.innerHTML = `
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item"><a class="nav-link" href="/sobre-nosotras">Sobre Nosotras</a></li>
         <li class="nav-item"><a class="nav-link" href="/cesta.html">Cesta-Semanal</a></li>
+        <li class="nav-item"><a class="nav-link" href="/producto.html">Productos</a></li>
+        <li class="nav-item"><a class="nav-link" href="/checkout.html">Carrito</a></li>
 
       </ul>
     </div>
 <div class="navbar-btn-group" style="display: flex; align-items: center; gap: 10px; margin-left: auto;">
+  <a href="/checkout.html" class="navbar-cart-btn" aria-label="Ir a la cesta">
+    <img src="/images/Carrito.png" alt="Carrito" class="navbar-cart-icon" />
+  </a>
   <button class="navbar-toggler" type="button" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>

@@ -2442,24 +2442,34 @@ button:focus-visible {
   transform: translateY(-2px);
 }
 
-/* Continue to Productos Link Styles */
+
 .continue-productos-link {
-  color: var(--main-color);
-  font-size: 1rem;
-  font-weight: 500;
-  text-align: center;
+  /* Copia aquí los estilos de .comprar-btn */
+  background-color: #d2ab74;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 28px;
+  font-size: 1.1rem;
+  font-weight: bold;
   cursor: pointer;
-  display: inline-block;
-  padding: 0.5rem 1rem;
-  transition: color 0.2s ease, transform 0.2s ease;
+  transition: background 0.2s;
+  display: block;
+  transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+  text-align: center;
+  margin-top: 10px;
   text-decoration: none;
 }
-
 .continue-productos-link:hover,
 .continue-productos-link:focus {
-  color: var(--secondary-color);
+  background-color: var(--secondary-color);
+  color: var(--main-color);
+  border-color: var(--secondary-color);
   transform: translateY(-2px);
 }
+
+/* Continue to Productos Link Styles */
+
 
 .cart-popup-image {
   width: 100%;
@@ -2490,10 +2500,7 @@ button:focus-visible {
       padding: 0.5rem 1rem;
   }
 
-  .continue-productos-link {
-      font-size: 0.9rem;
-      padding: 0.4rem 0.8rem;
-    }
+
 
   .cart-popup-image {
     max-width: 180px;
@@ -2517,10 +2524,7 @@ button:focus-visible {
     padding: 0.4rem 0.8rem;
 }
 
-.continue-productos-link {
-    font-size: 0.85rem;
-    padding: 0.3rem 0.6rem;
-  }
+
 
   .cart-popup-image {
     max-width: 160px;
@@ -2544,10 +2548,7 @@ button:focus-visible {
       padding: 0.3rem 0.6rem;
   }
 
-  .continue-productos-link {
-      font-size: 0.85rem;
-      padding: 0.3rem 0.6rem;
-    }
+
 
   .cart-popup-image {
     max-width: 140px;
@@ -2603,6 +2604,9 @@ button:focus-visible {
   font-weight: 600;
   color: var(--secondary-color);
   text-align: center;
+  background-color: rgba(0, 0, 0, 0.062);
+  padding: 5px;
+  border-radius: 5px;
 }
 
 /* Responsive Adjustments for Popup Name */

@@ -28,7 +28,7 @@ export function CartHeader() {
         display: flex;
         align-items: center;
         justify-content: center;
-        background: #fff;
+        background-color: rgba(231, 201, 136, 0.8);
         transition: box-shadow 0.2s;
       }
       .frame-foto:hover {
