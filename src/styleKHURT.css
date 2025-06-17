@@ -237,6 +237,8 @@ button:focus-visible {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
+
+
 .right-panel {
   display: flex;
   flex-direction: column;
@@ -244,7 +246,7 @@ button:focus-visible {
 }
 
 .cesta-image {
-  margin-top: 190px;
+  margin-top: 100px;
   width: 500px;
   height: 500px;
   border-radius: 5px;
@@ -388,9 +390,10 @@ button:focus-visible {
   }
 
   .cesta-image {
-    max-width: 100%;
     margin-left: auto;
     margin-right: auto;
+    margin-top: -1px;
+    
   }
 
   .cesta-name {
@@ -573,11 +576,6 @@ button:focus-visible {
     flex-direction: column;
   }
 
-  .cesta-image {
-    max-width: 100%;
-    margin-left: auto;
-    margin-right: auto;
-  }
 
   .cesta-name {
     font-size: 1.2rem;

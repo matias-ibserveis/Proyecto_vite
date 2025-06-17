@@ -145,6 +145,8 @@ export function CestaNavbar() {
     }
     .navbar-custom .navbar-toggler .navbar-toggler-icon {
       background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(0,0,0,0.7)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+        height: 40px; !important;
+      width: 40px; !important;
     }
     .navbar-custom .navbar-toggler.active {
       background-color:rgb(107, 85, 51) !important;
@@ -251,6 +253,21 @@ export function CestaNavbar() {
         background: none;
         display: block;
       }
+
+
+
+
+  .navbar-toggler {
+    background-color: rgba(0, 0, 0, 0.14) !important;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    aspect-ratio: 1 / 1 !important;
+    padding: 0 !important;
+    transition: background 0.2s;
+  }
       @keyframes slideInRight {
         from { opacity: 0; transform: translateX(60px);}
         to { opacity: 1; transform: translateX(0);}
@@ -346,58 +363,7 @@ nav.innerHTML = `
     }
   });
 
-const NAVBAR_OFFSETS = {
-  'sobre-nosotras': 130,
-  'nuestra-filosofia': 270,
-  'Info-Cestas': 1,
-  'Servicios': 130,
-  'Zona_de_Trabajo': 130,
-  'talleres': 130,
-  'reseñas': 200,
-  'contacto': 0 
-};
 
-nav.querySelectorAll('.nav-link').forEach(link => {
-  link.addEventListener('click', function (e) {
-    const href = this.getAttribute('href');
-    if (href && href.includes('#')) {
-      let hash = href.split('#')[1];
-      // Normaliza el hash para que coincida con las claves del objeto
-      hash = hash.replace(/ /g, '_'); // reemplaza espacios por guiones bajos
-      // Si tus claves están en minúsculas, descomenta la siguiente línea:
-      // hash = hash.toLowerCase();
-
-      const target = document.getElementById(hash);
-
-      // Lógica especial para "contacto"
-      if (hash === 'contacto') {
-        e.preventDefault();
-        window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
-        if (links.classList.contains('show')) toggler.click();
-        return;
-      }
-      // Lógica especial para "sobre-nosotras"
-      if (hash === 'sobre-nosotras' && target) {
-        e.preventDefault();
-        const y = target.getBoundingClientRect().top + window.pageYOffset - (NAVBAR_OFFSETS[hash] || 0);
-        window.scrollTo({ top: y, behavior: 'smooth' });
-        if (links.classList.contains('show')) toggler.click();
-        return;
-      }
-
-      if (target) {
-        e.preventDefault();
-        // Offset configurable por sección
-        const offset = NAVBAR_OFFSETS[hash] !== undefined ? NAVBAR_OFFSETS[hash] : 130;
-        const y = target.getBoundingClientRect().top + window.pageYOffset - offset;
-        window.scrollTo({ top: y, behavior: 'smooth' });
-        if (links.classList.contains('show')) {
-          toggler.click();
-        }
-      }
-    }
-  });
-});
 
 // Mostrar/ocultar navbar en móvil según scroll
 let lastScrollY = window.scrollY;

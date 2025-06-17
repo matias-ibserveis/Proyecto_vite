@@ -125,10 +125,8 @@ export function Navbar() {
       background-color: #d1ab72;
       transition: background 0.2s;
       border: none;
-      width: 48px !important;
-      height: 48px !important;
-      min-width: 48px !important;
-      min-height: 48px !important;
+      width: 60px !important;
+      height: 60px !important;
       aspect-ratio: 1 / 1 !important;
       display: flex;
       align-items: center;
@@ -137,19 +135,22 @@ export function Navbar() {
       padding: 0 !important;
     }
     .navbar-custom .navbar-toggler,
-    .navbar-custom .navbar-toggler:hover,
+    .navbar-custom .navbar-toggler:hover, navbar-cart-btn,
     .navbar-custom .navbar-toggler:focus {
       border: none !important;
       outline: none !important;
       box-shadow: none !important;
     }
     .navbar-custom .navbar-toggler .navbar-toggler-icon {
-      background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(0,0,0,0.7)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+      background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(0,0,0,0.9)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+      height: 40px; !important;
+      width: 40px; !important;
+  }
     }
-    .navbar-custom .navbar-toggler.active {
+    .navbar-custom .navbar-toggler.active .navbar-cart-icon {
       background-color:rgb(107, 85, 51) !important;
     }
-    .navbar-custom .navbar-toggler.active .navbar-toggler-icon {
+    .navbar-custom .navbar-toggler.active .navbar-toggler-icon  {
       background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='white' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
     }
     .navbar-custom::before {
@@ -163,6 +164,65 @@ export function Navbar() {
       border-radius: 0 1em 2em 0;
       z-index: 0;
     }
+
+
+.navbar-cart-btn {
+  margin-right: 12px;
+  background-color: #d1ab72;
+  border: none;
+  width: 60px !important;
+  height: 60px !important;
+  aspect-ratio: 1 / 1 !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  padding: 0 !important;
+  cursor: pointer;
+}
+.navbar-cart-icon{
+  display: block;
+  max-width: 50px;
+  max-height:50px;
+  margin-right: 5px;
+}
+  
+
+.navbar-cart-btn,
+.navbar-toggler {
+  background-color:rgba(0, 0, 0, 0.14) !important; /* Cambia este color al que prefieras */
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  aspect-ratio: 1 / 1 !important;
+  padding: 0 !important;
+  transition: background 0.2s;
+}
+
+
+.navbar-cart-btn,
+.navbar-toggler {
+  background-color: rgba(0, 0, 0, 0.14) !important;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  aspect-ratio: 1 / 1 !important;
+  padding: 0 !important;
+  transition: background 0.2s;
+}
+
+.navbar-cart-btn:hover,
+.navbar-toggler:hover {
+  background-color: rgba(0,0,0,0.28) !important;
+}
+
+
+
+
     @keyframes fadeInMenuLink {
       from { opacity: 0; transform: translateY(-10px);}
       to { opacity: 1; transform: translateY(0);}
@@ -296,9 +356,16 @@ nav.innerHTML = `
         <li class="nav-item"><a class="nav-link" href="/#contacto">Contacto</a></li>
       </ul>
     </div>
-    <button class="navbar-toggler" type="button" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
+
+<div class="navbar-btn-group" style="display: flex; align-items: center; gap: 10px; margin-left: auto;">
+  <a href="/cesta.html" class="navbar-cart-btn" aria-label="Ir a la cesta">
+    <img src="/images/Carrito.png" alt="Carrito" class="navbar-cart-icon" />
+  </a>
+  <button class="navbar-toggler" type="button" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+</div>
+
   </div>
 `;
 

@@ -142,8 +142,7 @@ export function CartComponent() {
 .cart-container {
   display: flex;
   gap: 42px;
-  background: #fafafa;
-  border-radius: 20px;
+
   padding: 42px;
   justify-content: center;
   align-items: flex-start;
@@ -155,16 +154,28 @@ export function CartComponent() {
   flex-direction: column;
   align-items: center;
   min-width: 290px;
-  height: 758px
+  height: 658px
+
+}
+
+.right-panel {
+  flex: 1 1 0;
+  background: #fff;
+  border-radius: 16px;
+  padding: 32px 36px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  min-width: 290px;
+    background: #f8f9fa;;
+  border-radius: 20px;
 }
 .cesta-image {
-  width: 240px;
-  height: 240px;
+  width: 250px;
+  height: 250px;
   object-fit: cover;
   border-radius: 18px;
   background: #d2ab74;
-  margin-bottom: 24px;
-  box-shadow: 0 3px 16px rgba(210,171,116,0.10);
+  box-shadow: 0 3px 16px rgba(0, 0, 0, 0.3);
+  margin-bottom: 20px;
 }
 .cesta-name {
   font-size: 2rem;
@@ -180,25 +191,27 @@ export function CartComponent() {
   color: #7a653a;
   margin: 16px 0 0 0;
   text-align: center;
+  background-color: rgba(0, 0, 0, 0.02);
+  border-radius: 10px;
+  padding: 10px
 }
-.right-panel {
-  flex: 1 1 0;
-  background: #fff;
-  border-radius: 16px;
-  padding: 32px 36px;
-  box-shadow: 0 2px 10px rgba(210,171,116,0.06);
-  min-width: 290px;
-}
+
 .ingredients-header {
   font-size: 2.3rem;
   color: #a05d36;
-  margin-bottom: 24px;
+  margin-bottom: 40px;
   font-family: 'Aloja Extended', Arial, sans-serif;
+  background-color: rgba(0, 0, 0, 0.02);
+  padding: 10px 0;
+  border-radius: 10px;
 }
 .ingredients-list {
   list-style: none;
   padding: 0;
   margin: 0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 0px 14px;
+  border-radius: 10px;
 }
 .ingredient-item {
   display: flex;
@@ -208,6 +221,12 @@ export function CartComponent() {
   border-bottom: 1.5px solid #f0e6d2;
   font-size: 1.35rem; /* 1/3 más grande */
 }
+
+
+
+
+
+
 .ingredient-name {
   color: #a05d36;
   font-size: 1.6rem; /* 1/3 más grande */
@@ -263,8 +282,8 @@ export function CartComponent() {
     min-width: 0;
   }
   .cesta-image {
-    width: 300px;
-    height: 300px;
+    width: 200px;
+    height: 200px;
     border-radius: 10px;
     margin-bottom: 10px;
   }
