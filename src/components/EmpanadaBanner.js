@@ -188,6 +188,10 @@ function mostrarBanner() {
         <button id="aceptar-empanadas" class="empanadas-btn-aceptar">Aceptar</button>
         <button id="rechazar-empanadas" class="empanadas-btn-rechazar">Rechazar</button>
       </div>
+      <div class="empanadas-banner-translate-btns">
+        <button id="empanada-catala-btn" class="empanadas-btn-info">Català</button>
+        <button id="empanada-english-btn" class="empanadas-btn-info">English</button>
+      </div>
     </div>
   `;
   document.body.appendChild(banner);
@@ -231,3 +235,46 @@ if (!getEmpanada("empanada_content")) {
 
 // Expón la función globalmente para el footer SIEMPRE
 window.mostrarBannerEmpanadas = mostrarBanner;
+
+ // Cargar Google Translate si aún no está cargado
+  if (!document.querySelector('#google-translate-script')) {
+    const script = document.createElement('script');
+    script.id = 'google-translate-script';
+    script.src = '//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
+    document.body.appendChild(script);
+  }
+
+  window.googleTranslateElementInit = function () {
+    new google.translate.TranslateElement({
+      pageLanguage: 'es',
+      includedLanguages: 'en,ca',
+      layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+    }, 'google_translate_element');
+  };
+
+  // --- Botones de traducción ---
+  document.getElementById('empanada-catala-btn').onclick = () => {
+    const translateEl = document.querySelector('#google_translate_element');
+    translateEl.style.visibility = 'visible';
+    translateEl.style.height = 'auto';
+    setTimeout(() => {
+      const select = document.querySelector('select.goog-te-combo');
+      if (select) {
+        select.value = 'ca';
+        select.dispatchEvent(new Event('change'));
+      }
+    }, 500);
+  };
+
+  document.getElementById('empanada-english-btn').onclick = () => {
+    const translateEl = document.querySelector('#google_translate_element');
+    translateEl.style.visibility = 'visible';
+    translateEl.style.height = 'auto';
+    setTimeout(() => {
+      const select = document.querySelector('select.goog-te-combo');
+      if (select) {
+        select.value = 'en';
+        select.dispatchEvent(new Event('change'));
+      }
+    }, 500);
+  };
