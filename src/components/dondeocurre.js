@@ -6,7 +6,7 @@ export function DondeOcurre() {
         <div class="row">
             <div class="col-12 text-center">
                 <h2 class="titulo margins">¿Dónde ocurre la magia?</h2>  
-                <p class="descripcion">Explora nuestras secciones para descubrir más.</p>
+                <p>Explora nuestras secciones para descubrir más.</p>
             </div>
         </div>
         <div class="row mt-3">
@@ -18,7 +18,7 @@ export function DondeOcurre() {
                 <div class="section-content" id="columna1">
                     <div class="content-inner">
                         <h1 class="titulo">Nuestros Productos</h1>
-                        <p>En esta sección se encuentran todos nuestro productos, la gran mayoria locales o ecológicos con una gran calidad.</p>
+                        <p class="DO-texto">En esta sección se encuentran todos nuestro productos, la gran mayoria locales o ecológicos con una gran calidad.</p>
                         <img class="" src="">
                         <button class="btn btn-secondary hide-btn">Ocultar info extra</button>
                     </div>
@@ -32,7 +32,7 @@ export function DondeOcurre() {
                 <div class="section-content" id="columna2">
                     <div class="content-inner">
                         <h1 class="titulo margins">Degustaciones</h1>
-                        <p>En esta sección de nuestro local puedes disfrutar de una gran variedad de zumos, cafés, infusiones y batidos, además de algunos postres y panes.</p>
+                        <p class="DO-texto">En esta sección de nuestro local puedes disfrutar de una gran variedad de zumos, cafés, infusiones y batidos, además de algunos postres y panes.</p>
                         <img class="" src="">
                         <button class="btn btn-secondary hide-btn">Ocultar info extra</button>
                     </div>
@@ -46,7 +46,7 @@ export function DondeOcurre() {
                 <div class="section-content" id="columna3">
                     <div class="content-inner">
                         <h1 class="titulo margins">Zona de Talleres</h1>
-                        <p>En esta sección de nuestro local se llevan a cabo la mayoría de los talleres que hemos tenido hasta ahora y cuenta con un amplio espacio ideal para su realización.</p>
+                        <p class="DO-texto">En esta sección de nuestro local se llevan a cabo la mayoría de los talleres que hemos tenido hasta ahora y cuenta con un amplio espacio ideal para su realización.</p>
                         <img class="" src="">
                         <button class="btn btn-secondary hide-btn">Ocultar info extra</button>
                     </div>
@@ -54,7 +54,7 @@ export function DondeOcurre() {
             </div>
             <div class = "row">
                 <div class="col-12 margin-top">
-                    <p class="">⬇¡Puedes ver nuestro local entero tocando en el boton de abajo!⬇</p>  
+                    <p class="DO-texto-2">⬇-¡Puedes ver nuestro local entero tocando en el boton de abajo!-⬇</p>  
                 </div>
                 <div class="col-12 text-align">          
                     <button class="videoBtn" id="videoBtn">Ver video</button>
@@ -69,6 +69,28 @@ export function DondeOcurre() {
             height: 2.5rem;
             width: 2.5rem;
             margin-bottom: 20px;
+        }
+
+        .DO-texto-2,
+        .DO-texto {
+            font-family: "Hanken Grotesk", sans-serif;
+            font-weight: 400;
+            font-size: 18px;
+            color:rgb(255, 255, 255);
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.6;
+            padding-top: 5px;
+            padding-bottom: 5px;
+            border-radius: 10px;
+            background: fixed;
+            margin-bottom: 20px;
+            background-color: var(--secondary-color);
+        }
+
+        DO-texto {
+        background-color: var(--terciary-color) !important;
+        color: black !important;
         }
 
         .DO-secciones {
@@ -174,14 +196,15 @@ export function DondeOcurre() {
         border-radius: 8px;
         font-weight: 700;
         text-decoration: none;
-        color: #fff !important;
-        background-color: #b25415 !important;
+        color: black !important;
+        border: 5px;
+        background-color: var(--terciary-color) !important;
         display: inline-block;
         transition: 
             transform 0.18s cubic-bezier(.4,2,.6,1),
             background 0.2s,
             filter 0.2s;
-        font-family: 'Aloja Extended', sans-serif;
+        font-family: 'Aloja Extended', sans-serif !important;
         box-shadow: 0 2px 8px rgba(0,0,0,0.4);
         border: none;
         cursor: pointer;
@@ -189,7 +212,8 @@ export function DondeOcurre() {
     }
 
     .videoBtn:hover {
-        background: var(--terciary-color) !important;
+        background: var(--main-color) !important;
+        color: white !important;
         transform: scale(1.08);
     }
 

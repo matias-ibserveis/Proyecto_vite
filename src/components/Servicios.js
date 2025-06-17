@@ -33,7 +33,7 @@ export function Servicios() {
         <div class="container">
             <h1 class="subtitulo-servicios">Trato cercano</h1>
             <p class="servicios-texto"> Nuestro equipo está comprometido a brindarte un trato cercano y personalizado, asegurando que cada visita sea especial.</p>
-            <img src="images/reseña1.jpg" alt="Imagen 4" id="x4">
+            <img class="TC-img"src="/images/tratocercano.webp" alt="Trato cercano 1" id="tratocercano1">
         </div>
     `;
 
@@ -141,6 +141,18 @@ export function Servicios() {
             z-index: 5;
         }
 
+        .TC-img {
+            display: block;
+            margin: 0 auto;
+            width: 25%;
+            max-width: 25%;
+            height: auto;
+            max-height: 25%;
+            border-radius: 10px;
+            margin-top: 10px;
+            margin-bottom: 20px !important;
+        }
+
         @media (max-width: 600px) {
             .imagen-servicios {
                 width: 120px;
@@ -149,6 +161,14 @@ export function Servicios() {
                 width: 168px; /* Ajuste proporcional para móvil con scale(1.4) */
             }
         }
+
+        @media(max-width: 992px) {
+            .TC-img {
+                max-width: 100%;
+                max-height: 400px;
+            }
+        }
+    }
     `;
     section.appendChild(style);
 

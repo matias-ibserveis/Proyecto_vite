@@ -9,7 +9,7 @@ export function MasCosas() {
         <div class="row">
             <div class="col-12 text-center">
                 <h2 class="titulo margins">Más cosas</h2>  
-                <p class="descripcion">Descubre más sobre nuestro local.</p>
+                <p class="DO-texto">¡Descubre más sobre nuestro local aqui!</p>
             </div>
         </div>
         <div class="row mt-3">
