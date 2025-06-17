@@ -32,10 +32,29 @@ export function CartComponent() {
     document.body.appendChild(lightbox);
   }
 
+  // --- POPUP SOLO UNA VEZ ---
+  if (!document.getElementById('cart-popup')) {
+    const popup = document.createElement('div');
+    popup.id = 'cart-popup';
+    popup.className = 'cart-popup';
+    popup.style.display = 'none';
+    popup.innerHTML = `
+      <div class="cart-popup-content">
+        <button class="cart-popup-close" title="Cerrar">&times;</button>
+        <img class="cart-popup-image" src="" alt="Cesta" style="width:120px;height:120px;object-fit:cover;border-radius:12px;margin-bottom:12px;">
+        <h3 class="cart-popup-name" style="margin:0 0 12px 0;"></h3>
+        <div class="cart-popup-ingredients" style="max-height:180px;overflow-y:auto;width:100%;margin-bottom:18px;"></div>
+        <button class="comprar-btn">Comprar</button>
+        <button class="continue-productos-link" style="margin-top:8px;">Seguir comprando</button>
+      </div>
+    `;
+    document.body.appendChild(popup);
+  }
+
   function renderCart() {
     cartContainer.innerHTML = '';
 
-    // --- TUS DATOS Y LÓGICA ORIGINALES ---
+    // --- DATOS DE LA CESTA ---
     const cestaData = {
       image: '/images/logo.png',
       name: 'Cesta de la SEMANA',
@@ -46,15 +65,11 @@ export function CartComponent() {
         { name: 'Pan', quantity: '1 barra' },
         { name: 'Queso', quantity: '200g' },
         { name: 'Tomates', quantity: '500g' },
-        { name: 'Tomates', quantity: '500g' },
-        { name: 'Tomates', quantity: '500g' },
-        { name: 'Tomates', quantity: '500g' },
-        { name: 'Tomates', quantity: '500g' },
-        { name: 'Tomates', quantity: '500g' },
-        { name: 'Tomates', quantity: '500g' },
-        { name: 'Tomates', quantity: '500g' },
-        { name: 'Tomates', quantity: '500g' },
-        
+        { name: 'Manzanas', quantity: '1kg' },
+        { name: 'Zanahorias', quantity: '500g' },
+        { name: 'Patatas', quantity: '1kg' },
+        { name: 'Cebollas', quantity: '500g' },
+        { name: 'Pimientos', quantity: '300g' }
       ],
       price: 25
     };
@@ -134,77 +149,95 @@ export function CartComponent() {
     cartContainer.appendChild(leftPanel);
     cartContainer.appendChild(rightPanel);
 
-
-
-
+    // --- EVENTO AÑADIR AL CARRO ---
     addToCartBtn.addEventListener('click', () => {
-  // Muestra el popup
-  const popup = document.getElementById('cart-popup');
-  const popupImage = popup.querySelector('.cart-popup-image');
-  const popupName = popup.querySelector('.cart-popup-name');
-  const popupIngredients = popup.querySelector('.cart-popup-ingredients');
+      addCestaToCart(cestaData, cestaData.ingredients);
 
-  // Rellena los datos (ajusta según tus variables)
-  popupImage.src = cestaData.image;
-  popupName.textContent = cestaData.name;
-  popupIngredients.innerHTML = '';
-(cestaData.ingredients || []).forEach(ingredient => {
-  const div = document.createElement('div');
-  div.style.display = 'flex';
-  div.style.justifyContent = 'space-between';
-  div.style.alignItems = 'center';
-  div.style.marginBottom = '8px';
-  div.style.padding = '3px 0';
-  div.style.borderRadius = '8px';
-  div.style.background = '#fafbfc';
+      // Muestra el popup
+      const popup = document.getElementById('cart-popup');
+      const popupImage = popup.querySelector('.cart-popup-image');
+      const popupName = popup.querySelector('.cart-popup-name');
+      const popupIngredients = popup.querySelector('.cart-popup-ingredients');
 
-  const nameSpan = document.createElement('span');
-  nameSpan.textContent = ingredient.name;
-  nameSpan.style.marginLeft = '18px'; // margen izquierdo para el nombre
+      popupImage.src = cestaData.image;
+      popupName.textContent = cestaData.name;
+      popupIngredients.innerHTML = '';
+      (cestaData.ingredients || []).forEach(ingredient => {
+        const div = document.createElement('div');
+        div.style.display = 'flex';
+        div.style.justifyContent = 'space-between';
+        div.style.alignItems = 'center';
+        div.style.marginBottom = '8px';
+        div.style.padding = '3px 0';
+        div.style.borderRadius = '8px';
+        div.style.background = '#fafbfc';
 
-  const qtySpan = document.createElement('span');
-  qtySpan.textContent = ingredient.quantity;
-  qtySpan.style.fontWeight = 'bold';
-  qtySpan.style.color = '#a05d36';
-  qtySpan.style.marginRight = '18px'; // margen derecho para la cantidad
+        const nameSpan = document.createElement('span');
+        nameSpan.textContent = ingredient.name;
+        nameSpan.style.marginLeft = '18px';
 
-  div.appendChild(nameSpan);
-  div.appendChild(qtySpan);
-  popupIngredients.appendChild(div);
-});
+        const qtySpan = document.createElement('span');
+        qtySpan.textContent = ingredient.quantity;
+        qtySpan.style.fontWeight = 'bold';
+        qtySpan.style.color = '#a05d36';
+        qtySpan.style.marginRight = '18px';
 
-  popup.style.display = 'flex';
-});
+        div.appendChild(nameSpan);
+        div.appendChild(qtySpan);
+        popupIngredients.appendChild(div);
+      });
 
-// Botón cerrar (X)
-document.querySelector('.cart-popup-close').addEventListener('click', () => {
-  document.getElementById('cart-popup').style.display = 'none';
-  // Redirige a donde quieras, por ejemplo:
-  window.location.href = '/cesta.html';
-});
+      popup.style.display = 'flex';
+    });
+  }
 
-// Botón Comprar
-document.querySelector('.comprar-btn').addEventListener('click', () => {
-  document.getElementById('cart-popup').style.display = 'none';
-  window.location.href = '/checkout.html';
-});
+  // --- FUNCION GUARDAR EN CARRITO ---
+  function addCestaToCart(cestaData, ingredientsData) {
+    const cart = JSON.parse(sessionStorage.getItem('cart') || '[]');
+    const uniqueId = `cesta_${Date.now()}`;
+    const newCesta = {
+      id: uniqueId,
+      name: cestaData.name,
+      quantity: 1,
+      price: 25,
+      type: 'cesta',
+      image: cestaData.image,
+      ingredients: ingredientsData.map(ingredient => ({
+        name: ingredient.name,
+        quantity: ingredient.quantity
+      }))
+    };
+    cart.push(newCesta);
+    sessionStorage.setItem('cart', JSON.stringify(cart));
+  }
 
-// Link Seguir comprando
-document.querySelector('.continue-productos-link').addEventListener('click', (e) => {
-  e.preventDefault();
-  document.getElementById('cart-popup').style.display = 'none';
-  window.location.href = '/producto.html';
-});
+  // --- EVENTOS POPUP ---
+  document.body.addEventListener('click', function (e) {
+    // Cerrar popup
+    if (e.target.classList.contains('cart-popup-close')) {
+      document.getElementById('cart-popup').style.display = 'none';
+      // window.location.href = '/cesta.html'; // Si quieres redirigir, descomenta
+    }
+    // Comprar
+    if (e.target.classList.contains('comprar-btn')) {
+      document.getElementById('cart-popup').style.display = 'none';
+      window.location.href = '/checkout.html';
+    }
+    // Seguir comprando
+    if (e.target.classList.contains('continue-productos-link')) {
+      document.getElementById('cart-popup').style.display = 'none';
+      window.location.href = '/producto.html';
+    }
+  });
 
-    // --- CSS mínimo para que se vea bien (puedes moverlo a tu CSS global) ---
-    if (!document.getElementById('cart-component-style')) {
-      const style = document.createElement('style');
-      style.id = 'cart-component-style';
-      style.textContent = `
+  // --- CSS mínimo para que se vea bien (puedes moverlo a tu CSS global) ---
+  if (!document.getElementById('cart-component-style')) {
+    const style = document.createElement('style');
+    style.id = 'cart-component-style';
+    style.textContent = `
 .cart-container {
   display: flex;
   gap: 42px;
-
   padding: 42px;
   justify-content: center;
   align-items: flex-start;
@@ -217,9 +250,7 @@ document.querySelector('.continue-productos-link').addEventListener('click', (e)
   align-items: center;
   min-width: 290px;
   height: 658px
-
 }
-
 .right-panel {
   flex: 1 1 0;
   background: #fff;
@@ -227,7 +258,7 @@ document.querySelector('.continue-productos-link').addEventListener('click', (e)
   padding: 32px 36px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   min-width: 290px;
-    background: #f8f9fa;;
+  background: #f8f9fa;;
   border-radius: 20px;
 }
 .cesta-image {
@@ -257,7 +288,6 @@ document.querySelector('.continue-productos-link').addEventListener('click', (e)
   border-radius: 10px;
   padding: 10px
 }
-
 .ingredients-header {
   font-size: 2.3rem;
   color: #a05d36;
@@ -281,16 +311,14 @@ document.querySelector('.continue-productos-link').addEventListener('click', (e)
   align-items: center;
   padding: 13px 0;
   border-bottom: 1.5px solid #f0e6d2;
-  font-size: 1.35rem; /* 1/3 más grande */
+  font-size: 1.35rem;
 }
-
 .comprar-btn,
 .continue-productos-link {
-  font-size: 1.7rem; /* Más grande el texto */
-  text-align: center;  /* Centrado el texto */
-    font-weight: bold;
+  font-size: 1.7rem;
+  text-align: center;
+  font-weight: bold;
 }
-
 .comprar-btn {
   background: #d2ab74;
   color: #fff;
@@ -320,15 +348,10 @@ document.querySelector('.continue-productos-link').addEventListener('click', (e)
 .continue-btn:hover {
   background: #b8935b;
 }
-
-
-/* Scrollbar uniforme para PC y móvil */
 .cart-popup-ingredients {
   scrollbar-width: thin;
   scrollbar-color: #b8935b #f5f5f5;
 }
-
-/* Para navegadores basados en Webkit (Chrome, Edge, Safari, Android) */
 .cart-popup-ingredients::-webkit-scrollbar {
   width: 8px;
   background: #f5f5f5;
@@ -341,15 +364,9 @@ document.querySelector('.continue-productos-link').addEventListener('click', (e)
 .cart-popup-ingredients::-webkit-scrollbar-thumb:hover {
   background: #a07c3b;
 }
-
-
-
-
-
-
 .ingredient-name {
   color: #a05d36;
-  font-size: 1.6rem; /* 1/3 más grande */
+  font-size: 1.6rem;
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
 }
 .ingredient-qty {
@@ -357,7 +374,7 @@ document.querySelector('.continue-productos-link').addEventListener('click', (e)
   color: #fff;
   border-radius: 8px;
   padding: 6px 18px;
-  font-size: 1.2rem; /* 1/3 más grande */
+  font-size: 1.2rem;
   font-weight: bold;
 }
 .cesta-price-div {
@@ -390,9 +407,9 @@ document.querySelector('.continue-productos-link').addEventListener('click', (e)
   background: #b8935b;
 }
 @media (max-width: 900px) {
-    .right-panel {
+  .right-panel {
     width: 100%;
-
+  }
   .cart-container {
     gap: 18px;
     padding: 18px;
@@ -444,8 +461,6 @@ document.querySelector('.continue-productos-link').addEventListener('click', (e)
     width: 100%;
   }
 }
-
-
 .cart-popup {
   position: fixed;
   top: 0; left: 0; right: 0; bottom: 0;
@@ -476,10 +491,6 @@ document.querySelector('.continue-productos-link').addEventListener('click', (e)
   font-size: 2rem;
   cursor: pointer;
 }
-
-
-
-
 @media (max-width: 580px) {
   .cart-popup-ingredients div {
     margin-bottom: 8px !important;
@@ -495,9 +506,8 @@ document.querySelector('.continue-productos-link').addEventListener('click', (e)
     margin-right: 8px !important;
   }
 }
-      `;
-      document.head.appendChild(style);
-    }
+    `;
+    document.head.appendChild(style);
   }
 
   renderCart();

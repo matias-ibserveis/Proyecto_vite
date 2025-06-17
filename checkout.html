@@ -70,12 +70,15 @@
 
 
     // Calculate subtotal
-    function calculateSubtotal(cart) {
-      return cart.reduce((total, item) => {
-        const itemTotal = item.type === 'cesta' ? 0 : (item.quantity * item.price);
-        return total + itemTotal;
-      }, 0).toFixed(2);
-    }
+function calculateSubtotal(cart) {
+  return cart.reduce((total, item) => {
+    // Si es cesta, suma su precio * cantidad, si no, igual
+    const itemTotal = item.type === 'cesta'
+      ? (item.price * (item.quantity || 1))
+      : (item.quantity * item.price);
+    return total + itemTotal;
+  }, 0).toFixed(2);
+}
 
     // Render subtotal
     function renderSubtotal() {
@@ -124,7 +127,7 @@
           let productDetails = '';
           if (item.type === 'cesta') {
             const ingredientsList = item.ingredients.map(ing =>
-              `${ing.name}: ${ing.selected} (from ${ing.place}, by ${ing.supplier})`
+              `${ing.name}: ${ing.quantity}`
             ).join('<br>');
             productDetails = `
               <div class="cart-item-details">
@@ -141,7 +144,7 @@
             `;
           }
 
-          const total = item.type === 'cesta' ? 0 : (item.quantity * item.price).toFixed(2);
+          const total = ((item.quantity || 1) * item.price).toFixed(2);
           row.innerHTML = `
             <td class="cart-item-image-cell">
               <img src="${imageUrl}" alt="${item.name}" class="cart-item-image" onerror="this.src='/images/logo.png'" />

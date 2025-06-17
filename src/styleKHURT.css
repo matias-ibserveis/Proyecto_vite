@@ -1819,6 +1819,7 @@ button:focus-visible {
   background-color: var(--main-color);
   padding: 0.75rem 1.5rem; /* Increased padding */
   border-radius: 5px;
+  text-align: center;
 }
 
 .continue-shopping {
@@ -1904,6 +1905,7 @@ button:focus-visible {
   .cart-header-wrapper .titulo {
     font-size: 1.2rem;
     padding: 0.3rem 0.8rem;
+      text-align: center;
   }
 
   .continue-shopping {
@@ -1959,9 +1961,12 @@ button:focus-visible {
 
 .cart-item-name {
   font-family: 'Aloja Extended', 'Arial', sans-serif;
-  font-size: 1.1rem;
+  font-size: 1.3rem;
   color: var(--secondary-color);
   font-weight: 500;
+  background-color: #63430005;
+  border-radius: 10px;
+  padding: 1px;
 }
 
 .cart-item-price,
@@ -2083,7 +2088,7 @@ button:focus-visible {
   }
 
   .cart-item-name {
-    font-size: 1rem;
+    font-size: 1.2rem;
   }
 
   .cart-item-price,
@@ -2143,7 +2148,7 @@ button:focus-visible {
   }
 
   .cart-item-name {
-    font-size: 0.9rem;
+    font-size: 1.1rem;
   }
 
   .cart-item-price,
@@ -2219,13 +2224,7 @@ button:focus-visible {
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
-#order-instructions:focus {
-  border-color: var(--secondary-color);
-  box-shadow: 0 0 0 3px rgba(var(--secondary-color-rgb, 0, 128, 0), 0.1);
-  outline: none;
-  margin-top: 20px;
-  margin-bottom: 50px;
-}
+
 
 #order-instructions2 {
   width: 100%;
@@ -2242,13 +2241,6 @@ button:focus-visible {
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
-#order-instructions2:focus {
-  border-color: var(--secondary-color);
-  box-shadow: 0 0 0 3px rgba(var(--secondary-color-rgb, 0, 128, 0), 0.1);
-  outline: none;
-  margin-top: 20px;
-  margin-bottom: 50px;
-}
 
 
 
@@ -2960,7 +2952,7 @@ button:focus-visible {
 .subtotal-float {
   position: fixed;
   left: 50%;
-  bottom: 16px;
+  bottom: -10px;
   transform: translateX(-50%);
   background: #fff;
   border-radius: 12px;
@@ -3003,4 +2995,16 @@ button:focus-visible {
   background: #b8935b;
 }
   
+
+textarea {
+  transition: transform 0.2s cubic-bezier(.4,0,.2,1);
+}
+
+/* Cuando el textarea recibe foco, aumenta su tamaño un 5% */
+textarea:focus {
+  transform: scale(1.05);
+  /* Si quieres que no cambie el tamaño del contenido alrededor, añade: */
+  z-index: 1;
+  position: relative;
+}
 }
