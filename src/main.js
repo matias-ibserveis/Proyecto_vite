@@ -62,6 +62,9 @@ import { MasCosas } from './components/mascosas.js';
 
   // Servicios
     app.append(Servicios());
+
+  // Donde ocurre?
+    app.append(DondeOcurre())
   
   // Tres cosas
     app.append(MasCosas());

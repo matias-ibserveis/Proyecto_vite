@@ -17,21 +17,21 @@ export function DondeOcurre() {
                 </button>
                 <div class="section-content" id="columna1">
                     <div class="content-inner">
-                        <h1 class="titulo">Servicios</h1>
-                        <p>Este es el contenido expandido de la primera columna. Aquí puedes añadir más detalles sobre los productos.</p>
+                        <h1 class="titulo">Nuestros Productos</h1>
+                        <p>Esta sección es una ventana al universo de creaciones únicas que combinan tradición, sostenibilidad y diseño. Aquí podrás descubrir objetos especiales, hechos con cariño y dedicación por productores y artesanos locales, ideales para regalar o llevarte un pedacito del proyecto a casa.</p>
                         <button class="btn btn-secondary hide-btn">Ocultar info extra</button>
                     </div>
                 </div>
             </div>
             <div class="col-4 section-container">
-                <h1 class="section-title titulo margins">Sección Bar</h1>
+                <h1 class="section-title titulo margins">Sección Degustaciones</h1>
                 <button class="btn btn-primary DO-secciones show-btn" type="button" data-target="columna2">
                     Ver más +
                 </button>
                 <div class="section-content" id="columna2">
                     <div class="content-inner">
-                        <h1 class="titulo margins">Sección Bar</h1>
-                        <p>Este es el contenido expandido de la segunda columna. Aquí puedes añadir más detalles sobre el bar.</p>
+                        <h1 class="titulo margins">Sabores que inspiran</h1>
+                        <p>En este espacio, los sentidos cobran vida. Las degustaciones invitan a explorar nuevas texturas, aromas y sabores a través de experiencias cuidadosamente diseñadas. Desde pequeños bocados hasta maridajes sorprendentes, cada propuesta busca conectar con el origen de los ingredientes y con quienes los transforman en arte comestible.</p>
                         <button class="btn btn-secondary hide-btn">Ocultar info extra</button>
                     </div>
                 </div>
@@ -43,12 +43,16 @@ export function DondeOcurre() {
                 </button>
                 <div class="section-content" id="columna3">
                     <div class="content-inner">
-                        <h1 class="titulo margins">Sección Talleres</h1>
-                        <p>Este es el contenido expandido de la tercera columna. Aquí puedes añadir más detalles sobre los talleres.</p>
+                        <h1 class="titulo margins">Talleres participativos</h1>
+                        <p>Los talleres están pensados como momentos de encuentro, creación y aprendizaje. Son espacios abiertos para experimentar, compartir saberes y despertar la curiosidad. Ya sea a través del arte, la cocina o el bienestar, cada actividad está diseñada para que conectes contigo y con las demás personas desde lo auténtico y lo lúdico.</p>
                         <button class="btn btn-secondary hide-btn">Ocultar info extra</button>
                     </div>
                 </div>
             </div>
+            <p>⬇¡Puedes ver nuestro local entero tocando en el boton de abajo!⬇</p>
+            <button class="btn btn-primary DO-secciones show-btn" data-target="columna3">
+                Ver video
+            </button>
         </div>
     `;
 
@@ -66,7 +70,7 @@ export function DondeOcurre() {
             font-weight: 600;
             margin-bottom: 10px;
             width: 100%;
-            shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
 
         .DO-secciones:hover {
@@ -115,10 +119,6 @@ export function DondeOcurre() {
             display: block;
         }
 
-        .section-container .section-title {
-            display: block;
-        }
-
         .content-inner {
             padding: 20px;
             background-color: #f8f9fa;
@@ -145,25 +145,44 @@ export function DondeOcurre() {
             margin-bottom: 20px;
             margin-top: 20px;
         }
+
+        @media (max-width: 768px) {
+            .col-4 {
+                width: 100%;
+                margin-bottom: 20px;
+            }
+        }
     `;
     document.head.appendChild(style);
 
     // JavaScript to handle slide-in and slide-out
+
     dondeOcurre.addEventListener('click', (event) => {
         if (event.target.classList.contains('show-btn')) {
             const targetId = event.target.getAttribute('data-target');
             const content = document.getElementById(targetId);
+
+            // Cierra todos los demás
+            const allContents = dondeOcurre.querySelectorAll('.section-content');
+            allContents.forEach(c => {
+                if (c !== content) c.classList.remove('active', 'exiting');
+            });
+
             content.classList.remove('exiting');
-            // Force reflow and delay to ensure transition triggers
             content.offsetHeight;
             setTimeout(() => content.classList.add('active'), 0);
         }
+
         if (event.target.classList.contains('hide-btn')) {
             const sectionContainer = event.target.closest('.section-content');
             sectionContainer.classList.remove('active');
-            // Force reflow and delay to ensure transition triggers
             sectionContainer.offsetHeight;
-            setTimeout(() => sectionContainer.classList.add('exiting'), 0);
+            sectionContainer.classList.add('exiting');
+
+            // Elimina la clase después de la animación
+            setTimeout(() => {
+                sectionContainer.classList.remove('exiting');
+            }, 500);
         }
     });
 
