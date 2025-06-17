@@ -11,13 +11,12 @@ export function Talleres() {
       </div>
     </div>
     <div class="talleres-texto-frame anim-up">
-      <p class="talleres-texto">
-        xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx<br>
-        xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx<br>
-        xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx<br>
-        xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx<br>
-        xxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-      </p>
+    <p class="talleres-texto">
+      En Lura creemos en compartir, aprender y disfrutar en comunidad.<br><br>
+      Por eso organizamos talleres en los que compartimos ideas, experiencias y aprendizajes en torno a un estilo de vida más natural y consciente.<br><br>
+      Son espacios tranquilos, accesibles y pensados para disfrutar aprendiendo.<br>
+      ¡Te esperamos!
+    </p>
     </div>
 
     <div class="talleres-fotos-horizontal anim-up">
@@ -31,11 +30,9 @@ export function Talleres() {
     
       <div class="talleres-texto-frame anim-up">
       <p class="talleres-texto">
-        xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx<br>
-        xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx<br>
-        xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx<br>
-        xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx<br>
-        xxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+        Los talleres se realizan de forma periódica en nuestra tienda o en colaboración con espacios locales.<br><br>
+        Si te interesa participar o quieres recibir información sobre los próximos encuentros, no dudes en unirte a nuestro grupo de Whatsapp o seguirnos en redes.<br><br>
+        ¡Nos encantará contar contigo en la próxima actividad!
       </p>
     </div>
 
@@ -169,7 +166,7 @@ export function Talleres() {
         box-shadow: 0 2px 8px rgba(0,0,0,0.13);
         text-align: center;
         margin-bottom: 40px;
-        word-break: break-all;    
+        word-break: normal;
         overflow-wrap: break-word;
       }
 
