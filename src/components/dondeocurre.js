@@ -18,7 +18,8 @@ export function DondeOcurre() {
                 <div class="section-content" id="columna1">
                     <div class="content-inner">
                         <h1 class="titulo">Nuestros Productos</h1>
-                        <p>Esta sección es una ventana al universo de creaciones únicas que combinan tradición, sostenibilidad y diseño. Aquí podrás descubrir objetos especiales, hechos con cariño y dedicación por productores y artesanos locales, ideales para regalar o llevarte un pedacito del proyecto a casa.</p>
+                        <p>En esta sección se encuentran todos nuestro productos, la gran mayoria locales o ecológicos con una gran calidad.</p>
+                        <img class="" src="">
                         <button class="btn btn-secondary hide-btn">Ocultar info extra</button>
                     </div>
                 </div>
@@ -30,8 +31,9 @@ export function DondeOcurre() {
                 </button>
                 <div class="section-content" id="columna2">
                     <div class="content-inner">
-                        <h1 class="titulo margins">Sabores que inspiran</h1>
-                        <p>En este espacio, los sentidos cobran vida. Las degustaciones invitan a explorar nuevas texturas, aromas y sabores a través de experiencias cuidadosamente diseñadas. Desde pequeños bocados hasta maridajes sorprendentes, cada propuesta busca conectar con el origen de los ingredientes y con quienes los transforman en arte comestible.</p>
+                        <h1 class="titulo margins">Degustaciones</h1>
+                        <p>En esta sección de nuestro local puedes disfrutar de una gran variedad de zumos, cafés, infusiones y batidos, además de algunos postres y panes.</p>
+                        <img class="" src="">
                         <button class="btn btn-secondary hide-btn">Ocultar info extra</button>
                     </div>
                 </div>
@@ -43,16 +45,21 @@ export function DondeOcurre() {
                 </button>
                 <div class="section-content" id="columna3">
                     <div class="content-inner">
-                        <h1 class="titulo margins">Talleres participativos</h1>
-                        <p>Los talleres están pensados como momentos de encuentro, creación y aprendizaje. Son espacios abiertos para experimentar, compartir saberes y despertar la curiosidad. Ya sea a través del arte, la cocina o el bienestar, cada actividad está diseñada para que conectes contigo y con las demás personas desde lo auténtico y lo lúdico.</p>
+                        <h1 class="titulo margins">Zona de Talleres</h1>
+                        <p>En esta sección de nuestro local se llevan a cabo la mayoría de los talleres que hemos tenido hasta ahora y cuenta con un amplio espacio ideal para su realización.</p>
+                        <img class="" src="">
                         <button class="btn btn-secondary hide-btn">Ocultar info extra</button>
                     </div>
                 </div>
             </div>
-            <p>⬇¡Puedes ver nuestro local entero tocando en el boton de abajo!⬇</p>
-            <button class="btn btn-primary DO-secciones show-btn" data-target="columna3">
-                Ver video
-            </button>
+            <div class = "row">
+                <div class="col-12 margin-top">
+                    <p class="">⬇¡Puedes ver nuestro local entero tocando en el boton de abajo!⬇</p>  
+                </div>
+                <div class="col-12 text-align">          
+                    <button class="videoBtn" id="videoBtn">Ver video</button>
+                </div>
+            </div>
         </div>
     `;
 
@@ -146,12 +153,46 @@ export function DondeOcurre() {
             margin-top: 20px;
         }
 
+        .margin-top {
+            margin-top: 20px;
+            margin-bottom: 0px !important;
+        }
+
         @media (max-width: 768px) {
             .col-4 {
                 width: 100%;
                 margin-bottom: 20px;
             }
         }
+
+        .videoBtn {
+        margin-top: 10px;
+        font-size: 1.3rem;
+        padding: 20px 40px;
+        max-height: 80px;
+        max-width: 200px;
+        border-radius: 8px;
+        font-weight: 700;
+        text-decoration: none;
+        color: #fff !important;
+        background-color: #b25415 !important;
+        display: inline-block;
+        transition: 
+            transform 0.18s cubic-bezier(.4,2,.6,1),
+            background 0.2s,
+            filter 0.2s;
+        font-family: 'Aloja Extended', sans-serif;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+        border: none;
+        cursor: pointer;
+        will-change: transform;
+    }
+
+    .videoBtn:hover {
+        background: var(--terciary-color) !important;
+        transform: scale(1.08);
+    }
+
     `;
     document.head.appendChild(style);
 
@@ -185,6 +226,21 @@ export function DondeOcurre() {
             }, 500);
         }
     });
+
+            // boton.js
+    const videoBtn = dondeOcurre.querySelector('#videoBtn');
+    if (videoBtn) {
+        videoBtn.onclick = () => {
+            const seccionDestino = document.getElementById('mascosas');
+            if (seccionDestino) {
+                seccionDestino.scrollIntoView({ behavior: 'smooth' });
+            } else {
+                console.error('El elemento con id="mascosas" no se encuentra en el DOM');
+            }
+        };
+    } else {
+        console.error('El elemento con id="videoBtn" no se encuentra en el DOM');
+    }
 
     return dondeOcurre;
 }
