@@ -59,10 +59,10 @@ import { Inicio } from './components/inicio.js';
     //app.append(Comentarios());
 
   // Nuestra Historia
-    // app.append(NuestraHistoria());
+     app.append(NuestraHistoria());
   
   // Tres cosas
-    app.append(MasCosas());
+   // app.append(MasCosas());
 
 
       // Apartado Sobre Nosotras2

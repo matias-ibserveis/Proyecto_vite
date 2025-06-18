@@ -5,41 +5,27 @@ export function NuestraHistoria() {
 section.innerHTML = `
 <div class="historia-grid">
   <div class="historia-card hist-bloque hist-bloque-1">
-    <div class="hist-card-year">2015</div>
+    <div class="hist-card-year">2022</div>
     <h3 class="hist-card-title">Nuestra idea</h3>
-    <p class="hist-card-text">Empezamos con una idea pequeña y <br>mucho optimismo...</p>
-    <img class="hist-card-img" src="/images/historia1.jpg" alt="Historia 2015" />
-    <button class="hist-card-btn">...</button>
+    <p class="hist-card-text">Todo comenzó con una idea sencilla: crear un espacio para reconectar con lo natural y vivir con propósito.</p>
+    <img class="hist-card-img" src="/images/hist1.webp" alt="Historia 2022" />
+  
   </div>
   <div class="historia-card hist-bloque hist-bloque-2">
-    <div class="hist-card-year">2016</div>
+    <div class="hist-card-year">2023</div>
     <h3 class="hist-card-title">La apertura</h3>
-    <p class="hist-card-text">Abrimos nuestras puertas al público con<br> gran entusiasmo...</p>
-    <img class="hist-card-img" src="/images/historia2.jpg" alt="Historia 2016" />
-    <button class="hist-card-btn">...</button>
+    <p class="hist-card-text">Con entusiasmo, abrimos nuestras puertas y comenzamos a compartir este proyecto con la comunidad.</p>
+    <img class="hist-card-img" src="/images/hist2.webp" alt="Historia 2023" />
+  
   </div>
   <div class="historia-card hist-bloque hist-bloque-3">
-    <div class="hist-card-year">2018</div>
-    <h3 class="hist-card-title">Crecimiento</h3>
-    <p class="hist-card-text">Expandimos nuestro equipo y servicios para llegar a más clientes.</p>
-    <img class="hist-card-img" src="/images/historia3.jpg" alt="Historia 2018" />
-    <button class="hist-card-btn">...</button>
+    <div class="hist-card-year">2025</div>
+    <h3 class="hist-card-title">Actualidad</h3>
+    <p class="hist-card-text">Ofrecemos un trato cercano a quienes buscan una vida más natural y consciente.</p>
+    <img class="hist-card-img" src="/images/hist3.webp" alt="Historia 2025" />
+    
   </div>
-  <div class="historia-card hist-bloque hist-bloque-4">
-    <div class="hist-card-year">20xx</div>
-    <h3 class="hist-card-title">Cestas Semanales</h3>
-    <p class="hist-card-text">xxxxxxxxxxxxxxxxxxxx<br>xxxxxxxxxxx<br>xxxx.</p>
-    <img class="hist-card-img" src="/images/historia4.jpg" alt="Historia Cestas" />
-    <button class="hist-card-btn">...</button>
-  </div>
-  <div class="historia-card hist-bloque hist-bloque-5">
-    <div class="hist-card-year">2024</div>
-    <h3 class="hist-card-title">Nuestra web</h3>
-    <p class="hist-card-text">xxxxxxxxxxxxxxxxxxxx<br>xxxxxxxxxxx<br>xxxx</p>
-    <img class="hist-card-img" src="/images/historia5.jpg" alt="Historia Web" />
-    <button class="hist-card-btn">...</button>
-  </div>
-</div>
+
         <hr class="anim-down" />
 `;
 
@@ -77,20 +63,19 @@ section.innerHTML = `
   .historia-card {
     background: white;
     border-radius: 12px;
-    padding: 20px;
+    padding: 10px;
     border: 1px solid rgba(209, 171, 114, 0.2);
     box-shadow: 0 4px 8px var(--terciary-color);
     opacity: 0;
     transform: translateY(40px);
     transition: all 0.6s ease;
-    width: 350px; /* Ancho fijo para uniformidad */
+    width: 20%; /* Ancho fijo para uniformidad */
     
   }
 
   .hist-bloque-2 { transition-delay: 0.1s; }
   .hist-bloque-3 { transition-delay: 0.2s; }
-  .hist-bloque-4 { transition-delay: 0.3s; }
-  .hist-bloque-5 { transition-delay: 0.4s; }
+
 
   .historia-card:hover {
     transform: translateY(-5px);
@@ -133,11 +118,19 @@ section.innerHTML = `
 }
 
   .hist-card-text {
-    color: #555;
+    display: flex;
+    align-items: center;     /* Centra verticalmente */
+    justify-content: center; /* Opcional, si quieres centrar horizontalmente también */
+    padding: 1.5rem;
+    height: 140px;
+    overflow: hidden;
     margin-top: 10px;
     line-height: 1.6;
-    font-size: 1.3rem;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+    box-sizing: border-box;
+    font-size: 1.1rem;
+    font-family: "Hanken Grotesk", sans-serif !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+    text-align: center;      /* Para que el texto quede centrado */
   }
 
   .hist-bloque.mostrar {

@@ -13,7 +13,7 @@ export function NuestraFilosofia() {
             </div>
             <div class="col-img">
                 <div class="imagen-container">
-                    <img class="imagen" src="images/carousel1.jpeg" alt="Nuestra Filosofía">
+                    <img class="imagen" src="images/NuestraFilosofia.webp" alt="Nuestra Filosofía">
                 </div>
             </div>
         </div>    

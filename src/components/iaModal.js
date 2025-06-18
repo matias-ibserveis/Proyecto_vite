@@ -3,7 +3,6 @@
 let preguntaExtraCount = 0;
 let productoActivo = null;
 
-
 export function crearModalIA() {
   let modal = document.querySelector("#iaModal");
   if (!modal) {
@@ -14,13 +13,19 @@ export function crearModalIA() {
       background-color: rgba(0,0,0,0.5); display: none; align-items: center; justify-content: center; z-index: 1000;
     `;
     modal.innerHTML = `
-        <div id="iaContent" style="
-          background: white; padding: 1rem; border-radius: 8px; max-width: 600px;
-           width: 90%; max-height: 90vh; overflow-y: auto; display: flex; flex-direction: column;
-        ">
+      <div id="iaContent" style="
+        background: white; padding: 1rem; border-radius: 8px; max-width: 600px;
+        width: 90%; max-height: 90vh; overflow-y: auto; display: flex; flex-direction: column;
+      ">
         <button id="cerrarIA" style="float:right; font-size:1.2rem;">✖️</button>
+        
         <div id="iaTexto" style="margin-top: 1.5rem;"></div>
-
+        <div id="spinnerIA" style="display:none; margin-top:1rem; align-self:center;">
+          <div style="
+            width: 2rem; height: 2rem; border: 6px solid #ccc; border-top: 3px solid #007bff;
+            border-radius: 50%; animation: spin 1s linear infinite;
+          "></div>
+        </div>
         <hr>
         <h5 id="titulo">Haz pregunta a la IA:</h5>
         <textarea id="preguntaExtra" class="form-control" rows="3" maxlength="300" placeholder=" ..."></textarea>
@@ -29,6 +34,19 @@ export function crearModalIA() {
       </div>
     `;
     document.body.appendChild(modal);
+
+    // Añadir animación al head una sola vez
+    if (!document.getElementById("spinnerStyle")) {
+      const style = document.createElement("style");
+      style.id = "spinnerStyle";
+      style.textContent = `
+        @keyframes spin {
+          0% { transform: rotate(0deg); }
+          100% { transform: rotate(360deg); }
+        }
+      `;
+      document.head.appendChild(style);
+    }
 
     modal.querySelector("#cerrarIA").addEventListener("click", () => {
       modal.style.display = "none";
@@ -49,10 +67,10 @@ export function crearModalIA() {
       const btn = modal.querySelector("#enviarPreguntaIA");
       btn.disabled = true;
       btn.textContent = "Preguntando...";
+      modal.querySelector("#spinnerIA").style.display = "block";
 
       try {
         const resp = await fetch('https://proyectorailway-production-9739.up.railway.app/api/chat', {
-        //const resp = await fetch("http://localhost:3000/api/chat", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
@@ -62,7 +80,7 @@ export function crearModalIA() {
         });
         const data = await resp.json();
 
-        modal.querySelector("#titulo").textContent = "Respuesta"
+        modal.querySelector("#titulo").textContent = "Respuesta";
 
         const parrafos = data.respuesta
           .split("\n")
@@ -85,21 +103,23 @@ export function crearModalIA() {
       } finally {
         btn.disabled = false;
         btn.textContent = "Preguntar";
+        modal.querySelector("#spinnerIA").style.display = "none";
       }
     });
   }
 }
-
 export async function mostrarRespuestaIA(producto) {
   productoActivo = producto;
   const modal = document.querySelector("#iaModal");
   const iaTexto = modal.querySelector("#iaTexto");
+  const spinner = modal.querySelector("#spinnerIA");
 
   iaTexto.textContent = "⏳ Consultando a la IA...";
+  spinner.style.display = "block";
+  modal.style.display = "flex"; // Mostrar el modal antes de la espera
 
   try {
     const res = await fetch('https://proyectorailway-production-9739.up.railway.app/api/chat', {
-    //const res = await fetch("http://localhost:3000/api/chat", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -107,19 +127,18 @@ export async function mostrarRespuestaIA(producto) {
         esPrimeraPregunta: true
       })
     });
-    //console.log("res", res)
+
     const data = await res.json();
+
     iaTexto.innerHTML = `${data.respuesta
       .split("\n")
       .filter(p => p.trim() !== "")
       .map(p => `<p style="margin-top: 1rem;">${p.trim()}</p>`)
       .join("")}`;
-
-
   } catch (error) {
     iaTexto.textContent = "❌ Error al obtener respuesta de la IA";
     console.error(error);
+  } finally {
+    spinner.style.display = "none";
   }
-
-  document.querySelector("#iaModal").style.display = "flex";
 }
