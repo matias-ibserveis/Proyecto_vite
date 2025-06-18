@@ -25,29 +25,8 @@ export async function Productos() {
   const buscarBtn = productos.querySelector("#buscarBtn");
   const todosBtn = productos.querySelector("#todosBtn");
 
-  function verMasProductos() {
-    const btnVerMas = document.createElement("button");
-    btnVerMas.id = "btnVerMas";
-    btnVerMas.textContent = "Ver más productos";
-    btnVerMas.className = "btn btn-primary mt-4 px-5 py-3 fs-6 rounded-pill";
-    btnVerMas.style.minWidth = "280px";
-    btnVerMas.style.boxShadow = "0 0.5rem 1rem rgba(0,0,0,0.3)";
-    btnVerMas.onclick = () => {
-      paginacionActiva = true;
-      itemsPerPage = 9;
-      currentPage = 1;
-      paginar(dataOriginal, currentPage);
-      btnVerMas.remove(); // oculta el botón
-    };
-    productos.appendChild(btnVerMas);
 
-  }
 
-  // Función principal: cargar al inicio
-  await cargarProductosIniciales();
-  verMasProductos();
-  restaurarScrollPrevio();
-  aplicarEstilos();
 
   // 🔽 escucha cambios en la búsqueda global
   document.addEventListener("busquedaCambiada", () => {
@@ -82,10 +61,6 @@ export async function Productos() {
         <img src="${imageUrl}" class="card-img-top" alt="${producto.titulo}">
         <div class="card-body">
           <h5 class="card-title">${producto.titulo}</h5>
-          <p class="card-text">
-            ${resumen}
-            <span class="ver_mas" data-id="${producto.id}">ver +</span>
-          </p>
           <button class="btn btn-secondary mt-2 btn-ia" data-id="${producto.id}">+información IA</button>
           <button class="btn btn-secondary mt-2 btn-a-cesta" data-id="${producto.id}">a Mi cesta</button>
         </div>
@@ -261,8 +236,7 @@ export async function Productos() {
       contenedor.innerHTML = `<p class="text-danger">No puedo buscar productos</p>`;
       console.error("No se pudo búscar:", err);
     } finally {
-      toggleBotones(false);
-      document.querySelector("#btnVerMas")?.remove();
+
     }
   }
 

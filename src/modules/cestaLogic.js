@@ -1,39 +1,6 @@
 // src/modules/cestaLogic.js
 
 // Initialize the cart from localStorage or API
-export async function initializeCesta() {
-  const cestaRaw = localStorage.getItem('cesta');
-  if (!cestaRaw || cestaRaw === '{}' || Object.keys(JSON.parse(cestaRaw)).length === 0) {
-    try {
-      const res = await fetch('https://proyectorailway-production-9739.up.railway.app/listados/cesta/1');
-      if (!res.ok) throw new Error('Failed to fetch initial cart');
-      const productos = await res.json();
-      const cestaInicial = {};
-      productos.forEach(p => {
-        cestaInicial[p.id] = {
-          id: p.id,
-          titulo: p.titulo,
-          cantidad: 1,
-          unidad_medido: p.unidad_medido,
-          precio: p.precio,
-          origen: p.origen || 'api'
-        };
-      });
-      localStorage.setItem('cesta', JSON.stringify(cestaInicial));
-      return cestaInicial;
-    } catch (err) {
-      console.error('Error loading initial cart:', err);
-      return {};
-    }
-  }
-
-  try {
-    return JSON.parse(cestaRaw);
-  } catch {
-    console.error('Error parsing cart from localStorage');
-    return {};
-  }
-}
 
 // Render the cart UI
 export async function renderCesta(container) {

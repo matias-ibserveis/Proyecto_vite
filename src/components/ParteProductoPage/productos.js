@@ -493,7 +493,6 @@ addBtn.addEventListener("click", () => {
       descriptionWrapper.appendChild(descriptionText);
       details.appendChild(title);
       details.appendChild(descriptionWrapper);
-      details.appendChild(verMasBtn);
       details.appendChild(price);
 
       const cardFooter = document.createElement("div");

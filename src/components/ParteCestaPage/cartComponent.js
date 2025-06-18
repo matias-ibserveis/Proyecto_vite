@@ -162,30 +162,42 @@ export function CartComponent() {
       popupImage.src = cestaData.image;
       popupName.textContent = cestaData.name;
       popupIngredients.innerHTML = '';
-      (cestaData.ingredients || []).forEach(ingredient => {
-        const div = document.createElement('div');
-        div.style.display = 'flex';
-        div.style.justifyContent = 'space-between';
-        div.style.alignItems = 'center';
-        div.style.marginBottom = '8px';
-        div.style.padding = '3px 0';
-        div.style.borderRadius = '8px';
-        div.style.background = '#fafbfc';
 
-        const nameSpan = document.createElement('span');
-        nameSpan.textContent = ingredient.name;
-        nameSpan.style.marginLeft = '18px';
+      // Leer el carrito real del sessionStorage
+      const cart = JSON.parse(sessionStorage.getItem('cart') || '[]');
 
-        const qtySpan = document.createElement('span');
-        qtySpan.textContent = ingredient.quantity;
-        qtySpan.style.fontWeight = 'bold';
-        qtySpan.style.color = '#a05d36';
-        qtySpan.style.marginRight = '18px';
+      // Mostrar solo los ingredientes de la última cesta añadida
+      if (cart.length > 0) {
+        const lastCesta = cart[cart.length - 1];
+        (lastCesta.ingredients || []).forEach(ingredient => {
+          if (ingredient && ingredient.name && ingredient.quantity) {
+            const div = document.createElement('div');
+            div.style.display = 'flex';
+            div.style.justifyContent = 'space-between';
+            div.style.alignItems = 'center';
+            div.style.marginBottom = '8px';
+            div.style.padding = '3px 0';
+            div.style.borderRadius = '8px';
+            div.style.background = '#fafbfc';
 
-        div.appendChild(nameSpan);
-        div.appendChild(qtySpan);
-        popupIngredients.appendChild(div);
-      });
+            const nameSpan = document.createElement('span');
+            nameSpan.textContent = ingredient.name;
+            nameSpan.style.marginLeft = '18px';
+
+            const qtySpan = document.createElement('span');
+            qtySpan.textContent = ingredient.quantity;
+            qtySpan.style.fontWeight = 'bold';
+            qtySpan.style.color = '#a05d36';
+            qtySpan.style.marginRight = '18px';
+
+            div.appendChild(nameSpan);
+            div.appendChild(qtySpan);
+            popupIngredients.appendChild(div);
+          }
+        });
+      } else {
+        popupIngredients.innerHTML = '<div>No hay productos en la cesta.</div>';
+      }
 
       popup.style.display = 'flex';
     });
@@ -216,7 +228,6 @@ export function CartComponent() {
     // Cerrar popup
     if (e.target.classList.contains('cart-popup-close')) {
       document.getElementById('cart-popup').style.display = 'none';
-      // window.location.href = '/cesta.html'; // Si quieres redirigir, descomenta
     }
     // Comprar
     if (e.target.classList.contains('comprar-btn')) {
