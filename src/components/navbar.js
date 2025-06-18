@@ -67,7 +67,7 @@ export function Navbar() {
     .navbar-links ul {
       display: flex;
       flex-direction: row;
-      gap: 18px;
+      gap: 5px;
       margin-bottom: 0;
       padding-left: 0;
       list-style: none;
@@ -88,7 +88,7 @@ export function Navbar() {
       color: #ffffff !important;
       font-family: 'Aloja Extended', sans-serif;
       padding-left: -10px !important;
-      font-size: 22px;
+      font-size: 18.3px;
       border-radius: 18px;
       background: rgba(0,0,0,0.04);
       padding: 6px 10px;
