@@ -12,13 +12,6 @@
   <!-- Main Navbar -->
   <div id="navbar"></div>
 
-  <!-- Categories Section -->
-
-  <!-- Search Bar -->
-  <div class="category-nav-container">
-    <div id="category-navbar"></div>
-  </div>
-
   <!-- Product Content -->
   <div class="product-container">
     <div class="row">
@@ -31,49 +24,27 @@
   <!-- Load JavaScript -->
   <script type="module">
     import { ProductosNavbar } from '/src/components/ProductosNavbar.js';
-    import { CategoryNavbar } from '/src/components/ParteProductoPage/CategoryNavbar.js';
-    import { CategoryCards } from '/src/components/ParteProductoPage/CategoryCards.js';
-    import { Productos } from '/src/components/ParteProductoPage/productos.js';
+    import { Productos } from '/src/components/productos.js';
+    import { Productos2 } from '/src/components/productos2.js';
 
     (async () => {
       try {
         // Main Navbar
         const mainNavbar = ProductosNavbar();
         document.getElementById('navbar').appendChild(mainNavbar);
-        console.log("Main navbar appended successfully:", mainNavbar);
-
-        // Category Cards
-        const categoryCards = CategoryCards();
-        const categoryCardsContainer = document.getElementById('category-cards');
-        if (categoryCardsContainer) {
-          categoryCardsContainer.appendChild(categoryCards);
-          console.log("Category cards appended successfully:", categoryCards);
-        } else {
-          console.error("Category cards container not found in DOM");
-        }
-
-        // Category Navbar
-        const categoryNavbar = CategoryNavbar();
-        const categoryNavbarContainer = document.getElementById('category-navbar');
-        if (categoryNavbarContainer) {
-          categoryNavbarContainer.appendChild(categoryNavbar);
-          console.log("Category navbar appended successfully:", categoryNavbar);
-        } else {
-          console.error("Category navbar container not found in DOM");
-        }
 
         // Product Section (await async function)
         const productSection = await Productos();
         const productSectionContainer = document.getElementById('product-section');
         if (productSectionContainer) {
           productSectionContainer.appendChild(productSection);
-          console.log("Product section appended successfully:", productSection);
-        } else {
-          console.error("Product section container not found in DOM");
         }
       } catch (error) {
         console.error("Error loading components:", error);
       }
+
+        const productSection = await Productos2();
+        const productSectionContainer = document.getElementById('product-section');
     })();
   </script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
