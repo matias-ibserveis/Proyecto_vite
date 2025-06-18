@@ -45,6 +45,7 @@ export function aplicarEstilos() {
 .btn-success {
   width: 100%;
   font-size: 1.1rem;
+  margin-right: 1rem;
 }
 .ver_mas {
   color: blue; 
@@ -120,6 +121,10 @@ export function aplicarEstilos() {
   background: #a67c3c;
   color: #fff;
 }
+
+
+
+
 
 /* --- Responsive para móvil --- */
 @media (max-width: 600px) {
