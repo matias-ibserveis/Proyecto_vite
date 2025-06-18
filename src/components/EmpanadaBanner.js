@@ -188,10 +188,16 @@ function mostrarBanner() {
         <button id="aceptar-empanadas" class="empanadas-btn-aceptar">Aceptar</button>
         <button id="rechazar-empanadas" class="empanadas-btn-rechazar">Rechazar</button>
       </div>
-      <div class="empanadas-banner-translate-btns">
-        <button id="empanada-catala-btn" class="empanadas-btn-info">Català</button>
-        <button id="empanada-english-btn" class="empanadas-btn-info">English</button>
-      </div>
+<div style="margin-top:20px; margin-bottom:2px; font-weight:bold; font-size:1.1em;">(  traduir a / Translate to  )</div>
+<div class="empanadas-banner-translate-btns">
+  <button id="empanada-catala-btn" class="empanadas-btn-info" style="padding:6px 12px;">
+    <img src="/images/catala.webp" alt="Català" title="Català" style="height:24px;vertical-align:middle;margin-b">
+  </button>
+  <button id="empanada-english-btn" class="empanadas-btn-info" style="padding:6px 12px;">
+    <img src="/images/inglesa.png" alt="English" title="English" style="height:24px;vertical-align:middle;">
+  </button>
+</div>
+<div id="google_translate_element" style="visibility:hidden;height:0;margin-top:8px;"></div>
     </div>
   `;
   document.body.appendChild(banner);
@@ -252,29 +258,22 @@ window.mostrarBannerEmpanadas = mostrarBanner;
     }, 'google_translate_element');
   };
 
-  // --- Botones de traducción ---
-  document.getElementById('empanada-catala-btn').onclick = () => {
-    const translateEl = document.querySelector('#google_translate_element');
-    translateEl.style.visibility = 'visible';
-    translateEl.style.height = 'auto';
-    setTimeout(() => {
-      const select = document.querySelector('select.goog-te-combo');
-      if (select) {
-        select.value = 'ca';
-        select.dispatchEvent(new Event('change'));
-      }
-    }, 500);
-  };
+function mostrarTraductorYTraducir(lang) {
+  const translateEl = document.getElementById('google_translate_element');
+  translateEl.style.visibility = 'visible';
+  translateEl.style.height = 'auto';
 
-  document.getElementById('empanada-english-btn').onclick = () => {
-    const translateEl = document.querySelector('#google_translate_element');
-    translateEl.style.visibility = 'visible';
-    translateEl.style.height = 'auto';
-    setTimeout(() => {
-      const select = document.querySelector('select.goog-te-combo');
-      if (select) {
-        select.value = 'en';
-        select.dispatchEvent(new Event('change'));
-      }
-    }, 500);
-  };
+  function intentarTraducir() {
+    const select = translateEl.querySelector('select.goog-te-combo');
+    if (select) {
+      select.value = lang;
+      select.dispatchEvent(new Event('change'));
+    } else {
+      setTimeout(intentarTraducir, 200);
+    }
+  }
+  intentarTraducir();
+}
+
+document.getElementById('empanada-catala-btn').onclick = () => mostrarTraductorYTraducir('ca');
+document.getElementById('empanada-english-btn').onclick = () => mostrarTraductorYTraducir('en');
