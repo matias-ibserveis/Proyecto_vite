@@ -8,7 +8,7 @@ export function CategoryNavbar() {
     </div>
     <div class="search-form-wrapper">
       <form class="search-form" role="search">
-        <input class="form-control category-search" type="search" placeholder="Buscar productos" aria-label="Search">
+        <input class="form-control category-search" type="search" placeholder="¿Que se te Antoja?" aria-label="Search">
         <button class="btn search-btn" type="submit">Buscar</button>
       </form>
     </div>

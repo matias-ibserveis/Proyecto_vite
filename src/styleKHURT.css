@@ -19,7 +19,7 @@
 .product-description,
 .product-description .description-text,
 .product-description .ver-mas-link {
-  margin: 0.5rem 0;
+
   display: block;
   font-family: inherit !important; /* Ensure default font with high specificity */
 }
@@ -752,12 +752,12 @@ margin-top: 150px;
   }
 
   .category-search {
-    max-width: 100%; /* Full width on mobile */
+    max-width: 60%; /* Full width on mobile */
     margin-bottom: 8px;
   }
 
   .search-btn {
-    width: 100%;
+    width: 50%;
   }
 }
 
@@ -1005,11 +1005,31 @@ margin-top: 150px;
 }
 
 .product-details {
-  flex: 1 1 auto;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+  margin: 0.2rem 0 !important;
+  padding: 0.3rem 0 !important;
+  max-height: none !important;
+  min-height: 0 !important;
+  height: auto !important;
+  background: none !important;
 }
+
+.product-card-content {
+  min-height: 0 !important;
+  height: auto !important;
+  justify-content: flex-start !important;
+}
+
+.product-details .card-title {
+  margin-bottom: 2.1rem !important; /* Espaciado x3 (antes 0.7rem aprox) */
+  padding: 4px;
+}
+
+.product-details .product-description {
+  margin-bottom: 3.1rem !important; /* Espaciado x3 */
+  padding: 4px;
+}
+
+
 
 /* Mobile Layout (max-width: 767px) */
 @media (max-width: 767px) {
@@ -1032,7 +1052,7 @@ margin-top: 150px;
   }
 
   .product-card-content {
-  min-height: 480px; /* Ajusta este valor según el diseño */
+  min-height: 380px; /* Ajusta este valor según el diseño */
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -1049,15 +1069,8 @@ margin-top: 150px;
     height: 80px;
     object-fit: cover;
     border: none;
-    aspect-ratio: 1/1; /* Ensure square images */
   }
 
-  .product-details {
-    flex-direction: column;
-    align-items: flex-start;
-    flex: 1;
-    min-width: 0; /* Prevent overflow */
-  }
 
   .card-title {
     font-size: 1rem;
@@ -1127,7 +1140,7 @@ margin-top: 150px;
   }
 
   .product-card-content {
-  min-height: 480px; /* Ajusta este valor según el diseño */
+  min-height: 370px; /* Ajusta este valor según el diseño */
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -1146,23 +1159,8 @@ margin-top: 150px;
     width: 100%;
     height: 7rem;
     object-fit: cover;
-    aspect-ratio: 1/1;
   }
 
-  .product-details {
-    width: 100%;
-    text-align: left;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    gap: 0.1rem;
-    padding: 0.1rem 0;
-    flex: 1;
-    min-width: 0;
-    min-height: 10rem; /* Increased to accommodate description */
-    height: 100%;
-    margin-bottom: 0.2rem; /* Added buffer to prevent overlap */
-  }
 
   .card-title {
     font-size: 0.9rem;
@@ -1279,21 +1277,9 @@ margin-top: 150px;
     width: 100%;
     height: 6rem;
     object-fit: cover;
-    aspect-ratio: 1/1;
   }
 
-  .product-details {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    flex: 1;
-    gap: 0.1rem;
-    min-width: 0;
-    overflow: hidden;
-    min-height: 8rem; /* Increased to accommodate description */
-    height: 100%;
-    margin-bottom: 0.2rem; /* Added buffer */
-  }
+
 
   .card-title {
     font-size: 0.75rem;
@@ -1393,21 +1379,9 @@ margin-top: 150px;
     width: 100%;
     height: 5rem;
     object-fit: cover;
-    aspect-ratio: 1/1;
   }
 
-  .product-details {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    flex: 1;
-    gap: 0.05rem;
-    min-width: 0;
-    overflow: hidden;
-    min-height: 7.5rem; /* Increased to accommodate description */
-    height: 100%;
-    margin-bottom: 0.2rem; /* Added buffer */
-  }
+
 
   .card-title {
     font-size: 0.65rem;
@@ -1562,7 +1536,7 @@ margin-top: 150px;
 .productos-section .card-img-top {
   height: 200px;
   object-fit: cover;
-  border-radius: 8px;
+  border-radius: 20px;
 }
 
 .productos-section .card-body {
@@ -1574,6 +1548,7 @@ margin-top: 150px;
   font-size: 1.2rem;
   font-weight: bold;
   color: var(--secondary-color);
+  margin-bottom: 0;
 }
 
 .productos-section .card-text {
@@ -1743,6 +1718,46 @@ margin-top: 150px;
   align-items: center;
   text-align: center;
 }
+
+.checkout-footer.checkout-footer-single {
+  justify-content: center !important;
+  align-items: center !important;
+  width: 100%;
+  padding: 0;
+  margin: 0 auto 2rem auto;
+  gap: 0;
+}
+
+.special-instructions-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center !important;
+  width: 100%;
+  max-width: 6800px;
+  margin: 0 auto;
+}
+
+/* Estilo para el select igual que los textarea */
+#opcion-especial {
+  width: 100%;
+  max-width: 600px;
+  padding: 0.6rem 0.8rem;
+  font-family: 'Aloja Extended', 'Arial', sans-serif;
+  font-size: 0.95rem;
+  color: var(--secondary-color);
+  border: 1px solid var(--main-color);
+  border-radius: 5px;
+  background-color: #ffc8c8;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+#opcion-especial:focus {
+  border-color: var(--secondary-color);
+  box-shadow: 0 0 0 2px #d1ab7280;
+  outline: none;
+}
+
 
 /* Product popup close button */
 .product-popup-close {
@@ -2248,11 +2263,16 @@ margin-top: 150px;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  margin-bottom: 40px;
+  width: 800px;
+}
+.form-control{
+  text-align: center;
 }
 
 
-
 .instructions-label {
+  text-align: left !important;
   font-family: 'Aloja Extended', 'Arial', sans-serif;
   font-size: 1.2rem;
   color: var(--secondary-color);
@@ -2353,6 +2373,8 @@ margin-top: 150px;
     align-items: stretch;
   }
 
+
+  
   .instructions-label {
     font-size: 1rem;
   }
@@ -3060,3 +3082,39 @@ textarea:focus {
   position: relative;
 }
 }
+
+@media (max-width: 425px) {
+
+  .product-card-content{
+    max-height: 500px;
+  }
+
+  .product-image-wrapper {
+    width: 300px !important;
+    min-width: 300px !important;
+    max-width: 300px !important;
+    margin: 0 auto 8px auto !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+  }
+
+  .product-image,
+  .card-img-top.product-image,
+  .card-img-top {
+    width: 300px !important;
+    height: 200px !important;
+    object-fit: cover;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    margin: 0 auto;
+    display: block;
+    margin-top: 20px;
+  }
+}
+
+  .product-details {
+   max-height: 150px;
+  margin: 10px 10px 10px 10px;
+    padding: 0.1rem 0;
+  }

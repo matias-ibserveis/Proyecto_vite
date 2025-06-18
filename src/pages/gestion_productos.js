@@ -280,7 +280,7 @@ export async function productos_gestion(appContenedor) {
       .card { display: flex; flex-direction: row; border: 1px solid #ddd; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
       .card-img-top { width: 120px; height: 100px; }
       .card-body { padding: 0.5rem; }
-      .card-title { font-size: 1rem; margin-bottom: 0.25rem; }
+      .card-title { font-size: 1rem; margin-bottom: 0.2rem; }
       .card-text { font-size: 0.85rem; margin-bottom: 0.5rem; }
       .btn + .btn { margin-left: 0.4rem; }
             input {
@@ -307,6 +307,8 @@ export async function productos_gestion(appContenedor) {
           display: block;
         }
 
+
+        
     `;
     document.head.appendChild(style);
   }

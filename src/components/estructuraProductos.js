@@ -39,6 +39,7 @@ export function aplicarEstilos() {
     .card-title {
       font-size: 1.2rem;
       font-weight: bold;
+      ba
     }
     .card-text {
       font-size: 1rem;

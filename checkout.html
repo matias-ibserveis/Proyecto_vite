@@ -24,17 +24,26 @@
         <tbody id="cart-body"></tbody>
       </table>
     </div>
-    <div class="checkout-footer">
-      <div class="special-instructions">
-        <label for="order-instructions" class="instructions-label">Instrucción Especial:</label>
-        <textarea id="order-instructions2" rows="3" placeholder="Introduzca algun comentario si desea realizar algún tipo de especificación. (Opcional)"></textarea>
-      </div>
-      <div class="special-instructions">
-        <label for="order-instructions2" class="instructions-label">Nombre</label>
-        <textarea id="order-instructions" rows="4" placeholder="Escriba un Nombre con un mínimo de 4 caracteres que pueda ser Reconocible su Pedido.  (Obligatorio)"></textarea>
-      </div>
-    </div>
+<div class="checkout-footer">
+  <div class="special-instructions">
+    <label for="order-instructions2" class="instructions-label">Instrucción Especial:</label>
+    <textarea id="order-instructions2" rows="3" placeholder="Introduzca algun comentario si desea realizar algún tipo de especificación. (Opcional)"></textarea>
   </div>
+  <div class="special-instructions">
+    <label for="order-instructions" class="instructions-label">Nombre:</label>
+    <textarea id="order-instructions" rows="4" placeholder="Escriba un Nombre con un mínimo de 4 caracteres que pueda ser Reconocible su Pedido.  (Obligatorio)"></textarea>
+  </div>
+</div>
+
+<div class="special-instructions" style="max-width:400px; margin:0 auto;">
+  <label for="opcion-especial" class="instructions-label">¿Dónde desea recoger su Cesta?</label>
+  <select id="opcion-especial" required>
+    <option value="" disabled selected>Elija un sitio donde desea recoger la Cesta. (Obligatorio)</option>
+    <option value="opcion1">Opción 1</option>
+    <option value="opcion2">Opción 2</option>
+    <option value="opcion3">Opción 3</option>
+  </select>
+</div>
 
 <div id="confirm-popup" style="display:none; position:fixed; top:0; left:0; right:0; bottom:0; background:rgba(0,0,0,0.3); z-index:9999; align-items:center; justify-content:center;">
   <div style="background:#fff; border-radius:12px; padding:32px 24px; max-width:320px; margin:auto; text-align:center; box-shadow:0 4px 24px rgba(0,0,0,0.15);">
@@ -239,19 +248,43 @@ function calculateSubtotal(cart) {
 
 
 
-
 <script>
   // Mostrar el popup al pulsar FINALIZAR PEDIDO
-document.querySelector('.checkout-btn').addEventListener('click', function(e) {
-  e.preventDefault();
-  // Obtén el valor del campo de nombre
-  const nombre = document.getElementById('order-instructions').value.trim();
-  if (!nombre) {
-    alert('Por favor, escribe tu nombre con un mínimo de 4 caracteres antes de finalizar el pedido.');
-    return;
-  }
-  document.getElementById('confirm-popup').style.display = 'flex';
-});
+  document.querySelector('.checkout-btn').addEventListener('click', function(e) {
+    e.preventDefault();
+    const nombre = document.getElementById('order-instructions').value.trim();
+    const select = document.getElementById('opcion-especial');
+    const selectedValue = select.value;
+
+    let valid = true;
+
+    // Validación del nombre
+    if (!nombre || nombre.replace(/\s/g, '').length < 4) {
+      document.getElementById('order-instructions').style.backgroundColor = '#ffc8c8';
+      document.getElementById('order-instructions').style.boxShadow = '';
+      valid = false;
+    } else {
+      document.getElementById('order-instructions').style.backgroundColor = '#a3e0a5';
+      document.getElementById('order-instructions').style.boxShadow = '0 0 0 2px #4CAF5077';
+    }
+
+    // Validación del selector
+    if (!selectedValue) {
+      select.style.backgroundColor = '#ffc8c8';
+      select.style.boxShadow = '';
+      valid = false;
+    } else {
+      select.style.backgroundColor = '#a3e0a5';
+      select.style.boxShadow = '0 0 0 2px #4CAF5077';
+    }
+
+    if (!valid) {
+      alert('Por favor, escribe tu nombre con un mínimo de 4 caracteres y elige una opción de recogida para finalizar el pedido.');
+      return;
+    }
+
+    document.getElementById('confirm-popup').style.display = 'flex';
+  });
 
   // Botón NO: cierra el popup
   document.getElementById('popup-no').addEventListener('click', function() {
@@ -264,24 +297,32 @@ document.querySelector('.checkout-btn').addEventListener('click', function(e) {
     // Aquí puedes poner la acción para "Sí" en el futuro
   });
 
-</script>
-
-
-<script>
+  // Validación en tiempo real para el nombre
   const instrucciones1 = document.getElementById('order-instructions');
   instrucciones1.addEventListener('input', function() {
-    // Cuenta solo letras (ignora espacios y números si quieres)
     const letras = this.value.replace(/\s/g, '');
     if (letras.length >= 4) {
       this.style.backgroundColor = '#a3e0a5';
       this.style.boxShadow = '0 0 0 2px #4CAF5077';
     } else {
-      this.style.backgroundColor = '';
+      this.style.backgroundColor = '#ffc8c8';
+      this.style.boxShadow = '';
+    }
+  });
+
+  // Validación en tiempo real para el selector
+  const select = document.getElementById('opcion-especial');
+  select.addEventListener('change', function() {
+    if (this.value) {
+      this.style.backgroundColor = '#a3e0a5';
+      this.style.boxShadow = '0 0 0 2px #4CAF5077';
+    } else {
+      this.style.backgroundColor = '#ffc8c8';
       this.style.boxShadow = '';
     }
   });
 </script>
-
+<div style="height: 250px; width: 100%;"></div>
 
 
 </body>
