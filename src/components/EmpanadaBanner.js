@@ -188,7 +188,7 @@ function mostrarBanner() {
         <button id="aceptar-empanadas" class="empanadas-btn-aceptar">Aceptar</button>
         <button id="rechazar-empanadas" class="empanadas-btn-rechazar">Rechazar</button>
       </div>
-<div style="margin-top:20px; margin-bottom:2px; font-weight:bold; font-size:1.1em;">(  traduir a / Translate to  )</div>
+<div style="margin-top:20px; margin-bottom:2px; font-weight:bold; font-size:1.1em;">(  Traduir a / Translate to  )</div>
 <div class="empanadas-banner-translate-btns">
   <button id="empanada-catala-btn" class="empanadas-btn-info" style="padding:6px 12px;">
     <img src="/images/catala.webp" alt="Català" title="Català" style="height:24px;vertical-align:middle;margin-b">
