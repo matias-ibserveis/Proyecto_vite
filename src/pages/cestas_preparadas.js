@@ -89,11 +89,16 @@ function mostrarCesta(productos) {
   container.innerHTML = '';
   let total = 0;
 
-  if (!productos || productos.length === 0) {
-    container.innerHTML = `<div class="empty-msg">más cesta próximamente ...</div>`;
-    totalGeneralEl.textContent = '0 €';
-    return;
-  }
+if (!lista || lista.length === 0) {
+  productosLista.innerHTML = `
+    <div class="no-result-container" style="text-align:center; margin: 2em 0;">
+      <img src="/images/no-result.svg" alt="Sin resultados" style="width:80px;opacity:0.7;margin-bottom:1em;">
+      <div class="no-result-text">No se encontraron productos con ese criterio.</div>
+    </div>
+  `;
+  paginacion.innerHTML = '';
+  return;
+}
 
   productos.forEach(p => {
     const { id, titulo, cantidad, unidad_medido, precio, imagenes } = p;

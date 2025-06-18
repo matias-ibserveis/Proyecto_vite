@@ -370,32 +370,45 @@ export async function Productos() {
     updateQuantity();
 
     // Add to cart
-    const addBtn = popup.querySelector('.add-btn');
-    addBtn.addEventListener('click', () => {
-      const quantity = parseInt(quantityDisplay.textContent);
-      if (quantity > 0) {
-        const cart = JSON.parse(sessionStorage.getItem('cart') || '[]');
-        const existingItem = cart.find(item => item.id === producto.id && item.type === 'product');
-        if (existingItem) {
-          existingItem.quantity += quantity;
+addBtn.addEventListener("click", () => {
+  const quantity = parseInt(quantityDisplay.textContent);
+  if (quantity > 0) {
+    const cart = JSON.parse(sessionStorage.getItem('cart') || '[]');
+    const existingItem = cart.find(item => item.id === producto.id && item.type === 'product');
+    // Usa la misma lógica de imageUrl que usas para mostrar la imagen
+    let imageUrl = "/images/logo1.png";
+    if (producto.imagen1) {
+      if (producto.imagen1.includes("drive.google.com")) {
+        const driveRegex = /\/d\/([a-zA-Z0-9_-]+)|id=([a-zA-Z0-9_-]+)/;
+        const match = producto.imagen1.match(driveRegex);
+        if (match && (match[1] || match[2])) {
+          imageUrl = `https://drive.google.com/thumbnail?id=${match[1] || match[2]}&sz=w800-h600`;
         } else {
-          cart.push({
-            id: producto.id,
-            name: producto.titulo,
-            quantity: quantity,
-            price: producto.precio,
-            type: 'product',
-            imagen1: producto.imagen1
-          });
+          imageUrl = producto.imagen1;
         }
-        sessionStorage.setItem('cart', JSON.stringify(cart));
-        console.log(`Added ${quantity} x ${producto.titulo} to cart from popup`);
-        quantityDisplay.textContent = '1'; // Reset to 1
-        updateQuantity();
-        popup.remove();
-        overlay.remove();
+      } else if (producto.imagen1.startsWith("/images/")) {
+        imageUrl = producto.imagen1;
+      } else {
+        imageUrl = producto.imagen1;
       }
-    });
+    }
+    if (existingItem) {
+      existingItem.quantity += quantity;
+    } else {
+      cart.push({
+        id: producto.id,
+        name: producto.titulo,
+        quantity: quantity,
+        price: producto.precio,
+        type: 'product',
+        imagen1: imageUrl // <-- Aquí la ruta correcta
+      });
+    }
+    sessionStorage.setItem('cart', JSON.stringify(cart));
+    quantityDisplay.textContent = '1'; // Reset to 1
+    updateQuantity();
+  }
+});
   }
 
   function renderizarProductos(lista) {
@@ -546,29 +559,45 @@ export async function Productos() {
 
       updateQuantity();
 
-      addBtn.addEventListener("click", () => {
-        const quantity = parseInt(quantityDisplay.textContent);
-        if (quantity > 0) {
-          const cart = JSON.parse(sessionStorage.getItem('cart') || '[]');
-          const existingItem = cart.find(item => item.id === producto.id && item.type === 'product');
-          if (existingItem) {
-            existingItem.quantity += quantity;
-          } else {
-            cart.push({
-              id: producto.id,
-              name: producto.titulo,
-              quantity: quantity,
-              price: producto.precio,
-              type: 'product',
-              imagen1: producto.imagen1
-            });
-          }
-          sessionStorage.setItem('cart', JSON.stringify(cart));
-          console.log(`Added ${quantity} x ${producto.titulo} to cart`);
-          quantityDisplay.textContent = '1'; // Reset to 1
-          updateQuantity();
+addBtn.addEventListener("click", () => {
+  const quantity = parseInt(quantityDisplay.textContent);
+  if (quantity > 0) {
+    const cart = JSON.parse(sessionStorage.getItem('cart') || '[]');
+    const existingItem = cart.find(item => item.id === producto.id && item.type === 'product');
+    // Usa la misma lógica de imageUrl que usas para mostrar la imagen
+    let imageUrl = "/images/logo1.png";
+    if (producto.imagen1) {
+      if (producto.imagen1.includes("drive.google.com")) {
+        const driveRegex = /\/d\/([a-zA-Z0-9_-]+)|id=([a-zA-Z0-9_-]+)/;
+        const match = producto.imagen1.match(driveRegex);
+        if (match && (match[1] || match[2])) {
+          imageUrl = `https://drive.google.com/thumbnail?id=${match[1] || match[2]}&sz=w800-h600`;
+        } else {
+          imageUrl = producto.imagen1;
         }
+      } else if (producto.imagen1.startsWith("/images/")) {
+        imageUrl = producto.imagen1;
+      } else {
+        imageUrl = producto.imagen1;
+      }
+    }
+    if (existingItem) {
+      existingItem.quantity += quantity;
+    } else {
+      cart.push({
+        id: producto.id,
+        name: producto.titulo,
+        quantity: quantity,
+        price: producto.precio,
+        type: 'product',
+        imagen1: imageUrl // <-- Aquí la ruta correcta
       });
+    }
+    sessionStorage.setItem('cart', JSON.stringify(cart));
+    quantityDisplay.textContent = '1'; // Reset to 1
+    updateQuantity();
+  }
+});
 
       verMasBtn.addEventListener("click", () => {
         createProductPopup(producto);
@@ -652,12 +681,16 @@ export async function Productos() {
       if (dataOriginal.length === 0) throw new Error("No products in API response");
       console.log("Products fetched successfully:", dataOriginal);
       paginar(dataOriginal, currentPage);
-    } catch (error) {
-      console.error("Error loading products:", error);
-      dataOriginal = fallbackProducts;
-      paginar(dataOriginal, currentPage);
-      contenedor.innerHTML += `<p class="text-danger text-center">Usando datos de respaldo debido a un error: ${error.message}</p>`;
-    }
+} catch (error) {
+  console.error("Error loading products:", error);
+  contenedor.innerHTML = `
+    <div class="no-result-container" style="text-align:center; margin: 2em 0;">
+      <img src="/images/Sorry.png" alt="Sin resultados" style="width:200px;margin-bottom:1em;">
+      <div class="no-result-text">No se encontró el producto que usted deseaba<br> ya que no lo Tenemos en Lista de Venta en estos momentos...<br><br><br> Si desea agregarlo puede mandarnos un escrito por Whatsapp.😊😊</div>
+    </div>
+  `;
+  productos.querySelector("#paginacion").innerHTML = "";
+}
   }
 
   function crearBotonVerCarro() {

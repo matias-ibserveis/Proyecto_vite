@@ -22,7 +22,7 @@ export async function productos_gestion(appContenedor) {
       <div class="mb-4">
         <input type="text" id="busquedaInput" class="form-control" placeholder="Buscar productos ...">
         <button id="buscarBtn" class="btn btn-secondary mt-2">Buscar</button>
-        <button id="todosBtn" class="btn btn-secondary mt-2 ms-2">Ver todos</button>
+        
       </div>
 
       <div class="mb-4 p-3">

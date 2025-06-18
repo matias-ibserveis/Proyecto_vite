@@ -3,11 +3,15 @@ export function CategoryNavbar() {
   nav.className = "category-navbar";
 
   nav.innerHTML = `
-    <form class="search-form" role="search">
-      <input class="form-control category-search" type="search" placeholder="Buscar productos" aria-label="Search">
-      <button class="btn search-btn" type="submit">Buscar</button>
-      <button class="btn ver-todos-btn ms-2" type="button" id="todosBtn">Ver todos</button>
-    </form>
+    <div class="titulo-busqueda-wrapper">
+      <h3 class="titulo_arriba_buscar my-4">Productos en LURA</h3>
+    </div>
+    <div class="search-form-wrapper">
+      <form class="search-form" role="search">
+        <input class="form-control category-search" type="search" placeholder="Buscar productos" aria-label="Search">
+        <button class="btn search-btn" type="submit">Buscar</button>
+      </form>
+    </div>
   `;
 
   const searchForm = nav.querySelector(".search-form");
@@ -31,24 +35,7 @@ export function CategoryNavbar() {
     }
   });
 
-  todosBtn.addEventListener("click", async (e) => {
-    e.preventDefault();
-    console.log("Ver todos clicked: Resetting to all products");
-    const productosSection = document.querySelector("#productos");
-    const searchInput = nav.querySelector(".category-search");
 
-    if (productosSection && productosSection.fetchProductos) {
-      try {
-        await productosSection.fetchProductos("");
-        searchInput.value = "";
-        console.log("Successfully reset to all products");
-      } catch (error) {
-        console.error("Error resetting to all products:", error);
-      }
-    } else {
-      console.error("Productos section or fetchProductos method not found");
-    }
-  });
 
   if (window.location.pathname.includes("producto.html")) {
     const urlParams = new URLSearchParams(window.location.search);
