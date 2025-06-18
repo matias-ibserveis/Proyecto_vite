@@ -16,7 +16,7 @@ export async function verLaPanera() {
       <h1>${p.titulo}</h1>
       <p>${p.descripcion.replace(/-/g, '<br> - ')}</p>
       <p class="precio_solo">Precio: ${p.precio} €</p>
-      <button class="btn btn-success mt-3" id="anadirCestaBtn">Añadir a compra </button>
+      <button class="btn btn-success mt-3" id="anadirCestaBtn">Hacer reserva</button>
     `;
 
     const anadirBtn = container.querySelector('#anadirCestaBtn');
