@@ -20,9 +20,6 @@ if (!document.getElementById('animaciones-cards-style')) {
   from { opacity: 1; transform: translateY(0);}
   to   { opacity: 0; transform: translateY(60px);}
 }
-  çç
-
-
   `;
   document.head.appendChild(animStyle);
 }
@@ -35,6 +32,7 @@ export async function Productos() {
   let itemsPerPage = 9;
   let totalPages = 1;
   let dataOriginal = [];
+  let listaActual = []; // <-- lista filtrada o completa
   let paginacionActiva = true;
 
   // Crear estructura HTML
@@ -93,9 +91,6 @@ export async function Productos() {
   display: block;
   margin: auto;
 }
-
-
-
     `;
     document.head.appendChild(style);
   }
@@ -124,24 +119,23 @@ export async function Productos() {
     const col = document.createElement("div");
     col.className = "col-md-4 col-sm-6 mb-4 aparecer-desde-abajo";
 
-    // Imagen de Google Drive o local
-// Imagen robusta de Google Drive o local
-  let imageUrl = "/images/logo1.png";
-  if (
-    producto.imagen1 &&
-    producto.imagen1 !== "null" &&
-    producto.imagen1 !== "(Null)" &&
-    producto.imagen1 !== null
-  ) {
-    if (producto.imagen1.includes("drive.google.com")) {
-      const imageId = producto.imagen1.split('/d/')[1]?.split('/')[0];
-      if (imageId) {
-        imageUrl = `https://drive.google.com/thumbnail?id=${imageId}&sz=w800-h600`;
+    // Imagen robusta de Google Drive o local
+    let imageUrl = "/images/logo1.png";
+    if (
+      producto.imagen1 &&
+      producto.imagen1 !== "null" &&
+      producto.imagen1 !== "(Null)" &&
+      producto.imagen1 !== null
+    ) {
+      if (producto.imagen1.includes("drive.google.com")) {
+        const imageId = producto.imagen1.split('/d/')[1]?.split('/')[0];
+        if (imageId) {
+          imageUrl = `https://drive.google.com/thumbnail?id=${imageId}&sz=w800-h600`;
+        }
+      } else {
+        imageUrl = producto.imagen1;
       }
-    } else {
-      imageUrl = producto.imagen1;
     }
-  }
 
     // Descripción resumida
     const resumen = producto.descripcion
@@ -250,7 +244,7 @@ export async function Productos() {
         }
         sessionStorage.setItem('cart', JSON.stringify(cart));
         quantityDisplay.textContent = '1';
-        updateQuantity();
+        updatePrice();
 
         // --- Animación verde ---
         addBtn.classList.remove('added-success');
@@ -280,28 +274,26 @@ export async function Productos() {
     contenedor.appendChild(col);
   }
 
-function renderizarProductos(lista) {
-  // 1. Animar salida de las cards actuales
-  const cards = contenedor.querySelectorAll('.col-md-4, .col-sm-6, .mb-4');
-  cards.forEach(card => {
-    card.classList.add('salida-hacia-abajo');
-  });
+  function renderizarProductos(lista) {
+    const cards = contenedor.querySelectorAll('.col-md-4, .col-sm-6, .mb-4');
+    cards.forEach(card => {
+      card.classList.add('salida-hacia-abajo');
+    });
 
-  // 2. Espera la animación de salida antes de limpiar y mostrar las nuevas
-  setTimeout(() => {
-    contenedor.innerHTML = "";
-    if (!lista || lista.length === 0) {
-      contenedor.innerHTML = `
-        <div class="no-result-container" style="text-align:center; margin: 2em 0;">
-          <img src="/images/Sorry.png" alt="Sin resultados" style="width:200px;margin-bottom:1em;">
-          <div class="no-result-text">No se encontró el producto que usted deseaba<br> ya que no lo Tenemos en Lista de Venta en estos momentos...<br><br><br> Si desea agregarlo puede mandarnos un escrito por Whatsapp.😊😊</div>
-        </div>
-      `;
-      return;
-    }
-    lista.forEach(renderizarProducto);
-  }, 500); // Debe coincidir con la duración de .salida-hacia-abajo
-}
+    setTimeout(() => {
+      contenedor.innerHTML = "";
+      if (!lista || lista.length === 0) {
+        contenedor.innerHTML = `
+          <div class="no-result-container" style="text-align:center; margin: 2em 0;">
+            <img src="/images/Sorry.png" alt="Sin resultados" style="width:200px;margin-bottom:1em;">
+            <div class="no-result-text">No se encontró el producto que usted deseaba<br> ya que no lo Tenemos en Lista de Venta en estos momentos...<br><br><br> Si desea agregarlo puede mandarnos un escrito por Whatsapp.😊😊</div>
+          </div>
+        `;
+        return;
+      }
+      lista.forEach(renderizarProducto);
+    }, 500);
+  }
 
   // ==========================
   // Paginación
@@ -325,13 +317,13 @@ function renderizarProductos(lista) {
     paginacionArriba.querySelector("#anterior").onclick = () => {
       if (currentPage > 1) {
         currentPage--;
-        paginar(lista, currentPage);
+        paginar(listaActual, currentPage);
       }
     };
     paginacionArriba.querySelector("#siguiente").onclick = () => {
       if (currentPage < totalPages) {
         currentPage++;
-        paginar(lista, currentPage);
+        paginar(listaActual, currentPage);
       }
     };
   }
@@ -343,9 +335,8 @@ function renderizarProductos(lista) {
   async function cargarProductosIniciales() {
     toggleBotones(true);
     try {
-      // Aumenta el timeout para evitar que se cancele la petición
       const controller = new AbortController();
-      const timeout = setTimeout(() => controller.abort(), 15000); // 15 segundos
+      const timeout = setTimeout(() => controller.abort(), 15000);
 
       const res = await fetch('https://proyectorailway-production-9739.up.railway.app/datos', {
         signal: controller.signal
@@ -353,12 +344,12 @@ function renderizarProductos(lista) {
       clearTimeout(timeout);
 
       dataOriginal = await res.json();
+      listaActual = dataOriginal;
 
-      // Mostrar los primeros 9 productos y activar paginación
       currentPage = 1;
       itemsPerPage = 9;
       paginacionActiva = true;
-      paginar(dataOriginal, currentPage);
+      paginar(listaActual, currentPage);
 
     } catch (error) {
       contenedor.innerHTML = `<p class="text-danger text-center">NO se puede cargar productos</p>`;
@@ -368,48 +359,46 @@ function renderizarProductos(lista) {
     }
   }
 
-async function buscarProductos() {
-  const consulta = productos.querySelector("#busquedaInput").value.trim();
+  async function buscarProductos() {
+    const consulta = productos.querySelector("#busquedaInput").value.trim();
 
-  // Si el input está vacío, muestra todos los productos (página 1)
-  if (!consulta) {
+    if (!consulta) {
+      currentPage = 1;
+      itemsPerPage = 9;
+      paginacionActiva = true;
+      listaActual = dataOriginal;
+      paginar(listaActual, currentPage);
+      return;
+    }
+
     currentPage = 1;
     itemsPerPage = 9;
     paginacionActiva = true;
-    paginar(dataOriginal, currentPage);
-    return;
+
+    toggleBotones(true);
+    try {
+      const resp = await fetch('https://proyectorailway-production-9739.up.railway.app/buscar', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ consulta })
+      });
+
+      const resultados = await resp.json();
+      resultados.sort((a, b) => new Date(b.fecha) - new Date(a.fecha));
+
+      listaActual = resultados;
+      currentPage = 1;
+      paginar(listaActual, currentPage);
+    } catch (err) {
+      contenedor.innerHTML = `<p class="text-danger">No puedo buscar productos</p>`;
+      console.error("No se pudo búscar:", err);
+    } finally {
+      toggleBotones(false);
+      document.querySelector("#btnVerMas")?.remove();
+    }
   }
-
-  currentPage = 1;
-  itemsPerPage = 9;
-  paginacionActiva = true;
-  paginar(dataOriginal, currentPage);
-
-  toggleBotones(true);
-  try {
-    const resp = await fetch('https://proyectorailway-production-9739.up.railway.app/buscar', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ consulta })
-    });
-
-    const resultados = await resp.json();
-    resultados.sort((a, b) => new Date(b.fecha) - new Date(a.fecha));
-
-    currentPage = 1;
-    paginar(resultados, currentPage);
-  } catch (err) {
-    contenedor.innerHTML = `<p class="text-danger">No puedo buscar productos</p>`;
-    console.error("No se pudo búscar:", err);
-  } finally {
-    toggleBotones(false);
-    document.querySelector("#btnVerMas")?.remove();
-  }
-}
 
   function toggleBotones(desactivar) {
     buscarBtn.disabled = desactivar;
   }
-
-
 }
