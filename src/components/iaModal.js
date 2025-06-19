@@ -13,7 +13,8 @@ export function crearModalIA() {
       background-color: rgba(0,0,0,0.5); display: none; align-items: center; justify-content: center; z-index: 1000;
     `;
     modal.innerHTML = `
-      <div id="iaContent" style="
+    <div id="iaContent" style="
+        position: relative;
         background: white; padding: 1rem; border-radius: 8px; max-width: 600px;
         width: 90%; max-height: 90vh; overflow-y: auto; display: flex; flex-direction: column;
       ">
@@ -39,22 +40,23 @@ export function crearModalIA() {
     aviso.id = "iaAviso";
     aviso.style = `
         display: none;
-        position: fixed;
-        bottom: 4rem;
-        left: 50%;
-        min-width: 200px;
-        transform: translateX(-50%);
+        position: absolute;
+        bottom: 10rem;
+        left: 20%;
         background-color: #f0f0f0;
-        padding: 1rem 1.5rem;
-        border-radius: 8px;
+        padding: 0.7rem 1rem;
+        border-radius: 6px;
         box-shadow: 0 2px 10px rgba(0,0,0,0.2);
-        z-index: 1100;
-        font-size: 0.95rem;
-        min-width:250px;
+        z-index: 10;
         color: #333;
+        text-align: center;
+        width: 80%;
       `;
+
+
     aviso.textContent = "Esperando la respuesta de chatGPT  😊";
-    document.body.appendChild(aviso);
+    modal.querySelector("#iaContent").appendChild(aviso);
+
 
 
     // Añadir animación al head una sola vez
@@ -98,7 +100,7 @@ export function crearModalIA() {
       let esperando = true;
       const timeoutId = setTimeout(() => {
         if (esperando) aviso.style.display = "block";
-      }, 3000); 
+      }, 4000); 
 
       try {
         const resp = await fetch('https://proyectorailway-production-9739.up.railway.app/api/chat', {
@@ -176,7 +178,7 @@ export async function mostrarRespuestaIA(producto) {
     if (esperandoMensaje) {
       aviso.style.display = "block";
     }
-  }, 1000);
+  }, 3000);
 
   try {
     const res = await fetch('https://proyectorailway-production-9739.up.railway.app/api/chat', {
