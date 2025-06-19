@@ -3,6 +3,28 @@
 let preguntaExtraCount = 0;
 let productoActivo = null;
 
+// --- INYECTA CSS DE ANIMACIÓN SOLO UNA VEZ ---
+if (!document.getElementById('ia-popup-anim-style')) {
+  const style = document.createElement('style');
+  style.id = 'ia-popup-anim-style';
+  style.textContent = `
+.ia-popup {
+  animation: suaveIn 0.7s cubic-bezier(.4,0,.2,1) both;
+}
+@keyframes suaveIn {
+  0%   { opacity: 0; transform: translateY(-40px) scale(0.85);}
+  100% { opacity: 1; transform: translateY(0) scale(1);}
+}
+.ia-popup-out {
+  animation: suaveOut 0.5s cubic-bezier(.4,0,.2,1) both;
+}
+@keyframes suaveOut {
+  0%   { opacity: 1; transform: translateY(0) scale(1);}
+  100% { opacity: 0; transform: translateY(40px) scale(0.85);}
+}
+`;
+  document.head.appendChild(style);
+}
 
 export function crearModalIA() {
   let modal = document.querySelector("#iaModal");
@@ -30,13 +52,20 @@ export function crearModalIA() {
     `;
     document.body.appendChild(modal);
 
+    // Cerrar con animación
     modal.querySelector("#cerrarIA").addEventListener("click", () => {
-      modal.style.display = "none";
-      preguntaExtraCount = 0;
-      modal.querySelector("#respuestaExtra").textContent = "";
-      modal.querySelector("#preguntaExtra").value = "";
-      modal.querySelector("#preguntaExtra").style.display = "block";
-      modal.querySelector("#enviarPreguntaIA").style.display = "inline-block";
+      const iaContent = modal.querySelector("#iaContent");
+      iaContent.classList.remove('ia-popup');
+      iaContent.classList.add('ia-popup-out');
+      setTimeout(() => {
+        modal.style.display = "none";
+        iaContent.classList.remove('ia-popup-out');
+        preguntaExtraCount = 0;
+        modal.querySelector("#respuestaExtra").textContent = "";
+        modal.querySelector("#preguntaExtra").value = "";
+        modal.querySelector("#preguntaExtra").style.display = "block";
+        modal.querySelector("#enviarPreguntaIA").style.display = "inline-block";
+      }, 500); // Debe coincidir con la duración de boingOut
     });
 
     // Evento de la pregunta adicional
@@ -52,7 +81,6 @@ export function crearModalIA() {
 
       try {
         const resp = await fetch('https://proyectorailway-production-9739.up.railway.app/api/chat', {
-        //const resp = await fetch("http://localhost:3000/api/chat", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
@@ -93,13 +121,13 @@ export function crearModalIA() {
 export async function mostrarRespuestaIA(producto) {
   productoActivo = producto;
   const modal = document.querySelector("#iaModal");
+  const iaContent = modal.querySelector("#iaContent");
   const iaTexto = modal.querySelector("#iaTexto");
 
   iaTexto.textContent = "⏳ Consultando a la IA...";
 
   try {
     const res = await fetch('https://proyectorailway-production-9739.up.railway.app/api/chat', {
-    //const res = await fetch("http://localhost:3000/api/chat", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -107,19 +135,19 @@ export async function mostrarRespuestaIA(producto) {
         esPrimeraPregunta: true
       })
     });
-    //console.log("res", res)
     const data = await res.json();
     iaTexto.innerHTML = `${data.respuesta
       .split("\n")
       .filter(p => p.trim() !== "")
       .map(p => `<p style="margin-top: 1rem;">${p.trim()}</p>`)
       .join("")}`;
-
-
   } catch (error) {
     iaTexto.textContent = "❌ Error al obtener respuesta de la IA";
     console.error(error);
   }
 
-  document.querySelector("#iaModal").style.display = "flex";
+  // Animación de entrada tipo "boing"
+  iaContent.classList.remove('ia-popup-out');
+  iaContent.classList.add('ia-popup');
+  modal.style.display = "flex";
 }

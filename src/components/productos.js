@@ -2,6 +2,31 @@ import { crearModalIA, mostrarRespuestaIA } from "./iaModal.js";
 import { crearEstructuraHTML, aplicarEstilos } from './estructuraProductos.js';
 import { getBusqueda } from "./store.js";
 
+if (!document.getElementById('animaciones-cards-style')) {
+  const animStyle = document.createElement('style');
+  animStyle.id = 'animaciones-cards-style';
+  animStyle.textContent = `
+.aparecer-desde-abajo {
+  animation: slideUpFadeIn 0.7s ease;
+}
+@keyframes slideUpFadeIn {
+  from { opacity: 0; transform: translateY(40px);}
+  to   { opacity: 1; transform: translateY(0);}
+}
+.salida-hacia-abajo {
+  animation: slideDownFadeOut 0.5s ease;
+}
+@keyframes slideDownFadeOut {
+  from { opacity: 1; transform: translateY(0);}
+  to   { opacity: 0; transform: translateY(60px);}
+}
+  çç
+
+
+  `;
+  document.head.appendChild(animStyle);
+}
+
 export async function Productos() {
   crearModalIA();
 
@@ -68,6 +93,9 @@ export async function Productos() {
   display: block;
   margin: auto;
 }
+
+
+
     `;
     document.head.appendChild(style);
   }
@@ -94,7 +122,7 @@ export async function Productos() {
 
   function renderizarProducto(producto) {
     const col = document.createElement("div");
-    col.className = "col-md-4 col-sm-6 mb-4";
+    col.className = "col-md-4 col-sm-6 mb-4 aparecer-desde-abajo";
 
     // Imagen de Google Drive o local
 // Imagen robusta de Google Drive o local
@@ -241,7 +269,7 @@ export async function Productos() {
     verMas.style.cursor = "pointer";
     verMas.style.textDecoration = "underline";
     verMas.onclick = async () => {
-      verMas.textContent = "Espera un momento";
+      verMas.textContent = "Espera unos segundos...";
       verMas.classList.add("text-dark");
       await mostrarRespuestaIA(producto);
       verMas.textContent = "IA Información";
@@ -252,20 +280,28 @@ export async function Productos() {
     contenedor.appendChild(col);
   }
 
-  function renderizarProductos(lista) {
+function renderizarProductos(lista) {
+  // 1. Animar salida de las cards actuales
+  const cards = contenedor.querySelectorAll('.col-md-4, .col-sm-6, .mb-4');
+  cards.forEach(card => {
+    card.classList.add('salida-hacia-abajo');
+  });
+
+  // 2. Espera la animación de salida antes de limpiar y mostrar las nuevas
+  setTimeout(() => {
     contenedor.innerHTML = "";
     if (!lista || lista.length === 0) {
-      // --- MENSAJE BONITO SI NO HAY RESULTADOS ---
       contenedor.innerHTML = `
-    <div class="no-result-container" style="text-align:center; margin: 2em 0;">
-      <img src="/images/Sorry.png" alt="Sin resultados" style="width:200px;margin-bottom:1em;">
-      <div class="no-result-text">No se encontró el producto que usted deseaba<br> ya que no lo Tenemos en Lista de Venta en estos momentos...<br><br><br> Si desea agregarlo puede mandarnos un escrito por Whatsapp.😊😊</div>
-    </div>
+        <div class="no-result-container" style="text-align:center; margin: 2em 0;">
+          <img src="/images/Sorry.png" alt="Sin resultados" style="width:200px;margin-bottom:1em;">
+          <div class="no-result-text">No se encontró el producto que usted deseaba<br> ya que no lo Tenemos en Lista de Venta en estos momentos...<br><br><br> Si desea agregarlo puede mandarnos un escrito por Whatsapp.😊😊</div>
+        </div>
       `;
       return;
     }
     lista.forEach(renderizarProducto);
-  }
+  }, 500); // Debe coincidir con la duración de .salida-hacia-abajo
+}
 
   // ==========================
   // Paginación
@@ -374,4 +410,6 @@ async function buscarProductos() {
   function toggleBotones(desactivar) {
     buscarBtn.disabled = desactivar;
   }
+
+
 }

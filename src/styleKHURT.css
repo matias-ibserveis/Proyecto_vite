@@ -731,17 +731,7 @@ margin-top: 150px;
 
 }
 
-.titulo_arriba_buscar {
-  margin-top: 30px;
-  color: white;
-  font-family: 'Aloja Extended', 'Arial', sans-serif;
-  background-color: rgba(192, 101, 15, 0.466);
-  padding: 20px;
-  border-radius: 30px;
-  font-size: 3rem;
-  text-align: center;
-  margin-bottom: 40px;
-}
+
 
 /* Responsive Adjustments for Navbar */
 @media (max-width: 767px) {
@@ -3135,3 +3125,4 @@ textarea:focus {
     line-height: 1.4;
   }
 }
+

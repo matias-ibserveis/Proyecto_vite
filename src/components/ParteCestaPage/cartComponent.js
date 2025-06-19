@@ -2,6 +2,29 @@ export function CartComponent() {
   const cartContainer = document.createElement('div');
   cartContainer.classList.add('cart-container');
 
+  // --- INYECTA CSS DE ANIMACIÓN SOLO UNA VEZ ---
+  if (!document.getElementById('cart-panel-anim-style')) {
+    const style = document.createElement('style');
+    style.id = 'cart-panel-anim-style';
+    style.textContent = `
+.left-panel {
+  animation: leftPanelIn 0.8s cubic-bezier(.4,0,.2,1) both;
+}
+@keyframes leftPanelIn {
+  from { opacity: 0; transform: translateX(-60px);}
+  to   { opacity: 1; transform: translateX(0);}
+}
+.right-panel {
+  animation: rightPanelIn 0.8s cubic-bezier(.4,0,.2,1) both;
+}
+@keyframes rightPanelIn {
+  from { opacity: 0; transform: translateX(60px);}
+  to   { opacity: 1; transform: translateX(0);}
+}
+    `;
+    document.head.appendChild(style);
+  }
+
   // --- LIGHTBOX SOLO UNA VEZ ---
   if (!document.getElementById('cesta-lightbox')) {
     const lightbox = document.createElement('div');
