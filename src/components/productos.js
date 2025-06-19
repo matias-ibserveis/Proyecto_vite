@@ -254,12 +254,10 @@ export async function Productos() {
     if (!lista || lista.length === 0) {
       // --- MENSAJE BONITO SI NO HAY RESULTADOS ---
       contenedor.innerHTML = `
-        <div style="text-align:center; margin: 40px 0;">
-          <img src="/images/no-results.png" alt="No encontrado" style="max-width:220px; width:90vw; margin-bottom:18px; opacity:0.7;">
-          <h3 style="color:#b25415; font-family:'Aloja Extended',sans-serif; font-size:2rem;">¡Vaya!</h3>
-          <p style="font-size:1.2rem; color:#444;">No hemos encontrado ningún producto que coincida con tu búsqueda.<br>
-          Prueba con otro término o revisa la ortografía.</p>
-        </div>
+    <div class="no-result-container" style="text-align:center; margin: 2em 0;">
+      <img src="/images/Sorry.png" alt="Sin resultados" style="width:200px;margin-bottom:1em;">
+      <div class="no-result-text">No se encontró el producto que usted deseaba<br> ya que no lo Tenemos en Lista de Venta en estos momentos...<br><br><br> Si desea agregarlo puede mandarnos un escrito por Whatsapp.😊😊</div>
+    </div>
       `;
       return;
     }
@@ -331,36 +329,44 @@ export async function Productos() {
     }
   }
 
-  async function buscarProductos() {
-    const consulta = productos.querySelector("#busquedaInput").value.trim();
-    if (!consulta) return;
+async function buscarProductos() {
+  const consulta = productos.querySelector("#busquedaInput").value.trim();
 
+  // Si el input está vacío, muestra todos los productos (página 1)
+  if (!consulta) {
     currentPage = 1;
     itemsPerPage = 9;
     paginacionActiva = true;
     paginar(dataOriginal, currentPage);
-
-    toggleBotones(true);
-    try {
-      const resp = await fetch('https://proyectorailway-production-9739.up.railway.app/buscar', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ consulta })
-      });
-
-      const resultados = await resp.json();
-      resultados.sort((a, b) => new Date(b.fecha) - new Date(a.fecha));
-
-      currentPage = 1;
-      paginar(resultados, currentPage);
-    } catch (err) {
-      contenedor.innerHTML = `<p class="text-danger">No puedo buscar productos</p>`;
-      console.error("No se pudo búscar:", err);
-    } finally {
-      toggleBotones(false);
-      document.querySelector("#btnVerMas")?.remove();
-    }
+    return;
   }
+
+  currentPage = 1;
+  itemsPerPage = 9;
+  paginacionActiva = true;
+  paginar(dataOriginal, currentPage);
+
+  toggleBotones(true);
+  try {
+    const resp = await fetch('https://proyectorailway-production-9739.up.railway.app/buscar', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ consulta })
+    });
+
+    const resultados = await resp.json();
+    resultados.sort((a, b) => new Date(b.fecha) - new Date(a.fecha));
+
+    currentPage = 1;
+    paginar(resultados, currentPage);
+  } catch (err) {
+    contenedor.innerHTML = `<p class="text-danger">No puedo buscar productos</p>`;
+    console.error("No se pudo búscar:", err);
+  } finally {
+    toggleBotones(false);
+    document.querySelector("#btnVerMas")?.remove();
+  }
+}
 
   function toggleBotones(desactivar) {
     buscarBtn.disabled = desactivar;
