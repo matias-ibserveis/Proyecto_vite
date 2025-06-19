@@ -97,20 +97,23 @@ export async function Productos() {
     col.className = "col-md-4 col-sm-6 mb-4";
 
     // Imagen de Google Drive o local
-    let imageUrl = "/images/logo1.png";
-    if (producto.imagen1) {
-      if (producto.imagen1.includes("drive.google.com")) {
-        const driveRegex = /\/d\/([a-zA-Z0-9_-]+)|id=([a-zA-Z0-9_-]+)/;
-        const match = producto.imagen1.match(driveRegex);
-        if (match && (match[1] || match[2])) {
-          imageUrl = `https://drive.google.com/thumbnail?id=${match[1] || match[2]}&sz=w800-h600`;
-        } else {
-          imageUrl = producto.imagen1;
-        }
-      } else {
-        imageUrl = producto.imagen1;
+// Imagen robusta de Google Drive o local
+  let imageUrl = "/images/logo1.png";
+  if (
+    producto.imagen1 &&
+    producto.imagen1 !== "null" &&
+    producto.imagen1 !== "(Null)" &&
+    producto.imagen1 !== null
+  ) {
+    if (producto.imagen1.includes("drive.google.com")) {
+      const imageId = producto.imagen1.split('/d/')[1]?.split('/')[0];
+      if (imageId) {
+        imageUrl = `https://drive.google.com/thumbnail?id=${imageId}&sz=w800-h600`;
       }
+    } else {
+      imageUrl = producto.imagen1;
     }
+  }
 
     // Descripción resumida
     const resumen = producto.descripcion
@@ -126,7 +129,7 @@ export async function Productos() {
       <div class="card h-100 shadow-sm position-relative">
         <div class="product-card-content">
           <div class="product-image-wrapper">
-            <img src="${imageUrl}" class="card-img-top product-image" alt="${producto.titulo || 'Producto'}" style="cursor:zoom-in;" onerror="this.src='/images/logo1.png'">
+            <img src="${imageUrl}" class="card-img-top product-image" alt="${producto.titulo || 'Producto'}" style="cursor:zoom-in;" loading="lazy" onerror="this.src='/images/logo1.png'">
           </div>
           <div class="product-details">
             <h3 class="card-title">${producto.titulo || 'Sin título'}</h3>
