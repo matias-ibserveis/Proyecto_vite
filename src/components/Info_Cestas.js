@@ -11,13 +11,16 @@ export function Info_Cestas() {
       </div>
     </div>
     <div>
-      <p class="info-cestas-texto">
-        xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-        xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-        xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-        xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-        xxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-      </p>
+    <p class="info-cestas-texto extra-padding-ic">
+    Cada semana ofrecemos cestas con productos frescos de temporada, ideales para familias o colegios, seleccionados por su calidad, origen responsable y técnicas de cultivo sostenibles.
+    <br><br>
+    Las cestas incluyen productos ecológicos, locales y algunos de la península, cuidando también el bienestar de los trabajadores.
+    <br><br>
+    Su valor es de 25€, recomendadas para 3 o 4 personas.
+    <br><br>
+    Los viernes se publica en WhatsApp una foto con el contenido y procedencia de la cesta.
+    <br>Se puede pedir hasta el lunes a las 18:00h y recoger el martes desde las 12:00h.
+    </p>
     </div>
 
     <h2 class="info-cestas-titulo2">Cesta Semanal</h2>
@@ -57,11 +60,9 @@ export function Info_Cestas() {
             <img src="/imagenes/tienda.png" alt="En Tienda" class="info-cestas-recoge-img" />
             <div>
                 <p class="info-cestas-texto">
-                xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-                xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-                xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-                xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-                xxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+                Las cestas se pueden recoger en nuestra tienda, cada martes a partir de las 12:00h.
+                <br><br>
+                Además, en la tienda, encontrarás una amplia variedad de productos ecológicos/locales, ideales para complementar tu cesta.
                 </p>
             </div>
 
@@ -71,11 +72,9 @@ export function Info_Cestas() {
             <img src="/imagenes/colegio.png" alt="En Colegios" class="info-cestas-recoge-img" />
         <div>
             <p class="info-cestas-texto">
-            xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-            xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-            xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-            xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-            xxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+            Las cestas se repartirán una vez a la semana en el recinto de la escuela y estarán compuestas de frutas y verduras de temporada.
+            <br><br>
+            Hemos iniciado este plan para fomentar el consumo de frutas y verduras locales/ecológicas de temporada con la mejor calidad de una forma sencilla.
             </p>
         </div>
         </div>
@@ -242,6 +241,11 @@ export function Info_Cestas() {
         }
         .info-cestas-boton:hover {
             transform: scale(1.08); /* <--- Efecto zoom al pasar el mouse */
+        }
+
+        .extra-padding-ic {
+            pading-top: 15px;
+            padding-bottom: 15px;
         }
 
         @media (max-width: 600px) {

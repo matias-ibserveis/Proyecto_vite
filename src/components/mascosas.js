@@ -15,10 +15,10 @@ export function MasCosas() {
         <div class="row mt-3">
             <div class="col-4 section-container">
                 <h1 class="section-title titulo margins">Video</h1>
-                <button class="btn btn-primary DO-secciones show-btn" type="button" data-target="columna1">
+                <button class="btn btn-primary DO-secciones show-btn" type="button" data-target="mascolumna1">
                     Ver más +
                 </button>
-                <div class="section-content" id="columna1">
+                <div class="section-content" id="mascolumna1">
                     <div class="content-inner">
                         <h1 class="titulo">Video</h1>
                         <iframe
@@ -38,10 +38,10 @@ export function MasCosas() {
             </div>
             <div class="col-4 section-container">
                 <h1 class="section-title titulo margins">Historia</h1>
-                <button class="btn btn-primary DO-secciones show-btn" type="button" data-target="columna2">
+                <button class="btn btn-primary DO-secciones show-btn" type="button" data-target="mascolumna2">
                     Ver más +
                 </button>
-                <div class="section-content" id="columna2">
+                <div class="section-content" id="mascolumna2">
                     <div class="content-inner">
                         <h1 class="titulo margins">Nuestra Historia</h1>
                         <button class="btn btn-secondary hide-btn">Ocultar info extra</button>
@@ -50,10 +50,10 @@ export function MasCosas() {
             </div>
             <div class="col-4 section-container">
                 <h1 class="section-title titulo margins">Talleres</h1>
-                <button class="btn btn-primary DO-secciones show-btn" type="button" data-target="columna3">
+                <button class="btn btn-primary DO-secciones show-btn" type="button" data-target="mascolumna3">
                     Ver más +
                 </button>
-                <div class="section-content" id="columna3">
+                <div class="section-content" id="mascolumna3">
                     <div class="content-inner">
                         <button class="btn btn-secondary hide-btn">Ocultar info extra</button>
                     </div>
@@ -64,16 +64,15 @@ export function MasCosas() {
 
     const style = document.createElement('style');
 
-    // Insertar modulo historia
-    const columna2ContentInner = mascosas.querySelector('#columna2 .content-inner');
+    // Insertar módulo historia
+    const columna2ContentInner = mascosas.querySelector('#mascolumna2 .content-inner');
     const historiaSection = NuestraHistoria();
     columna2ContentInner.insertBefore(historiaSection, columna2ContentInner.querySelector('.hide-btn'));
 
-    // Insertar modulo talleres
-    const columna3ContentInner = mascosas.querySelector('#columna3 .content-inner');
+    // Insertar módulo talleres
+    const columna3ContentInner = mascosas.querySelector('#mascolumna3 .content-inner');
     const talleresSection = Talleres();
     columna3ContentInner.insertBefore(talleresSection, columna3ContentInner.querySelector('.hide-btn'));
-
 
     style.innerHTML = `
         .dondeocurreportada img {
@@ -143,17 +142,17 @@ export function MasCosas() {
             display: block;
         }
 
-    .content-inner {
-        padding: 20px;
-        background-color: #f8f9fa;
-        border-radius: 8px;
-        margin: 20px;
-        width: calc(100% - 40px);
-        margin-top: 4.5rem;
-        height: auto; /* esto adapta la altura al contenido */
-        max-height: 90vh; /* por si acaso, limitamos en pantallas pequeñas */
-        overflow-y: auto; /* solo aparece scroll si es necesario */
-    }
+        .content-inner {
+            padding: 20px;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            margin: 20px;
+            width: calc(100% - 40px);
+            margin-top: 4.5rem;
+            height: auto;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
 
         .hide-btn {
             background-color: #dc3545;
@@ -171,7 +170,6 @@ export function MasCosas() {
             margin-top: 20px;
         }
 
-        /* Responsive para móviles */
         @media (max-width: 768px) {
             .row.mt-3 {
                 display: flex;
@@ -187,20 +185,18 @@ export function MasCosas() {
     `;
     document.head.appendChild(style);
 
-    // JavaScript to handle slide-in and slide-out
+    // JavaScript para animaciones de entrada y salida
     mascosas.addEventListener('click', (event) => {
         if (event.target.classList.contains('show-btn')) {
             const targetId = event.target.getAttribute('data-target');
             const content = document.getElementById(targetId);
             content.classList.remove('exiting');
-            // Force reflow and delay to ensure transition triggers
             content.offsetHeight;
             setTimeout(() => content.classList.add('active'), 0);
         }
         if (event.target.classList.contains('hide-btn')) {
             const sectionContainer = event.target.closest('.section-content');
             sectionContainer.classList.remove('active');
-            // Force reflow and delay to ensure transition triggers
             sectionContainer.offsetHeight;
             setTimeout(() => sectionContainer.classList.add('exiting'), 0);
         }
