@@ -27,13 +27,33 @@ export function crearModalIA() {
           "></div>
         </div>
         <hr>
-        <h5 id="titulo">Haz pregunta a la IA:</h5>
+        <h5 id="titulo">Haz una pregunta a chatGPT:</h5>
         <textarea id="preguntaExtra" class="form-control" rows="3" maxlength="300" placeholder=" ..."></textarea>
         <button id="enviarPreguntaIA" class="btn btn-primary mt-2">Preguntar</button>
         <div id="respuestaExtra" class="mt-3 text-primary" style="line-height: 1.5;"></div>
       </div>
     `;
     document.body.appendChild(modal);
+
+    const aviso = document.createElement("div");
+    aviso.id = "iaAviso";
+    aviso.style = `
+        display: none;
+        position: fixed;
+        bottom: 2rem;
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: #f0f0f0;
+        padding: 1rem 1.5rem;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        z-index: 1100;
+        font-size: 0.95rem;
+        color: #333;
+      `;
+    aviso.textContent = "Esperando la respuesta de chatGPT  😊";
+    document.body.appendChild(aviso);
+
 
     // Añadir animación al head una sola vez
     if (!document.getElementById("spinnerStyle")) {
@@ -65,9 +85,18 @@ export function crearModalIA() {
       if (!pregunta) return;
 
       const btn = modal.querySelector("#enviarPreguntaIA");
+      const aviso = document.getElementById("iaAviso");
+      const spinner = modal.querySelector("#spinnerIA");
+
       btn.disabled = true;
       btn.textContent = "Preguntando...";
-      modal.querySelector("#spinnerIA").style.display = "block";
+      spinner.style.display = "block";
+      aviso.style.display = "none";
+
+      let esperando = true;
+      const timeoutId = setTimeout(() => {
+        if (esperando) aviso.style.display = "block";
+      }, 3000); 
 
       try {
         const resp = await fetch('https://proyectorailway-production-9739.up.railway.app/api/chat', {
@@ -78,6 +107,12 @@ export function crearModalIA() {
             esPrimeraPregunta: false
           })
         });
+
+        esperando = false;
+        clearTimeout(timeoutId);
+        aviso.style.display = "none";
+        spinner.style.display = "none";
+
         const data = await resp.json();
 
         modal.querySelector("#titulo").textContent = "Respuesta";
@@ -98,14 +133,19 @@ export function crearModalIA() {
         }
 
       } catch (err) {
+        esperando = false;
+        clearTimeout(timeoutId);
+        aviso.style.display = "none";
+        spinner.style.display = "none";
         modal.querySelector("#respuestaExtra").textContent = "❌ Error al contactar con la IA";
         console.error(err);
       } finally {
         btn.disabled = false;
         btn.textContent = "Preguntar";
-        modal.querySelector("#spinnerIA").style.display = "none";
+        spinner.style.display = "none";
       }
     });
+
   }
 }
 export async function mostrarRespuestaIA(producto) {
@@ -113,10 +153,28 @@ export async function mostrarRespuestaIA(producto) {
   const modal = document.querySelector("#iaModal");
   const iaTexto = modal.querySelector("#iaTexto");
   const spinner = modal.querySelector("#spinnerIA");
+  const aviso = document.getElementById("iaAviso");
 
+  // Limpiar estado anterior
   iaTexto.textContent = "⏳ Consultando a la IA...";
   spinner.style.display = "block";
-  modal.style.display = "flex"; // Mostrar el modal antes de la espera
+  aviso.style.display = "none";
+  modal.querySelector("#respuestaExtra").textContent = "";
+  modal.querySelector("#preguntaExtra").value = "";
+  modal.querySelector("#preguntaExtra").style.display = "block";
+  modal.querySelector("#enviarPreguntaIA").style.display = "inline-block";
+  modal.querySelector("#titulo").textContent = "Haz una pregunta a chatGPT:";
+  preguntaExtraCount = 0;
+
+  modal.style.display = "flex";
+
+  let esperandoMensaje = true;
+
+  const timeoutId = setTimeout(() => {
+    if (esperandoMensaje) {
+      aviso.style.display = "block";
+    }
+  }, 3000);
 
   try {
     const res = await fetch('https://proyectorailway-production-9739.up.railway.app/api/chat', {
@@ -128,6 +186,15 @@ export async function mostrarRespuestaIA(producto) {
       })
     });
 
+    esperandoMensaje = false;
+    clearTimeout(timeoutId);
+    aviso.style.display = "none";
+    spinner.style.display = "none"; // ✅ Asegúrate de ocultarlo aquí
+
+    if (!res.ok) {
+      throw new Error("Respuesta no válida del servidor");
+    }
+
     const data = await res.json();
 
     iaTexto.innerHTML = `${data.respuesta
@@ -136,9 +203,11 @@ export async function mostrarRespuestaIA(producto) {
       .map(p => `<p style="margin-top: 1rem;">${p.trim()}</p>`)
       .join("")}`;
   } catch (error) {
-    iaTexto.textContent = "❌ Error al obtener respuesta de la IA";
+    esperandoMensaje = false;
+    clearTimeout(timeoutId);
+    aviso.style.display = "none";
+    spinner.style.display = "none"; //  También en el catch
+    iaTexto.textContent = " No se puede obtener respuesta de la IA";
     console.error(error);
-  } finally {
-    spinner.style.display = "none";
   }
 }

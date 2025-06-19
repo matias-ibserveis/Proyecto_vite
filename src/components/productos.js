@@ -86,8 +86,8 @@ export async function Productos() {
             ${resumen}
             <span class="ver_mas" data-id="${producto.id}">ver +</span>
           </p>
-          <button class="btn btn-secondary mt-2 btn-ia" data-id="${producto.id}">+información IA</button>
-          <button class="btn btn-secondary mt-2 btn-a-cesta" data-id="${producto.id}">a Mi cesta</button>
+          <button class="btn btn-secondary mt-2 btn-ia" data-id="${producto.id}">+info chatGPT</button>
+          <button class="btn btn-secondary mt-2 btn-a-cesta" data-id="${producto.id}">a mi cesta</button>
         </div>
       </div>
     `;
