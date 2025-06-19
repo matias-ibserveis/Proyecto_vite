@@ -23,7 +23,7 @@ export function Info_Cestas() {
 
     <h2 class="info-cestas-titulo2">Cesta Semanal</h2>
     <div class="info-cestas-foto-container">
-      <img src="/imagenes/infinito1.jpg" alt="Cesta Semanal" class="info-cestas-foto" />
+      <img src="/images/Cesta2_resultado.webp" alt="Cesta Semanal" class="info-cestas-foto" />
     </div>
 
     <div class="info-cestas-lista-container">
@@ -35,14 +35,69 @@ export function Info_Cestas() {
             <td>Unidad de Masa</td>
           </tr>
           <tr>
-            <td>Ingrediente 1</td>
-            <td>Cantidad 1</td>
-            <td>Unidad de Masa 1</td>
+            <td>Fresas Sa Pobla</td>
+            <td>400</td>
+            <td>gramos</td>
           </tr>
           <tr>
-            <td>Ingrediente 2</td>
-            <td>Cantidad 2</td>
-            <td>Unidad de Masa 2</td>
+            <td>Cerezas Aragó</td>
+            <td>400</td>
+            <td>gramos</td>
+          </tr>
+          <tr>
+            <td>Nectarina Catalunya</td>
+            <td>4</td>
+            <td>unidades</td>
+          </tr>
+          <tr>
+            <td>Sandía eco Catalunya</td>
+            <td>1/4</td>
+            <td>unidades</td>
+          </tr>
+          <tr>
+            <td>Paraguayo Catalunya</td>
+            <td>4</td>
+            <td>unidades</td>
+          </tr>
+          <tr>
+            <td>Melocoton Petra</td>
+            <td>4</td>
+            <td>unidades</td>
+          </tr>
+          <tr>
+            <td>Tomate Inca</td>
+            <td>4</td>
+            <td>unidades</td>
+          </tr>
+          <tr>
+            <td>Peras San Juan Selva</td>
+            <td>12</td>
+            <td>unidades</td>
+          </tr>
+          <tr>
+            <td>Calabacín Inca</td>
+            <td>2</td>
+            <td>unidades</td>
+          </tr>
+          <tr>
+            <td>Pepino Inca</td>
+            <td>1</td>
+            <td>unidad</td>
+          </tr>
+          <tr>
+            <td>Sofrito Inca</td>
+            <td>1</td>
+            <td>unidad</td>
+          </tr>
+          <tr>
+            <td>Melón Marina Manacor</td>
+            <td>1</td>
+            <td>unidad</td>
+          </tr>
+          <tr>
+          <td>Lletuga Muro</td>
+          <td>1</td>
+          <td>unidad</td>
           </tr>
         </tbody>
       </table>
@@ -264,11 +319,11 @@ export function Info_Cestas() {
             border-radius: 10%;
             border: 10px solid var(--main-color);
             margin-top: 10px;
-            width: auto;
-            max-width: 100%;
+            width: 720px; /* Increased width for larger image */
+            max-width: 75%;
             height: auto;
             box-shadow: 0 2px 8px rgba(0,0,0,0.4);
-        }
+    }
 
         @media (max-width: 600px) {
             .info-cestas-titulo,

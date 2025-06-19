@@ -23,9 +23,6 @@ import { MasCosas } from './components/mascosas.js';
 (async () => {
   // Navbar
     app.append(Navbar());
-
-  // Apartado Info Cestas
-    app.append(Info_Cestas());
     
   // Apartado Sobre Nosotras
     app.append(SobreNosotras());
