@@ -40,8 +40,9 @@ export function crearModalIA() {
     aviso.style = `
         display: none;
         position: fixed;
-        bottom: 2rem;
+        bottom: 4rem;
         left: 50%;
+        min-width: 200px;
         transform: translateX(-50%);
         background-color: #f0f0f0;
         padding: 1rem 1.5rem;
@@ -49,6 +50,7 @@ export function crearModalIA() {
         box-shadow: 0 2px 10px rgba(0,0,0,0.2);
         z-index: 1100;
         font-size: 0.95rem;
+        min-width:250px;
         color: #333;
       `;
     aviso.textContent = "Esperando la respuesta de chatGPT  😊";
@@ -137,7 +139,7 @@ export function crearModalIA() {
         clearTimeout(timeoutId);
         aviso.style.display = "none";
         spinner.style.display = "none";
-        modal.querySelector("#respuestaExtra").textContent = "❌ Error al contactar con la IA";
+        modal.querySelector("#respuestaExtra").textContent = " Ahora no puede contestar 🙃";
         console.error(err);
       } finally {
         btn.disabled = false;
@@ -174,7 +176,7 @@ export async function mostrarRespuestaIA(producto) {
     if (esperandoMensaje) {
       aviso.style.display = "block";
     }
-  }, 3000);
+  }, 1000);
 
   try {
     const res = await fetch('https://proyectorailway-production-9739.up.railway.app/api/chat', {
@@ -189,10 +191,10 @@ export async function mostrarRespuestaIA(producto) {
     esperandoMensaje = false;
     clearTimeout(timeoutId);
     aviso.style.display = "none";
-    spinner.style.display = "none"; // ✅ Asegúrate de ocultarlo aquí
+    spinner.style.display = "none"; 
 
     if (!res.ok) {
-      throw new Error("Respuesta no válida del servidor");
+      throw new Error("No puedo hacer más preguntas a chatGPT  😌");
     }
 
     const data = await res.json();
@@ -207,7 +209,7 @@ export async function mostrarRespuestaIA(producto) {
     clearTimeout(timeoutId);
     aviso.style.display = "none";
     spinner.style.display = "none"; //  También en el catch
-    iaTexto.textContent = " No se puede obtener respuesta de la IA";
+    iaTexto.textContent = `${error}`;
     console.error(error);
   }
 }

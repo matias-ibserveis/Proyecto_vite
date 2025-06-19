@@ -81,7 +81,7 @@ import { Inicio } from './components/inicio.js';
    app.append(Footer());
 
   // Botón flotante de WhatsApp
-    app.append(BotonVerde());
+   // app.append(BotonVerde());
 
   // Empanadas
     EmpanadaBanner(); // <-- Añade esta línea
