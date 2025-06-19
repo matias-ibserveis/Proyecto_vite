@@ -121,18 +121,25 @@ function calculateSubtotal(cart) {
           const row = document.createElement('tr');
           row.className = 'cart-item-row';
           row.dataset.index = index;
-
-          let imageUrl = '/images/logo.png';
-          if (item.type === 'product' && item.imagen1) {
-            imageUrl = item.imagen1;
-            if (imageUrl.includes('drive.google.com')) {
-              const driveRegex = /\/d\/([a-zA-Z0-9_-]+)|id=([a-zA-Z0-9_-]+)/;
-              const match = imageUrl.match(driveRegex);
-              if (match && (match[1] || match[2])) {
-                imageUrl = `https://drive.google.com/thumbnail?id=${match[1] || match[2]}&sz=w100-h100`;
-              }
-            }
-          }
+let imageUrl = "/images/logo1.png";
+if (
+  producto.imagen1 &&
+  producto.imagen1 !== "null" &&
+  producto.imagen1 !== "(Null)" &&
+  producto.imagen1 !== null
+) {
+  if (producto.imagen1.includes("drive.google.com")) {
+    const driveRegex = /\/d\/([a-zA-Z0-9_-]+)|id=([a-zA-Z0-9_-]+)/;
+    const match = producto.imagen1.match(driveRegex);
+    if (match && (match[1] || match[2])) {
+      imageUrl = `https://drive.google.com/thumbnail?id=${match[1] || match[2]}&sz=w800-h600`;
+    } else {
+      imageUrl = producto.imagen1;
+    }
+  } else {
+    imageUrl = producto.imagen1;
+  }
+}
 
           let productDetails = '';
           if (item.type === 'cesta') {

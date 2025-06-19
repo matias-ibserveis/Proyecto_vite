@@ -73,10 +73,10 @@ export function Navbar() {
       list-style: none;
     }
     .navbar-custom .navbar-nav {
-      margin-left: 40px;
+      margin-left: 20px;
     }
     .navbar-custom .navbar-nav .nav-item {
-      margin-right: 22px;
+      margin-right: 18px;
       border-radius: 18px;
       padding: 0;
       transition: background 0.2s;

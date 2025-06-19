@@ -120,18 +120,18 @@ function injectEmpanadasStyles() {
     }
 
     /* SOLO MOVIL */
-@media (max-width: 600px) {
-  .empanadas-banner {
-    width: 96vw;
-    min-width: unset;
-    max-width: 99vw;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    padding: 10px 2vw;
-    font-size: 1rem;
-    border-radius: 10px;
-  }
+    @media (max-width: 600px) {
+      .empanadas-banner {
+        width: 96vw;
+        min-width: unset;
+        max-width: 99vw;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        padding: 10px 2vw;
+        font-size: 1rem;
+        border-radius: 10px;
+      }
       .empanadas-banner-img {
         width: 80px;
         height: 80px;
@@ -188,16 +188,8 @@ function mostrarBanner() {
         <button id="aceptar-empanadas" class="empanadas-btn-aceptar">Aceptar</button>
         <button id="rechazar-empanadas" class="empanadas-btn-rechazar">Rechazar</button>
       </div>
-<div style="margin-top:20px; margin-bottom:2px; font-weight:bold; font-size:1.1em;">(  Traduir a / Translate to  )</div>
-<div class="empanadas-banner-translate-btns">
-  <button id="empanada-catala-btn" class="empanadas-btn-info" style="padding:6px 12px;">
-    <img src="/images/catala.webp" alt="Català" title="Català" style="height:24px;vertical-align:middle;margin-b">
-  </button>
-  <button id="empanada-english-btn" class="empanadas-btn-info" style="padding:6px 12px;">
-    <img src="/images/inglesa.png" alt="English" title="English" style="height:24px;vertical-align:middle;">
-  </button>
-</div>
-<div id="google_translate_element" style="visibility:hidden;height:0;margin-top:8px;"></div>
+      <div style="margin-top:20px; margin-bottom:2px; font-weight:bold; font-size:1.1em;">(  Traduir a / Translate to  )</div>
+      <div id="google_translate_element" style="margin-top:8px;"></div>
     </div>
   `;
   document.body.appendChild(banner);
@@ -242,38 +234,19 @@ if (!getEmpanada("empanada_content")) {
 // Expón la función globalmente para el footer SIEMPRE
 window.mostrarBannerEmpanadas = mostrarBanner;
 
- // Cargar Google Translate si aún no está cargado
-  if (!document.querySelector('#google-translate-script')) {
-    const script = document.createElement('script');
-    script.id = 'google-translate-script';
-    script.src = '//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
-    document.body.appendChild(script);
-  }
-
+// --- Google Translate Widget SIEMPRE visible ---
+if (!window.googleTranslateElementInit) {
   window.googleTranslateElementInit = function () {
-    new google.translate.TranslateElement({
+    new window.google.translate.TranslateElement({
       pageLanguage: 'es',
       includedLanguages: 'en,ca',
-      layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+      layout: window.google.translate.TranslateElement.InlineLayout.SIMPLE
     }, 'google_translate_element');
   };
-
-function mostrarTraductorYTraducir(lang) {
-  const translateEl = document.getElementById('google_translate_element');
-  translateEl.style.visibility = 'visible';
-  translateEl.style.height = 'auto';
-
-  function intentarTraducir() {
-    const select = translateEl.querySelector('select.goog-te-combo');
-    if (select) {
-      select.value = lang;
-      select.dispatchEvent(new Event('change'));
-    } else {
-      setTimeout(intentarTraducir, 200);
-    }
-  }
-  intentarTraducir();
 }
-
-document.getElementById('empanada-catala-btn').onclick = () => mostrarTraductorYTraducir('ca');
-document.getElementById('empanada-english-btn').onclick = () => mostrarTraductorYTraducir('en');
+if (!document.getElementById('google-translate-script')) {
+  const script = document.createElement('script');
+  script.id = 'google-translate-script';
+  script.src = '//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
+  document.body.appendChild(script);
+}

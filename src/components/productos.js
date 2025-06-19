@@ -24,6 +24,54 @@ export async function Productos() {
 
   const buscarBtn = productos.querySelector("#buscarBtn");
 
+  // --- LIGHTBOX GLOBAL PARA FOTOS ---
+  let lightbox = document.getElementById('lightbox-producto');
+  if (!lightbox) {
+    lightbox = document.createElement('div');
+    lightbox.id = 'lightbox-producto';
+    lightbox.className = 'lightbox-servicio';
+    lightbox.innerHTML = `<img id="lightbox-img-producto" src="" alt="Imagen ampliada">`;
+    document.body.appendChild(lightbox);
+    lightbox.addEventListener('click', () => {
+      lightbox.classList.remove('active');
+      document.getElementById('lightbox-img-producto').src = '';
+    });
+  }
+
+  // --- ESTILOS LIGHTBOX (si no existen) ---
+  if (!document.getElementById('lightbox-servicio-style')) {
+    const style = document.createElement('style');
+    style.id = 'lightbox-servicio-style';
+    style.textContent = `
+.lightbox-servicio {
+  display: none;
+  position: fixed;
+  z-index: 9999;
+  left: 0; top: 0;
+  width: 100vw; height: 100vh;
+  background: rgba(0,0,0,0.7);
+  align-items: center;
+  justify-content: center;
+}
+.lightbox-servicio.active {
+  display: flex;
+}
+.lightbox-servicio img {
+  max-width: 80vw;
+  max-height: 80vh;
+  width: auto;
+  height: auto;
+  border-radius: 18px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+  background: rgba(0, 0, 0, 0.33);
+  padding: 12px;
+  display: block;
+  margin: auto;
+}
+    `;
+    document.head.appendChild(style);
+  }
+
   // Cargar productos al inicio
   await cargarProductosIniciales();
   aplicarEstilos();
@@ -78,7 +126,7 @@ export async function Productos() {
       <div class="card h-100 shadow-sm position-relative">
         <div class="product-card-content">
           <div class="product-image-wrapper">
-            <img src="${imageUrl}" class="card-img-top product-image" alt="${producto.titulo || 'Producto'}" onerror="this.src='/images/logo1.png'">
+            <img src="${imageUrl}" class="card-img-top product-image" alt="${producto.titulo || 'Producto'}" style="cursor:zoom-in;" onerror="this.src='/images/logo1.png'">
           </div>
           <div class="product-details">
             <h3 class="card-title">${producto.titulo || 'Sin título'}</h3>
@@ -99,6 +147,14 @@ export async function Productos() {
         </div>
       </div>
     `;
+
+    // --- ABRIR LIGHTBOX AL HACER CLICK EN LA FOTO ---
+    const img = col.querySelector('.card-img-top');
+    img.addEventListener('click', (e) => {
+      e.stopPropagation();
+      document.getElementById('lightbox-img-producto').src = imageUrl;
+      lightbox.classList.add('active');
+    });
 
     // Eventos de cantidad y añadir
     const minusBtn = col.querySelector('[data-action="minus"]');
@@ -128,49 +184,49 @@ export async function Productos() {
       updatePrice();
     });
 
-addBtn.addEventListener("click", () => {
-  const quantity = parseInt(quantityDisplay.textContent);
-  if (quantity > 0) {
-    const cart = JSON.parse(sessionStorage.getItem('cart') || '[]');
-    const existingItem = cart.find(item => item.id === producto.id && item.type === 'product');
-    let imageUrl = "/images/logo1.png";
-    if (producto.imagen1) {
-      if (producto.imagen1.includes("drive.google.com")) {
-        const driveRegex = /\/d\/([a-zA-Z0-9_-]+)|id=([a-zA-Z0-9_-]+)/;
-        const match = producto.imagen1.match(driveRegex);
-        if (match && (match[1] || match[2])) {
-          imageUrl = `https://drive.google.com/thumbnail?id=${match[1] || match[2]}&sz=w800-h600`;
-        } else {
-          imageUrl = producto.imagen1;
+    addBtn.addEventListener("click", () => {
+      const quantity = parseInt(quantityDisplay.textContent);
+      if (quantity > 0) {
+        const cart = JSON.parse(sessionStorage.getItem('cart') || '[]');
+        const existingItem = cart.find(item => item.id === producto.id && item.type === 'product');
+        let imageUrl = "/images/logo1.png";
+        if (producto.imagen1) {
+          if (producto.imagen1.includes("drive.google.com")) {
+            const driveRegex = /\/d\/([a-zA-Z0-9_-]+)|id=([a-zA-Z0-9_-]+)/;
+            const match = producto.imagen1.match(driveRegex);
+            if (match && (match[1] || match[2])) {
+              imageUrl = `https://drive.google.com/thumbnail?id=${match[1] || match[2]}&sz=w800-h600`;
+            } else {
+              imageUrl = producto.imagen1;
+            }
+          } else if (producto.imagen1.startsWith("/images/")) {
+            imageUrl = producto.imagen1;
+          } else {
+            imageUrl = producto.imagen1;
+          }
         }
-      } else if (producto.imagen1.startsWith("/images/")) {
-        imageUrl = producto.imagen1;
-      } else {
-        imageUrl = producto.imagen1;
-      }
-    }
-    if (existingItem) {
-      existingItem.quantity += quantity;
-    } else {
-      cart.push({
-        id: producto.id,
-        name: producto.titulo,
-        quantity: quantity,
-        price: producto.precio,
-        type: 'product',
-        imagen1: imageUrl
-      });
-    }
-    sessionStorage.setItem('cart', JSON.stringify(cart));
-    quantityDisplay.textContent = '1';
-    updateQuantity();
+        if (existingItem) {
+          existingItem.quantity += quantity;
+        } else {
+          cart.push({
+            id: producto.id,
+            name: producto.titulo,
+            quantity: quantity,
+            price: producto.precio,
+            type: 'product',
+            imagen1: imageUrl
+          });
+        }
+        sessionStorage.setItem('cart', JSON.stringify(cart));
+        quantityDisplay.textContent = '1';
+        updateQuantity();
 
-    // --- Animación verde ---
-    addBtn.classList.remove('added-success');
-    void addBtn.offsetWidth; // Fuerza reflow para reiniciar animación
-    addBtn.classList.add('added-success');
-  }
-});
+        // --- Animación verde ---
+        addBtn.classList.remove('added-success');
+        void addBtn.offsetWidth; // Fuerza reflow para reiniciar animación
+        addBtn.classList.add('added-success');
+      }
+    });
 
     // IA Información (ver más)
     const verMas = document.createElement("span");
@@ -195,6 +251,18 @@ addBtn.addEventListener("click", () => {
 
   function renderizarProductos(lista) {
     contenedor.innerHTML = "";
+    if (!lista || lista.length === 0) {
+      // --- MENSAJE BONITO SI NO HAY RESULTADOS ---
+      contenedor.innerHTML = `
+        <div style="text-align:center; margin: 40px 0;">
+          <img src="/images/no-results.png" alt="No encontrado" style="max-width:220px; width:90vw; margin-bottom:18px; opacity:0.7;">
+          <h3 style="color:#b25415; font-family:'Aloja Extended',sans-serif; font-size:2rem;">¡Vaya!</h3>
+          <p style="font-size:1.2rem; color:#444;">No hemos encontrado ningún producto que coincida con tu búsqueda.<br>
+          Prueba con otro término o revisa la ortografía.</p>
+        </div>
+      `;
+      return;
+    }
     lista.forEach(renderizarProducto);
   }
 
