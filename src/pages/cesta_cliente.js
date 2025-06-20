@@ -61,8 +61,11 @@ export async function renderCesta(container) {
   tabla.innerHTML = `<thead><tr><th>Productos en la cesta</th></tr></thead>
   <tbody id="cesta-body"></tbody>
   <div id="contenedor-cesta"></div>
-  <div class="total-general-container">
+   <div class="total-general-container">
     <strong>Total:</strong> <span id="total-general">0 €</span>
+    <div style="margin-top:-1rem;">
+      <textarea id="comentario-pedido" placeholder="añadir comentario ..."  maxlength="200" style="font-size: 0.9rem; width:80%; max-width:500px; height:60px; display:block; margin-left:1rem"></textarea>
+    </div>
   </div>`;
 
   container.innerHTML = '';
@@ -142,9 +145,18 @@ function crearBotonReserva(container) {
       precio: item.precio
     }));
 
+    let comentario = document.getElementById('comentario-pedido')?.value || '';
+    comentario = comentario
+      .replace(/[<>&'"]/g, c => ({
+        '<': '&lt;', '>': '&gt;', '&': '&amp;', "'": '&#39;', '"': '&quot;'
+      }[c]))  // Escapa HTML básico
+      .trim();
+
+
     const datosPedido = {
       usuario: { nombre: nom, correo: correo },
-      productos
+      productos,
+      comentario
     };
 
     if (confirm('¿Estás seguro de hacer la reserva?')) {
@@ -323,9 +335,9 @@ function mostrarCesta() {
       .total-general-container {
         text-align: end;
         font-size: 1.1rem;
-        padding: 1rem;
+        padding: 0.5rem;
         border-top: 1px solid #ddd;
-        margin-top: 1rem;
+        margin: 0.5rem 0 0.5rem 9;
       }
 
       .empty-msg {

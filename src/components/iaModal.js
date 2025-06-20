@@ -42,7 +42,7 @@ export function crearModalIA() {
         display: none;
         position: absolute;
         bottom: 10rem;
-        left: 20%;
+        left: 1rem;
         background-color: #f0f0f0;
         padding: 0.7rem 1rem;
         border-radius: 6px;

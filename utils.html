@@ -211,6 +211,7 @@
               <th>Fecha</th>
               <th>Nombre</th>
               <th>Correo</th>
+              <th>Comentario</th>
               <th>Productos</th>
               <th>Total</th>
             </tr>
@@ -224,7 +225,7 @@
             <table class="table table-sm mb-0">
               <thead>
                 <tr>
-                  <th>Título</th>
+                  <th>Producto</th>
                   <th>Precio</th>
                   <th>Cantidad</th>
                 </tr>
@@ -246,6 +247,7 @@
               <td style="white-space: nowrap; font-size: 0.9em;">${new Date(p.fecha).toLocaleDateString()}</td>
               <td>${p.nombre}</td>
               <td>${p.correo}</td>
+              <td>${p.comentario || ''}</td>
               <td>${productosTabla}</td>
               <td>${Number(p.total).toFixed(2)} €</td>
             </tr>
