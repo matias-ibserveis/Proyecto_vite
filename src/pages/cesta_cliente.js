@@ -63,7 +63,7 @@ export async function renderCesta(container) {
   <div id="contenedor-cesta"></div>
    <div class="total-general-container">
     <strong>Total:</strong> <span id="total-general">0 €</span>
-    <div style="margin-top:-1rem;">
+    <div>
       <textarea id="comentario-pedido" placeholder="añadir comentario ..."  maxlength="200" style="font-size: 0.9rem; width:80%; max-width:500px; height:60px; display:block; margin-left:1rem"></textarea>
     </div>
   </div>`;
