@@ -20,6 +20,7 @@ import { verLaPanera } from './components/verPanera.js';
 import { MasCosas } from './components/mascosas.js';
 import { SobreNosotras2 } from './components/sobrenosotras2.js';
 import { Inicio } from './components/inicio.js';
+import { Talleres } from './components/Talleres.js';
 
 (async () => {
   // Navbar
@@ -61,8 +62,8 @@ import { Inicio } from './components/inicio.js';
   // Nuestra Historia
      app.append(NuestraHistoria());
   
-  // Tres cosas
-   // app.append(MasCosas());
+  // Talleres
+   app.append(Talleres());
 
 
       // Apartado Sobre Nosotras2
