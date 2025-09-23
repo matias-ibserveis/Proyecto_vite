@@ -321,12 +321,16 @@ if (
 
   // Botón SÍ: cierra el popup (aquí puedes poner la acción que quieras en el futuro)
 document.getElementById('popup-si').addEventListener('click', function() {
+  document.querySelector('#confirm-popup h2').textContent = 'Preparando pedido...';
+  document.getElementById('popup-si').style.display = 'none';
+  document.getElementById('popup-no').style.display = 'none';
+
   const nombre = document.getElementById('order-instructions').value.trim();
-  const lugar = document.getElementById('opcion-especial').value;
+  const selectLugar = document.getElementById('opcion-especial');
+  const lugar = selectLugar.options[selectLugar.selectedIndex].text;
   const productos = JSON.parse(sessionStorage.getItem('cart') || '[]');
   const instrucciones = document.getElementById('order-instructions2').value.trim();
 
-  // Prepara los productos en columnas separadas
   const fila = {
     Nombre: nombre,
     Lugar: lugar
@@ -344,12 +348,17 @@ document.getElementById('popup-si').addEventListener('click', function() {
   .then(res => {
     alert('¡Pedido guardado en Google Sheets!');
     document.getElementById('confirm-popup').style.display = 'none';
+    document.getElementById('popup-si').style.display = '';
+    document.getElementById('popup-no').style.display = '';
+    document.querySelector('#confirm-popup h2').textContent = '¿Segura/o?';
   })
   .catch(err => {
     alert('Error al guardar el pedido');
+    document.getElementById('popup-si').style.display = '';
+    document.getElementById('popup-no').style.display = '';
+    document.querySelector('#confirm-popup h2').textContent = '¿Segura/o?';
   });
 });
-    // Aquí puedes poner la acción para "Sí" en el futuro
 
 
   // Validación en tiempo real para el nombre
