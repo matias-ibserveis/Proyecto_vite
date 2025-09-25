@@ -18,7 +18,7 @@ export async function productos_gestion(appContenedor) {
   // Renderiza la vista principal con formulario y contenedor
   async function renderInicio() {
     appContenedor.innerHTML = `
-      <h3 class="titulo my-4">Gestión de productos</h3>
+      <h3 class="titulo my-4">Gestión de producto</h3>
       <div class="mb-4">
         <input type="text" id="busquedaInput" class="form-control" placeholder="Buscar productos ...">
         <button id="buscarBtn" class="btn btn-secondary mt-2">Buscar</button>

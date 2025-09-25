@@ -74,28 +74,41 @@ export function CartComponent() {
     document.body.appendChild(popup);
   }
 
-  function renderCart() {
+  // --- NUEVO: CARGA INGREDIENTES DESDE LA API ---
+  async function getCestaData() {
+    try {
+      const res = await fetch('https://proyectorailway-production-9739.up.railway.app/api/crear_cesta');
+      const data = await res.json();
+      // Ajusta según la estructura real de tu API:
+      return {
+        image: data.image || '/images/logo.png',
+        name: data.name || 'Cesta de la SEMANA',
+        description: data.description || 'Incluye productos frescos de temporada seleccionados para ti.',
+        ingredients: Array.isArray(data.ingredients)
+        ? data.ingredients.map(ing => ({
+            name: ing.producto || ing.id_producto,      // usa 'producto' si existe, si no 'name'
+            quantity: ing.cantidad || ing.cantidad_producto // usa 'cantidad' si existe, si no 'quantity'
+          }))
+        : [],
+      price: data.price || 25
+      };
+    } catch (err) {
+      // Si falla, muestra la cesta por defecto
+      return {
+        image: '/images/logo.png',
+        name: 'Cesta de la SEMANA',
+        description: 'Incluye productos frescos de temporada seleccionados para ti.',
+        ingredients: [],
+        price: 25
+      };
+    }
+  }
+
+  async function renderCart() {
     cartContainer.innerHTML = '';
 
-    // --- DATOS DE LA CESTA ---
-    const cestaData = {
-      image: '/images/logo.png',
-      name: 'Cesta de la SEMANA',
-      description: 'Incluye productos frescos de temporada seleccionados para ti.',
-      ingredients: [
-        { name: 'Huevos', quantity: '6x' },
-        { name: 'Leche', quantity: '1L' },
-        { name: 'Pan', quantity: '1 barra' },
-        { name: 'Queso', quantity: '200g' },
-        { name: 'Tomates', quantity: '500g' },
-        { name: 'Manzanas', quantity: '1kg' },
-        { name: 'Zanahorias', quantity: '500g' },
-        { name: 'Patatas', quantity: '1kg' },
-        { name: 'Cebollas', quantity: '500g' },
-        { name: 'Pimientos', quantity: '300g' }
-      ],
-      price: 25
-    };
+    // --- DATOS DE LA CESTA DESDE LA API ---
+    const cestaData = await getCestaData();
 
     // Panel izquierdo
     const leftPanel = document.createElement('div');
@@ -234,7 +247,7 @@ export function CartComponent() {
       id: uniqueId,
       name: cestaData.name,
       quantity: 1,
-      price: 25,
+      price: cestaData.price,
       type: 'cesta',
       image: cestaData.image,
       ingredients: ingredientsData.map(ingredient => ({
@@ -544,6 +557,9 @@ export function CartComponent() {
     document.head.appendChild(style);
   }
 
-  renderCart();
+  (async () => {
+    await renderCart();
+  })();
+
   return cartContainer;
 }
