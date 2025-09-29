@@ -74,10 +74,19 @@ export function CartComponent() {
     document.body.appendChild(popup);
   }
 
+  // --- FUNCION PARA TRANSFORMAR URL DE GOOGLE DRIVE ---
+function getDriveDirectUrl(url) {
+  const match = url.match(/\/d\/([^/]+)(?:\/|$)/);
+  if (match) {
+    return `https://drive.google.com/uc?export=view&id=${match[1]}`;
+  }
+  return url;
+}
+
   // --- NUEVO: CARGA INGREDIENTES DESDE LA API ACTUALIZADA ---
   async function getCestaData() {
     try {
-      const res = await fetch('https://cooperative-unity-production.up.railway.app/api/crear_cesta');
+      const res = await fetch('https://corsproxy.io/?https://cooperative-unity-production.up.railway.app/api/crear_cesta');
       const data = await res.json();
       return {
         image: data.image || '/images/logo.png',
@@ -98,9 +107,8 @@ export function CartComponent() {
   // --- NUEVO: CARGA PRODUCTOS DE LA CESTA DESDE LA API /api/cestas ---
   async function getProductosCesta() {
     try {
-      const res = await fetch('https://cooperative-unity-production.up.railway.app/api/cestas');
+      const res = await fetch('https://corsproxy.io/?https://cooperative-unity-production.up.railway.app/api/cestas');
       const data = await res.json();
-      // data debe ser un array de productos con: titulo, imagen1, cantidad_producto
       return Array.isArray(data) ? data : [];
     } catch (err) {
       return [];
@@ -163,7 +171,7 @@ export function CartComponent() {
       // Imagen del producto
       if (prod.imagen1) {
         const img = document.createElement('img');
-        img.src = prod.imagen1;
+        img.src = getDriveDirectUrl(prod.imagen1);
         img.alt = prod.titulo;
         img.style.width = '48px';
         img.style.height = '48px';
@@ -240,7 +248,7 @@ export function CartComponent() {
             // Imagen
             if (ingredient.imagen1) {
               const img = document.createElement('img');
-              img.src = ingredient.imagen1;
+              img.src = getDriveDirectUrl(ingredient.imagen1);
               img.alt = ingredient.titulo;
               img.style.width = '32px';
               img.style.height = '32px';
