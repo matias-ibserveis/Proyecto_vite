@@ -74,33 +74,36 @@ export function CartComponent() {
     document.body.appendChild(popup);
   }
 
-  // --- NUEVO: CARGA INGREDIENTES DESDE LA API ---
+  // --- NUEVO: CARGA INGREDIENTES DESDE LA API ACTUALIZADA ---
   async function getCestaData() {
     try {
-      const res = await fetch('https://proyectorailway-production-9739.up.railway.app/api/crear_cesta');
+      const res = await fetch('https://cooperative-unity-production.up.railway.app/api/crear_cesta');
       const data = await res.json();
-      // Ajusta según la estructura real de tu API:
       return {
         image: data.image || '/images/logo.png',
         name: data.name || 'Cesta de la SEMANA',
         description: data.description || 'Incluye productos frescos de temporada seleccionados para ti.',
-        ingredients: Array.isArray(data.ingredients)
-        ? data.ingredients.map(ing => ({
-            name: ing.producto || ing.id_producto,      // usa 'producto' si existe, si no 'name'
-            quantity: ing.cantidad || ing.cantidad_producto // usa 'cantidad' si existe, si no 'quantity'
-          }))
-        : [],
-      price: data.price || 25
+        price: data.price || 25
       };
     } catch (err) {
-      // Si falla, muestra la cesta por defecto
       return {
         image: '/images/logo.png',
         name: 'Cesta de la SEMANA',
         description: 'Incluye productos frescos de temporada seleccionados para ti.',
-        ingredients: [],
         price: 25
       };
+    }
+  }
+
+  // --- NUEVO: CARGA PRODUCTOS DE LA CESTA DESDE LA API /api/cestas ---
+  async function getProductosCesta() {
+    try {
+      const res = await fetch('https://cooperative-unity-production.up.railway.app/api/cestas');
+      const data = await res.json();
+      // data debe ser un array de productos con: titulo, imagen1, cantidad_producto
+      return Array.isArray(data) ? data : [];
+    } catch (err) {
+      return [];
     }
   }
 
@@ -109,6 +112,7 @@ export function CartComponent() {
 
     // --- DATOS DE LA CESTA DESDE LA API ---
     const cestaData = await getCestaData();
+    const productosCesta = await getProductosCesta();
 
     // Panel izquierdo
     const leftPanel = document.createElement('div');
@@ -148,27 +152,44 @@ export function CartComponent() {
     ingredientsHeader.classList.add('ingredients-header');
     rightPanel.appendChild(ingredientsHeader);
 
-    const ingredientsList = document.createElement('ul');
-    ingredientsList.classList.add('ingredients-list');
+    // --- LISTA DE PRODUCTOS DE LA CESTA (de la API /api/cestas) ---
+    const productosList = document.createElement('ul');
+    productosList.classList.add('ingredients-list');
 
-    cestaData.ingredients.forEach(ing => {
+    productosCesta.forEach(prod => {
       const li = document.createElement('li');
       li.classList.add('ingredient-item');
 
+      // Imagen del producto
+      if (prod.imagen1) {
+        const img = document.createElement('img');
+        img.src = prod.imagen1;
+        img.alt = prod.titulo;
+        img.style.width = '48px';
+        img.style.height = '48px';
+        img.style.objectFit = 'cover';
+        img.style.borderRadius = '8px';
+        img.style.marginRight = '12px';
+        li.appendChild(img);
+      }
+
+      // Nombre del producto
       const nameSpan = document.createElement('span');
       nameSpan.classList.add('ingredient-name');
-      nameSpan.textContent = ing.name;
+      nameSpan.textContent = prod.titulo || '';
+      nameSpan.style.flex = '1';
+      li.appendChild(nameSpan);
 
+      // Cantidad
       const qtySpan = document.createElement('span');
       qtySpan.classList.add('ingredient-qty');
-      qtySpan.textContent = ing.quantity;
-
-      li.appendChild(nameSpan);
+      qtySpan.textContent = prod.cantidad_producto || '';
       li.appendChild(qtySpan);
-      ingredientsList.appendChild(li);
+
+      productosList.appendChild(li);
     });
 
-    rightPanel.appendChild(ingredientsList);
+    rightPanel.appendChild(productosList);
 
     // Precio y botón
     const priceDiv = document.createElement('div');
@@ -187,7 +208,7 @@ export function CartComponent() {
 
     // --- EVENTO AÑADIR AL CARRO ---
     addToCartBtn.addEventListener('click', () => {
-      addCestaToCart(cestaData, cestaData.ingredients);
+      addCestaToCart(cestaData, productosCesta);
 
       // Muestra el popup
       const popup = document.getElementById('cart-popup');
@@ -206,7 +227,7 @@ export function CartComponent() {
       if (cart.length > 0) {
         const lastCesta = cart[cart.length - 1];
         (lastCesta.ingredients || []).forEach(ingredient => {
-          if (ingredient && ingredient.name && ingredient.quantity) {
+          if (ingredient && ingredient.titulo && ingredient.cantidad_producto) {
             const div = document.createElement('div');
             div.style.display = 'flex';
             div.style.justifyContent = 'space-between';
@@ -216,15 +237,30 @@ export function CartComponent() {
             div.style.borderRadius = '8px';
             div.style.background = '#fafbfc';
 
-            const nameSpan = document.createElement('span');
-            nameSpan.textContent = ingredient.name;
-            nameSpan.style.marginLeft = '18px';
+            // Imagen
+            if (ingredient.imagen1) {
+              const img = document.createElement('img');
+              img.src = ingredient.imagen1;
+              img.alt = ingredient.titulo;
+              img.style.width = '32px';
+              img.style.height = '32px';
+              img.style.objectFit = 'cover';
+              img.style.borderRadius = '6px';
+              img.style.marginRight = '10px';
+              div.appendChild(img);
+            }
 
+            // Nombre
+            const nameSpan = document.createElement('span');
+            nameSpan.textContent = ingredient.titulo;
+            nameSpan.style.marginLeft = '8px';
+
+            // Cantidad
             const qtySpan = document.createElement('span');
-            qtySpan.textContent = ingredient.quantity;
+            qtySpan.textContent = ingredient.cantidad_producto;
             qtySpan.style.fontWeight = 'bold';
             qtySpan.style.color = '#a05d36';
-            qtySpan.style.marginRight = '18px';
+            qtySpan.style.marginRight = '8px';
 
             div.appendChild(nameSpan);
             div.appendChild(qtySpan);
@@ -240,7 +276,7 @@ export function CartComponent() {
   }
 
   // --- FUNCION GUARDAR EN CARRITO ---
-  function addCestaToCart(cestaData, ingredientsData) {
+  function addCestaToCart(cestaData, productosCesta) {
     const cart = JSON.parse(sessionStorage.getItem('cart') || '[]');
     const uniqueId = `cesta_${Date.now()}`;
     const newCesta = {
@@ -250,9 +286,10 @@ export function CartComponent() {
       price: cestaData.price,
       type: 'cesta',
       image: cestaData.image,
-      ingredients: ingredientsData.map(ingredient => ({
-        name: ingredient.name,
-        quantity: ingredient.quantity
+      ingredients: productosCesta.map(prod => ({
+        titulo: prod.titulo,
+        cantidad_producto: prod.cantidad_producto,
+        imagen1: prod.imagen1
       }))
     };
     cart.push(newCesta);
@@ -354,11 +391,12 @@ export function CartComponent() {
 }
 .ingredient-item {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: center;
   padding: 13px 0;
   border-bottom: 1.5px solid #f0e6d2;
   font-size: 1.35rem;
+  gap: 10px;
 }
 .comprar-btn,
 .continue-productos-link {
