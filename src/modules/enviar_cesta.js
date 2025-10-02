@@ -25,6 +25,7 @@ export async function enviarCestaAlBackend(numeroCesta) {
   try {
     const respuesta = await fetch('https://api-proyecto-lura-enviar-cesta-production.up.railway.app/api/crear_cesta', {
       method: 'POST',
+      mode: 'no-cors',
       headers: {
         'Content-Type': 'application/json'
       },
