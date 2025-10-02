@@ -87,6 +87,7 @@ function getDriveDirectUrl(url) {
   async function getCestaData() {
     try {
       const res = await fetch('https://corsproxy.io/?https://cooperative-unity-production.up.railway.app/api/crear_cesta');
+      
       const data = await res.json();
       return {
         image: data.image || '/images/logo.png',
