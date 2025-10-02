@@ -3,7 +3,6 @@ document.addEventListener("DOMContentLoaded", async () => {
   await productos_crear_cesta(appContenedor);
 });
 
-
 import { renderizaListaCesta } from "../modules/crear_cesta_lista.js"
 
 export async function productos_crear_cesta(appContenedor) {
@@ -27,12 +26,10 @@ export async function productos_crear_cesta(appContenedor) {
     </div>
     <div class="row" id="productos-lista" style="margin-top:3rem"></div>
     <div id="paginacion" class="text-center my-3"></div>
-
   `;
 
     renderizaListaCesta(appContenedor);
   }
-
 
   // 2. RENDERIZA UNA FICHA
   function crearFicha(producto) {
@@ -63,7 +60,6 @@ export async function productos_crear_cesta(appContenedor) {
     return col;
   }
 
-
   // 3. AÑADIR A CESTA
   function añadirACesta(producto) {
     const cesta = JSON.parse(localStorage.getItem("nuevaCesta") || "{}");
@@ -80,15 +76,9 @@ export async function productos_crear_cesta(appContenedor) {
     cesta[producto.id].cantidad += 1;
 
     localStorage.setItem("nuevaCesta", JSON.stringify(cesta));
-
-    localStorage.setItem("nuevaCesta", JSON.stringify(cesta));
-   
     renderizaListaCesta(appContenedor);
     window.scrollTo({ top: 0, behavior: "smooth" });
-
-
   }
-
 
   // 4. RENDERIZA PÁGINA ACTUAL
   function mostrarPagina(lista, pagina) {
@@ -119,7 +109,6 @@ export async function productos_crear_cesta(appContenedor) {
       if (currentPage < totalPages) mostrarPagina(lista, ++currentPage);
     };
   }
-
 
   // 6. CARGA DATOS
   async function cargarDatos() {
@@ -153,16 +142,10 @@ export async function productos_crear_cesta(appContenedor) {
   function configurarEventos() {
     const input = appContenedor.querySelector("#busquedaInput");
     const btnBuscar = appContenedor.querySelector("#buscarBtn");
-    const btnTodos = appContenedor.querySelector("#todosBtn");
 
     btnBuscar.onclick = () => {
       const consulta = input.value.trim();
       if (consulta) buscarProductos(consulta);
-    };
-
-    btnTodos.onclick = () => {
-      input.value = "";
-      mostrarPagina(productos, currentPage = 1);
     };
   }
 
@@ -197,7 +180,6 @@ export async function productos_crear_cesta(appContenedor) {
         flex: 1;
         padding: 0.5rem 1rem;
       }
-
     `;
     document.head.appendChild(style);
   }

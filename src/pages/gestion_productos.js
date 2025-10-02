@@ -230,7 +230,6 @@ export async function productos_gestion(appContenedor) {
   function configurarEventos() {
     const input = appContenedor.querySelector("#busquedaInput");
     const btnBuscar = appContenedor.querySelector("#buscarBtn");
-    const btnTodos = appContenedor.querySelector("#todosBtn");
     const crearBtn = appContenedor.querySelector("#crearBtn");
 
     btnBuscar.onclick = () => {
@@ -238,10 +237,7 @@ export async function productos_gestion(appContenedor) {
       if (consulta) buscarProductos(consulta);
     };
 
-    btnTodos.onclick = () => {
-      input.value = "";
-      mostrarPagina(productos, currentPage = 1);
-    };
+
 
     crearBtn.onclick = async () => {
       const valores = {
