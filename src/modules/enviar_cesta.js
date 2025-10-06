@@ -20,31 +20,43 @@ export async function enviarCestaAlBackend(numeroCesta) {
     productos
   };
   
-  console.log('Datos a enviar al backend:', datosAEnviar);
+  // LOGS DETALLADOS PARA VER QUÉ SE ENVÍA
+  console.log('=== DATOS A ENVIAR ===');
+  console.log('numero_cesta:', numeroCesta);
+  console.log('productos:', productos);
+  console.log('Estructura completa:', JSON.stringify(datosAEnviar, null, 2));
   
   try {
-    // Usar no-cors para evitar problemas de CORS
-    await fetch('https://api-proyecto-lura-enviar-cesta-production.up.railway.app/api/cestas_productos', {
+    const respuesta = await fetch('https://api-proyecto-lura-enviar-cesta-production.up.railway.app/api/cestas_productos', {
       method: 'POST',
-      mode: 'no-cors', // Evita CORS pero no podemos leer respuesta
       headers: {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(datosAEnviar)
     });
 
-    // Con no-cors asumimos que se envió correctamente
-    console.log('Cesta enviada (modo no-cors)');
-    alert('¡Cesta enviada correctamente! (Los datos se han guardado en la base de datos)');
+    console.log('=== RESPUESTA DEL SERVIDOR ===');
+    console.log('Status de respuesta:', respuesta.status);
     
-    // Opcional: Limpiar localStorage después de enviar
-    localStorage.removeItem('nuevaCesta');
-    
-    return { ok: true, mode: 'no-cors' };
+    if (respuesta.ok) {
+      const resultado = await respuesta.json();
+      console.log('Respuesta exitosa del servidor:', resultado);
+      alert(`¡Éxito! ${resultado.mensaje}`);
+      
+      localStorage.removeItem('nuevaCesta');
+      
+      return resultado;
+    } else {
+      const errorText = await respuesta.text();
+      console.error('Error del servidor:', errorText);
+      alert('Error del servidor: ' + errorText);
+      throw new Error(`HTTP ${respuesta.status}: ${errorText}`);
+    }
     
   } catch (error) {
-    console.error('Error al enviar cesta:', error);
-    alert('Error al enviar cesta: ' + error.message);
+    console.error('=== ERROR COMPLETO ===');
+    console.error('Error:', error);
+    alert('Error: ' + error.message);
     throw error;
   }
 }
