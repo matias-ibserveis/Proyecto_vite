@@ -78,7 +78,7 @@ export function CartComponent() {
 function getDriveDirectUrl(url) {
   const match = url.match(/\/d\/([^/]+)(?:\/|$)/);
   if (match) {
-    return `https://drive.google.com/uc?export=view&id=${match[1]}`;
+    return `https://drive.google.com/thumbnail?id=${match[1]}&sz=w800-h600`;
   }
   return url;
 }
@@ -169,7 +169,7 @@ function getDriveDirectUrl(url) {
       const li = document.createElement('li');
       li.classList.add('ingredient-item');
 
-      // Imagen del producto
+      // Imagen del producto CON ZOOM ⬅️ AQUÍ ESTÁN LOS CAMBIOS
       if (prod.imagen1) {
         const img = document.createElement('img');
         img.src = getDriveDirectUrl(prod.imagen1);
@@ -179,6 +179,18 @@ function getDriveDirectUrl(url) {
         img.style.objectFit = 'cover';
         img.style.borderRadius = '8px';
         img.style.marginRight = '12px';
+        img.style.cursor = 'zoom-in'; // ⬅️ AGREGAR CURSOR DE ZOOM
+        
+        // ⬅️ AGREGAR EVENTO CLICK PARA ZOOM
+        img.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const lightbox = document.getElementById('cesta-lightbox');
+          const lightboxImg = document.getElementById('cesta-lightbox-img');
+          lightboxImg.src = img.src;
+          lightboxImg.alt = img.alt;
+          lightbox.style.display = 'flex';
+        });
+        
         li.appendChild(img);
       }
 
@@ -246,7 +258,7 @@ function getDriveDirectUrl(url) {
             div.style.borderRadius = '8px';
             div.style.background = '#fafbfc';
 
-            // Imagen
+            // Imagen CON ZOOM
             if (ingredient.imagen1) {
               const img = document.createElement('img');
               img.src = getDriveDirectUrl(ingredient.imagen1);
@@ -256,6 +268,18 @@ function getDriveDirectUrl(url) {
               img.style.objectFit = 'cover';
               img.style.borderRadius = '6px';
               img.style.marginRight = '10px';
+              img.style.cursor = 'zoom-in'; // ⬅️ CURSOR DE ZOOM
+              
+              // ⬅️ EVENTO CLICK PARA ZOOM
+              img.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const lightbox = document.getElementById('cesta-lightbox');
+                const lightboxImg = document.getElementById('cesta-lightbox-img');
+                lightboxImg.src = img.src;
+                lightboxImg.alt = img.alt;
+                lightbox.style.display = 'flex';
+              });
+              
               div.appendChild(img);
             }
 

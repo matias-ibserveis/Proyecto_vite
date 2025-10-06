@@ -163,13 +163,16 @@ if (
 
           let productDetails = '';
           if (item.type === 'cesta') {
-            const ingredientsList = item.ingredients.map(ing =>
-              `${ing.name}: ${ing.quantity}`
-            ).join('<br>');
+            // CÓDIGO CORREGIDO AQUÍ ⬅️
+            const ingredientsList = item.ingredients
+              .filter(ing => ing && ing.titulo && ing.cantidad_producto) // Filtrar elementos válidos
+              .map(ing => `${ing.titulo}: ${ing.cantidad_producto}`) // Usar nombres correctos
+              .join('<br>');
+            
             productDetails = `
               <div class="cart-item-details">
                 <div class="cart-item-name">${item.name}</div>
-                <div class="cart-item-ingredients">${ingredientsList}</div>
+                <div class="cart-item-ingredients">${ingredientsList || 'Sin productos disponibles'}</div>
               </div>
             `;
           } else {
