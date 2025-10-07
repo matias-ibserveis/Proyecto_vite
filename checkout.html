@@ -110,6 +110,38 @@ function calculateSubtotal(cart) {
   }, 0).toFixed(2);
 }
 
+    // SIMPLE: Obtener foto de la API
+    async function getFotoAPI() {
+      try {
+        const res = await fetch('https://api-proyecto-lura-enviar-cesta-production.up.railway.app/api/cestas_productos');
+        const data = await res.json();
+        console.log('API Response checkout:', data); // Para debug
+        if (data.length > 0 && data[0].foto) {
+          console.log('URL original de la API checkout:', data[0].foto);
+          // Convertir URL de Google Drive si es necesario
+          const fotoConvertida = convertirGoogleDriveUrl(data[0].foto);
+          console.log('URL convertida para mostrar checkout:', fotoConvertida);
+          return fotoConvertida; // SIEMPRE usar la foto de la API convertida
+        }
+        console.log('No foto found in API checkout');
+        return null; // No hay foto, devolver null
+      } catch (err) {
+        console.error('Error fetching foto from API checkout:', err);
+        return null; // Error, devolver null
+      }
+    }
+
+    // Función para convertir URLs de Google Drive
+    function convertirGoogleDriveUrl(url) {
+      if (url.includes('drive.google.com')) {
+        const match = url.match(/\/d\/([a-zA-Z0-9_-]+)/);
+        if (match) {
+          return `https://drive.google.com/thumbnail?id=${match[1]}&sz=w800-h600`;
+        }
+      }
+      return url;
+    }
+
     // Render subtotal
     function renderSubtotal() {
       const subtotalAmount = document.getElementById('subtotal-amount');
@@ -121,7 +153,7 @@ function calculateSubtotal(cart) {
     }
 
     // Render cart items
-    function renderCheckoutCart() {
+    async function renderCheckoutCart() {
       const cartBody = document.getElementById('cart-body');
       if (!cartBody) return;
 
@@ -137,12 +169,16 @@ function calculateSubtotal(cart) {
         `;
         cartBody.appendChild(emptyRow);
       } else {
-        cart.forEach((item, index) => {
+        for (const [index, item] of cart.entries()) {
           const row = document.createElement('tr');
           row.className = 'cart-item-row';
           row.dataset.index = index;
-let imageUrl = "/images/logo1.png";
-if (
+          
+let imageUrl = "https://via.placeholder.com/250x250?text=Sin+Imagen";
+if (item.type === 'cesta') {
+  const fotoAPI = await getFotoAPI();
+  imageUrl = fotoAPI || "https://via.placeholder.com/250x250?text=Sin+Imagen";
+} else if (
   item.imagen1 &&
   item.imagen1 !== "null" &&
   item.imagen1 !== "(Null)" &&
@@ -205,10 +241,10 @@ if (
             </td>
           `;
           cartBody.appendChild(row);
-        });
+        }
 
         cartBody.querySelectorAll('.quantity-btn').forEach(btn => {
-          btn.addEventListener('click', (e) => {
+          btn.addEventListener('click', async (e) => {
             const index = parseInt(e.target.dataset.index);
             const cart = JSON.parse(sessionStorage.getItem('cart') || '[]');
             const item = cart[index];
@@ -222,18 +258,18 @@ if (
             }
 
             sessionStorage.setItem('cart', JSON.stringify(cart));
-            renderCheckoutCart();
+            await renderCheckoutCart();
             renderSubtotal();
           });
         });
 
         cartBody.querySelectorAll('.remove-btn').forEach(btn => {
-          btn.addEventListener('click', (e) => {
+          btn.addEventListener('click', async (e) => {
             const index = parseInt(e.target.dataset.index);
             const cart = JSON.parse(sessionStorage.getItem('cart') || '[]');
             cart.splice(index, 1);
             sessionStorage.setItem('cart', JSON.stringify(cart));
-            renderCheckoutCart();
+            await renderCheckoutCart();
             renderSubtotal();
           });
         });
@@ -262,14 +298,16 @@ if (
 
 
     // Initial render
-    renderCheckoutCart();
-    renderSpecialInstructions();
-    setupCheckoutButton();
+    (async () => {
+      await renderCheckoutCart();
+      renderSpecialInstructions();
+      setupCheckoutButton();
+    })();
 
     // Re-render on storage changes
-    window.addEventListener('storage', (e) => {
+    window.addEventListener('storage', async (e) => {
       if (e.key === 'cart' || e.key === 'orderInstructions') {
-        renderCheckoutCart();
+        await renderCheckoutCart();
         renderSpecialInstructions();
       }
     });

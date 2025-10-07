@@ -83,21 +83,45 @@ function getDriveDirectUrl(url) {
   return url;
 }
 
+  // --- SIMPLE: OBTENER FOTO DE LA API ---
+  async function getFotoAPI() {
+    try {
+      const res = await fetch('https://api-proyecto-lura-enviar-cesta-production.up.railway.app/api/cestas_productos');
+      const data = await res.json();
+      console.log('API Response:', data); // Para debug
+      if (data.length > 0 && data[0].foto) {
+        console.log('URL original de la API:', data[0].foto);
+        // Convertir URL de Google Drive si es necesario
+        const fotoConvertida = getDriveDirectUrl(data[0].foto);
+        console.log('URL convertida para mostrar:', fotoConvertida);
+        return fotoConvertida; // SIEMPRE usar la foto de la API convertida
+      }
+      console.log('No foto found in API');
+      return null; // No hay foto, devolver null
+    } catch (err) {
+      console.error('Error fetching foto from API:', err);
+      return null; // Error, devolver null
+    }
+  }
+
   // --- NUEVO: CARGA INGREDIENTES DESDE LA API ACTUALIZADA ---
   async function getCestaData() {
     try {
       const res = await fetch('https://corsproxy.io/?https://cooperative-unity-production.up.railway.app/api/crear_cesta');
       
       const data = await res.json();
+      const fotoAPI = await getFotoAPI();
       return {
-        image: data.image || '/images/logo.png',
+        image: fotoAPI || data.image || 'https://via.placeholder.com/250x250?text=Sin+Imagen',
         name: data.name || 'Cesta de la SEMANA',
         description: data.description || 'Incluye productos frescos de temporada seleccionados para ti.',
         price: data.price || 25
       };
     } catch (err) {
+      console.error('Error en getCestaData:', err);
+      const fotoAPI = await getFotoAPI();
       return {
-        image: '/images/logo.png',
+        image: fotoAPI || 'https://via.placeholder.com/250x250?text=Sin+Imagen',
         name: 'Cesta de la SEMANA',
         description: 'Incluye productos frescos de temporada seleccionados para ti.',
         price: 25
@@ -112,6 +136,7 @@ function getDriveDirectUrl(url) {
       const data = await res.json();
       return Array.isArray(data) ? data : [];
     } catch (err) {
+      console.error('Error en getProductosCesta:', err);
       return [];
     }
   }
