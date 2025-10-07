@@ -83,8 +83,12 @@ export function renderizaListaCesta(appContenedor) {
     const numeroCesta = prompt("Introduce el número de cesta a guardar:", 1);
     if (!numeroCesta) return;
 
+    // Pedir la URL de la foto
+    const urlFoto = prompt("Introduce la URL de la foto de la cesta:", "");
+    if (urlFoto === null) return; // Si cancela, no continuar
+
     try {
-      await enviarCestaAlBackend(numeroCesta);
+      await enviarCestaAlBackend(numeroCesta, urlFoto);
       alert("Cesta enviada correctamente");
     } catch (error) {
       alert("Error al enviar la cesta");

@@ -12,17 +12,19 @@ async function prepararCestaParaBackend(numeroCesta) {
   return productos;
 }
 
-export async function enviarCestaAlBackend(numeroCesta) {
+export async function enviarCestaAlBackend(numeroCesta, urlFoto = "") {
   const productos = await prepararCestaParaBackend(numeroCesta);
   
   const datosAEnviar = {
     numero_cesta: numeroCesta,
+    foto: urlFoto,
     productos
   };
   
   // LOGS DETALLADOS PARA VER QUÉ SE ENVÍA
   console.log('=== DATOS A ENVIAR ===');
   console.log('numero_cesta:', numeroCesta);
+  console.log('foto:', urlFoto);
   console.log('productos:', productos);
   console.log('Estructura completa:', JSON.stringify(datosAEnviar, null, 2));
   
