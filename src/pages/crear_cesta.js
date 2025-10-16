@@ -48,6 +48,11 @@ export async function productos_crear_cesta(appContenedor) {
         <div class="card-body">
           <h5 class="card-title">${producto.titulo}</h5>
           <div class="mb-2">
+            <label class="form-label" style="font-size: 0.9rem; color: #666;">Cantidad:</label>
+            <input type="number" class="form-control form-control-sm cantidad-input" data-producto-id="${producto.id}" 
+                   min="1" value="1" style="max-width: 120px;" placeholder="Ej: 500">
+          </div>
+          <div class="mb-2">
             <label class="form-label" style="font-size: 0.9rem; color: #666;">Unidad de medida:</label>
             <select class="form-select form-select-sm unidad-selector" data-producto-id="${producto.id}">
               <option value="kg" ${producto.unidad_medido === 'kg' ? 'selected' : ''}>kg</option>
@@ -76,6 +81,10 @@ export async function productos_crear_cesta(appContenedor) {
     // Obtener la unidad seleccionada del selector
     const selectorUnidad = elementoCard.querySelector('.unidad-selector');
     const unidadSeleccionada = selectorUnidad ? selectorUnidad.value : producto.unidad_medido;
+    
+    // Obtener la cantidad del input
+    const inputCantidad = elementoCard.querySelector('.cantidad-input');
+    const cantidadSeleccionada = inputCantidad ? parseInt(inputCantidad.value) || 1 : 1;
 
     cesta[producto.id] = cesta[producto.id] || {
       titulo: producto.titulo,
@@ -88,7 +97,8 @@ export async function productos_crear_cesta(appContenedor) {
 
     // Actualizar la unidad de medida si ha cambiado
     cesta[producto.id].unidad_medido = unidadSeleccionada;
-    cesta[producto.id].cantidad += 1;
+    // Añadir la cantidad especificada en el input (no solo +1)
+    cesta[producto.id].cantidad += cantidadSeleccionada;
 
     localStorage.setItem("nuevaCesta", JSON.stringify(cesta));
     renderizaListaCesta(appContenedor);
@@ -196,7 +206,7 @@ export async function productos_crear_cesta(appContenedor) {
         padding: 0.5rem 1rem;
       }
 
-      .unidad-selector {
+      .unidad-selector, .cantidad-input {
         max-width: 120px;
       }
 
