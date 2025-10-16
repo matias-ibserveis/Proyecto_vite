@@ -5,7 +5,8 @@ async function prepararCestaParaBackend(numeroCesta) {
   const productos = Object.entries(cesta).map(([id_producto, producto]) => ({
     numero_cesta: numeroCesta,
     id_producto: parseInt(id_producto, 10),
-    cantidad_producto: producto.cantidad ? Number(producto.cantidad) : 0
+    cantidad_producto: producto.cantidad ? Number(producto.cantidad) : 0,
+    unidad_medida: producto.unidad_medido || 'kg' // Incluir la unidad de medida seleccionada
   }));
   
   console.log("Productos preparados para enviar:", productos);

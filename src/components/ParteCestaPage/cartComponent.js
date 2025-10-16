@@ -134,6 +134,7 @@ function getDriveDirectUrl(url) {
     try {
       const res = await fetch('https://corsproxy.io/?https://cooperative-unity-production.up.railway.app/api/cestas');
       const data = await res.json();
+      console.log('Datos de la API cestas:', data); // Para ver qué datos llegan
       return Array.isArray(data) ? data : [];
     } catch (err) {
       console.error('Error en getProductosCesta:', err);
@@ -226,10 +227,14 @@ function getDriveDirectUrl(url) {
       nameSpan.style.flex = '1';
       li.appendChild(nameSpan);
 
-      // Cantidad
+      // Cantidad con unidad
       const qtySpan = document.createElement('span');
       qtySpan.classList.add('ingredient-qty');
-      qtySpan.textContent = prod.cantidad_producto || '';
+      // Intentar obtener la unidad de medida del producto
+      const unidad = prod.unidad_medida || prod.unidad_medido || '';
+      const cantidad = prod.cantidad_producto || '';
+      const textoCompleto = unidad ? `${cantidad} ${unidad}` : cantidad;
+      qtySpan.textContent = textoCompleto;
       li.appendChild(qtySpan);
 
       productosList.appendChild(li);
@@ -313,9 +318,12 @@ function getDriveDirectUrl(url) {
             nameSpan.textContent = ingredient.titulo;
             nameSpan.style.marginLeft = '8px';
 
-            // Cantidad
+            // Cantidad con unidad
             const qtySpan = document.createElement('span');
-            qtySpan.textContent = ingredient.cantidad_producto;
+            const unidad = ingredient.unidad_medida || ingredient.unidad_medido || '';
+            const cantidad = ingredient.cantidad_producto || '';
+            const textoCompleto = unidad ? `${cantidad} ${unidad}` : cantidad;
+            qtySpan.textContent = textoCompleto;
             qtySpan.style.fontWeight = 'bold';
             qtySpan.style.color = '#a05d36';
             qtySpan.style.marginRight = '8px';
@@ -347,7 +355,8 @@ function getDriveDirectUrl(url) {
       ingredients: productosCesta.map(prod => ({
         titulo: prod.titulo,
         cantidad_producto: prod.cantidad_producto,
-        imagen1: prod.imagen1
+        imagen1: prod.imagen1,
+        unidad_medida: prod.unidad_medida || prod.unidad_medido || 'kg'
       }))
     };
     cart.push(newCesta);
