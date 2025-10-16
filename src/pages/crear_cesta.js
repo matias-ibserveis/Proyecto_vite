@@ -47,6 +47,15 @@ export async function productos_crear_cesta(appContenedor) {
         <img src="${imageUrl}" class="card-img-top" alt="${producto.titulo}">
         <div class="card-body">
           <h5 class="card-title">${producto.titulo}</h5>
+          <div class="mb-2">
+            <label class="form-label" style="font-size: 0.9rem; color: #666;">Unidad de medida:</label>
+            <select class="form-select form-select-sm unidad-selector" data-producto-id="${producto.id}">
+              <option value="kg" ${producto.unidad_medido === 'kg' ? 'selected' : ''}>kg</option>
+              <option value="g" ${producto.unidad_medido === 'g' ? 'selected' : ''}>g</option>
+              <option value="unidad" ${producto.unidad_medido === 'unidad' ? 'selected' : ''}>unidad</option>
+              <option value="Litro" ${producto.unidad_medido === 'Litro' ? 'selected' : ''}>Litro</option>
+            </select>
+          </div>
           <p class="card-text" id="desc-${producto.id}">
             ${resumen}
             <span class="ver_mas" data-id="${producto.id}">ver +</span>
@@ -56,23 +65,29 @@ export async function productos_crear_cesta(appContenedor) {
       </div>
     `;
 
-    col.querySelector("button").onclick = () => añadirACesta(producto);
+    col.querySelector("button").onclick = () => añadirACesta(producto, col);
     return col;
   }
 
   // 3. AÑADIR A CESTA
-  function añadirACesta(producto) {
+  function añadirACesta(producto, elementoCard) {
     const cesta = JSON.parse(localStorage.getItem("nuevaCesta") || "{}");
+    
+    // Obtener la unidad seleccionada del selector
+    const selectorUnidad = elementoCard.querySelector('.unidad-selector');
+    const unidadSeleccionada = selectorUnidad ? selectorUnidad.value : producto.unidad_medido;
 
     cesta[producto.id] = cesta[producto.id] || {
       titulo: producto.titulo,
       precio: producto.precio,
-      unidad_medido: producto.unidad_medido,
+      unidad_medido: unidadSeleccionada,
       cantidad: 0,
       imagen1: producto.imagen1,
       origen: "manual"
     };
 
+    // Actualizar la unidad de medida si ha cambiado
+    cesta[producto.id].unidad_medido = unidadSeleccionada;
     cesta[producto.id].cantidad += 1;
 
     localStorage.setItem("nuevaCesta", JSON.stringify(cesta));
@@ -179,6 +194,14 @@ export async function productos_crear_cesta(appContenedor) {
       .card-body {
         flex: 1;
         padding: 0.5rem 1rem;
+      }
+
+      .unidad-selector {
+        max-width: 120px;
+      }
+
+      .form-label {
+        margin-bottom: 0.25rem;
       }
     `;
     document.head.appendChild(style);
