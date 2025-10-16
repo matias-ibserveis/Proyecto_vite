@@ -44,7 +44,12 @@ export async function enviarCestaAlBackend(numeroCesta, urlFoto = "") {
     if (respuesta.ok) {
       const resultado = await respuesta.json();
       console.log('Respuesta exitosa del servidor:', resultado);
+      
       alert(`¡Éxito! ${resultado.mensaje}`);
+      
+      // TEST FINAL: Solo agregar a backend la funcionalidad más tarde
+      console.log('🔍 Cesta enviada exitosamente a base de datos');
+      console.log('📝 TODO: Implementar envío a Google Sheets desde backend');
       
       localStorage.removeItem('nuevaCesta');
       
@@ -61,5 +66,55 @@ export async function enviarCestaAlBackend(numeroCesta, urlFoto = "") {
     console.error('Error:', error);
     alert('Error: ' + error.message);
     throw error;
+  }
+}
+
+// Función SÚPER SIMPLE para test
+async function enviarCestaAGoogleSheets(productos) {
+  console.log('=== TEST SIMPLE GOOGLE SHEETS ===');
+  
+  try {
+    const cesta = JSON.parse(localStorage.getItem('nuevaCesta') || '{}');
+    console.log('Cesta disponible:', cesta);
+    console.log('Productos a procesar:', productos);
+    
+    if (productos.length > 0 && Object.keys(cesta).length > 0) {
+      const primerProducto = productos[0];
+      const infoPrimerProducto = cesta[primerProducto.id_producto];
+      
+      if (infoPrimerProducto) {
+        console.log('Enviando primer producto como test:', infoPrimerProducto.titulo);
+        
+        // Test simple: solo crear una fila nueva con formato del checkout
+        const filaTest = {
+          'Nombre': 'TEST_CESTA',
+          'Lugar': 'AUTO', 
+          'U': infoPrimerProducto.titulo,
+          'V': primerProducto.cantidad_producto,
+          'W': primerProducto.unidad_medida
+        };
+        
+        console.log('Fila test:', filaTest);
+        
+        const response = await fetch('https://sheetdb.io/api/v1/dgiqizat7s3wq', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ data: [filaTest] })
+        });
+        
+        console.log('Response status:', response.status);
+        
+        if (response.ok) {
+          const result = await response.json();
+          console.log('✅ SUCCESS:', result);
+        } else {
+          const error = await response.text();
+          console.log('❌ ERROR:', error);
+        }
+      }
+    }
+    
+  } catch (error) {
+    console.error('❌ Error en test simple:', error);
   }
 }
