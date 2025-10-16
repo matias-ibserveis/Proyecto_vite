@@ -192,6 +192,7 @@ function getDriveDirectUrl(url) {
     productosList.classList.add('ingredients-list');
 
     productosCesta.forEach(prod => {
+      console.log('Producto individual:', prod); // Debug para ver estructura exacta
       const li = document.createElement('li');
       li.classList.add('ingredient-item');
 
@@ -225,16 +226,37 @@ function getDriveDirectUrl(url) {
       nameSpan.classList.add('ingredient-name');
       nameSpan.textContent = prod.titulo || '';
       nameSpan.style.flex = '1';
+      nameSpan.style.marginRight = '20px'; // Doble de espacio entre nombre y cantidad
       li.appendChild(nameSpan);
 
-      // Cantidad con unidad
+      // Cantidad con unidad - VERSIÓN MEJORADA
       const qtySpan = document.createElement('span');
       qtySpan.classList.add('ingredient-qty');
-      // Intentar obtener la unidad de medida del producto
-      const unidad = prod.unidad_medida || prod.unidad_medido || '';
-      const cantidad = prod.cantidad_producto || '';
-      const textoCompleto = unidad ? `${cantidad} ${unidad}` : cantidad;
+      
+      // Intentar múltiples campos para la unidad
+      const unidad = prod.unidad_medida || prod.unidad_medido || prod.unidad || '';
+      const cantidad = prod.cantidad_producto || prod.cantidad || '';
+      
+      console.log(`Producto ${prod.titulo}: cantidad=${cantidad}, unidad=${unidad}`); // Debug
+      
+      // Si no hay unidad específica, usar una por defecto según el tipo de producto
+      let unidadFinal = unidad;
+      if (!unidadFinal) {
+        // Valores por defecto según el nombre del producto
+        const titulo = (prod.titulo || '').toLowerCase();
+        if (titulo.includes('aceite') || titulo.includes('vinagre') || titulo.includes('leche')) {
+          unidadFinal = 'ml';
+        } else if (titulo.includes('pasta') || titulo.includes('arroz') || titulo.includes('azúcar')) {
+          unidadFinal = 'g';
+        } else {
+          unidadFinal = 'unidad'; // Cambiar por defecto a "unidad"
+        }
+      }
+      
+      const textoCompleto = cantidad ? `${cantidad} ${unidadFinal}` : cantidad;
       qtySpan.textContent = textoCompleto;
+      console.log(`Texto final mostrado: "${textoCompleto}"`); // Debug
+      
       li.appendChild(qtySpan);
 
       productosList.appendChild(li);
@@ -317,6 +339,7 @@ function getDriveDirectUrl(url) {
             const nameSpan = document.createElement('span');
             nameSpan.textContent = ingredient.titulo;
             nameSpan.style.marginLeft = '8px';
+            nameSpan.style.marginRight = '20px'; // Doble de espacio entre nombre y cantidad
 
             // Cantidad con unidad
             const qtySpan = document.createElement('span');
@@ -356,7 +379,7 @@ function getDriveDirectUrl(url) {
         titulo: prod.titulo,
         cantidad_producto: prod.cantidad_producto,
         imagen1: prod.imagen1,
-        unidad_medida: prod.unidad_medida || prod.unidad_medido || 'kg'
+        unidad_medida: prod.unidad_medida || prod.unidad_medido || 'unidad' // Cambiar por defecto a "unidad"
       }))
     };
     cart.push(newCesta);
