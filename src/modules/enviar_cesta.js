@@ -47,9 +47,85 @@ export async function enviarCestaAlBackend(numeroCesta, urlFoto = "") {
       
       alert(`¡Éxito! ${resultado.mensaje}`);
       
-      // TEST FINAL: Solo agregar a backend la funcionalidad más tarde
-      console.log('🔍 Cesta enviada exitosamente a base de datos');
-      console.log('📝 TODO: Implementar envío a Google Sheets desde backend');
+      // OBTENER CESTA ANTES DE BORRARLA
+      const cestaData = JSON.parse(localStorage.getItem('nuevaCesta') || '{}');
+      console.log('🔵 CestaData completa:', cestaData);
+      
+      // ENVIAR A GOOGLE SHEETS - CON BORRADO PREVIO
+      console.log('🔵 ENVIANDO A GOOGLE SHEETS - DATOS BACKEND:', productos);
+      
+      // PASO 1: BORRAR TODO EL CONTENIDO DEL SHEET
+      console.log('🗑️ PASO 1: Borrando contenido anterior del Sheet...');
+      
+      try {
+        const borrarResponse = await fetch('https://sheetdb.io/api/v1/n80v3j1ti9x4g/all', {
+          method: 'DELETE',
+          headers: { 'Content-Type': 'application/json' }
+        });
+        
+        console.log('🗑️ Estado del borrado:', borrarResponse.status);
+        
+        if (borrarResponse.ok) {
+          console.log('✅ Contenido anterior borrado exitosamente');
+          
+          // PASO 2: AGREGAR LOS NUEVOS PRODUCTOS
+          console.log('📝 PASO 2: Agregando nuevos productos...');
+          
+          // Preparar todas las filas para enviar de una vez
+          const filasParaEnviar = [];
+          
+          productos.forEach((producto, i) => {
+            console.log(`🔍 Procesando producto ${i+1} ID ${producto.id_producto}`);
+            const infoProducto = cestaData[producto.id_producto];
+            
+            if (infoProducto) {
+              const fila = {
+                'Productos': infoProducto.titulo,
+                'Cantidad': producto.cantidad_producto, 
+                'Unidad Medida': producto.unidad_medida
+              };
+              
+              filasParaEnviar.push(fila);
+              console.log(`✅ Producto ${i+1} preparado:`, fila);
+            } else {
+              console.log(`🔴 ERROR: No se encontró producto ID ${producto.id_producto}`);
+            }
+          });
+          
+          // Enviar todas las filas de una vez
+          if (filasParaEnviar.length > 0) {
+            console.log('📤 Enviando todas las filas:', filasParaEnviar);
+            
+            const enviarResponse = await fetch('https://sheetdb.io/api/v1/n80v3j1ti9x4g', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ data: filasParaEnviar })
+            });
+            
+            console.log('📡 Estado del envío:', enviarResponse.status);
+            
+            if (enviarResponse.ok) {
+              const resultado = await enviarResponse.json();
+              console.log('🎉 ¡Todos los productos enviados exitosamente!', resultado);
+              alert(`🎉 ¡${filasParaEnviar.length} productos enviados a Google Sheets!`);
+            } else {
+              const errorText = await enviarResponse.text();
+              console.error('❌ Error al enviar productos:', errorText);
+              alert('❌ Error al enviar productos al Sheet');
+            }
+          } else {
+            console.log('⚠️ No hay productos válidos para enviar');
+          }
+          
+        } else {
+          console.error('❌ Error al borrar contenido anterior');
+          alert('❌ Error al borrar contenido anterior del Sheet');
+        }
+        
+      } catch (error) {
+        console.error('❌ Error en operación con Google Sheets:', error);
+        alert('❌ Error en la operación con Google Sheets: ' + error.message);
+      }
       
       localStorage.removeItem('nuevaCesta');
       
@@ -66,55 +142,5 @@ export async function enviarCestaAlBackend(numeroCesta, urlFoto = "") {
     console.error('Error:', error);
     alert('Error: ' + error.message);
     throw error;
-  }
-}
-
-// Función SÚPER SIMPLE para test
-async function enviarCestaAGoogleSheets(productos) {
-  console.log('=== TEST SIMPLE GOOGLE SHEETS ===');
-  
-  try {
-    const cesta = JSON.parse(localStorage.getItem('nuevaCesta') || '{}');
-    console.log('Cesta disponible:', cesta);
-    console.log('Productos a procesar:', productos);
-    
-    if (productos.length > 0 && Object.keys(cesta).length > 0) {
-      const primerProducto = productos[0];
-      const infoPrimerProducto = cesta[primerProducto.id_producto];
-      
-      if (infoPrimerProducto) {
-        console.log('Enviando primer producto como test:', infoPrimerProducto.titulo);
-        
-        // Test simple: solo crear una fila nueva con formato del checkout
-        const filaTest = {
-          'Nombre': 'TEST_CESTA',
-          'Lugar': 'AUTO', 
-          'U': infoPrimerProducto.titulo,
-          'V': primerProducto.cantidad_producto,
-          'W': primerProducto.unidad_medida
-        };
-        
-        console.log('Fila test:', filaTest);
-        
-        const response = await fetch('https://sheetdb.io/api/v1/dgiqizat7s3wq', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ data: [filaTest] })
-        });
-        
-        console.log('Response status:', response.status);
-        
-        if (response.ok) {
-          const result = await response.json();
-          console.log('✅ SUCCESS:', result);
-        } else {
-          const error = await response.text();
-          console.log('❌ ERROR:', error);
-        }
-      }
-    }
-    
-  } catch (error) {
-    console.error('❌ Error en test simple:', error);
   }
 }
