@@ -239,7 +239,9 @@ export async function Productos() {
             quantity: quantity,
             price: producto.precio,
             type: 'product',
-            imagen1: imageUrl
+            imagen1: imageUrl,
+            valor_medido: producto.valor_medido,  // Agregar cantidad/peso
+            unidad_medida: producto.unidad_medido  // Agregar unidad de medida
           });
         }
         sessionStorage.setItem('cart', JSON.stringify(cart));
