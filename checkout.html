@@ -26,6 +26,34 @@
   from { opacity: 0; transform: translateY(-40px);}
   to   { opacity: 1; transform: translateY(0);}
 }
+
+/* Animación para el popup de despedida */
+@keyframes bounceIn {
+  0% { transform: scale(0.3); opacity: 0; }
+  50% { transform: scale(1.05); opacity: 1; }
+  70% { transform: scale(0.9); }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+/* Animación de salida para el popup de despedida */
+@keyframes bounceOut {
+  0% { transform: scale(1); opacity: 1; }
+  20% { transform: scale(1.1); opacity: 1; }
+  100% { transform: scale(0.3); opacity: 0; }
+}
+
+@keyframes fadeOutBackground {
+  0% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+.goodbye-popup-fadeout {
+  animation: fadeOutBackground 0.6s ease-out forwards;
+}
+
+.goodbye-popup-fadeout .goodbye-popup-content {
+  animation: bounceOut 0.6s ease-out forwards;
+}
 </style>
 </head>
 <body>
@@ -71,6 +99,14 @@
     <h2 style="margin-bottom:24px;">¿Segura/o?</h2>
     <button id="popup-si" style="width:50px; height:50px; background:#a3e0a5; color:#fff; border:none; border-radius:8px; font-size:1.3rem; font-weight:bold; margin-right:16px; cursor:pointer; transition:background 0.2s;">Sí</button>
     <button id="popup-no" style="width:50px; height:50px; background:#ffb3b1; color:#fff; border:none; border-radius:8px; font-size:1.3rem; font-weight:bold; cursor:pointer; transition:background 0.2s;">No</button>
+  </div>
+</div>
+
+<!-- Popup de despedida -->
+<div id="goodbye-popup" style="display:none; position:fixed; top:0; left:0; right:0; bottom:0; background:rgba(0,0,0,0.4); z-index:10000; align-items:center; justify-content:center;">
+  <div class="goodbye-popup-content" style="background:#fff; border-radius:16px; padding:40px 30px; max-width:400px; margin:auto; text-align:center; box-shadow:0 8px 32px rgba(0,0,0,0.2); animation: bounceIn 0.6s ease;">
+    <h2 style="margin-bottom:20px; color:#4CAF50; font-size:2rem;">¡Que tenga un buen día!</h2>
+    <p style="color:#666; font-size:1.1rem;">Su pedido ha sido enviado correctamente.</p>
   </div>
 </div>
 
@@ -236,6 +272,12 @@ if (item.type === 'cesta') {
           }
 
           const total = ((item.quantity || 1) * item.price).toFixed(2);
+          
+          // Para la primera cesta, mostrar un espacio vacío en lugar del botón eliminar para mantener simetría
+          const removeButton = (index === 0 && item.type === 'cesta') 
+            ? '<div style="width: 24px; height: 24px;"></div>' // Espacio vacío del mismo tamaño que el botón ✕
+            : `<button class="remove-btn" data-index="${index}">✕</button>`;
+          
           row.innerHTML = `
             <td class="cart-item-image-cell">
               <img src="${imageUrl}" alt="${item.name}" class="cart-item-image" onerror="this.src='/images/logo.png'" />
@@ -252,7 +294,7 @@ if (item.type === 'cesta') {
               </div>
             </td>
             <td class="cart-item-remove-cell">
-              <button class="remove-btn" data-index="${index}">✕</button>
+              ${removeButton}
             </td>
           `;
           cartBody.appendChild(row);
@@ -267,8 +309,20 @@ if (item.type === 'cesta') {
             if (e.target.classList.contains('increase')) {
               item.quantity += 1;
             } else if (e.target.classList.contains('decrease')) {
-              if (item.quantity > 1) {
-                item.quantity -= 1;
+              // Si es el primer producto (índice 0) y es una cesta, mínimo cantidad 1
+              if (index === 0 && item.type === 'cesta') {
+                if (item.quantity > 1) {
+                  item.quantity -= 1;
+                }
+                // Si ya está en 1, no hacer nada (no disminuir)
+              } else {
+                // Para productos que no son la primera cesta
+                if (item.quantity > 1) {
+                  item.quantity -= 1;
+                } else {
+                  // Si cantidad es 1 y presiona "-", eliminar el producto
+                  cart.splice(index, 1);
+                }
               }
             }
 
@@ -282,6 +336,12 @@ if (item.type === 'cesta') {
           btn.addEventListener('click', async (e) => {
             const index = parseInt(e.target.dataset.index);
             const cart = JSON.parse(sessionStorage.getItem('cart') || '[]');
+            
+            // No permitir eliminar el primer producto si es una cesta
+            if (index === 0 && cart[index].type === 'cesta') {
+              return; // No hacer nada, no eliminar la cesta principal
+            }
+            
             cart.splice(index, 1);
             sessionStorage.setItem('cart', JSON.stringify(cart));
             await renderCheckoutCart();
@@ -466,6 +526,7 @@ document.getElementById('popup-si').addEventListener('click', function() {
   console.log('🔵 FILA COMPLETA A ENVIAR:', fila);
   console.log('🔵 JSON A ENVIAR:', JSON.stringify({ data: [fila] }, null, 2));
 
+  // Enviar datos usando POST simple - SheetDB automáticamente encuentra la primera fila libre
   fetch('https://sheetdb.io/api/v1/pzvalaovs19hk', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -499,15 +560,29 @@ document.getElementById('popup-si').addEventListener('click', function() {
     console.log('✅ RESPUESTA FINAL:', result);
     
     if (result.ok) {
-      alert('¡Pedido guardado en Google Sheets!');
+      // Cerrar el popup de confirmación
+      document.getElementById('confirm-popup').style.display = 'none';
+      
+      // Mostrar popup de despedida
+      document.getElementById('goodbye-popup').style.display = 'flex';
+      
+      // Después de 3.5 segundos, comenzar animación de salida
+      setTimeout(() => {
+        document.getElementById('goodbye-popup').classList.add('goodbye-popup-fadeout');
+        
+        // Después de 0.6 segundos más (duración de la animación), cerrar popup
+        setTimeout(() => {
+          document.getElementById('goodbye-popup').style.display = 'none';
+          document.getElementById('goodbye-popup').classList.remove('goodbye-popup-fadeout');
+        }, 600);
+      }, 3500);
     } else {
       alert(`Error del servidor: ${result.status} - ${JSON.stringify(result.data)}`);
+      document.getElementById('confirm-popup').style.display = 'none';
+      document.getElementById('popup-si').style.display = '';
+      document.getElementById('popup-no').style.display = '';
+      document.querySelector('#confirm-popup h2').textContent = '¿Segura/o?';
     }
-    
-    document.getElementById('confirm-popup').style.display = 'none';
-    document.getElementById('popup-si').style.display = '';
-    document.getElementById('popup-no').style.display = '';
-    document.querySelector('#confirm-popup h2').textContent = '¿Segura/o?';
   })
   .catch(err => {
     console.error('❌ ERROR COMPLETO:', err);
@@ -515,6 +590,9 @@ document.getElementById('popup-si').addEventListener('click', function() {
     console.error('❌ Error stack:', err.stack);
     console.error('❌ Error name:', err.name);
     alert('Error al guardar el pedido: ' + err.message);
+    
+    // Restablecer el popup de confirmación
+    document.getElementById('confirm-popup').style.display = 'none';
     document.getElementById('popup-si').style.display = '';
     document.getElementById('popup-no').style.display = '';
     document.querySelector('#confirm-popup h2').textContent = '¿Segura/o?';

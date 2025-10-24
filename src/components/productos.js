@@ -39,6 +39,79 @@ export async function Productos() {
   const productos = crearEstructuraHTML(buscarProductos, null);
   const contenedor = productos.querySelector("#productos-lista");
 
+  // Crear botón flotante del carrito
+  const carritoFlotante = document.createElement("div");
+  carritoFlotante.className = "carrito-flotante";
+  carritoFlotante.innerHTML = `
+    <a href="/checkout.html" aria-label="Ir al carrito">
+      <img src="/images/Carrito.png" alt="Carrito" />
+    </a>
+  `;
+  
+  // Agregar estilos para el carrito flotante
+  if (!document.getElementById('carrito-flotante-style')) {
+    const carritoStyle = document.createElement('style');
+    carritoStyle.id = 'carrito-flotante-style';
+    carritoStyle.textContent = `
+      .carrito-flotante {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        z-index: 1000;
+        width: 60px;
+        height: 60px;
+        background-color: rgba(0, 0, 0, 0.14);
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        transition: all 0.3s ease;
+        backdrop-filter: blur(5px);
+        border: 2px solid rgba(209, 171, 114, 0.5);
+      }
+      
+      .carrito-flotante:hover {
+        background-color: rgba(0, 0, 0, 0.28);
+        transform: scale(1.1);
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+      }
+      
+      .carrito-flotante a {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: 100%;
+        text-decoration: none;
+      }
+      
+      .carrito-flotante img {
+        width: 40px;
+        height: 40px;
+        object-fit: contain;
+      }
+      
+      @media (max-width: 768px) {
+        .carrito-flotante {
+          bottom: 80px;
+          right: 15px;
+          width: 55px;
+          height: 55px;
+        }
+        
+        .carrito-flotante img {
+          width: 35px;
+          height: 35px;
+        }
+      }
+    `;
+    document.head.appendChild(carritoStyle);
+  }
+  
+  // Agregar el botón flotante al body
+  document.body.appendChild(carritoFlotante);
+
   // Crear contenedor para paginación arriba
   const paginacionArriba = document.createElement("div");
   paginacionArriba.id = "paginacion-arriba";
