@@ -427,6 +427,11 @@ if (item.type === 'cesta') {
       return;
     }
 
+    // Restablecer el popup antes de mostrarlo
+    document.querySelector('#confirm-popup h2').textContent = '¿Segura/o?';
+    document.getElementById('popup-si').style.display = '';
+    document.getElementById('popup-no').style.display = '';
+    
     document.getElementById('confirm-popup').style.display = 'flex';
   });
 
