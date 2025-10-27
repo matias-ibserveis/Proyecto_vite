@@ -273,11 +273,6 @@ if (item.type === 'cesta') {
 
           const total = ((item.quantity || 1) * item.price).toFixed(2);
           
-          // Para la primera cesta, mostrar un espacio vacío en lugar del botón eliminar para mantener simetría
-          const removeButton = (index === 0 && item.type === 'cesta') 
-            ? '<div style="width: 24px; height: 24px;"></div>' // Espacio vacío del mismo tamaño que el botón ✕
-            : `<button class="remove-btn" data-index="${index}">✕</button>`;
-          
           row.innerHTML = `
             <td class="cart-item-image-cell">
               <img src="${imageUrl}" alt="${item.name}" class="cart-item-image" onerror="this.src='/images/logo.png'" />
@@ -294,7 +289,7 @@ if (item.type === 'cesta') {
               </div>
             </td>
             <td class="cart-item-remove-cell">
-              ${removeButton}
+              <button class="remove-btn" data-index="${index}">✕</button>
             </td>
           `;
           cartBody.appendChild(row);
@@ -309,20 +304,11 @@ if (item.type === 'cesta') {
             if (e.target.classList.contains('increase')) {
               item.quantity += 1;
             } else if (e.target.classList.contains('decrease')) {
-              // Si es el primer producto (índice 0) y es una cesta, mínimo cantidad 1
-              if (index === 0 && item.type === 'cesta') {
-                if (item.quantity > 1) {
-                  item.quantity -= 1;
-                }
-                // Si ya está en 1, no hacer nada (no disminuir)
+              if (item.quantity > 1) {
+                item.quantity -= 1;
               } else {
-                // Para productos que no son la primera cesta
-                if (item.quantity > 1) {
-                  item.quantity -= 1;
-                } else {
-                  // Si cantidad es 1 y presiona "-", eliminar el producto
-                  cart.splice(index, 1);
-                }
+                // Si cantidad es 1 y presiona "-", eliminar el producto
+                cart.splice(index, 1);
               }
             }
 
@@ -336,11 +322,6 @@ if (item.type === 'cesta') {
           btn.addEventListener('click', async (e) => {
             const index = parseInt(e.target.dataset.index);
             const cart = JSON.parse(sessionStorage.getItem('cart') || '[]');
-            
-            // No permitir eliminar el primer producto si es una cesta
-            if (index === 0 && cart[index].type === 'cesta') {
-              return; // No hacer nada, no eliminar la cesta principal
-            }
             
             cart.splice(index, 1);
             sessionStorage.setItem('cart', JSON.stringify(cart));
