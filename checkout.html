@@ -423,10 +423,13 @@ if (item.type === 'cesta') {
 
   // Botón SÍ: cierra el popup (aquí puedes poner la acción que quieras en el futuro)
 document.getElementById('popup-si').addEventListener('click', function() {
+  console.log('🔥 INICIO DEL PROCESO - Botón SÍ clickeado');
+  
   document.querySelector('#confirm-popup h2').textContent = 'Preparando pedido...';
   document.getElementById('popup-si').style.display = 'none';
   document.getElementById('popup-no').style.display = 'none';
 
+  console.log('🔥 PASO 1: Obteniendo datos del formulario');
   const nombre = document.getElementById('order-instructions').value.trim();
   const selectLugar = document.getElementById('opcion-especial');
   const lugar = selectLugar.options[selectLugar.selectedIndex].text;
@@ -439,8 +442,10 @@ document.getElementById('popup-si').addEventListener('click', function() {
   console.log('- Lugar (valor):', selectLugar.value);
   console.log('- Lugar (texto):', lugar);
   console.log('- Productos del cart:', productos);
+  console.log('- Productos cantidad:', productos.length);
   console.log('- Instrucciones:', instrucciones);
 
+  console.log('🔥 PASO 2: Calculando fecha y hora');
   // Obtener fecha y hora actual
   const ahora = new Date();
   const dia = ahora.getDate().toString().padStart(2, '0');
@@ -452,14 +457,17 @@ document.getElementById('popup-si').addEventListener('click', function() {
   console.log('- Día:', `${dia}/${mes}/${año}`);
   console.log('- Hora:', hora);
 
+  console.log('🔥 PASO 3: Calculando precio total');
   // Calcular precio total del pedido
   const precioTotal = productos.reduce((total, item) => {
     const itemTotal = item.type === 'cesta'
       ? (item.price * (item.quantity || 1))
       : (item.quantity * item.price);
+    console.log(`  - Item: ${item.name}, Tipo: ${item.type}, Precio: ${item.price}, Cantidad: ${item.quantity}, Total: ${itemTotal}`);
     return total + itemTotal;
   }, 0).toFixed(2);
 
+  console.log('🔥 PASO 4: Creando estructura base de la fila');
   // Preparar fila base
   const fila = {
     Nombre: nombre,
@@ -487,9 +495,13 @@ document.getElementById('popup-si').addEventListener('click', function() {
 
   console.log('🔵 ESPECIFICACIÓN:', instrucciones);
   console.log('🔵 PRECIO TOTAL:', `€${precioTotal}`);
+  console.log('🔵 FILA BASE CREADA:', fila);
 
+  console.log('🔥 PASO 5: Procesando productos individuales');
   // Llenar productos
   productos.forEach((item, i) => {
+    console.log(`🔸 Procesando producto ${i + 1}/${productos.length}:`, item);
+    
     if (i < 15) { // Solo hasta Producto 15
       const columnaProducto = `Producto ${i + 1}`;
       
@@ -498,30 +510,57 @@ document.getElementById('popup-si').addEventListener('click', function() {
       
       if (item.valor_medido && item.unidad_medida) {
         productoInfo = `${item.name} (${item.quantity}) - ${item.valor_medido} ${item.unidad_medida}`;
+        console.log(`    ✅ Con peso y unidad: ${productoInfo}`);
       } else if (item.unidad_medida) {
         productoInfo = `${item.name} (${item.quantity}) - ${item.unidad_medida}`;
+        console.log(`    ✅ Solo con unidad: ${productoInfo}`);
+      } else {
+        console.log(`    ⚠️ Sin peso ni unidad: ${productoInfo}`);
       }
       
       fila[columnaProducto] = productoInfo;
-      console.log(`🟢 ${columnaProducto}:`, fila[columnaProducto]);
+      console.log(`🟢 ${columnaProducto}: "${fila[columnaProducto]}"`);
       console.log(`🔵 Peso para ${item.name}:`, item.valor_medido || 'No disponible');
       console.log(`🔵 Unidad de medida para ${item.name}:`, item.unidad_medida || 'No disponible');
+    } else {
+      console.log(`🔴 Producto ${i + 1} excede el límite de 15, se omite:`, item.name);
     }
   });
 
+  console.log('🔥 PASO 6: Estructura final a enviar');
   console.log('🔵 FILA COMPLETA A ENVIAR:', fila);
   console.log('🔵 JSON A ENVIAR:', JSON.stringify({ data: [fila] }, null, 2));
+  
+  console.log('🔥 PASO 7: Verificando columnas específicas');
+  console.log('📋 COLUMNAS DEL SHEET:');
+  console.log('- Nombre:', fila.Nombre);
+  console.log('- Lugar:', fila.Lugar);
+  console.log('- Día:', fila.Día);
+  console.log('- Hora:', fila.Hora);
+  for (let i = 1; i <= 15; i++) {
+    const col = `Producto ${i}`;
+    console.log(`- ${col}:`, fila[col] || '(vacío)');
+  }
 
+  console.log('🔥 PASO 8: Iniciando petición HTTP');
   // Enviar datos usando POST simple - SheetDB automáticamente encuentra la primera fila libre
-  fetch('https://sheetdb.io/api/v1/pzvalaovs19hk', {
+  fetch('https://sheetdb.io/api/v1/c7fcz50xae4z6', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ data: [fila] })
   })
   .then(r => {
-    console.log('📡 Response status:', r.status);
+    console.log('� PASO 9: Respuesta recibida del servidor');
+    console.log('�📡 Response status:', r.status);
     console.log('📡 Response ok:', r.ok);
+    console.log('📡 Response statusText:', r.statusText);
+    console.log('📡 Response url:', r.url);
     console.log('📡 Response headers:', r.headers);
+    
+    // Verificar si la respuesta fue exitosa
+    if (!r.ok) {
+      console.error('❌ Respuesta no exitosa:', r.status, r.statusText);
+    }
     
     // Clonar la respuesta para poder leerla dos veces
     const responseClone = r.clone();
@@ -529,41 +568,66 @@ document.getElementById('popup-si').addEventListener('click', function() {
     // Primero intentar leer como texto para ver qué contiene
     return responseClone.text().then(text => {
       console.log('📄 Response raw text:', text);
+      console.log('📄 Response length:', text.length);
+      
+      // Verificar si el texto está vacío
+      if (!text || text.trim() === '') {
+        console.error('❌ Respuesta vacía del servidor');
+        throw new Error('Respuesta vacía del servidor');
+      }
       
       // Ahora intentar parsearlo como JSON
       try {
         const jsonData = JSON.parse(text);
         console.log('✅ Response parsed as JSON:', jsonData);
+        console.log('✅ JSON keys:', Object.keys(jsonData));
         return { status: r.status, ok: r.ok, data: jsonData };
       } catch (parseError) {
         console.error('❌ JSON Parse Error:', parseError);
         console.error('❌ Raw text that failed to parse:', text);
+        console.error('❌ Text type:', typeof text);
+        console.error('❌ Text first 200 chars:', text.substring(0, 200));
         throw new Error(`Response is not valid JSON: ${text}`);
       }
     });
   })
   .then(result => {
+    console.log('🔥 PASO 10: Procesando resultado final');
     console.log('✅ RESPUESTA FINAL:', result);
+    console.log('✅ Status exitoso:', result.ok);
+    console.log('✅ Código de estado:', result.status);
+    console.log('✅ Datos de respuesta:', result.data);
     
     if (result.ok) {
+      console.log('🎉 ÉXITO: Datos enviados correctamente al Google Sheet');
+      console.log('🎉 Cerrando popup de confirmación...');
+      
       // Cerrar el popup de confirmación
       document.getElementById('confirm-popup').style.display = 'none';
       
+      console.log('🎉 Mostrando popup de despedida...');
       // Mostrar popup de despedida
       document.getElementById('goodbye-popup').style.display = 'flex';
       
       // Después de 3.5 segundos, comenzar animación de salida
       setTimeout(() => {
+        console.log('🎉 Iniciando animación de salida...');
         document.getElementById('goodbye-popup').classList.add('goodbye-popup-fadeout');
         
         // Después de 0.6 segundos más (duración de la animación), cerrar popup
         setTimeout(() => {
+          console.log('🎉 Cerrando popup final...');
           document.getElementById('goodbye-popup').style.display = 'none';
           document.getElementById('goodbye-popup').classList.remove('goodbye-popup-fadeout');
         }, 600);
       }, 3500);
     } else {
+      console.error('❌ ERROR: No se pudieron enviar los datos');
+      console.error('❌ Status code:', result.status);
+      console.error('❌ Response data:', result.data);
       alert(`Error del servidor: ${result.status} - ${JSON.stringify(result.data)}`);
+      
+      // Restablecer popup
       document.getElementById('confirm-popup').style.display = 'none';
       document.getElementById('popup-si').style.display = '';
       document.getElementById('popup-no').style.display = '';
@@ -571,13 +635,28 @@ document.getElementById('popup-si').addEventListener('click', function() {
     }
   })
   .catch(err => {
+    console.log('🔥 PASO 11: MANEJANDO ERROR');
     console.error('❌ ERROR COMPLETO:', err);
     console.error('❌ Error message:', err.message);
     console.error('❌ Error stack:', err.stack);
     console.error('❌ Error name:', err.name);
+    console.error('❌ Error toString:', err.toString());
+    
+    // Información adicional del error
+    if (err.cause) {
+      console.error('❌ Error cause:', err.cause);
+    }
+    
+    console.log('❌ CONTEXTO AL MOMENTO DEL ERROR:');
+    console.log('- URL de la API:', 'https://sheetdb.io/api/v1/pzvalaovs19hk');
+    console.log('- Método HTTP:', 'POST');
+    console.log('- Headers enviados:', { 'Content-Type': 'application/json' });
+    console.log('- ¿Hay conexión a internet?', navigator.onLine);
+    
     alert('Error al guardar el pedido: ' + err.message);
     
     // Restablecer el popup de confirmación
+    console.log('❌ Restableciendo popup...');
     document.getElementById('confirm-popup').style.display = 'none';
     document.getElementById('popup-si').style.display = '';
     document.getElementById('popup-no').style.display = '';
