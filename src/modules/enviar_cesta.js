@@ -96,7 +96,7 @@ export async function enviarCestaAlBackend(numeroCesta, urlFoto = "") {
                 if (restaurarResponse.ok) {
                   console.log('✅ Filas 1 y 2 restauradas exitosamente');
                 } else {
-                  console.error('❌ Error al restaurar filas 1-2');
+                  console.error('❌ rror al restaurar filas 1-2');
                 }
               }
             }
