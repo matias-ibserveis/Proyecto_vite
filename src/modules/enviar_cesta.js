@@ -54,62 +54,25 @@ export async function enviarCestaAlBackend(numeroCesta, urlFoto = "") {
       // ENVIAR A GOOGLE SHEETS - CON BORRADO PREVIO
       console.log('🔵 ENVIANDO A GOOGLE SHEETS - DATOS BACKEND:', productos);
       
-      // PASO 1: BORRAR SOLO DESDE LA FILA 3 EN ADELANTE (preservar filas 1 y 2)
-      console.log('�️ PASO 1: Borrando contenido desde fila 3 en adelante...');
+      // PASO 1: BORRAR TODO EL CONTENIDO DEL SHEET
+      console.log('🗑️ PASO 1: Borrando contenido anterior del Sheet...');
       
       try {
-        // Obtener todos los datos actuales
-        const obtenerResponse = await fetch('https://sheetdb.io/api/v1/n80v3j1ti9x4g', {
-          method: 'GET',
+        const borrarResponse = await fetch('https://sheetdb.io/api/v1/n80v3j1ti9x4g/all', {
+          method: 'DELETE',
           headers: { 'Content-Type': 'application/json' }
         });
         
-        if (obtenerResponse.ok) {
-          const datosActuales = await obtenerResponse.json();
-          console.log('📋 Datos actuales obtenidos:', datosActuales);
+        console.log('🗑️ Estado del borrado:', borrarResponse.status);
+        
+        if (borrarResponse.ok) {
+          console.log('✅ Contenido anterior borrado exitosamente');
           
-          // Si hay más de 2 filas, borrar desde la 3ra en adelante
-          if (datosActuales && datosActuales.length > 2) {
-            // Borrar todo primero
-            const borrarResponse = await fetch('https://sheetdb.io/api/v1/n80v3j1ti9x4g/all', {
-              method: 'DELETE',
-              headers: { 'Content-Type': 'application/json' }
-            });
-            
-            console.log('🗑️ Estado del borrado completo:', borrarResponse.status);
-            
-            if (borrarResponse.ok) {
-              console.log('✅ Contenido borrado exitosamente');
-              
-              // Restaurar solo las primeras 2 filas
-              const filasARestaurar = datosActuales.slice(0, 2);
-              
-              if (filasARestaurar.length > 0) {
-                const restaurarResponse = await fetch('https://sheetdb.io/api/v1/n80v3j1ti9x4g', {
-                  method: 'POST',
-                  headers: { 'Content-Type': 'application/json' },
-                  body: JSON.stringify({ data: filasARestaurar })
-                });
-                
-                console.log('� Estado de restauración filas 1-2:', restaurarResponse.status);
-                
-                if (restaurarResponse.ok) {
-                  console.log('✅ Filas 1 y 2 restauradas exitosamente');
-                } else {
-                  console.error('❌ rror al restaurar filas 1-2');
-                }
-              }
-            }
-          } else {
-            console.log('ℹ️ Solo hay 2 filas o menos, no hay nada que borrar desde fila 3');
-          }
-        }
-        
-        // PASO 2: AGREGAR LOS NUEVOS PRODUCTOS DESDE FILA 3
-        console.log('📝 PASO 2: Agregando nuevos productos desde fila 3...');
-        
-        // Preparar todas las filas para enviar de una vez
-        const filasParaEnviar = [];
+          // PASO 2: AGREGAR LOS NUEVOS PRODUCTOS
+          console.log('📝 PASO 2: Agregando nuevos productos...');
+          
+          // Preparar todas las filas para enviar de una vez
+          const filasParaEnviar = [];
           
           productos.forEach((producto, i) => {
             console.log(`🔍 Procesando producto ${i+1} ID ${producto.id_producto}`);
@@ -117,9 +80,9 @@ export async function enviarCestaAlBackend(numeroCesta, urlFoto = "") {
             
             if (infoProducto) {
               const fila = {
-                'Productos': infoProducto.titulo,          // Columna A - Productos
-                'Cantidad': producto.cantidad_producto,   // Columna B - Cantidad 
-                'Unidad Medida': producto.unidad_medida   // Columna C - Unidad Medida
+                'Productos': infoProducto.titulo,
+                'Cantidad': producto.cantidad_producto, 
+                'Unidad Medida': producto.unidad_medida
               };
               
               filasParaEnviar.push(fila);
@@ -154,6 +117,11 @@ export async function enviarCestaAlBackend(numeroCesta, urlFoto = "") {
             console.log('⚠️ No hay productos válidos para enviar');
           }
           
+        } else {
+          console.error('❌ Error al borrar contenido anterior');
+          alert('❌ Error al borrar contenido anterior del Sheet');
+        }
+        
       } catch (error) {
         console.error('❌ Error en operación con Google Sheets:', error);
         alert('❌ Error en la operación con Google Sheets: ' + error.message);
